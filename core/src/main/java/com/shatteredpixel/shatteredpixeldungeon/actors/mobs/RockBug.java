@@ -35,8 +35,7 @@ public class RockBug extends Mob {
 	{
 		spriteClass = RockBugSprite.class;
 		
-		HP = HT = 8;
-		defenseSkill = 3;
+		HP = HT = 14;
 		EXP = 1;
 		
 		maxLvl = 6;
@@ -49,11 +48,7 @@ public class RockBug extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 1, 3 );
 	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
+
 	
 	@Override
 	public int drRoll() {

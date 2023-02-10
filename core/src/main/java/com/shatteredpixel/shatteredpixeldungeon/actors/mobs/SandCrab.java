@@ -51,8 +51,7 @@ public class SandCrab extends Mob {
 	{
 		spriteClass = SandCrabSprite.class;
 		
-		HP = HT = 13;
-		defenseSkill = 5;
+		HP = HT = 20;
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 3;
@@ -70,17 +69,13 @@ public class SandCrab extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(1, 6);
+		return Random.NormalIntRange(3, 5);
 	}
 
-	@Override
-	public int attackSkill( Char target ) {
-		return 12;
-	}
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(2, 2);
 	}
 	
 	private Ballistica beam;
@@ -182,7 +177,7 @@ public class SandCrab extends Mob {
 //ch,
 			if (hit( this, ch, true )) {
 				if (ch == Dungeon.hero && Random.Int( 0 ) == 0) {
-					Buff.prolong( ch, Blindness.class, BuffWait.T3 );
+					Buff.prolong( ch, Blindness.class, BuffWait.T10 );
 					Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
 				}
 

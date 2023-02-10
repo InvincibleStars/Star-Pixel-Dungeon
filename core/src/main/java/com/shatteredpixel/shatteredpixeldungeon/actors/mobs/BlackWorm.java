@@ -32,8 +32,7 @@ public class BlackWorm extends Mob {
 	{
 		spriteClass = BlackWormSprite.class;
 		
-		HP = HT =  6 + Dungeon.depth;
-		defenseSkill = 2 +Dungeon.depth / 2;
+		HP = HT =  8 + (Dungeon.depth*2);
 
 		EXP = 1;
 		
@@ -42,14 +41,11 @@ public class BlackWorm extends Mob {
 
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 3 +Dungeon.depth / 2 ); }
-	
-	@Override
-	public int attackSkill( Char target ) {return 8+Dungeon.depth / 2;}
-	
+	public int damageRoll() { return Random.NormalIntRange( 2, 3 +Dungeon.depth / 2 ); }
+
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange( 0, 2);
+		return Random.NormalIntRange( 0, 3);
 	}
 
 }

@@ -176,7 +176,7 @@ public class Hero extends Char {
 	public LinkedHashMap<Talent, Talent> metamorphedTalents = new LinkedHashMap<>();
 	
 	private int attackSkill = 10;
-	private int defenseSkill = 5;
+	private int defenseSkill = 6;
 
 	public boolean ready = false;
 	private boolean damageInterrupt = true;
@@ -224,7 +224,7 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 		
-		HT = 20 + 5*(lvl-1) + HTBoost;
+		HT = 25 + 8*(lvl-1) + HTBoost;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		HT = Math.round(multiplier * HT);
 		
@@ -1553,8 +1553,8 @@ public class Hero extends Char {
 				}
 				
 				updateHT( true );
-				attackSkill++;
-				defenseSkill++;
+				//attackSkill++;
+				//defenseSkill++;
 
 			} else {
 				Buff.prolong(this, Bless.class, Bless.DURATION);

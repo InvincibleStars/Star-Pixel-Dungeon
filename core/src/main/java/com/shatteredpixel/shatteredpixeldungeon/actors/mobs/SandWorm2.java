@@ -36,7 +36,7 @@ public class SandWorm2 extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 12;
+		HP = HT = 14;
 		defenseSkill = 0;
 
 		EXP = 3;
@@ -83,16 +83,11 @@ public class SandWorm2 extends Mob {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 4); }
+	public int damageRoll() { return Random.NormalIntRange(2, 5); }
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 1);
-	}
-
-	@Override
-	public int attackSkill( Char target ) {
-		return 9;
+		return Random.NormalIntRange(0, 2);
 	}
 
 	private class Waiting extends Wandering{}

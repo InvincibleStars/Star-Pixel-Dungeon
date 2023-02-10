@@ -262,24 +262,10 @@ public class Bestiary {
 				Class<? extends Mob> cl = rotation.get(i);
 				if (cl == RockBug.class) {
 					if (Random.Int( 1 ) == 0) {
-						cl = RockBug2.class;
+						cl = RockBug.class;
 					}
-				} else if (cl == SandWorm.class) {
-					cl = SandWorm2.class;
-				} else if (cl == Slime.class) {
-					cl = CausticSlime.class;
-				} else if (cl == Thief.class) {
-					cl = Bandit.class;
-				} else if (cl == Necromancer.class){
-					cl = SpectralNecromancer.class;
-				} else if (cl == Brute.class) {
-					cl = ArmoredBrute.class;
-				} else if (cl == DM200.class) {
-					cl = DM201.class;
-				} else if (cl == Monk.class) {
-					cl = Senior.class;
 				} else if (cl == Scorpio.class)
-				{ cl = Acidic.class;
+				{ cl = Scorpio.class;
 				}
 				rotation.set(i, cl);
 			}

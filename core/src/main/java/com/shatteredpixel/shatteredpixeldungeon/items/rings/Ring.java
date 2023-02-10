@@ -206,13 +206,12 @@ public class Ring extends KindofMisc {
 	
 	@Override
 	public Item random() {
-		//+0: 66.67% (2/3)
-		//+1: 26.67% (4/15)
-		//+2: 6.67%  (1/15)
+		//+1: 50.0%
+		//+2: 50.0%
 		int n = 0;
-		if (Random.Int(3) == 0) {
+		if (Random.Float() >= 0f) {
 			n++;
-			if (Random.Int(5) == 0){
+			if (Random.Float() >= 0.5f){
 				n++;
 			}
 		}

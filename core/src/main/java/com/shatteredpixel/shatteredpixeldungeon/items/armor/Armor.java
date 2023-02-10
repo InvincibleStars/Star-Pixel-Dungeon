@@ -561,7 +561,7 @@ public class Armor extends EquipableItem {
 	public int value() {
 		if (seal != null) return 0;
 
-		int price = 20 * tier;
+		int price = (20 * tier);
 		if (hasGoodGlyph()) {
 			price *= 1.5;
 		}

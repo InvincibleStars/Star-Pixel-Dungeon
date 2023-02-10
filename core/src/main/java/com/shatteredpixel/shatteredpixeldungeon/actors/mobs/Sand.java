@@ -50,8 +50,7 @@ public class Sand extends Mob {
 	{
 		spriteClass = SlimeSprite.class;
 		
-		HP = HT = 20;
-		defenseSkill = 5;
+		HP = HT = 25;
 		
 		EXP = 4;
 		maxLvl = 10;
@@ -65,11 +64,6 @@ public class Sand extends Mob {
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
-		return 12;
-	}
-	
-	@Override
 	public int drRoll() {
 		return Random.NormalIntRange(0, 2);
 	}
@@ -77,7 +71,7 @@ public class Sand extends Mob {
 	public int attackProc( Char enemy, int damage ) {
 		damage = super.attackProc( enemy, damage );
 		if (Random.Int( 2 ) == 0) {
-			Buff.prolong( enemy, Cripple.class, BuffWait.T4 );
+			Buff.prolong( enemy, Cripple.class, BuffWait.T6 );
 		}
 
 		return damage;

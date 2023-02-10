@@ -34,8 +34,7 @@ public class KillRock extends Mob {
 	{
 		spriteClass = RatSprite.class;
 		
-		HP = HT = 18;
-		defenseSkill = 5;
+		HP = HT = 28;
 		EXP =3;
 		baseSpeed = 2f;
 		loot = Generator.Category.SEED;
@@ -46,17 +45,13 @@ public class KillRock extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 7 );
+		return Random.NormalIntRange( 1, 8 );
 	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 8;
-	}
+
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 3);
+		return Random.NormalIntRange(0, 4);
 	}
 
 }
