@@ -1,0 +1,42 @@
+buildscript {
+    ext {
+        kotlin_version = '1.8.0'
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        //classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+
+    ext {
+        appName = 'Star Pixel Dungeon'
+        appPackageName = 'com.star.dungeon'
+
+        appVersionCode = 588
+        appVersionName = '0.1.1'
+
+        appJavaCompatibility = JavaVersion.VERSION_1_8
+
+        appAndroidCompileSDK = 31
+        appAndroidMinSDK = 14
+        appAndroidTargetSDK = 31
+
+        gdxVersion = '1.10.0'
+        robovmVersion = '2.3.14'
+    }
+    version = appVersionName
+
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url 'https://jitpack.io' }
+    }
+
+}

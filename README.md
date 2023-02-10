@@ -1,2 +1,3 @@
-# Star-Pixel-Dungeon
-星辰地牢
+# Star Pixel Dungeon
+
+A Roguelike RPG, with randomly generated levels, items, enemies, and traps!
