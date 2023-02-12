@@ -37,5 +37,7 @@ public class BuffWait extends FlavourBuff {
 	public static final float T8 = 8f;
 	public static final float T9 = 9f;
 	public static final float T10 = 10f;
+	public static final float T15 = 15f;
+	public static final float T20 = 20f;
 
 }

@@ -90,7 +90,7 @@ public class Gold extends Item {
 	//随机生成（当前楼层数x5~当前楼层数x10+(1~10))）金币
 	@Override
 	public Item random() {
-		quantity = Random.Int( Dungeon.depth * 5 , Dungeon.depth * 10 - Random.Int(0,1) );
+		quantity = Random.Int( Dungeon.depth * 15 , Dungeon.depth * 30 + Random.Int(0,(Dungeon.depth)*5) );
 		return this;
 	}
 

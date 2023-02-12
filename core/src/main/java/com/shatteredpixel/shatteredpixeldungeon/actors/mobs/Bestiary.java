@@ -45,7 +45,8 @@ public class Bestiary {
 			case 1: default:
 
 				return new ArrayList<>(Arrays.asList(
-						SandWorm.class, SandWorm.class,SandWorm.class,
+						GnollThrow.class,
+						//SandWorm.class, SandWorm.class,SandWorm.class,
 						BlackWorm.class,BlackWorm.class));
 			case 2:
 

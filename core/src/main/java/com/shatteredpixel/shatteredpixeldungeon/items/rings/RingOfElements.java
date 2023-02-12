@@ -46,9 +46,9 @@ public class RingOfElements extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (1f - Math.pow(0.825f, soloBuffedBonus()))));
+			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (1f - Math.pow(1.25f, soloBuffedBonus()))));
 		} else {
-			return Messages.get(this, "typical_stats", new DecimalFormat("#.##").format(17.5f));
+			return Messages.get(this, "typical_stats", new DecimalFormat("#.##").format(100f * (1f - Math.pow(1.25f, soloBuffedBonus()))));
 		}
 	}
 	

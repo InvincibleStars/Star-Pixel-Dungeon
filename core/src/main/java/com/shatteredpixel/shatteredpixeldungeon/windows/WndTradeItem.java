@@ -68,7 +68,7 @@ public class WndTradeItem extends WndInfoItem {
 
 		} else {
 
-			int priceAll= (item.value() / 10);
+			int priceAll= (item.value() );
 			RedButton btnSell1 = new RedButton( Messages.get(this, "sell_1", priceAll / item.quantity()) ) {
 				@Override
 				protected void onClick() {
@@ -184,7 +184,7 @@ public class WndTradeItem extends WndInfoItem {
 
 
 
-		new Gold(((item.value())/10)).doPickUp( hero );
+		new Gold(item.value()).doPickUp( hero );
 	}
 
 	public static void sellOne( Item item ) {
@@ -200,7 +200,7 @@ public class WndTradeItem extends WndInfoItem {
 			//selling items in the sell interface doesn't spend time
 			hero.spend(-hero.cooldown());
 
-			new Gold(((item.value())/10)).doPickUp( hero );
+			new Gold(item.value()).doPickUp( hero );
 		}
 	}
 	

@@ -55,7 +55,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibili
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -126,7 +136,39 @@ public enum HeroClass {
 
 		new AlchemicalCatalyst().quantity(100).identify().collect();
 
+		new Food().quantity(100).identify().collect();
+
+		new CrossBow().quantity(1).identify().collect();
+
 		new ScrollOfUpgrade().quantity(100).identify().collect();
+
+		//测试戒指
+
+		/*
+
+		new RingOfAccuracy().identify().collect();
+
+		new RingOfElements().identify().collect();
+
+		new RingOfEnergy().identify().collect();
+
+		new RingOfEvasion().identify().collect();
+
+		new RingOfForce().identify().collect();
+
+		new RingOfFuror().identify().collect();
+
+		new RingOfHaste().identify().collect();
+
+		new RingOfMight().identify().collect();
+
+		new RingOfSharpshooting().identify().collect();
+
+		new RingOfTenacity().identify().collect();
+
+		new RingOfWealth().identify().collect();
+
+		*/
 
 		new PotionOfHealing().quantity(100).identify().collect();
 

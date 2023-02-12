@@ -36,7 +36,7 @@ public class GnollThrowSprite extends MobSprite {
 
         texture( Assets.Sprites.GNOLLTHROW );
 
-        TextureFilm frames = new TextureFilm( texture, 18, 17 );
+        TextureFilm frames = new TextureFilm( texture, 12, 15 );
 
         idle = new Animation( 2, true );
         idle.frames( frames, 0, 0, 0, 1, 0, 0, 1, 1 );
