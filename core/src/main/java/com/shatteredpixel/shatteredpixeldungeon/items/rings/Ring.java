@@ -346,4 +346,14 @@ public class Ring extends KindofMisc {
 		}
 
 	}
+
+	@Override
+	public boolean isUpgradable() {
+		super.level();
+		if (level()>=2){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }

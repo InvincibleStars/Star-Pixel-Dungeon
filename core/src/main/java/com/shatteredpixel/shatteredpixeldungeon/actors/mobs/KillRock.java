@@ -41,6 +41,12 @@ public class KillRock extends Mob {
 		lootChance = 0.5f;
 		
 		maxLvl = 10;
+		defenseSkill = 6;
+	}
+
+	@Override
+	public int attackSkill( Char target ) {
+		return 10;
 	}
 
 	@Override

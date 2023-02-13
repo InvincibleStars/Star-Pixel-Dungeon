@@ -690,4 +690,14 @@ public abstract class Wand extends Item {
 			this.scalingFactor = value;
 		}
 	}
+	@Override
+	public boolean isUpgradable() {
+		super.level();
+		if (level()>=2){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 }

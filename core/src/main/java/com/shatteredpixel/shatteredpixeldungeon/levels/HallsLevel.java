@@ -67,6 +67,10 @@ public class HallsLevel extends RegularLevel {
 		color2 = 0xa68521;
 	}
 
+
+
+	/*
+
 	@Override
 	protected ArrayList<Room> initRooms() {
 		ArrayList<Room> rooms = super.initRooms();
@@ -75,6 +79,8 @@ public class HallsLevel extends RegularLevel {
 
 		return rooms;
 	}
+
+	*/
 
 	@Override
 	protected int standardRooms(boolean forceMax) {

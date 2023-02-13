@@ -58,6 +58,12 @@ public class SandWorm extends Mob {
 		//alignment = Alignment.NEUTRAL;
 		//state = PASSIVE;
 
+		defenseSkill = 6;
+	}
+
+	@Override
+	public int attackSkill( Char target ) {
+		return 10;
 	}
 
 	@Override

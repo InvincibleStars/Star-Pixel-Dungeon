@@ -470,7 +470,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public boolean isUpgradable() {
 		super.level();
-		if (level()>=1){
+		if (level()>=2){
 		return false;
 	}else{
 		return true;

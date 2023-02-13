@@ -65,6 +65,12 @@ public class SandCrab extends Mob {
 		loot = Generator.Category.WAND;
 		lootChance = 0.125f; //by default, see rollToDropLoot()
 
+		defenseSkill = 6;
+	}
+
+	@Override
+	public int attackSkill( Char target ) {
+		return 10;
 	}
 
 	@Override

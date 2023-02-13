@@ -37,6 +37,13 @@ public class BlackWorm extends Mob {
 		EXP = 1;
 		
 		maxLvl = 1;
+
+		defenseSkill = 6;
+	}
+
+	@Override
+	public int attackSkill( Char target ) {
+		return 10;
 	}
 
 

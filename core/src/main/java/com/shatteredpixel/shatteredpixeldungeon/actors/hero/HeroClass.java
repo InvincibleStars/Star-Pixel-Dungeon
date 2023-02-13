@@ -49,6 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -120,13 +121,18 @@ public enum HeroClass {
 		i = new Scalpel();
 		if (!Challenges.isItemBlocked(i)) i.collect();
 
-		new AlchemicalCatalyst().quantity(100).identify().collect();
+		//new AlchemicalCatalyst().quantity(100).identify().collect();
 
 		new Ammo().quantity(100).identify().collect();
 
 		new CrossBow().quantity(1).identify().collect();
 
-		new ScrollOfUpgrade().quantity(100).identify().collect();
+		new ScrollOfUpgrade().quantity(8).identify().collect();
+
+		Dungeon.gold += 900; //初始金钱
+
+		new PotionOfExperience().quantity(100).identify().collect();
+
 
 		//测试戒指
 
@@ -156,7 +162,7 @@ public enum HeroClass {
 
 		*/
 
-		new PotionOfHealing().quantity(100).identify().collect();
+		new PotionOfHealing().quantity(10).identify().collect();
 
 		new VelvetPouch().collect();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();

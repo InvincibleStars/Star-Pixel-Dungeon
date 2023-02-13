@@ -46,6 +46,12 @@ public class SandWorm2 extends Mob {
 
 		state = WANDERING = new Waiting();
 
+		defenseSkill = 6;
+	}
+
+	@Override
+	public int attackSkill( Char target ) {
+		return 10;
 	}
 
 	@Override

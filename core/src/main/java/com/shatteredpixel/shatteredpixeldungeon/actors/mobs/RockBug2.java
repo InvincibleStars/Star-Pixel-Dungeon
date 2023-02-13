@@ -39,6 +39,12 @@ public class RockBug2 extends Mob {
 		maxLvl = 6;
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.22f; //by default, see rollToDropLoot()
+		defenseSkill = 6;
+	}
+
+	@Override
+	public int attackSkill( Char target ) {
+		return 10;
 	}
 
 

@@ -56,6 +56,12 @@ public class Sand extends Mob {
 		maxLvl = 10;
 
 
+		defenseSkill = 6;
+	}
+
+	@Override
+	public int attackSkill( Char target ) {
+		return 10;
 	}
 
 	@Override
