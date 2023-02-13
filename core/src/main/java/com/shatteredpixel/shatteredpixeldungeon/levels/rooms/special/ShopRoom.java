@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MerchantsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
@@ -51,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMappi
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.CrossBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -154,7 +156,14 @@ public class ShopRoom extends SpecialRoom {
 
 		MeleeWeapon w;
 		switch (Dungeon.depth) {
-		case 6: default:
+		case 1: default:
+			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
+			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
+			itemsToSpawn.add( new ClothArmor().identify() );
+			itemsToSpawn.add( new CrossBow().identify() );
+			break;
+
+		case 6:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
 			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
 			itemsToSpawn.add( new LeatherArmor().identify() );

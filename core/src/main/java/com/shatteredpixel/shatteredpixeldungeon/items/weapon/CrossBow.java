@@ -23,24 +23,19 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.Ammo;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -54,94 +49,91 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
-import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 public class CrossBow extends Weapon {
-	public static final String AC_SHOOT		= "SHOOT";
-	public static final String AC_LOAD		= "LOAD";
-	public static final float TIME_LOAD	= 1f;
+	public static final String AC_SHOOT = "SHOOT";
+	public static final String AC_LOAD = "LOAD";
 	//初始无弹药
 	public int bowammo = 0;
+	//装弹时间
 	public float spend = 1f;
+	//定义弹药物品，供90行使用
 	Item AmmoItem;
+
 	{
 		image = ItemSpriteSheet.SPIRIT_BOW;
+		//默认动作：射击
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
 		unique = true;
 		bones = false;
+
 	}
+
 	public boolean sniperSpecial = false;
-	public float sniperSpecialBonusDamage = 0f;
+
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
+		//隐藏装备动作（无法被装备）
 		actions.remove(AC_EQUIP);
+		//增加设计动作
 		actions.add(AC_SHOOT);
 		//actions.add(AC_LOAD);
 		return actions;
 	}
+
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
-		//调用上方的声名，然后为其指定类型
-		this.AmmoItem = hero.belongings.getItem(Food.class);
+		//调用声名，然后为其指定类型
+		this.AmmoItem = hero.belongings.getItem(Ammo.class);
 		//this.AmmoItem = item;
 
 		//执行动作，进入判定轮
 		if (action.equals(AC_SHOOT)) {
 			//判断两个条件是否都成立
-			if (bowammo < 1 && AmmoItem != null ) {
+			if (bowammo < 1 && AmmoItem != null) {
 				//点击的按钮是
 				action.equals(AC_LOAD);
 				//发送信息
 				GLog.p(Messages.get(this, "nobowammo"));
 				/*hero.busy();*/
-				hero.sprite.operate( hero.pos );
+				hero.sprite.operate(hero.pos);
 				//装填花费一个回合
-				hero.spend( 1f );
+				hero.spend(1f);
 				//在头顶显示logo
-				SpellSprite.show( hero, SpellSprite.ANKH );
+				SpellSprite.show(hero, SpellSprite.ANKH);
 				//播放声音
-				Sample.INSTANCE.play( Assets.Sounds.ATK_SPIRITBOW );
+				Sample.INSTANCE.play(Assets.Sounds.ATK_SPIRITBOW);
 				//设置弹药数量为1
 				bowammo = 1;
 				//删除弹药
-				AmmoItem.detach( hero.belongings.backpack );
+				AmmoItem.detach(hero.belongings.backpack);
 				return;
-			}
-			else if (bowammo == 1) {
+			} else if (bowammo == 1) {
 				curUser = hero;
 				curItem = this;
 				GameScene.selectCell(shooter);
 				return;
-			}
-			else if (bowammo > 1) {
+			} else if (bowammo > 1) {
 				bowammo = 1;
 				GLog.p(Messages.get(this, "addbowammo"));
 				curUser = hero;
 				curItem = this;
 				return;
+			} else {
+				GLog.w(Messages.get(this, "lessammo"));
+				return;
 			}
-				else{
-					GLog.p(Messages.get(this, "nobowammo"));
-					return;
-				}
-		}}
-
-
-	protected float timeload(){ return TIME_LOAD; }
-
-
-	private static Class[] harmfulPlants = new Class[]{
-			Blindweed.class, Firebloom.class, Icecap.class, Sorrowmoss.class,  Stormvine.class
-	};
+		}
+	}
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage) {
 
-		if (attacker.buff(NaturesPower.naturesPowerTracker.class) != null && !sniperSpecial){
+		if (attacker.buff(NaturesPower.naturesPowerTracker.class) != null && !sniperSpecial) {
 
 			Actor.add(new Actor() {
 				{
@@ -157,11 +149,11 @@ public class CrossBow extends Weapon {
 					//	plant.activate( defender.isAlive() ? defender : null );
 					//}
 
-					if (!defender.isAlive()){
+					if (!defender.isAlive()) {
 						NaturesPower.naturesPowerTracker tracker = attacker.buff(NaturesPower.naturesPowerTracker.class);
-				//		if (tracker != null){
-				//			tracker.extend(((Hero) attacker).pointsInTalent(Talent.WILD_MOMENTUM));
-				//		}
+						//		if (tracker != null){
+						//			tracker.extend(((Hero) attacker).pointsInTalent(Talent.WILD_MOMENTUM));
+						//		}
 					}
 
 					Actor.remove(this);
@@ -177,18 +169,18 @@ public class CrossBow extends Weapon {
 	@Override
 	public String info() {
 		String info = desc();
-		
-		info += "\n\n" + Messages.get( CrossBow.class, "stats",
+
+		info += "\n\n" + Messages.get(CrossBow.class, "stats",
 				Math.round(augment.damageFactor(min())),
 				Math.round(augment.damageFactor(max())),
 				STRReq());
-		
+
 		if (STRReq() > Dungeon.hero.STR()) {
 			info += " " + Messages.get(Weapon.class, "too_heavy");
-		} else if (Dungeon.hero.STR() > STRReq()){
+		} else if (Dungeon.hero.STR() > STRReq()) {
 			info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.STR() - STRReq());
 		}
-		
+
 		switch (augment) {
 			case SPEED:
 				info += "\n\n" + Messages.get(Weapon.class, "faster");
@@ -198,99 +190,95 @@ public class CrossBow extends Weapon {
 				break;
 			case NONE:
 		}
-		
-		if (enchantment != null && (cursedKnown || !enchantment.curse())){
+
+		if (enchantment != null && (cursedKnown || !enchantment.curse())) {
 			info += "\n\n" + Messages.get(Weapon.class, "enchanted", enchantment.name());
 			info += " " + Messages.get(enchantment, "desc");
 		}
-		
-		if (cursed && isEquipped( Dungeon.hero )) {
+
+		if (cursed && isEquipped(Dungeon.hero)) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!isIdentified() && cursedKnown) {
 			info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
 		}
-		
+
 		info += "\n\n" + Messages.get(MissileWeapon.class, "distance");
-		
+
 		return info;
 	}
-	
+
 	@Override
 	public int STRReq(int lvl) {
-		return STRReq(1, lvl); //tier 1
+		return 0;
 	}
-	
+
 	@Override
 	public int min(int lvl) {
-		int dmg = 1 + Dungeon.hero.lvl/5
-				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 1 : 0);
-		return Math.max(0, dmg);
+		return 50;
 	}
-	
+
 	@Override
 	public int max(int lvl) {
-		int dmg = 6 + (int)(Dungeon.hero.lvl/2.5f)
-				+ 2*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 2 : 0);
-		return Math.max(0, dmg);
+		return 80;
 	}
+
 
 	@Override
 	public int targetingPos(Hero user, int dst) {
 		return knockArrow().targetingPos(user, dst);
 	}
-	
+
 	private int targetPos;
-	
+
 	@Override
 	public int damageRoll(Char owner) {
-		int MAX =88;
-		int MIN = 80;
-		int damage = Random.Int(MIN,MAX);
-		
+		int MAX = 80;
+		int MIN = 50;
+		int damage = Random.Int(MIN, MAX);
+
 		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).STR() - STRReq();
+			int exStr = ((Hero) owner).STR() - STRReq();
 			if (exStr > 0) {
-				damage += Random.IntRange( 0, exStr );
+				damage += Random.IntRange(0, exStr);
 			}
 		}
 
 
-		if (sniperSpecial){
-			damage = Random.Int(MIN,MAX);
+		if (sniperSpecial) {
+			damage = Random.Int(MIN, MAX);
 
-			switch (augment){
+			switch (augment) {
 				case NONE:
-					damage = Random.Int(MIN,MAX);
+					damage = Random.Int(MIN, MAX);
 					break;
 				case SPEED:
-					damage = Random.Int(MIN,MAX);
+					damage = Random.Int(MIN, MAX);
 					break;
 				case DAMAGE:
 					int distance = Dungeon.level.distance(owner.pos, targetPos) - 1;
-					damage = Random.Int(MIN,MAX);
+					damage = Random.Int(MIN, MAX);
 					break;
 			}
 		}
-		
+
 		return damage;
 	}
-	
+
 	@Override
 	protected float baseDelay(Char owner) {
-		if (sniperSpecial){
-			switch (augment){
-				case NONE: default:
+		if (sniperSpecial) {
+			switch (augment) {
+				case NONE:
+				default:
 					return 0f;
 				case SPEED:
 					return 1f * RingOfFuror.attackSpeedMultiplier(owner);
 				case DAMAGE:
 					return 2f * RingOfFuror.attackSpeedMultiplier(owner);
 			}
-		} else{
+		} else {
 			return super.baseDelay(owner);
 		}
 	}
@@ -307,35 +295,29 @@ public class CrossBow extends Weapon {
 
 	@Override
 	public int level() {
-		return (Dungeon.hero == null ? 0 : Dungeon.hero.lvl/5) + (curseInfusionBonus ? 1 : 0);
+		return 0;
 	}
 
-	@Override
-	public int buffedLvl() {
-		//level isn't affected by buffs/debuffs
-		return level();
-	}
-	
 	@Override
 	public boolean isUpgradable() {
 		return false;
 	}
-	
-	public SpiritArrow knockArrow(){
-		return new SpiritArrow();
+
+	public SpiritAmmo knockArrow() {
+		return new SpiritAmmo();
 	}
-	
-	public class SpiritArrow extends MissileWeapon {
-		
+
+	public class SpiritAmmo extends MissileWeapon {
+
 		{
-			image = ItemSpriteSheet.SPIRIT_ARROW;
+			image = ItemSpriteSheet.AMMO_MINI;
 
 			hitSound = Assets.Sounds.HIT_ARROW;
 		}
 
 		@Override
 		public Emitter emitter() {
-			if (Dungeon.hero.buff(NaturesPower.naturesPowerTracker.class) != null && !sniperSpecial){
+			if (Dungeon.hero.buff(NaturesPower.naturesPowerTracker.class) != null && !sniperSpecial) {
 				Emitter e = new Emitter();
 				e.pos(5, 5);
 				e.fillTarget = false;
@@ -350,22 +332,24 @@ public class CrossBow extends Weapon {
 		public int damageRoll(Char owner) {
 			return CrossBow.this.damageRoll(owner);
 		}
-		
+
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
 			return CrossBow.this.hasEnchant(type, owner);
 		}
-		
+
 		@Override
 		public int proc(Char attacker, Char defender, int damage) {
 			return CrossBow.this.proc(attacker, defender, damage);
 		}
-		
+
 		@Override
 		public float delayFactor(Char user) {
 			return CrossBow.this.delayFactor(user);
 		}
 		
+		/*
+
 		@Override
 		public float accuracyFactor(Char owner) {
 			if (sniperSpecial && CrossBow.this.augment == Augment.DAMAGE){
@@ -374,20 +358,27 @@ public class CrossBow extends Weapon {
 				return super.accuracyFactor(owner);
 			}
 		}
-		
+
+		 */
+
+		@Override
+		public float accuracyFactor(Char owner) {
+			return 10000;
+		}
+
 		@Override
 		public int STRReq(int lvl) {
 			return CrossBow.this.STRReq(lvl);
 		}
 
 		@Override
-		protected void onThrow( int cell ) {
-			Char enemy = Actor.findChar( cell );
+		protected void onThrow(int cell) {
+			Char enemy = Actor.findChar(cell);
 			if (enemy == null || enemy == curUser) {
 				parent = null;
-				Splash.at( cell, 0xCC99FFFF, 1 );
+				Splash.at(cell, 0xCC99FFFF, 1);
 			} else {
-				if (!curUser.shoot( enemy, this )) {
+				if (!curUser.shoot(enemy, this)) {
 					Splash.at(cell, 0xCC99FFFF, 1);
 				}
 				if (sniperSpecial && CrossBow.this.augment != Augment.SPEED) sniperSpecial = false;
@@ -396,34 +387,34 @@ public class CrossBow extends Weapon {
 
 		@Override
 		public void throwSound() {
-			Sample.INSTANCE.play( Assets.Sounds.ATK_SPIRITBOW, 1, Random.Float(0.87f, 1.15f) );
+			Sample.INSTANCE.play(Assets.Sounds.ATK_SPIRITBOW, 1, Random.Float(0.87f, 1.15f));
 		}
 
 		int flurryCount = -1;
-		
+
 		@Override
 		public void cast(final Hero user, final int dst) {
-			final int cell = throwPos( user, dst );
+			final int cell = throwPos(user, dst);
 			CrossBow.this.targetPos = cell;
-			if (sniperSpecial && CrossBow.this.augment == Augment.SPEED){
+			if (sniperSpecial && CrossBow.this.augment == Augment.SPEED) {
 				if (flurryCount == -1) flurryCount = 3;
-				
-				final Char enemy = Actor.findChar( cell );
-				
-				if (enemy == null){
+
+				final Char enemy = Actor.findChar(cell);
+
+				if (enemy == null) {
 					user.spendAndNext(castDelay(user, dst));
 					sniperSpecial = false;
 					flurryCount = -1;
 					return;
 				}
 				QuickSlotButton.target(enemy);
-				
+
 				final boolean last = flurryCount == 1;
-				
+
 				user.busy();
-				
+
 				throwSound();
-				
+
 				((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).
 						reset(user.sprite,
 								cell,
@@ -435,7 +426,7 @@ public class CrossBow extends Weapon {
 											curUser = user;
 											onThrow(cell);
 										}
-										
+
 										if (last) {
 											user.spendAndNext(castDelay(user, dst));
 											sniperSpecial = false;
@@ -448,12 +439,12 @@ public class CrossBow extends Weapon {
 					@Override
 					public void call() {
 						flurryCount--;
-						if (flurryCount > 0){
+						if (flurryCount > 0) {
 							cast(user, dst);
 						}
 					}
 				});
-				
+
 			} else {
 
 				/*if (user.hasTalent(Talent.SEER_SHOT)
@@ -471,15 +462,16 @@ public class CrossBow extends Weapon {
 			}
 		}
 	}
-	
+
 	private CellSelector.Listener shooter = new CellSelector.Listener() {
 		@Override
-		public void onSelect( Integer target ) {
+		public void onSelect(Integer target) {
 			if (target != null) {
 				knockArrow().cast(curUser, target);
 				bowammo = bowammo - 1;
 			}
 		}
+
 		@Override
 		public String prompt() {
 			return Messages.get(CrossBow.class, "prompt");
@@ -487,18 +479,22 @@ public class CrossBow extends Weapon {
 	};
 
 	//将整数数据转化为字符串
-	private static final String BOWAMMO/*全大写*/	    = "bowammo"/*全小写*/;
+	private static final String BOWAMMO/*全大写*/ = "bowammo"/*全小写*/;
 
 	@Override //将变量转换为字符串后储存
-	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
-		bundle.put( BOWAMMO, bowammo );
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(BOWAMMO, bowammo);
 	}
 
 	@Override //取出
-	public void restoreFromBundle( Bundle bundle ) {
-		super.restoreFromBundle( bundle );
-		bowammo = bundle.getInt( BOWAMMO );
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		bowammo = bundle.getInt(BOWAMMO);
 	}
 
+	@Override
+	public int value() {
+		return 150;
+	}
 }

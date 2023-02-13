@@ -57,7 +57,7 @@ public abstract class TippedDart extends Dart {
 	{
 		tier = 2;
 
-		baseUses = 1f;
+		baseUses = 3f;
 	}
 	
 	private static final String AC_CLEAN = "CLEAN";

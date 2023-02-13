@@ -377,9 +377,7 @@ public class Item implements Bundlable {
 		return cursed && cursedKnown;
 	}
 	
-	public boolean isUpgradable() {
-		return true;
-	}
+	public boolean isUpgradable() { return true; }
 	
 	public boolean isIdentified() {
 		return levelKnown && cursedKnown;

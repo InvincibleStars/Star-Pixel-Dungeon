@@ -241,10 +241,18 @@ abstract public class Weapon extends KindOfWeapon {
 			return level();
 		}
 	}
-	
+
+
+
+	//升级的同时给予附魔（T是给予）
 	@Override
 	public Item upgrade() {
-		return upgrade(false);
+		super.level();
+		if (level()>=1) {
+			return upgrade(true);
+		}else{
+			return upgrade(true);
+		}
 	}
 	
 	public Item upgrade(boolean enchant ) {
@@ -458,4 +466,15 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 	}
+
+	@Override
+	public boolean isUpgradable() {
+		super.level();
+		if (level()>=1){
+		return false;
+	}else{
+		return true;
+		}
+	}
+
 }

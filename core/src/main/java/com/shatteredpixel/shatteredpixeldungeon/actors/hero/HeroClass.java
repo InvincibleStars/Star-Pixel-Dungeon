@@ -45,7 +45,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor2;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
@@ -54,18 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.Ammo;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -86,8 +74,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKn
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.DeviceCompat;
-
-import java.util.ArrayList;
 
 public enum HeroClass {
 
@@ -136,7 +122,7 @@ public enum HeroClass {
 
 		new AlchemicalCatalyst().quantity(100).identify().collect();
 
-		new Food().quantity(100).identify().collect();
+		new Ammo().quantity(100).identify().collect();
 
 		new CrossBow().quantity(1).identify().collect();
 

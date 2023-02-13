@@ -198,6 +198,7 @@ public class Hero extends Char {
 
 	public int HTBoost = 0;
 
+
 	public static final int NONE_HT = 20;
 
 	
@@ -217,7 +218,7 @@ public class Hero extends Char {
 		
 		visibleEnemies = new ArrayList<>();
 
-		HP = HT = 20 /*= 20*/;
+		HP = HT = 25;
 
 	}
 	

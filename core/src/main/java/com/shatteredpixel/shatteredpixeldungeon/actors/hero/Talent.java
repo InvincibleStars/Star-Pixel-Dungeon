@@ -188,8 +188,8 @@ public enum Talent {
 	public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
 
 	Talent( int icon ){
-		this(icon, 2);
-	}
+		this(icon, 5);
+	} //
 
 	Talent( int icon, int maxPoints ){
 		this.icon = icon;
@@ -277,6 +277,7 @@ public enum Talent {
 	public static class NatureBerriesAvailable extends CounterBuff{{revivePersists = true;}};
 
 	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
+		//战士进食天赋
 		if (hero.hasTalent(HEARTY_MEAL)){
 			//3/5 HP healed, when hero is below 25% health
 			if (hero.HP <= hero.HT/4) {
