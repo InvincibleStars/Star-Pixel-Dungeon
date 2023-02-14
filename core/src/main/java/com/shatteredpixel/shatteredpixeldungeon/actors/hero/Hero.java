@@ -251,7 +251,7 @@ public class Hero extends Char {
 		}
 
 		if (hasTalent(Talent.STRONGMAN)){
-			strBonus += (int)Math.floor(STR * (0.03f + 0.05f*pointsInTalent(Talent.STRONGMAN)));
+			strBonus += (int)Math.floor(STR * (0.20f*pointsInTalent(Talent.STRONGMAN)));
 		}
 
 		return STR + strBonus;
@@ -358,21 +358,17 @@ public class Hero extends Char {
 	}
 
 	public int talentPointsAvailable(int tier){
-		if (lvl < (Talent.tierLevelThresholds[tier] - 1)
-			|| (tier == 3 && subClass == HeroSubClass.NONE)
-			|| (tier == 4 && armorAbility == null)) {
-			return 0;
-		} else if (lvl >= Talent.tierLevelThresholds[tier+1]){
+		if (lvl < (Talent.tierLevelThresholds[tier] - 1) || (tier == 3 && subClass == HeroSubClass.NONE) || (tier == 4 && armorAbility == null)) {
+			return 0; //0
+		} else if (lvl >= Talent.tierLevelThresholds[tier+1]){ //1
 			return Talent.tierLevelThresholds[tier+1] - Talent.tierLevelThresholds[tier] - talentPointsSpent(tier) + bonusTalentPoints(tier);
-		} else {
-			return 1 + lvl - Talent.tierLevelThresholds[tier] - talentPointsSpent(tier) + bonusTalentPoints(tier);
+		} else { //初始给予1点天赋点
+			return 2 + lvl - Talent.tierLevelThresholds[tier] - talentPointsSpent(tier) + bonusTalentPoints(tier);//1
 		}
 	}
 
 	public int bonusTalentPoints(int tier){
-		if (lvl < (Talent.tierLevelThresholds[tier]-1)
-				|| (tier == 3 && subClass == HeroSubClass.NONE)
-				|| (tier == 4 && armorAbility == null)) {
+		if (lvl < (Talent.tierLevelThresholds[tier]-1) || (tier == 3 && subClass == HeroSubClass.NONE) || (tier == 4 && armorAbility == null)) {
 			return 0;
 		} else if (buff(PotionOfDivineInspiration.DivineInspirationTracker.class) != null
 					&& buff(PotionOfDivineInspiration.DivineInspirationTracker.class).isBoosted(tier)) {
@@ -1911,6 +1907,7 @@ public class Hero extends Char {
 		boolean circular = pointsInTalent(Talent.WIDE_SEARCH) == 1;
 		int distance = heroClass == HeroClass.ROGUE ? 2 : 1;
 		if (hasTalent(Talent.WIDE_SEARCH)) distance++;
+
 		
 		boolean foresight = buff(Foresight.class) != null;
 		boolean foresightScan = foresight && !Dungeon.level.mapped[pos];

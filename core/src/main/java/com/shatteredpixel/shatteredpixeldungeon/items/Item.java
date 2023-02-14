@@ -577,7 +577,7 @@ public class Item implements Bundlable {
 								if (enemy != null && enemy.alignment != curUser.alignment){
 									Sample.INSTANCE.play(Assets.Sounds.HIT);
 									Buff.affect(enemy, Blindness.class, 1f + curUser.pointsInTalent(Talent.IMPROVISED_PROJECTILES));
-									Buff.affect(curUser, Talent.ImprovisedProjectileCooldown.class, 50f);
+									Buff.affect(curUser, Talent.ImprovisedProjectileCooldown.class, 15f);
 								}
 							}
 							if (user.buff(Talent.LethalMomentumTracker.class) != null){

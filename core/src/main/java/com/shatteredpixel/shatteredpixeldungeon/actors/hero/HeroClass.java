@@ -125,13 +125,13 @@ public enum HeroClass {
 
 		new Ammo().quantity(100).identify().collect();
 
-		new CrossBow().quantity(1).identify().collect();
+		//new CrossBow().quantity(1).identify().collect();
 
-		new ScrollOfUpgrade().quantity(8).identify().collect();
+		//new ScrollOfUpgrade().quantity(8).identify().collect();
 
 		Dungeon.gold += 900; //初始金钱
 
-		new PotionOfExperience().quantity(100).identify().collect();
+		//new PotionOfExperience().quantity(100).identify().collect();
 
 
 		//测试戒指

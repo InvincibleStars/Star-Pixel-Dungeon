@@ -80,11 +80,11 @@ import java.util.LinkedHashMap;
 public enum Talent {
 
 	//Warrior T1
-	HEARTY_MEAL(0), ARMSMASTERS_INTUITION(1), TEST_SUBJECT(2), IRON_WILL(3),
+	HEARTY_MEAL(0,4), ARMSMASTERS_INTUITION(1), TEST_SUBJECT(2), IRON_WILL(3,4),
 	//Warrior T2
-	IRON_STOMACH(4), RESTORED_WILLPOWER(5), RUNIC_TRANSFERENCE(6), LETHAL_MOMENTUM(7), IMPROVISED_PROJECTILES(8),
+	IRON_STOMACH(4), RESTORED_WILLPOWER(5,3), RUNIC_TRANSFERENCE(6), LETHAL_MOMENTUM(7), IMPROVISED_PROJECTILES(8,4),
 	//Warrior T3
-	HOLD_FAST(9, 3), STRONGMAN(10, 3),
+	HOLD_FAST(9, 4), STRONGMAN(10, 4),
 	//Berserker T3
 	ENDLESS_RAGE(11, 3), BERSERKING_STAMINA(12, 3), ENRAGED_CATALYST(13, 3),
 	//Gladiator T3
@@ -97,13 +97,13 @@ public enum Talent {
 	SUSTAINED_RETRIBUTION(23, 4), SHRUG_IT_OFF(24, 4), EVEN_THE_ODDS(25, 4),
 
 	//Mage T1
-	EMPOWERING_MEAL(32), SCHOLARS_INTUITION(33), TESTED_HYPOTHESIS(34), BACKUP_BARRIER(35),
+	EMPOWERING_MEAL(32), SCHOLARS_INTUITION(33), TESTED_HYPOTHESIS(34,4), BACKUP_BARRIER(35,4),
 	//Mage T2
-	ENERGIZING_MEAL(36), ENERGIZING_UPGRADE(37), WAND_PRESERVATION(38), ARCANE_VISION(39), SHIELD_BATTERY(40),
+	ENERGIZING_MEAL(36,4), ENERGIZING_UPGRADE(37), WAND_PRESERVATION(38,4), ARCANE_VISION(39), SHIELD_BATTERY(40,4),
 	//Mage T3
 	EMPOWERING_SCROLLS(41, 3), ALLY_WARP(42, 3),
 	//Battlemage T3
-	EMPOWERED_STRIKE(43, 3), MYSTICAL_CHARGE(44, 3), EXCESS_CHARGE(45, 3),
+	EMPOWERED_STRIKE(43, 4), MYSTICAL_CHARGE(44, 4), EXCESS_CHARGE(45, 3),
 	//Warlock T3
 	SOUL_EATER(46, 3), SOUL_SIPHON(47, 3), NECROMANCERS_MINIONS(48, 3),
 	//Elemental Blast T4
@@ -116,9 +116,9 @@ public enum Talent {
 	//Rogue T1
 	CACHED_RATIONS(64), THIEFS_INTUITION(65), SUCKER_PUNCH(66), PROTECTIVE_SHADOWS(67),
 	//Rogue T2
-	MYSTICAL_MEAL(68), MYSTICAL_UPGRADE(69), WIDE_SEARCH(70), SILENT_STEPS(71), ROGUES_FORESIGHT(72),
+	MYSTICAL_MEAL(68), MYSTICAL_UPGRADE(69), WIDE_SEARCH(70, 2), SILENT_STEPS(71), ROGUES_FORESIGHT(72),
 	//Rogue T3
-	ENHANCED_RINGS(73, 3), LIGHT_CLOAK(74, 3),
+	ENHANCED_RINGS(73, 4), LIGHT_CLOAK(74, 4),
 	//Assassin T3
 	ENHANCED_LETHALITY(75, 3), ASSASSINS_REACH(76, 3), BOUNTY_HUNTER(77, 3),
 	//Freerunner T3
@@ -133,13 +133,13 @@ public enum Talent {
 	//Huntress T1
 	NATURES_BOUNTY(96), SURVIVALISTS_INTUITION(97), FOLLOWUP_STRIKE(98), NATURES_AID(99),
 	//Huntress T2
-	INVIGORATING_MEAL(100), RESTORED_NATURE(101), REJUVENATING_STEPS(102), HEIGHTENED_SENSES(103), DURABLE_PROJECTILES(104),
+	INVIGORATING_MEAL(100,4), RESTORED_NATURE(101), REJUVENATING_STEPS(102), HEIGHTENED_SENSES(103), DURABLE_PROJECTILES(104,4),
 	//Huntress T3
-	POINT_BLANK(105, 3), SEER_SHOT(106, 3),
+	POINT_BLANK(105, 4), SEER_SHOT(106, 4),
 	//Sniper T3
-	FARSIGHT(107, 3), SHARED_ENCHANTMENT(108, 3), SHARED_UPGRADES(109, 3),
+	FARSIGHT(107, 4), SHARED_ENCHANTMENT(108, 3), SHARED_UPGRADES(109, 4),
 	//Warden T3
-	DURABLE_TIPS(110, 3), BARKSKIN(111, 3), SHIELDING_DEW(112, 3),
+	DURABLE_TIPS(110, 4), BARKSKIN(111, 3), SHIELDING_DEW(112, 4),
 	//Spectral Blades T4
 	FAN_OF_BLADES(113, 4), PROJECTING_BLADES(114, 4), SPIRIT_BLADES(115, 4),
 	//Natures Power T4
@@ -185,7 +185,8 @@ public enum Talent {
 	int maxPoints;
 
 	// tiers 1/2/3/4 start at levels 2/7/13/21
-	public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
+	public static int[] tierLevelThresholds = new int[]{0, 2, 8, 16, 0, 0};  //天赋点数的设置
+	//public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
 
 	Talent( int icon ){
 		this(icon, 4);
@@ -342,7 +343,7 @@ public enum Talent {
 		if (hero.hasTalent(RESTORED_WILLPOWER)){
 			BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
 			if (shield != null){
-				int shieldToGive = Math.round(shield.maxShield() * 0.5f*(hero.pointsInTalent(RESTORED_WILLPOWER)));
+				int shieldToGive = Math.round(shield.maxShield() * 0.3f*(hero.pointsInTalent(RESTORED_WILLPOWER)));
 				shield.supercharge(shieldToGive);
 			}
 		}
@@ -446,7 +447,7 @@ public enum Talent {
 		if (hero.hasTalent(Talent.SUCKER_PUNCH)
 				&& enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)
 				&& enemy.buff(SuckerPunchTracker.class) == null){
-			dmg += Random.IntRange(hero.pointsInTalent(Talent.SUCKER_PUNCH) , 2);
+			dmg += Random.IntRange(hero.pointsInTalent(Talent.SUCKER_PUNCH)+1,hero.pointsInTalent(Talent.SUCKER_PUNCH)+1);
 			Buff.affect(enemy, SuckerPunchTracker.class);
 		}
 
@@ -494,7 +495,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, ENERGIZING_MEAL,BACKUP_BARRIER,WAND_PRESERVATION);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, LIGHT_CLOAK, WIDE_SEARCH, SILENT_STEPS);
+				Collections.addAll(tierTalents, LIGHT_CLOAK, WIDE_SEARCH, DURABLE_TIPS);
 				break;
 			case HUNTRESS:
 				Collections.addAll(tierTalents, SEER_SHOT,INVIGORATING_MEAL,DURABLE_PROJECTILES);
@@ -520,7 +521,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, SUCKER_PUNCH,FARSIGHT,ENHANCED_RINGS,DURABLE_PROJECTILES);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, POINT_BLANK,SHIELDING_DEW,SILENT_STEPS,IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents, POINT_BLANK,SHIELDING_DEW,FARSIGHT,IMPROVISED_PROJECTILES);
 				break;
 		}
 		for (Talent talent : tierTalents){

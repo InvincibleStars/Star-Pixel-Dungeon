@@ -57,7 +57,7 @@ public class TalentsPane extends ScrollPane {
 		if (mode == TalentButton.Mode.INFO){
 			if (!Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_1)){
 				tiersAvailable = 1;
-			} else if (!Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_2) || !Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_2)){
+			} else if (!Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_3) || !Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_2)){
 				tiersAvailable = 2;
 			} else if (!Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_4)){
 				tiersAvailable = 3;
@@ -180,7 +180,7 @@ public class TalentsPane extends ScrollPane {
 						}
 					}
 				};
-				buttons.add(btn);
+				buttons.add(btn); //btn
 				add(btn);
 			}
 
@@ -194,6 +194,7 @@ public class TalentsPane extends ScrollPane {
 				stars.clear();
 			}
 
+			//显示的天赋点
 			int totStars = Talent.tierLevelThresholds[tier+1] - Talent.tierLevelThresholds[tier] + Dungeon.hero.bonusTalentPoints(tier);
 			int openStars = Dungeon.hero.talentPointsAvailable(tier);
 			int usedStars = Dungeon.hero.talentPointsSpent(tier);
@@ -222,7 +223,7 @@ public class TalentsPane extends ScrollPane {
 			float left = title.right() + 2;
 
 			float starTop = title.top();
-			if (regStars < stars.size()) starTop -= 2;
+			if (regStars < stars.size()) starTop -= 2; //2
 
 			for (Image star : stars){
 				star.x = left;
@@ -238,8 +239,9 @@ public class TalentsPane extends ScrollPane {
 
 			float gap = (width - buttons.size()*TalentButton.WIDTH)/(buttons.size()+1);
 			left = x + gap;
+			//天赋点和下方天赋的距离
 			for (TalentButton btn : buttons){
-				btn.setPos(left, title.bottom() + 4);
+				btn.setPos(left, title.bottom() + 4); //4
 				PixelScene.align(btn);
 				left += btn.width() + gap;
 			}
