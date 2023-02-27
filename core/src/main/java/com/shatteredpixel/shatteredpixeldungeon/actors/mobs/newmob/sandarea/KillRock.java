@@ -19,38 +19,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class RockMonster extends Mob {
+public class KillRock extends Mob {
 
 	{
 		spriteClass = RatSprite.class;
 		
-		HP = HT = 21;
-		defenseSkill = 4;
-		EXP = 2;
+		HP = HT = 28;
+		EXP =3;
+		baseSpeed = 2f;
+		loot = Generator.Category.SEED;
+		lootChance = 0.5f;
 		
-		maxLvl = 5;
+		maxLvl = 10;
+		defenseSkill = 3;
 	}
 
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 7 );
-	}
-	
 	@Override
 	public int attackSkill( Char target ) {
 		return 10;
 	}
+
+	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange( 1, 8 );
+	}
+
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 0);
+		return Random.NormalIntRange(0, 4);
 	}
 
 }

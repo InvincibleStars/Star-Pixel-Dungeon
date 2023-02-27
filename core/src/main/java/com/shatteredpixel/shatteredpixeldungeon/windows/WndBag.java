@@ -59,18 +59,19 @@ public class WndBag extends WndTabbed {
 	//only one bag window can appear at a time
 	public static Window INSTANCE;
 
-	protected static final int COLS_P   = 5;
-	protected static final int COLS_L   = 5;
-	
-	protected static int SLOT_WIDTH_P   = 28;
-	protected static int SLOT_WIDTH_L   = 28;
+	protected static final int COLS_P   = 6;
+	protected static final int COLS_L   = 6;
 
-	protected static int SLOT_HEIGHT_P	= 28;
-	protected static int SLOT_HEIGHT_L	= 28;
-
-	protected static final int SLOT_MARGIN	= 1;
-	
-	protected static final int TITLE_HEIGHT	= 14;
+	//方格宽度
+	protected static int SLOT_WIDTH_P   = 20;
+	protected static int SLOT_WIDTH_L   = 20;
+	//方格高度
+	protected static int SLOT_HEIGHT_P	= 20;
+	protected static int SLOT_HEIGHT_L	= 20;
+	//方框边距
+	protected static final int SLOT_MARGIN	= 1;//1
+	//标题高度
+	protected static final int TITLE_HEIGHT	= 14;//14
 	
 	private ItemSelector selector;
 
@@ -107,18 +108,18 @@ public class WndBag extends WndTabbed {
 		slotHeight = PixelScene.landscape() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
 		nCols = PixelScene.landscape() ? COLS_L : COLS_P;
-		nRows = (int)Math.ceil(25/(float)nCols); //we expect to lay out 25 slots in all cases
+		nRows = (int)Math.ceil(36/(float)nCols); //we expect to lay out 25 slots in all cases
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);
 		int windowHeight = TITLE_HEIGHT + slotHeight * nRows + SLOT_MARGIN * (nRows - 1);
 
 		if (PixelScene.landscape()){
-			while (slotHeight >= 24 && (windowHeight + 20 + chrome.marginTop()) > PixelScene.uiCamera.height){
+			while (slotHeight >= 35 && (windowHeight + 31 + chrome.marginTop()) > PixelScene.uiCamera.height){
 				slotHeight--;
 				windowHeight -= nRows;
 			}
 		} else {
-			while (slotWidth >= 26 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){
+			while (slotWidth >= 37 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){
 				slotWidth--;
 				windowWidth -= nCols;
 			}
@@ -227,7 +228,7 @@ public class WndBag extends WndTabbed {
 		txtTitle.maxWidth( (int)titleWidth - 2 );
 		txtTitle.setPos(
 				1,
-				(TITLE_HEIGHT - txtTitle.height()) / 2f - 1
+				(TITLE_HEIGHT - txtTitle.height()) / 3f - 1
 		);
 		PixelScene.align(txtTitle);
 		add( txtTitle );
@@ -258,7 +259,7 @@ public class WndBag extends WndTabbed {
 			}
 		}
 		
-		// Free Space
+		// 可用背包格子 placeItem
 		while ((count - 5) < container.capacity()) {
 			placeItem( null );
 		}
@@ -315,7 +316,7 @@ public class WndBag extends WndTabbed {
 	@Override
 	protected int tabHeight() {
 		return 20;
-	}
+	} //20
 	
 	private Image icon( Bag bag ) {
 		if (bag instanceof VelvetPouch) {

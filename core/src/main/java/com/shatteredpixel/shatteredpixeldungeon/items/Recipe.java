@@ -21,12 +21,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.stone.UpdateStone;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -41,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIc
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
@@ -58,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.watabou.utils.Reflection;
 
@@ -176,6 +180,7 @@ public abstract class Recipe {
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
 		new ArcaneResin.Recipe(),
+		new UpdateStone.Recipe(),
 		new Alchemize.Recipe(),
 		new StewedMeat.oneMeat()
 	};
@@ -214,6 +219,7 @@ public abstract class Recipe {
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new StewedMeat.threeMeat(),
+		new UpdateStone.Scroll(),
 		new MeatPie.Recipe()
 	};
 	
@@ -253,7 +259,19 @@ public abstract class Recipe {
 	}
 	
 	public static boolean usableInRecipe(Item item){
-		return !item.cursed && (!(item instanceof EquipableItem) || item instanceof MissileWeapon);
+		//return !item.cursed && (!(item instanceof EquipableItem) || item instanceof MissileWeapon);
+		if(item instanceof  EquipableItem){
+			return item.isIdentified()
+				&& !item.cursed
+				&& (item instanceof MissileWeapon
+					|| item instanceof MeleeWeapon
+					|| item instanceof Pickaxe)
+				&& !item.isEquipped( hero );
+		} else  if (item instanceof Wand){
+			return  item.isIdentified()&&!item.cursed;
+		} else {
+			return !item.cursed;
+		}
 	}
 }
 

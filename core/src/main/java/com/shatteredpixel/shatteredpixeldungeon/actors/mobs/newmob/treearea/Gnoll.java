@@ -19,38 +19,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
+import com.watabou.utils.Random;
 
-public class Stick extends MeleeWeapon {
-
+public class Gnoll extends Mob {
+	
 	{
-		image = ItemSpriteSheet.A1;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
-
-		tier = 3;
-
+		spriteClass = GnollSprite.class;
+		
+		HP = HT = 12;
+		defenseSkill = 4;
+		
+		EXP = 2;
+		maxLvl = 8;
+		
+		loot = Gold.class;
+		lootChance = 0.5f;
 	}
-
+	
 	@Override
-	public int max(int lvl) {
-		return  Math.round(2f*(tier*1)) +
-				lvl*Math.round(4f+(tier*2))+3;
+	public int damageRoll() {
+		return Random.NormalIntRange( 1, 6 );
 	}
-
+	
 	@Override
-	public int min(int lvl) {
-		return  Math.round(2f*(tier*1)) +
-				lvl*Math.round(4f+(tier*2))-2;
+	public int attackSkill( Char target ) {
+		return 10;
 	}
-
+	
 	@Override
-	public int defenseFactor( Char owner ) {
-		return 2;	//2 extra defence
+	public int drRoll() {
+		return Random.NormalIntRange(0, 2);
 	}
-
 }

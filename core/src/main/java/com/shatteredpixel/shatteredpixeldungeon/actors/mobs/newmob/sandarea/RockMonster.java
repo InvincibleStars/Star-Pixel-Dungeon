@@ -19,22 +19,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.watabou.utils.Random;
 
-public class WornShortsword extends MeleeWeapon {
+public class RockMonster extends Mob {
 
 	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
-		icon = ItemSpriteSheet.Icons.RING_WEALTH;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
-
-		tier = 1;
+		spriteClass = RatSprite.class;
 		
-		bones = false;
+		HP = HT = 21;
+		defenseSkill = 3;
+		EXP = 2;
+		
+		maxLvl = 5;
+	}
+
+
+	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange( 1, 7 );
+	}
+	
+	@Override
+	public int attackSkill( Char target ) {
+		return 10;
+	}
+	
+	@Override
+	public int drRoll() {
+		return Random.NormalIntRange(0, 0);
 	}
 
 }

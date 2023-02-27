@@ -19,40 +19,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.BlackWormSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
-import com.watabou.utils.Random;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class BlackWorm extends Mob {
+public class Kunckles extends MeleeWeapon {
 
 	{
-		spriteClass = BlackWormSprite.class;
-		
-		HP = HT =  8 + (Dungeon.depth*2);
+		image = ItemSpriteSheet.WORN_SHORTSWORD;
+		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSoundPitch = 1.1f;
 
-		EXP = 1;
-		
-		maxLvl = 1;
+		tier = 1;
 
-		defenseSkill = 6;
+		DLY = 0.5f; //2x speed
+
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
-
-
-	@Override
-	public int damageRoll() { return Random.NormalIntRange( 2, 3 +Dungeon.depth / 2 ); }
-
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange( 0, 3);
+	public int max(int lvl) {
+		return  1+lvl +     //10 base, down from 20
+				6+lvl;  //+2 per level, down from +4
 	}
 
 }

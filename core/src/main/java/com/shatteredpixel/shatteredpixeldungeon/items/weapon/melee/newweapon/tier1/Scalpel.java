@@ -19,46 +19,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RockBugSprite;
-import com.watabou.utils.Bundle;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
-public class RockBug extends Mob {
+public class Scalpel extends MeleeWeapon {
 
 	{
-		spriteClass = RockBugSprite.class;
+		image = ItemSpriteSheet.WORN_SHORTSWORD;
+		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSoundPitch = 1.1f;
+
+		tier = 1;
 		
-		HP = HT = 14;
-		EXP = 1;
-		
-		maxLvl = 6;
-		loot = Generator.Category.ARMOR;
-		lootChance = 0.18f; //by default, see rollToDropLoot()
-		defenseSkill = 6;
+		bones = false;
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
-
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 3 );
-	}
-
-	
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(1, 2);
+	public int proc( Char attacker, Char defender, int damage ) {
+		if (Random.Int(2) == 0) {
+			Buff.affect(defender, Bleeding.class).set(Math.round(damage * 0.4f));
+		}
+			return super.proc(attacker, defender, damage);
 	}
 
 }

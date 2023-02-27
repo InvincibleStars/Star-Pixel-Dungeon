@@ -52,43 +52,36 @@ public class Star_v0_1_X_Changes {
 		changes.addButton( new ChangeButton(Icons.get(Icons.STAR), "作者",
 				"总而言之，这个地牢还是开始更新了，尽管玩法可能会与之前大相径庭\n" +
 				"我会尽量在我的能力范围内做一些改动，尽管这可能会导致与常规地牢的玩法大相径庭\n"+
+				"地牢数据可能会极端不均衡，非常抱歉\n"+
 				""));
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "楼层调整",
-			"_-_ 移除了BOSS层，原BOSS层被替换为了普通房间\n" +
-				"_-_ 因为25层的一些原因，地牢层数现在调整至24层\n" +
-				"_-_ 在每层的开始位置都会生成一个补给箱，打开后可以获得随机药水/卷轴"));
+		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "楼层",
+			"_-_ 移除了BOSS层\n" +
+				"_-_ 1层现在有商店了\n" +
+				"_-_ 每层的开始位置会生成一个补给箱"));
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.BUFFS), "数据调整",
-				"_-_ 固定生成调整，从此以后玩家每层只会获得一个强化符文以及2瓶力量药水\n" +
-				"_-_ 玩家的初始力量调整为0，同时武器和护甲的力量需求也与英雄的初始力量进行的同步\n" +
-				"_-_ 玩家和生物的攻击能力调整为10点，闪避能力调整至8点。_此后，若生物介绍没有额外说明，生物和玩家的攻防能力将不再额外更改_\n" +
-				"_-_ 提高了伏击造成额外伤害的武器的伏击加成，现在使用这类武器进行伏击的伤害将会提升的更加明显\n" +
-				"_-_ 露珠瓶现在只需要10点露珠即可恢复全部的生命值，不过装满后再次捡取露珠其治疗量会变为原本的1/2"));
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GOLD, null), "生成",
+				"_-_ 强化符文的生成调整\n" +
+				"_-_ 玩家的初始力量调整为0，武器和护甲的力量需求同步\n" +
+				"_-_ 玩家和生物的攻击能力调整至固定值\n"));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.TOMAHAWK, null), "投掷武器调整",
-				"_-_ 投掷武器现在也会带有等级和附魔效果，不过不会携带诅咒\n" +
-				"_-_ 效果类投掷武器的效果时常将会提高，投掷锤和原力方石现在命中敌人后会产生晕眩\n" +
-				"_-_ 涂药飞镖现在拥有3次使用次数，同时基于玩家的力量属性造成伤害\n" +
-				"_-_ 商店现在会出售更多的投掷武器"));
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.ARMOR_HOLDER, null), "护甲",
+				"_-_ 护甲不再生成\n"+
+				"_-_ 初始护甲替换为英雄护甲\n"+
+				"_-_ 护甲的成长得到了提高"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_AMBER, null), "治疗药水",
-				"_-_ 急救制剂在使用后的第一回合回复量由总回复量的25%降低为总回复量的15%，并增加2点回复量\n" +
-						"_-_ 急救制剂现在会在使用者使用时给予一个等同于玩家最大生命的魔法护盾"));
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_HOLDER, null), "药水",
+				"_-_ 急救制剂使用会获得最大生命的魔法护盾\n" +
+						"_-_ 火焰存在时间变为5回合\n" +
+						"_-_ 毒气存在时间延长50%\n"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GOLD, null), "商店调整",
-				"_-_ 商店售价调整，售卖价格调整为(物品价格x2+((楼层数/5)+50)金币)" +
-						"_-_ 玩家获得金币的数量改为(当前楼层数x3 - 当前楼层数x5 +(0-50))金币\n\n" +
-						"_-_ 商店从这个版本开始可以出售合剂以及秘卷了，但二者的数量和不会超过3个\n" +
-						"_-_ 商店有1/4概率生成两个十字架，小包口粮有1/4几率被替换成常规口粮"));
+		changes.addButton( new ChangeButton(Icons.get(Icons.BUFFS), "升级",
+				"_-_ 物品在+5后不能继续升级)\n" +
+						"_-_ 投掷武器在第一次升级的时候会错误地变成+2，不过数据不变\n"+
+						"_-_ 武器/投掷武器升级会获得附魔，不过存在附魔时无法覆盖"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AGATE, null), "戒指调整",
-				"_-_ 戒指的直接可用性得到了极大的提高，通常投入一次升级就可以取得显著的提升效果\n" +
-						"_-_ 然而要注意的是，地牢的强化符文数量是有限的_(详情请查看左栏“数据调整”)_"));
-
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_BERKANAN, null), "强化调整",
-				"_-_ 从该版本开始，每次强化都会给予玩家升级的武器/护甲一条附魔属性\n" +
-						"_-_ 强化后的装备会有十分明显的效果提升，只不过每件装备的升级次数是有限的"));
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AGATE, null), "戒指",
+				"_-_ 戒指的升级收益得到了调整"));
 
 	}
 	
@@ -98,9 +91,24 @@ public class Star_v0_1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_AMBER, null), "枪械",
-				"_-_ 枪械作为地牢中强大的远程武器，本身需要子弹来装填，你可以在投掷武器房间内找到子弹，也可以在商店购买弹药\n" +
-				"_-_ 枪械类在开火的时候需要装填"));
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_NONE, null), "原初戒指",
+				"_-_ 初始携带的物品，可以通过嬗变转换成其他戒指"));
+
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.UPDATE_STONE, null), "强化晶体",
+				"_-_ 用于炼金釜合成的小玩意\n"));
+
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.AMMO, null), "枪械/子弹",
+				"_-_ 枪械作为地牢中强大的远程武器，本身需要子弹来装填，你可以在投掷武器房间内找到子弹，也可以在商店购买弹药"));
+
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_DUST, null), "合成",
+				"_-_ 加入了几个新的合成配方"));
+
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER, null), "武器",
+				"_-_ 更多的新武器\n"+
+				"_-_ 更多的投掷武器"));
+
+
+
 
 	}
 	

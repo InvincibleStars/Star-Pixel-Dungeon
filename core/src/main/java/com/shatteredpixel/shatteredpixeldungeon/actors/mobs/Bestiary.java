@@ -21,6 +21,16 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.BlackWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.KillRock;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.RockBug;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.RockBug2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.Sand;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandCrab;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandWorm2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Gnoll;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.GnollThrow;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;

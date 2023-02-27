@@ -19,26 +19,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
+package com.shatteredpixel.shatteredpixeldungeon.items.newitem.dust;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Spike extends MeleeWeapon {
-
+public class GreenDust extends Item {
+	
 	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
-
-		tier = 1;
-
+		image = ItemSpriteSheet.GREEN_DUST;
+		
+		stackable = true;
+		unique = true;
 	}
-
+	
 	@Override
-	public int max(int lvl) {
-		return  Math.round(2.5f*(tier*1)) +     //10 base, down from 20
-				lvl*Math.round(0.5f*(tier*1));  //+2 per level, down from +4
+	public boolean isUpgradable() {
+		return false;
 	}
-
+	
+	@Override
+	public boolean isIdentified() {
+		return true;
+	}
 }

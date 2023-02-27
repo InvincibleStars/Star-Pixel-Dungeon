@@ -730,7 +730,7 @@ public class Armor extends EquipableItem {
 	@Override
 	public boolean isUpgradable() {
 		super.level();
-		if (level()>=2){
+		if (level()>=5){
 			return false;
 		}else{
 			return true;

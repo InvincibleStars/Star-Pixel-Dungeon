@@ -59,6 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.stone.UpdateStone;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
@@ -196,6 +197,10 @@ public abstract class Level implements Bundlable {
 			}
 			if (Dungeon.souNeeded()) {
 				addItemToSpawn( new ScrollOfUpgrade() );
+				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
+			}
+			if (Dungeon.updNeeded()) {
+				addItemToSpawn( new UpdateStone() );
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
 			}
 			if (Dungeon.asNeeded()) {

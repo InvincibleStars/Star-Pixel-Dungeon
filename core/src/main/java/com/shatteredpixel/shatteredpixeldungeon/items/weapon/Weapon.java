@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Displacing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Exhausting;
@@ -52,8 +53,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projec
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -470,10 +473,42 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public boolean isUpgradable() {
 		super.level();
-		if (level()>=2){
+		if (level()>=5){
 		return false;
 	}else{
 		return true;
+		}
+	}
+
+	public static class PlaceHolder extends Weapon {
+
+		{
+			image = ItemSpriteSheet.WEAPON_HOLDER;
+		}
+
+		@Override //介绍
+		public String info() {
+			return ( Messages.get(Weapon.class, "2") );
+		}
+
+		@Override //名字
+		public String name() {
+			return ( Messages.get(Weapon.class, "1") );
+		}
+
+		@Override
+		public int STRReq(int lvl) {
+			return 0;
+		}
+
+		@Override
+		public int min(int lvl) {
+			return 0;
+		}
+
+		@Override
+		public int max(int lvl) {
+			return 0;
 		}
 	}
 

@@ -91,6 +91,8 @@ public class Dungeon {
 		STRENGTH_POTIONS,
 		UPGRADE_SCROLLS,
 		ARCANE_STYLI,
+		UPDATE_STONE,
+
 
 		//Health potion sources
 		//enemies
@@ -402,6 +404,17 @@ public class Dungeon {
 		} else {
 			souLeftThisSet = 1 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 1);
 		}
+		if (souLeftThisSet <= 0) return false;
+
+		int floorThisSet = (depth % 5);
+		//chance is floors left / scrolls left
+		return Random.Int(5 - floorThisSet) < souLeftThisSet;
+	}
+
+	public static boolean updNeeded() {
+		int souLeftThisSet;
+		//3 SOU each floor set, 1.5 (rounded) on forbidden runes challenge
+			souLeftThisSet = 3 - (LimitedDrops.UPDATE_STONE.count - (depth / 5) * 3);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);

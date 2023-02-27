@@ -19,26 +19,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
+package com.shatteredpixel.shatteredpixeldungeon.items.newitem;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Brick extends MeleeWeapon {
-
+public class A extends Item {
+	
 	{
-		image = ItemSpriteSheet.SAI;
-		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 1.3f;
-
-		tier = 3;
-		DLY = 1.75f; //2x speed
+		image = ItemSpriteSheet.GREEN_DUST;
+		
+		stackable = true;
+		unique = true;
 	}
-
+	
 	@Override
-	public int max(int lvl) {
-		return  Math.round(3f*(tier+1)) +     //10 base, down from 20
-				lvl*Math.round(4.5f*(tier+1));  //+2 per level, down from +4
+	public boolean isUpgradable() {
+		return false;
 	}
-
+	
+	@Override
+	public boolean isIdentified() {
+		return true;
+	}
 }

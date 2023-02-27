@@ -167,18 +167,24 @@ public class ShopRoom extends SpecialRoom {
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
 			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
 			itemsToSpawn.add( new LeatherArmor().identify() );
+			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
+			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
 			break;
 			
 		case 11:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[2]);
 			itemsToSpawn.add( Generator.random(Generator.misTiers[2]).quantity(2).identify() );
 			itemsToSpawn.add( new MailArmor().identify() );
+			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
+			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
 			break;
 			
 		case 16:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[3]);
 			itemsToSpawn.add( Generator.random(Generator.misTiers[3]).quantity(2).identify() );
 			itemsToSpawn.add( new ScaleArmor().identify() );
+			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
+			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
 			break;
 
 		case 20: case 21:
@@ -188,6 +194,8 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
+				itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
+				itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
 			break;
 		}
 		w.enchant(null);
@@ -204,21 +212,39 @@ public class ShopRoom extends SpecialRoom {
 
 
 		itemsToSpawn.add( new PotionOfHealing() );
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
 
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.WAND ) );
-
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
-
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
 
 		itemsToSpawn.add( new ScrollOfIdentify() );
 		itemsToSpawn.add( new ScrollOfRemoveCurse() );
 		itemsToSpawn.add( new ScrollOfMagicMapping() );
+
+		//生成6件物品（药水或者卷轴）
+
+		for (int i=0; i < 2; i++)
+			itemsToSpawn.add( Random.Int(2) == 0 ?
+					Generator.randomUsingDefaults( Generator.Category.POTION ) :
+					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
+
+		for (int i=0; i < 2; i++)
+			itemsToSpawn.add( Random.Int(2) == 0 ?
+					Generator.randomUsingDefaults( Generator.Category.POTION ) :
+					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
+
+		for (int i=0; i < 2; i++)
+			itemsToSpawn.add( Random.Int(2) == 0 ?
+					Generator.randomUsingDefaults( Generator.Category.POTION ) :
+					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
+
+		for (int i=0; i < 2; i++)
+			itemsToSpawn.add( Random.Int(2) == 0 ?
+					Generator.randomUsingDefaults( Generator.Category.POTION ) :
+					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
+
+		for (int i=0; i < 2; i++)
+			itemsToSpawn.add( Random.Int(2) == 0 ?
+					Generator.randomUsingDefaults( Generator.Category.POTION ) :
+					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
 
 		for (int i=0; i < 2; i++)
 			itemsToSpawn.add( Random.Int(2) == 0 ?
@@ -266,7 +292,7 @@ public class ShopRoom extends SpecialRoom {
 				hourglass.sandBags ++;
 			}
 		}
-
+		/*
 		Item rare;
 		switch (Random.Int(10)){
 			case 0:
@@ -286,6 +312,7 @@ public class ShopRoom extends SpecialRoom {
 		rare.cursed = false;
 		rare.cursedKnown = true;
 		itemsToSpawn.add( rare );
+		*/
 
 		//hard limit is 63 items + 1 shopkeeper, as shops can't be bigger than 8x8=64 internally
 		if (itemsToSpawn.size() > 63)

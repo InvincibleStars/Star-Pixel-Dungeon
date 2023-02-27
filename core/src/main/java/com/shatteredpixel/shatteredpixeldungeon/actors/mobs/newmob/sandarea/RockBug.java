@@ -19,29 +19,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RockBugSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class KillRock extends Mob {
+public class RockBug extends Mob {
 
 	{
-		spriteClass = RatSprite.class;
+		spriteClass = RockBugSprite.class;
 		
-		HP = HT = 28;
-		EXP =3;
-		baseSpeed = 2f;
-		loot = Generator.Category.SEED;
-		lootChance = 0.5f;
+		HP = HT = 14;
+		EXP = 1;
 		
-		maxLvl = 10;
-		defenseSkill = 6;
+		maxLvl = 6;
+		loot = Generator.Category.ARMOR;
+		lootChance = 0.18f; //by default, see rollToDropLoot()
+		defenseSkill = 3;
 	}
 
 	@Override
@@ -49,15 +50,16 @@ public class KillRock extends Mob {
 		return 10;
 	}
 
+
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 8 );
+		return Random.NormalIntRange( 1, 3 );
 	}
 
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 4);
+		return Random.NormalIntRange(1, 2);
 	}
 
 }

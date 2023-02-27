@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -45,10 +46,13 @@ public class RingOfElements extends Ring {
 	}
 
 	public String statsInfo() {
+		level();
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (1f - Math.pow(1.25f, soloBuffedBonus()))));
+			//return Messages.get(this, "stats", new DecimalFormat("#.##").format(15f * (level()))); // - soloBuffedBonus())));
+			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (1f - Math.pow(0.775f, soloBuffedBonus()))));
 		} else {
-			return Messages.get(this, "typical_stats", new DecimalFormat("#.##").format(100f * (1f - Math.pow(1.25f, soloBuffedBonus()))));
+			return Messages.get(this, "typical_stats", new DecimalFormat("#.##").format(100f * (1f - Math.pow(0.775f, soloBuffedBonus()))));
+			//return Messages.get(this, "typical_stats", new DecimalFormat("#.##").format(100f * (1f - Math.pow(0.825f, soloBuffedBonus()))));
 		}
 	}
 	
@@ -72,16 +76,16 @@ public class RingOfElements extends Ring {
 
 		RESISTS.addAll( AntiMagic.RESISTS );
 	}
-	
+
 	public static float resist( Char target, Class effect ){
 		if (getBuffedBonus(target, Resistance.class) == 0) return 1f;
-		
+
 		for (Class c : RESISTS){
 			if (c.isAssignableFrom(effect)){
-				return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class));
+				return (float)Math.pow(0.775, getBuffedBonus(target, Resistance.class));
+				//return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class));
 			}
 		}
-		
 		return 1f;
 	}
 	

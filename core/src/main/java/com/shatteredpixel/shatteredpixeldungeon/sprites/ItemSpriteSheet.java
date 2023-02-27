@@ -236,7 +236,6 @@ public class ItemSpriteSheet {
 	public static final int ROUND_SHIELD    = WEP_TIER3+3;
 	public static final int SAI             = WEP_TIER3+4;
 	public static final int WHIP            = WEP_TIER3+5;
-	public static final int A1            = WEP_TIER3+6;
 
 	//T3
 	static{
@@ -246,7 +245,6 @@ public class ItemSpriteSheet {
 		assignItemRect(ROUND_SHIELD,    16, 16);
 		assignItemRect(SAI,             16, 16);
 		assignItemRect(WHIP,            14, 14);
-		assignItemRect(A1,            16, 16);
 	}
 
 	private static final int WEP_TIER4      =                               xy(9, 8);   //8 slots
@@ -343,14 +341,9 @@ public class ItemSpriteSheet {
 	public static final int HOLY_DART       = TIPPED_DARTS+9;
 	public static final int DISPLACING_DART = TIPPED_DARTS+10;
 	public static final int BLINDING_DART   = TIPPED_DARTS+11;
-	public static final int AMMO   = TIPPED_DARTS+12;
-	public static final int AMMO_MINI   = TIPPED_DARTS+13;
 	static {
 		for (int i = TIPPED_DARTS; i < TIPPED_DARTS+13; i++)
 			assignItemRect(i, 15, 15);
-			assignItemRect(AMMO, 8, 8);
-			assignItemRect(AMMO_MINI, 2, 2);
-			//assignItemRect(AMMO_FIRE, 3, 3);33333333333
 	}
 
 	private static final int ARMOR          =                               xy(1, 12);  //16 slots
@@ -409,9 +402,11 @@ public class ItemSpriteSheet {
 	public static final int RING_QUARTZ     = RINGS+9;
 	public static final int RING_AGATE      = RINGS+10;
 	public static final int RING_DIAMOND    = RINGS+11;
+	public static final int RING_NONE    = RINGS+12;
 	static {
 		for (int i = RINGS; i < RINGS+16; i++)
 			assignItemRect(i, 8, 10);
+			assignItemRect(RING_NONE,    8, 8);
 	}
 
 	private static final int ARTIFACTS          =                            xy(1, 16);  //32 slots
@@ -578,8 +573,9 @@ public class ItemSpriteSheet {
 	public static final int SEED_STARFLOWER     = SEEDS+9;
 	public static final int SEED_FADELEAF       = SEEDS+10;
 	public static final int SEED_BLINDWEED      = SEEDS+11;
+
 	static{
-		for (int i = SEEDS; i < SEEDS+16; i++)
+		for (int i = SEEDS; i < SEEDS+11; i++)
 			assignItemRect(i, 10, 10);
 	}
 
@@ -742,6 +738,7 @@ public class ItemSpriteSheet {
 		public static final int RING_TENACITY   = RINGS+9;
 		public static final int RING_WEALTH     = RINGS+10;
 		public static final int RING_UNUSED     = RINGS+11;
+
 		static {
 			assignIconRect( RING_ACCURACY,      7, 7 );
 			assignIconRect( RING_ELEMENTS,      7, 7 );
@@ -871,9 +868,56 @@ public class ItemSpriteSheet {
 			assignIconRect( POTION_CLEANSE,     7, 7 );
 			assignIconRect( POTION_DIVINE,      7, 7 );
 		}
-
 		                                                                                //16 free slots
-
 	}
+	//新物品
+	private static final int AMMOS       =                                   xy(1, 32);
+	public static final int AMMO   = AMMOS+0;
+	public static final int AMMO_MINI    = AMMOS+1;
+	static{
+		assignItemRect(AMMO,   6, 7);
+		assignItemRect(AMMO_MINI,    2, 2);
+	}
+
+	private static final int COLOR_STONE       =                                   xy(1, 33);
+	public static final int UPDATE_STONE   = COLOR_STONE+0;
+	static{
+		assignItemRect(UPDATE_STONE,   6, 8);
+	}
+
+	private static final int COLOR_DUST       =                                   xy(1, 34);
+	public static final int GREEN_DUST   = COLOR_DUST+0;
+	public static final int BLUE_DUST    = COLOR_DUST+1;
+	static{
+		assignItemRect(GREEN_DUST,   9, 9);
+		assignItemRect(BLUE_DUST,    9, 9);
+	}
+	private static final int NEW_WEAPON_T1       =                                   xy(1, 35);
+	public static final int IROM_LEAVE   = COLOR_DUST+0;
+	static{
+		assignItemRect(GREEN_DUST,   0, 0);
+	}
+	rivate static final int NEW_WEAPON_T2       =                                   xy(1, 35);
+	public static final int IROM_LEAVE   = COLOR_DUST+0;
+	static{
+		assignItemRect(GREEN_DUST,   0, 0);
+	}
+	rivate static final int NEW_WEAPON_T3       =                                   xy(1, 35);
+	public static final int IROM_LEAVE   = COLOR_DUST+0;
+	static{
+		assignItemRect(GREEN_DUST,   0, 0);
+	}
+	rivate static final int NEW_WEAPON_T4       =                                   xy(1, 35);
+	public static final int IROM_LEAVE   = COLOR_DUST+0;
+	static{
+		assignItemRect(GREEN_DUST,   0, 0);
+	}
+	rivate static final int NEW_WEAPON_T5       =                                   xy(1, 35);
+	public static final int IROM_LEAVE   = COLOR_DUST+0;
+	static{
+		assignItemRect(GREEN_DUST,   0, 0);
+	}
+
+
 
 }

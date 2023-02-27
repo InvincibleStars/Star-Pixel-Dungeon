@@ -19,40 +19,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RockBugSprite;
 import com.watabou.utils.Random;
 
-public class Gnoll extends Mob {
-	
+public class RockBug2 extends Mob {
+
 	{
-		spriteClass = GnollSprite.class;
+		spriteClass = RockBugSprite.class;
 		
-		HP = HT = 12;
-		defenseSkill = 4;
-		
+		HP = HT = 14;
 		EXP = 2;
-		maxLvl = 8;
+		baseSpeed = 0.75f;
 		
-		loot = Gold.class;
-		lootChance = 0.5f;
+		maxLvl = 6;
+		loot = Generator.Category.ARMOR;
+		lootChance = 0.22f; //by default, see rollToDropLoot()
+		defenseSkill = 3;
 	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 6 );
-	}
-	
+
 	@Override
 	public int attackSkill( Char target ) {
 		return 10;
 	}
+
+
+	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange( 1, 3 );
+	}
+
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(1, 5);
 	}
+
 }

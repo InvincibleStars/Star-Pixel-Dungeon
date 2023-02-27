@@ -206,19 +206,16 @@ public class Ring extends KindofMisc {
 	
 	@Override
 	public Item random() {
-		//+1: 50.0%
-		//+2: 50.0%
+		//+0: 75.0%
+		//+1: 25.0%
 		int n = 0;
-		if (Random.Float() >= 0f) {
+		if (Random.Float() >= 0.75f) {
 			n++;
-			if (Random.Float() >= 0.5f){
-				n++;
-			}
 		}
 		level(n);
 		
-		//30% chance to be cursed
-		if (Random.Float() < 0.3f) {
+		//25% chance to be cursed
+		if (Random.Float() < 0.25f) {
 			cursed = true;
 		}
 		
@@ -350,7 +347,7 @@ public class Ring extends KindofMisc {
 	@Override
 	public boolean isUpgradable() {
 		super.level();
-		if (level()>=2){
+		if (level()>=5){
 			return false;
 		}else{
 			return true;

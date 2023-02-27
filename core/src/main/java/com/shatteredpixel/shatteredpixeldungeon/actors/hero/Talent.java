@@ -79,6 +79,8 @@ import java.util.LinkedHashMap;
 
 public enum Talent {
 
+	//天赋[天赋名字(天赋图标位置,天赋最大等级，未设置最大等级的取 Line:193)]
+
 	//Warrior T1
 	HEARTY_MEAL(0,4), ARMSMASTERS_INTUITION(1), TEST_SUBJECT(2), IRON_WILL(3,4),
 	//Warrior T2
@@ -184,13 +186,12 @@ public enum Talent {
 	int icon;
 	int maxPoints;
 
-	// tiers 1/2/3/4 start at levels 2/7/13/21
-	public static int[] tierLevelThresholds = new int[]{0, 2, 8, 16, 0, 0};  //天赋点数的设置
-	//public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
+	// 设置0/1/2/3/4级天赋在0/2/8/16/0/0等级时可以被学习，学习点数取决于下一个数字的数值
+	public static int[] tierLevelThresholds = new int[]{0, 2, 8, 16, 0, 0};  //天赋点数（T1-T4=6/8/0/0点）（第三层不允许被学习）
 
 	Talent( int icon ){
 		this(icon, 4);
-	} //
+	} //默认的单天赋等级/可学习次数
 
 	Talent( int icon, int maxPoints ){
 		this.icon = icon;
@@ -489,16 +490,16 @@ public enum Talent {
 		//tier 1
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, HEARTY_MEAL, IRON_WILL,DURABLE_TIPS);
+				Collections.addAll(tierTalents, HEROIC_ENERGY, HEARTY_MEAL, IRON_WILL,DURABLE_TIPS);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, ENERGIZING_MEAL,BACKUP_BARRIER,WAND_PRESERVATION);
+				Collections.addAll(tierTalents, HEROIC_ENERGY, ENERGIZING_MEAL,BACKUP_BARRIER,WAND_PRESERVATION);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, LIGHT_CLOAK, WIDE_SEARCH, DURABLE_TIPS);
+				Collections.addAll(tierTalents, HEROIC_ENERGY, LIGHT_CLOAK, WIDE_SEARCH, DURABLE_TIPS);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, SEER_SHOT,INVIGORATING_MEAL,DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents, HEROIC_ENERGY, SEER_SHOT,INVIGORATING_MEAL,DURABLE_PROJECTILES);
 				break;
 		}
 		for (Talent talent : tierTalents){

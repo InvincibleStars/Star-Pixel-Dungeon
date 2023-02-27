@@ -19,38 +19,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.potions;
+package com.shatteredpixel.shatteredpixeldungeon.items.newitem.dust;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.noosa.audio.Sample;
 
-public class PotionOfToxicGas extends Potion {
-
+public class BlueDust extends Item {
+	
 	{
-		icon = ItemSpriteSheet.Icons.POTION_TOXICGAS;
-	}
-
-	@Override
-	public void shatter( int cell ) {
-
-		if (Dungeon.level.heroFOV[cell]) {
-			identify();
-
-			splash( cell );
-			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
-			Sample.INSTANCE.play( Assets.Sounds.GAS );
-		}
-
-		GameScene.add( Blob.seed( cell, 1500, ToxicGas.class ) );
+		image = ItemSpriteSheet.BLUE_DUST;
+		
+		stackable = true;
+		unique = true;
 	}
 	
 	@Override
-	public int value() {
-		return isKnown() ? 30 * quantity : super.value();
+	public boolean isUpgradable() {
+		return false;
+	}
+	
+	@Override
+	public boolean isIdentified() {
+		return true;
 	}
 }

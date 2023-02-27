@@ -29,15 +29,10 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Ammo;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -78,7 +73,7 @@ public class CrossBow extends Weapon {
 		ArrayList<String> actions = super.actions(hero);
 		//隐藏装备动作（无法被装备）
 		actions.remove(AC_EQUIP);
-		//增加设计动作
+		//增加射击动作
 		actions.add(AC_SHOOT);
 		//actions.add(AC_LOAD);
 		return actions;
@@ -87,10 +82,8 @@ public class CrossBow extends Weapon {
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
-		//调用声名，然后为其指定类型
+		//调用声名，然后为其指定类型(Ammo.class)
 		this.AmmoItem = hero.belongings.getItem(Ammo.class);
-		//this.AmmoItem = item;
-
 		//执行动作，进入判定轮
 		if (action.equals(AC_SHOOT)) {
 			//判断两个条件是否都成立
@@ -118,6 +111,12 @@ public class CrossBow extends Weapon {
 				GameScene.selectCell(shooter);
 				return;
 			} else if (bowammo > 1) {
+				bowammo = 1;
+				GLog.p(Messages.get(this, "addbowammo"));
+				curUser = hero;
+				curItem = this;
+				return;
+			} else if (bowammo < 0) {
 				bowammo = 1;
 				GLog.p(Messages.get(this, "addbowammo"));
 				curUser = hero;
@@ -293,16 +292,16 @@ public class CrossBow extends Weapon {
 		return speed;
 	}
 
-	@Override
+	@Override //等级
 	public int level() {
 		return 0;
 	}
 
-	@Override
+	@Override //无法被升级
 	public boolean isUpgradable() {
 		return false;
 	}
-
+	//抛射物图像
 	public SpiritAmmo knockArrow() {
 		return new SpiritAmmo();
 	}
@@ -481,19 +480,19 @@ public class CrossBow extends Weapon {
 	//将整数数据转化为字符串
 	private static final String BOWAMMO/*全大写*/ = "bowammo"/*全小写*/;
 
-	@Override //将变量转换为字符串后储存
+	@Override //将变量转换为字符串后储存（防止重置）
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(BOWAMMO, bowammo);
 	}
 
-	@Override //取出
+	@Override //读取游戏后将其取出
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		bowammo = bundle.getInt(BOWAMMO);
 	}
 
-	@Override
+	@Override //物品价值（参与价值和售价运算）
 	public int value() {
 		return 150;
 	}

@@ -19,28 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
+package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Kunckles extends MeleeWeapon {
+public class HeroArmor extends ClassArmor {
 
+	
 	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
-
-		tier = 1;
-
-		DLY = 0.5f; //2x speed
-
+		image = ItemSpriteSheet.ARMOR_HUNTRESS;
+		tier=1;
 	}
 
-	@Override
-	public int max(int lvl) {
-		return  1+lvl +     //10 base, down from 20
-				6+lvl;  //+2 per level, down from +4
-	}
+	//定义护甲力量需求=0
+	public int STRReq(int lvl) { return 0; }
 
 }

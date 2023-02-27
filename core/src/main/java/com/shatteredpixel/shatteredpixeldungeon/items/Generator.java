@@ -69,6 +69,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.RingOfNone;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
@@ -114,7 +115,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BattleAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Chain;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Chain;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk;
@@ -445,8 +446,9 @@ public class Generator {
 					RingOfMight.class,
 					RingOfSharpshooting.class,
 					RingOfTenacity.class,
-					RingOfWealth.class};
-			RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+					RingOfWealth.class,
+					RingOfNone.class};
+			RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 };
 			
 			ARTIFACT.classes = new Class<?>[]{
 					CapeOfThorns.class,
@@ -463,7 +465,7 @@ public class Generator {
 					LloydsBeacon.class,
 					EtherealChains.class
 			};
-			ARTIFACT.defaultProbs = new float[]{ 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1};
+			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
 		}
 	}

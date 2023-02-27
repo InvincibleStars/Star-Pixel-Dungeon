@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -163,9 +164,14 @@ public abstract class Scroll extends Item {
 			
 			if (hero.buff(MagicImmune.class) != null){
 				GLog.w( Messages.get(this, "no_magic") );
-			} else if (hero.buff( Blindness.class ) != null) {
+			}
+			/*
+			//ban掉了失明对于符文的影响
+			else if (hero.buff( Blindness.class ) != null) {
+				Buff.detach( hero, Blindness.class );
 				GLog.w( Messages.get(this, "blinded") );
-			} else if (hero.buff(UnstableSpellbook.bookRecharge.class) != null
+			*/
+			else if (hero.buff(UnstableSpellbook.bookRecharge.class) != null
 					&& hero.buff(UnstableSpellbook.bookRecharge.class).isCursed()
 					&& !(this instanceof ScrollOfRemoveCurse || this instanceof ScrollOfAntiMagic)){
 				GLog.n( Messages.get(this, "cursed") );

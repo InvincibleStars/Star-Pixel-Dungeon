@@ -19,33 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
+package com.shatteredpixel.shatteredpixeldungeon.items.newitem;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.Random;
 
-public class Scalpel extends MeleeWeapon {
+public class RingOfNone extends Ring {
 
+	//{ icon = ItemSpriteSheet.Icons.RING_UNUSED; }
 	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
-
-		tier = 1;
-		
-		bones = false;
+		image = ItemSpriteSheet.RING_NONE;
+		icon = ItemSpriteSheet.Icons.RING_UNUSED;
 	}
-
-	@Override
-	public int proc( Char attacker, Char defender, int damage ) {
-		if (Random.Int(2) == 0) {
-			Buff.affect(defender, Bleeding.class).set(Math.round(damage * 0.4f));
-		}
-			return super.proc(attacker, defender, damage);
-	}
-
 }
