@@ -19,11 +19,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1;
 
-public class Speed extends FlavourBuff {
-	
-	public static final float DURATION = 10f;
-	public static final float A1 = 1f;
-	
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+
+public class Knuckle extends MeleeWeapon {
+
+	{
+		image = ItemSpriteSheet.KUNCKLES;
+		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSoundPitch = 1.1f;
+		//阶数
+		tier = 1;
+		//距离
+		RCH=1;
+		//精确
+		//在Hero.canSurpriseAttack里设定不能偷袭
+		ACC = 1f; //0.8x accuracy
+		//攻击速度（2倍）
+		DLY=0.5f;
+
+	}
+
+	@Override
+	public int max(int lvl) {
+		return  1+lvl +
+				6+lvl;
+	}
+
 }

@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TorchHalo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.ShtoffBuffParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -82,7 +83,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS
+		BURNING, CUTOFFBUFF, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS
 	}
 	private int stunStates = 0;
 	
@@ -98,6 +99,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected PosTweener motion;
 	
 	protected Emitter burning;
+	protected Emitter cutoffbuff;
 	protected Emitter chilled;
 	protected Emitter marked;
 	protected Emitter levitation;
@@ -349,7 +351,14 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		switch (state) {
 			case BURNING:
 				burning = emitter();
-				burning.pour( FlameParticle.FACTORY, 0.06f );
+				burning.pour( FlameParticle.FACTORY, 0.06f );//0.06
+				if (visible) {
+					Sample.INSTANCE.play( Assets.Sounds.BURNING );
+				}
+				break;
+			case CUTOFFBUFF:
+				cutoffbuff = emitter();
+				cutoffbuff.pour(ShtoffBuffParticle.FACTORY, 0.06f );//0.06
 				if (visible) {
 					Sample.INSTANCE.play( Assets.Sounds.BURNING );
 				}
@@ -408,6 +417,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (burning != null) {
 					burning.on = false;
 					burning = null;
+				}
+				break;
+			case CUTOFFBUFF:
+				if (cutoffbuff != null) {
+					cutoffbuff.on = false;
+					cutoffbuff = null;
 				}
 				break;
 			case LEVITATING:
@@ -512,6 +527,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		
 		if (burning != null) {
 			burning.visible = visible;
+		}
+		if (cutoffbuff != null) {
+			cutoffbuff.visible = visible;
 		}
 		if (levitation != null) {
 			levitation.visible = visible;

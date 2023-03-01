@@ -32,13 +32,18 @@ import com.watabou.utils.Random;
 public class Scalpel extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
+		image = ItemSpriteSheet.SCALPEL;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.1f;
-
+		//阶数
 		tier = 1;
-		
-		bones = false;
+		//距离
+		RCH=1;
+		//精确
+		//在Hero.canSurpriseAttack里设定不能偷袭
+		ACC = 0.75f; //0.8x accuracy
+		//攻击速度（2倍）
+		DLY=0.3f;
 	}
 
 	@Override

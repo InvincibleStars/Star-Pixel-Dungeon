@@ -163,7 +163,8 @@ public class Burning extends Buff implements Hero.Doom {
 		
 		return true;
 	}
-	
+
+	//重新燃烧逻辑
 	public void reignite( Char ch ) {
 		reignite( ch, DURATION );
 	}
@@ -171,17 +172,20 @@ public class Burning extends Buff implements Hero.Doom {
 	public void reignite( Char ch, float duration ) {
 		left = duration;
 	}
-	
+
+	//图标
 	@Override
 	public int icon() {
 		return BuffIndicator.FIRE;
 	}
 
+	//图标淡入百分比
 	@Override
 	public float iconFadePercent() {
 		return Math.max(0, (DURATION - left) / DURATION);
 	}
 
+	//音效
 	@Override
 	public void fx(boolean on) {
 		if (on) target.sprite.add(CharSprite.State.BURNING);

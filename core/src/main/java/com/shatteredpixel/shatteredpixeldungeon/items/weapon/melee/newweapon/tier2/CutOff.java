@@ -19,29 +19,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Kunckles extends MeleeWeapon {
+public class CutOff extends MeleeWeapon {
+
 
 	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		image = ItemSpriteSheet.CUTOFF;
+		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.1f;
 
-		tier = 1;
-
-		DLY = 0.5f; //2x speed
-
+		tier = 2;
+		RCH = 1;    //lots of extra reach
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  1+lvl +     //10 base, down from 20
-				6+lvl;  //+2 per level, down from +4
+		return  3*(tier+1) +    //12 base, down from 20
+				lvl*(tier);     //+3 per level, down from +4
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage ) {
+		Buff.prolong(attacker, CutoffSpeed.class, BuffWait.T1);
+		return super.proc(attacker, defender, damage);
 	}
 
 }

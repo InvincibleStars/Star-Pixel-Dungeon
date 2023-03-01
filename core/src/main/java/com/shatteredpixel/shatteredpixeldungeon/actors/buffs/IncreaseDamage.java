@@ -21,9 +21,40 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-public class Speed extends FlavourBuff {
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+
+public class IncreaseDamage extends FlavourBuff {
 	
-	public static final float DURATION = 10f;
-	public static final float A1 = 1f;
+	public static final float DURATION = 20f;
 	
+	{
+		type = buffType.NEGATIVE;
+		announced = true;
+	}
+	
+	@Override
+	public int icon() {
+		return BuffIndicator.VULNERABLE;
+	}
+
+	@Override
+	public float iconFadePercent() {
+		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+	}
+	
+	@Override
+	public String toString() {
+		return Messages.get(this, "name");
+	}
+	
+	@Override
+	public String heroMessage() {
+		return Messages.get(this, "heromsg");
+	}
+	
+	@Override
+	public String desc() {
+		return Messages.get(this, "desc", dispTurns());
+	}
 }

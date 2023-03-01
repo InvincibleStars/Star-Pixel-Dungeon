@@ -64,10 +64,10 @@ public class WndBag extends WndTabbed {
 
 	//方格宽度
 	protected static int SLOT_WIDTH_P   = 20;
-	protected static int SLOT_WIDTH_L   = 20;
+	protected static int SLOT_WIDTH_L   = 25;//横屏
 	//方格高度
-	protected static int SLOT_HEIGHT_P	= 20;
-	protected static int SLOT_HEIGHT_L	= 20;
+	protected static int SLOT_HEIGHT_P	= 25;
+	protected static int SLOT_HEIGHT_L	= 20;//横屏
 	//方框边距
 	protected static final int SLOT_MARGIN	= 1;//1
 	//标题高度

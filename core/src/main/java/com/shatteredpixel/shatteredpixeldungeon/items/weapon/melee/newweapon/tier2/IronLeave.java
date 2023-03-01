@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class IronLeave extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.A1;
+		image = ItemSpriteSheet.IROM_LEAVE;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.1f;
 

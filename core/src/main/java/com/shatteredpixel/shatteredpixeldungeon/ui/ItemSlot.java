@@ -133,11 +133,20 @@ public class ItemSlot extends Button {
 			PixelScene.align(extra);
 		}
 
+
 		if (itemIcon != null){
 			itemIcon.x = x + width - (ItemSpriteSheet.Icons.SIZE + itemIcon.width())/2f;
 			itemIcon.y = y + (ItemSpriteSheet.Icons.SIZE - itemIcon.height)/2f;
 			PixelScene.align(itemIcon);
 		}
+		/*
+		if (itemIcon != null){
+			itemIcon.x = x + width - (ItemSpriteSheet.Icons.SIZE + itemIcon.width())/2f;
+			itemIcon.y = y + (ItemSpriteSheet.Icons.SIZE - itemIcon.height)/2f;
+			PixelScene.align(itemIcon);
+		}
+		 */
+
 		
 		if (level != null) {
 			level.x = x + (width - level.width());
