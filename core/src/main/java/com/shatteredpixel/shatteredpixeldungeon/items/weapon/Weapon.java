@@ -216,12 +216,13 @@ abstract public class Weapon extends KindOfWeapon {
 	public int STRReq(){
 		int req = STRReq(level());
 		if (masteryPotionBonus){
-			req -= 2;
+			req -= 1;
 		}
 		return req;
 	}
 
 	public abstract int STRReq(int lvl);
+
 //力量需求
 	protected static int STRReq(int tier, int lvl){
 		lvl = Math.max(0, lvl);

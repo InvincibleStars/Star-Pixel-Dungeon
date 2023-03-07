@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -46,10 +47,12 @@ public class WndInfoMob extends WndTitledMessage {
 		private RenderedTextBlock name;
 		private HealthBar health;
 		private BuffIndicator buffs;
+		//public int HT;
+		//public int HP;
 		
 		public MobTitle( Mob mob ) {
-			
-			name = PixelScene.renderTextBlock( Messages.titleCase( mob.name() ), 9 );
+			//设定标题栏需要干什么
+			name = PixelScene.renderTextBlock( Messages.titleCase( mob.name()+"-["+mob.HP+"/"+mob.HT+"]"), 7 );
 			name.hardlight( TITLE_COLOR );
 			add( name );
 			
@@ -58,7 +61,7 @@ public class WndInfoMob extends WndTitledMessage {
 
 			health = new HealthBar();
 			health.level(mob);
-			add( health );
+			//add( health );
 
 			buffs = new BuffIndicator( mob );
 			add( buffs );

@@ -97,13 +97,13 @@ public abstract class Mob extends Char {
 	public AiState WANDERING	= new Wandering();
 	public AiState FLEEING		= new Fleeing();
 	public AiState PASSIVE		= new Passive();
-	public AiState state = SLEEPING;
-	
+	//public AiState state = SLEEPING;
+	public AiState state = FLEEING;
 	public Class<? extends CharSprite> spriteClass;
 	
 	protected int target = -1;
 	
-	public int defenseSkill = 6;
+	public int defenseSkill = 3;
 
 	public int attackskill = 10;
 	
@@ -817,6 +817,7 @@ public abstract class Mob extends Char {
 	}
 	
 	public String description() {
+		//介绍尾部加入的东西
 		return Messages.get(this, "desc");
 	}
 
@@ -836,7 +837,7 @@ public abstract class Mob extends Char {
 	
 	public void yell( String str ) {
 		GLog.newLine();
-		GLog.n( "%s: \"%s\" ", Messages.titleCase(name()), str );
+		GLog.n( "%s: \"%s\"", Messages.titleCase(name()), str,HT );
 	}
 
 	//returns true when a mob sees the hero, and is currently targeting them.

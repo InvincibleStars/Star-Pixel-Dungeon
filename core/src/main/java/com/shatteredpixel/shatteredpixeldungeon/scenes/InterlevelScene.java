@@ -372,7 +372,7 @@ public class InterlevelScene extends PixelScene {
 			Mob.clearHeldAllies();
 			Dungeon.init();
 			if (noStory) {
-				Dungeon.chapters.add( WndStory.ID_SEWERS1 );
+				Dungeon.chapters.add( WndStory.ID_SAND1 );
 				noStory = false;
 			}
 			GameLog.wipe();

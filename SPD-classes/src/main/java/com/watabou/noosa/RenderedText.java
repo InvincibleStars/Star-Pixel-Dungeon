@@ -73,13 +73,13 @@ public class RenderedText extends Image {
 		this.size = size;
 		measure();
 	}
-	
+
 	private synchronized void measure(){
-		
+
 		if (Thread.currentThread().getName().equals("SHPD Actor Thread")){
 			throw new RuntimeException("Text measured from the actor thread!");
 		}
-		
+
 		if ( text == null || text.equals("") ) {
 			text = "";
 			width=height=0;
@@ -88,23 +88,31 @@ public class RenderedText extends Image {
 		} else {
 			visible = true;
 		}
-		
-		font = Game.platform.getFont(size, text, true, true);
-		
+
+		font = Game.platform.getFont(size, text, true, true, false);
+
 		if (font != null){
 			GlyphLayout glyphs = new GlyphLayout( font, text);
-			
+
 			for (char c : text.toCharArray()) {
 				BitmapFont.Glyph g = font.getData().getGlyph(c);
 				if (g == null || (g.id != c)){
-					String toException = text;
-					if (toException.length() > 30){
-						toException = toException.substring(0, 30) + "...";
+					font = Game.platform.getFont(size, text, true, true, true);
+					for (char c1 : text.toCharArray()) {
+						BitmapFont.Glyph g1 = font.getData().getGlyph(c1);
+						if (g1 == null || (g1.id != c1)){
+							String toException = text;
+							if (toException.length() > 30){
+								toException = toException.substring(0, 30) + "...";
+							}
+							font = Game.platform.getFont(size, text, true, true, false);
+							Game.reportException(new Throwable("font file " + font.toString() + " could not render " + c + " from string: " + toException));
+						}
 					}
-					Game.reportException(new Throwable("font file " + font.toString() + " could not render " + c + " from string: " + toException));
+					break;
 				}
 			}
-			
+
 			//We use the xadvance of the last glyph in some cases to fix issues
 			// with fullwidth punctuation marks in some asian scripts
 			BitmapFont.Glyph lastGlyph = font.getData().getGlyph(text.charAt(text.length()-1));
@@ -113,7 +121,7 @@ public class RenderedText extends Image {
 			} else {
 				width = glyphs.width;
 			}
-			
+
 			//this is identical to l.height in most cases, but we force this for consistency.
 			height = Math.round(size*0.75f);
 			renderedHeight = glyphs.height;
@@ -140,6 +148,7 @@ public class RenderedText extends Image {
 			TextRenderBatch.textBeingRendered = this;
 			font.draw(textRenderer, text, 0, 0);
 		}
+
 	}
 
 	//implements regular PD rendering within a libGDX batch so that our rendering logic

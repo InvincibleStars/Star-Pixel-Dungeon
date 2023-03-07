@@ -19,26 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.levels;
+package com.shatteredpixel.shatteredpixeldungeon.levels.arealevel;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Ripple;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ChillingTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ConfusionTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FlockTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GatewayTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.OozeTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ShockingTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.SummoningTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TeleportationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ToxicTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
@@ -50,7 +43,7 @@ import com.watabou.utils.ColorMath;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
-public class SewerLevel extends RegularLevel {
+public class SandAreaLevel extends RegularLevel {
 
 	{
 		color1 = 0x48763c;
@@ -117,7 +110,7 @@ public class SewerLevel extends RegularLevel {
 		return visuals;
 	}
 	
-	public static void addSewerVisuals( Level level, Group group ) {
+	public static void addSewerVisuals(Level level, Group group ) {
 		for (int i=0; i < level.length(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
 				group.add( new Sink( i ) );
@@ -129,7 +122,7 @@ public class SewerLevel extends RegularLevel {
 	public String tileName( int tile ) {
 		switch (tile) {
 			case Terrain.WATER:
-				return Messages.get(SewerLevel.class, "water_name");
+				return Messages.get(SandAreaLevel.class, "water_name");
 			default:
 				return super.tileName( tile );
 		}
@@ -139,9 +132,9 @@ public class SewerLevel extends RegularLevel {
 	public String tileDesc(int tile) {
 		switch (tile) {
 			case Terrain.EMPTY_DECO:
-				return Messages.get(SewerLevel.class, "empty_deco_desc");
+				return Messages.get(SandAreaLevel.class, "empty_deco_desc");
 			case Terrain.BOOKSHELF:
-				return Messages.get(SewerLevel.class, "bookshelf_desc");
+				return Messages.get(SandAreaLevel.class, "bookshelf_desc");
 			default:
 				return super.tileDesc( tile );
 		}

@@ -161,7 +161,8 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
 			itemsToSpawn.add( new ClothArmor().identify() );
 			itemsToSpawn.add( new CrossBow().identify() );
-			break;
+			itemsToSpawn.add( new Torch() );
+				break;
 
 		case 6:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class EnergyCrystal extends Item {
 
-	private static final String TXT_VALUE	= "%+d";
+	private static final String TXT_VALUE	= "%+d能量";
 
 	{
 		image = ItemSpriteSheet.ENERGY;
@@ -60,7 +60,7 @@ public class EnergyCrystal extends Item {
 
 	@Override
 	public Item random() {
-		quantity = Random.IntRange( 4, 6 );
+		quantity = Random.IntRange( 0, 1 );
 		return this;
 	}
 

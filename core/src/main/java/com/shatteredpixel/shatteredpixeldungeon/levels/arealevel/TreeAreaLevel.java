@@ -19,12 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.levels;
+package com.shatteredpixel.shatteredpixeldungeon.levels.arealevel;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.PrisonPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
@@ -52,7 +55,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class PrisonLevel extends RegularLevel {
+public class TreeAreaLevel extends RegularLevel {
 
 	{
 		color1 = 0x6a723d;
@@ -116,7 +119,7 @@ public class PrisonLevel extends RegularLevel {
 	public String tileName( int tile ) {
 		switch (tile) {
 			case Terrain.WATER:
-				return Messages.get(PrisonLevel.class, "water_name");
+				return Messages.get(TreeAreaLevel.class, "water_name");
 			default:
 				return super.tileName( tile );
 		}
@@ -126,9 +129,9 @@ public class PrisonLevel extends RegularLevel {
 	public String tileDesc(int tile) {
 		switch (tile) {
 			case Terrain.EMPTY_DECO:
-				return Messages.get(PrisonLevel.class, "empty_deco_desc");
+				return Messages.get(TreeAreaLevel.class, "empty_deco_desc");
 			case Terrain.BOOKSHELF:
-				return Messages.get(PrisonLevel.class, "bookshelf_desc");
+				return Messages.get(TreeAreaLevel.class, "bookshelf_desc");
 			default:
 				return super.tileDesc( tile );
 		}

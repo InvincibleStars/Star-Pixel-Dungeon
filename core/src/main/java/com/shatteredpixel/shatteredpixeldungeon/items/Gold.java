@@ -37,12 +37,13 @@ import java.util.ArrayList;
 
 public class Gold extends Item {
 
-	private static final String TXT_VALUE	= "%+d";
+	private static final String TXT_VALUE	= "%+d金币";
 	
 	{
 		image = ItemSpriteSheet.GOLD;
 		stackable = true;
 	}
+
 	
 	public Gold() {
 		this( 1 );

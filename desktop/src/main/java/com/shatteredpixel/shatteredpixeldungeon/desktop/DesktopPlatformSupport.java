@@ -69,7 +69,7 @@ public class DesktopPlatformSupport extends PlatformSupport {
 	private static FreeTypeFontGenerator basicFontGenerator;
 	//droid sans fallback, for asian fonts
 	private static FreeTypeFontGenerator asianFontGenerator;
-	
+
 	@Override
 	public void setupFontGenerators(int pageSize, boolean systemfont) {
 		//don't bother doing anything if nothing has changed
@@ -83,15 +83,18 @@ public class DesktopPlatformSupport extends PlatformSupport {
 		fonts = new HashMap<>();
 
 		if (systemfont) {
-			basicFontGenerator = asianFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/droid_sans.ttf"));
+			basicFontGenerator = asianFontGenerator = fallbackFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/droid_sans.ttf"));
 		} else {
 			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
-			asianFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/droid_sans.ttf"));
+			//TODO 改成你自己的字库文件名，放到fonts文件夹里面
+			asianFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/fangzhengkai.ttf"));
+			fallbackFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/droid_sans.ttf"));
 		}
-		
+
 		fonts.put(basicFontGenerator, new HashMap<>());
 		fonts.put(asianFontGenerator, new HashMap<>());
-		
+		fonts.put(fallbackFontGenerator, new HashMap<>());
+
 		packer = new PixmapPacker(pageSize, pageSize, Pixmap.Format.RGBA8888, 1, false);
 	}
 	

@@ -405,20 +405,20 @@ public class GameScene extends PixelScene {
 			case DESCEND:
 			case FALL:
 				switch (Dungeon.depth) {
-				case 1:
-					WndStory.showChapter( WndStory.ID_SEWERS1 );
+				case 1: default:
+					WndStory.showChapter( WndStory.ID_SAND1 );
 					break;
 				case 2:
-					WndStory.showChapter( WndStory.ID_SEWERS2 );
+					WndStory.showChapter( WndStory.ID_SAND2 );
 					break;
 				case 3:
-					WndStory.showChapter( WndStory.ID_SEWERS3 );
+					WndStory.showChapter( WndStory.ID_SAND3 );
 					break;
 				case 4:
-					WndStory.showChapter( WndStory.ID_SEWERS4 );
+					WndStory.showChapter( WndStory.ID_SAND4 );
 					break;
 				case 5:
-					WndStory.showChapter( WndStory.ID_SEWERS_BOSS );
+					WndStory.showChapter( WndStory.ID_SAND5 );
 					break;
 					case 6:
 					WndStory.showChapter( WndStory.ID_PRISON );

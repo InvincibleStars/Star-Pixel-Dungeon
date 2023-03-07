@@ -19,37 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
+package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
-import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
-import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.utils.Bundle;
+/*
+public class GOLDOFWEALTH extends Buff implements Hero.Doom {
 
-import java.util.ArrayList;
-
-public class Hunger extends Buff implements Hero.Doom {
-
-	private static final float STEP	= 10f;
+	private static final float STEP	= 1f;
 
 	public static final float HUNGRY	= 300f;
 	public static final float STARVING	= 450f;
+	public static final int NP_GOLD = 0;
+	public static final int FULL_GOLD = 300;
+	public static final int MAX_GOLD = 10000;
 
 	private float level;
-	private float partialDamage;
+	//private float partialDamage;
 
 	private static final String LEVEL			= "level";
 	private static final String PARTIALDAMAGE 	= "partialDamage";
@@ -92,14 +76,14 @@ public class Hunger extends Buff implements Hero.Doom {
 				}
 				
 			} else {
-
+				ArrayList<Item> items = new ArrayList<>();
 				float newLevel = level + STEP;
 				if (newLevel >= STARVING) {
 
 					GLog.n( Messages.get(this, "onstarving") );
-					hero.resting = false;
-					hero.damage( 1, this );
-
+					//hero.resting = false;
+					//hero.damage( 1, this );
+					items.add(Generator.random(Generator.Category.POTION));
 					hero.interrupt();
 
 				} else if (newLevel >= HUNGRY && level < HUNGRY) {
@@ -144,23 +128,17 @@ public class Hunger extends Buff implements Hero.Doom {
 
 	public void affectHunger(float energy, boolean overrideLimits ) {
 		ArrayList<Item> items = new ArrayList<>();
-
-		if (energy < 0 && target.buff(WellFed.class) != null){
-			target.buff(WellFed.class).left += energy;
-			BuffIndicator.refreshHero();
-			return;
-		}
-
 		level -= energy;
 		if (level < 0 && !overrideLimits) {
 			level = 0;
 		} else if (level > STARVING) {
 			float excess = level - STARVING;
 			level = STARVING;
-			//血液
-			partialDamage += excess * (target.HT/1000f);
+			//partialDamage += excess * (target.HT/1000f);
 			items.add(Generator.random(Generator.Category.POTION));
+			MAX_GOLD-=300;
 		}
+
 		BuffIndicator.refreshHero();
 	}
 
@@ -215,3 +193,4 @@ public class Hunger extends Buff implements Hero.Doom {
 		GLog.n( Messages.get(this, "ondeath") );
 	}
 }
+*/

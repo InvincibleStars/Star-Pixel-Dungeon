@@ -53,13 +53,8 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.CavesBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.CityBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.HallsBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -74,12 +69,10 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.FileUtils;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
-import com.watabou.utils.Reflection;
 import com.watabou.utils.SparseArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class Dungeon {
@@ -254,11 +247,11 @@ public class Dungeon {
 		switch (depth) {
 			case 1: case 2: case 3: case 4: //沙暴大地
 			case 5:
-				level = new SewerLevel();
+				level = new SandAreaLevel();
 				break;
 			case 6: case 7: case 8: case 9: //化石森林
 			case 10:
-				level = new PrisonLevel();
+				level = new TreeAreaLevel();
 				break;
 			case 11: case 12: case 13: case 14: //破碎神殿
 			case 15:
@@ -381,13 +374,13 @@ public class Dungeon {
 	}
 
 	public static boolean posNeeded() {
-		//2 POS each floor set
+		//一个区域只有一张
 		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 1);
 		if (posLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
 
-		//pos drops every two floors, (numbers 1-2, and 3-4) with a 50% chance for the earlier one each time.
+		//一个区域只有一张
 		int targetPOSLeft = 2 - floorThisSet/2;
 		if (floorThisSet % 2 == 1 && Random.Int(2) == 0) targetPOSLeft --;
 
@@ -411,10 +404,11 @@ public class Dungeon {
 		return Random.Int(5 - floorThisSet) < souLeftThisSet;
 	}
 
+	//生成强化结晶，每个区域生成1个
 	public static boolean updNeeded() {
 		int souLeftThisSet;
 		//3 SOU each floor set, 1.5 (rounded) on forbidden runes challenge
-			souLeftThisSet = 3 - (LimitedDrops.UPDATE_STONE.count - (depth / 5) * 3);
+			souLeftThisSet = 1 - (LimitedDrops.UPDATE_STONE.count - (depth / 5) * 1);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);

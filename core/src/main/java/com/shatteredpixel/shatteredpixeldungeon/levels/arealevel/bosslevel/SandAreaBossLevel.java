@@ -19,13 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.levels;
+package com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel;
 
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.Builder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.FigureEightBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -43,7 +46,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class SewerBossLevel extends SewerLevel {
+public class SandAreaBossLevel extends SandAreaLevel {
 
 	{
 		color1 = 0x48763c;
@@ -164,8 +167,8 @@ public class SewerBossLevel extends SewerLevel {
 	@Override
 	public Group addVisuals() {
 		super.addVisuals();
-		if (map[exit-1] != Terrain.WALL_DECO) visuals.add(new PrisonLevel.Torch(exit-1));
-		if (map[exit+1] != Terrain.WALL_DECO) visuals.add(new PrisonLevel.Torch(exit+1));
+		if (map[exit-1] != Terrain.WALL_DECO) visuals.add(new TreeAreaLevel.Torch(exit-1));
+		if (map[exit+1] != Terrain.WALL_DECO) visuals.add(new TreeAreaLevel.Torch(exit+1));
 		return visuals;
 	}
 	

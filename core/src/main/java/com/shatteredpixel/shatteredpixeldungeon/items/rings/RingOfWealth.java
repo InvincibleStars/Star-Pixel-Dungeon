@@ -55,10 +55,9 @@ public class RingOfWealth extends Ring {
 	{
 		icon = ItemSpriteSheet.Icons.RING_WEALTH;
 	}
-
 	private float triesToDrop = Float.MIN_VALUE;
 	private int dropsToRare = Integer.MIN_VALUE;
-	
+
 	public String statsInfo() {
 		if (isIdentified()){
 			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (Math.pow(1.20f, soloBuffedBonus()) - 1f)));
@@ -88,20 +87,20 @@ public class RingOfWealth extends Ring {
 	protected RingBuff buff( ) {
 		return new Wealth();
 	}
-	
+
 	public static float dropChanceMultiplier( Char target ){
 		return (float)Math.pow(1.20, getBuffedBonus(target, Wealth.class));
 	}
-	
+
 	public static ArrayList<Item> tryForBonusDrop(Char target, int tries ){
 		int bonus = getBuffedBonus(target, Wealth.class);
 
 		if (bonus <= 0) return null;
-		
+
 		HashSet<Wealth> buffs = target.buffs(Wealth.class);
 		float triesToDrop = Float.MIN_VALUE;
 		int dropsToEquip = Integer.MIN_VALUE;
-		
+
 		//find the largest count (if they aren't synced yet)
 		for (Wealth w : buffs){
 			if (w.triesToDrop() > triesToDrop){
@@ -144,7 +143,7 @@ public class RingOfWealth extends Ring {
 			w.triesToDrop(triesToDrop);
 			w.dropsToRare(dropsToEquip);
 		}
-		
+
 		return drops;
 	}
 
@@ -173,7 +172,7 @@ public class RingOfWealth extends Ring {
 		}
 		latestDropTier = 0;
 	}
-	
+
 	public static Item genConsumableDrop(int level) {
 		float roll = Random.Float();
 		//60% chance - 4% per level. Starting from +15: 0%
@@ -285,11 +284,11 @@ public class RingOfWealth extends Ring {
 	}
 
 	public class Wealth extends RingBuff {
-		
+
 		private void triesToDrop( float val ){
 			triesToDrop = val;
 		}
-		
+
 		private float triesToDrop(){
 			return triesToDrop;
 		}
@@ -301,6 +300,6 @@ public class RingOfWealth extends Ring {
 		private int dropsToRare(){
 			return dropsToRare;
 		}
-		
+
 	}
 }

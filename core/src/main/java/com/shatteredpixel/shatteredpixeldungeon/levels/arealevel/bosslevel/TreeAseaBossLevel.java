@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.levels;
+package com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
@@ -39,6 +39,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.HeavyBoomerang;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Patch;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TenguDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
@@ -62,7 +66,7 @@ import com.watabou.utils.Rect;
 
 import java.util.ArrayList;
 
-public class PrisonBossLevel extends Level {
+public class TreeAseaBossLevel extends Level {
 	
 	{
 		color1 = 0x6a723d;
@@ -353,7 +357,7 @@ public class PrisonBossLevel extends Level {
 	@Override
 	public Group addVisuals() {
 		super.addVisuals();
-		PrisonLevel.addPrisonVisuals(this, visuals);
+		TreeAreaLevel.addPrisonVisuals(this, visuals);
 		return visuals;
 	}
 	
@@ -649,7 +653,7 @@ public class PrisonBossLevel extends Level {
 	public String tileName( int tile ) {
 		switch (tile) {
 			case Terrain.WATER:
-				return Messages.get(PrisonLevel.class, "water_name");
+				return Messages.get(TreeAreaLevel.class, "water_name");
 			default:
 				return super.tileName( tile );
 		}
@@ -659,9 +663,9 @@ public class PrisonBossLevel extends Level {
 	public String tileDesc(int tile) {
 		switch (tile) {
 			case Terrain.EMPTY_DECO:
-				return Messages.get(PrisonLevel.class, "empty_deco_desc");
+				return Messages.get(TreeAreaLevel.class, "empty_deco_desc");
 			case Terrain.BOOKSHELF:
-				return Messages.get(PrisonLevel.class, "bookshelf_desc");
+				return Messages.get(TreeAreaLevel.class, "bookshelf_desc");
 			default:
 				return super.tileDesc( tile );
 		}

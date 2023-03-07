@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BlackWormSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
 import com.watabou.utils.Random;
 
 public class BlackWorm extends Mob {
@@ -35,7 +34,7 @@ public class BlackWorm extends Mob {
 		
 		HP = HT =  8 + (Dungeon.depth*2);
 
-		EXP = 1;
+		EXP = 1+(Dungeon.depth*3);
 		
 		maxLvl = 1;
 
@@ -46,7 +45,6 @@ public class BlackWorm extends Mob {
 	public int attackSkill( Char target ) {
 		return 10;
 	}
-
 
 	@Override
 	public int damageRoll() { return Random.NormalIntRange( 2, 3 +Dungeon.depth / 2 ); }

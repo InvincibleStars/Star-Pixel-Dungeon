@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMetamorphosis;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel.TreeAseaBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
@@ -80,13 +81,13 @@ public class ShatteredPixelDungeon extends Game {
 				com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Tengu.class,
 				"com.shatteredpixel.shatteredpixeldungeon.actors.mobs.NewTengu" );
 		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel.class,
+				TreeAseaBossLevel.class,
 				"com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel" );
 		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel.ExitVisual.class,
+				TreeAseaBossLevel.ExitVisual.class,
 				"com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel$exitVisual" );
 		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel.ExitVisualWalls.class,
+				TreeAseaBossLevel.ExitVisualWalls.class,
 				"com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel$exitVisualWalls" );
 		com.watabou.utils.Bundle.addAlias(
 				com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM300.class,

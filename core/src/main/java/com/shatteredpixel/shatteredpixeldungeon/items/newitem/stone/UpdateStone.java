@@ -43,23 +43,23 @@ public class UpdateStone extends Item {
 	public boolean unique() {
 		return false;
 	}
-	//升级允许
+	//不能被升级
 	@Override
 	public boolean isUpgradable() {
 		return false;
 	}
-	//被鉴定的
+	//始终是被鉴定的
 	@Override
 	public boolean isIdentified() {
 		return true;
 	}
-
+	//物品的价值
 	@Override
 	public int value() {
 		return quantity * 80;
 	}
 
-	//合成表
+	//合成配方（关联QuickRecipe.java和Recipe.java）
 	public static class Scroll extends Recipe.SimpleRecipe {
 		{
 			inputs = new Class[]{UpdateStone.class};
@@ -77,11 +77,12 @@ public class UpdateStone extends Item {
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
 			return ingredients.size() == 1
-					&& (ingredients.get(0) instanceof MissileWeapon||ingredients.get(0) instanceof MeleeWeapon)
+					//&& (ingredients.get(0) instanceof MissileWeapon||ingredients.get(0) instanceof MeleeWeapon)
+					&& ingredients.get(0) instanceof MeleeWeapon
 					&& ingredients.get(0).isIdentified()
 					&& !ingredients.get(0).cursed;
 		}
-
+		//进行本次合成的水晶消耗
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
 			return 5;

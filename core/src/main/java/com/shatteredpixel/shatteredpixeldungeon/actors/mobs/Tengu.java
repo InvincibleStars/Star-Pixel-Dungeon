@@ -55,7 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel.TreeAseaBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -142,7 +142,7 @@ public class Tengu extends Mob {
 			return;
 		}
 
-		PrisonBossLevel.State state = ((PrisonBossLevel)Dungeon.level).state();
+		TreeAseaBossLevel.State state = ((TreeAseaBossLevel)Dungeon.level).state();
 		
 		int hpBracket = HT / 8;
 		
@@ -157,12 +157,12 @@ public class Tengu extends Mob {
 		
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 		if (lock != null) {
-			int multiple = state == PrisonBossLevel.State.FIGHT_START ? 1 : 4;
+			int multiple = state == TreeAseaBossLevel.State.FIGHT_START ? 1 : 4;
 			lock.addTime(dmg*multiple);
 		}
 		
 		//phase 2 of the fight is over
-		if (HP == 0 && state == PrisonBossLevel.State.FIGHT_ARENA) {
+		if (HP == 0 && state == TreeAseaBossLevel.State.FIGHT_ARENA) {
 			//let full attack action complete first
 			Actor.add(new Actor() {
 				
@@ -173,7 +173,7 @@ public class Tengu extends Mob {
 				@Override
 				protected boolean act() {
 					Actor.remove(this);
-					((PrisonBossLevel)Dungeon.level).progress();
+					((TreeAseaBossLevel)Dungeon.level).progress();
 					return true;
 				}
 			});
@@ -181,10 +181,10 @@ public class Tengu extends Mob {
 		}
 		
 		//phase 1 of the fight is over
-		if (state == PrisonBossLevel.State.FIGHT_START && HP <= HT/2){
+		if (state == TreeAseaBossLevel.State.FIGHT_START && HP <= HT/2){
 			HP = (HT/2);
 			yell(Messages.get(this, "interesting"));
-			((PrisonBossLevel)Dungeon.level).progress();
+			((TreeAseaBossLevel)Dungeon.level).progress();
 			BossHealthBar.bleed(true);
 			
 			//if tengu has lost a certain amount of hp, jump
@@ -235,17 +235,17 @@ public class Tengu extends Mob {
 		if (enemy == null) return;
 		
 		int newPos;
-		if (Dungeon.level instanceof PrisonBossLevel){
-			PrisonBossLevel level = (PrisonBossLevel) Dungeon.level;
+		if (Dungeon.level instanceof TreeAseaBossLevel){
+			TreeAseaBossLevel level = (TreeAseaBossLevel) Dungeon.level;
 			
 			//if we're in phase 1, want to warp around within the room
-			if (level.state() == PrisonBossLevel.State.FIGHT_START) {
+			if (level.state() == TreeAseaBossLevel.State.FIGHT_START) {
 				
 				level.cleanTenguCell();
 
 				int tries = 100;
 				do {
-					newPos = ((PrisonBossLevel)Dungeon.level).randomTenguCellPos();
+					newPos = ((TreeAseaBossLevel)Dungeon.level).randomTenguCellPos();
 					tries--;
 				} while ( tries > 0 && (level.trueDistance(newPos, enemy.pos) <= 3.5f
 						|| level.trueDistance(newPos, Dungeon.hero.pos) <= 3.5f
