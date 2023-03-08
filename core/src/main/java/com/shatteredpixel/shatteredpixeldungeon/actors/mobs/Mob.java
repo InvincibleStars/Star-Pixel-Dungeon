@@ -80,6 +80,7 @@ import java.util.HashSet;
 
 public abstract class Mob extends Char {
 
+
 	{
 		actPriority = MOB_PRIO;
 		
@@ -97,8 +98,8 @@ public abstract class Mob extends Char {
 	public AiState WANDERING	= new Wandering();
 	public AiState FLEEING		= new Fleeing();
 	public AiState PASSIVE		= new Passive();
-	//public AiState state = SLEEPING;
-	public AiState state = FLEEING;
+	//默认生物动作（原来是睡眠）
+	public AiState state = HUNTING;
 	public Class<? extends CharSprite> spriteClass;
 	
 	protected int target = -1;

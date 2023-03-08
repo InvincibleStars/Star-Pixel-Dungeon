@@ -76,13 +76,13 @@ public class SandCrab extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(3, 5);
+		return Random.NormalIntRange(2, 7);
 	}
 
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(2, 2);
+		return Random.NormalIntRange(0, 2);
 	}
 	
 	private Ballistica beam;

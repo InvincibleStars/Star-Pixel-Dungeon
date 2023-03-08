@@ -38,7 +38,6 @@ public class RockBug extends Mob {
 		
 		HP = HT = 14;
 		EXP = 1;
-		
 		maxLvl = 6;
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.18f; //by default, see rollToDropLoot()

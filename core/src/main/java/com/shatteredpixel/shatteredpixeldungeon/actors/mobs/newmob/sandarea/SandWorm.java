@@ -48,18 +48,15 @@ public class SandWorm extends Mob {
 
 		HP = HT = 14;
 		defenseSkill = 0;
-
 		EXP = 2;
-
+		maxLvl=3;
 		loot = Generator.Category.SEED;
 		lootChance = 0.1f;
-
 		state = WANDERING = new Waiting();
-
 		//alignment = Alignment.NEUTRAL;
 		//state = PASSIVE;
-
-		defenseSkill = 3;
+		loot = Generator.Category.SEED;
+		lootChance = 0.15f;
 	}
 
 	@Override
@@ -89,14 +86,14 @@ public class SandWorm extends Mob {
 	protected boolean getFurther(int target) { return true; }
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 4); }
+	public int damageRoll() { return Random.NormalIntRange(2, 5); }
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(0, 3);
 	}
 
-	{ immunities.add( ToxicGas.class ); }
+	//{ immunities.add( ToxicGas.class ); }
 
 	private class Waiting extends Wandering{}
 }

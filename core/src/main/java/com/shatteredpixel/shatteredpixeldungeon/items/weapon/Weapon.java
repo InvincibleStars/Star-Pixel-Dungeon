@@ -513,4 +513,5 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 	}
 
+
 }

@@ -420,8 +420,20 @@ public class GameScene extends PixelScene {
 				case 5:
 					WndStory.showChapter( WndStory.ID_SAND5 );
 					break;
-					case 6:
-					WndStory.showChapter( WndStory.ID_PRISON );
+				case 6:
+					WndStory.showChapter( WndStory.ID_TREE1 );
+					break;
+				case 7:
+					WndStory.showChapter( WndStory.ID_TREE2 );
+					break;
+				case 8:
+					WndStory.showChapter( WndStory.ID_TREE3 );
+					break;
+				case 9:
+					WndStory.showChapter( WndStory.ID_TREE4 );
+					break;
+				case 10:
+					WndStory.showChapter( WndStory.ID_TREE5 );
 					break;
 				case 11:
 					WndStory.showChapter( WndStory.ID_CAVES );

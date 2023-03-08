@@ -32,22 +32,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SandWormSprite;
 import com.watabou.utils.Random;
 
-public class SandWorm2 extends Mob {
+public class SandWorm2 extends SandWorm {
 
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 14;
+		HP = HT =16;
 		defenseSkill = 0;
-
 		EXP = 3;
-
-		loot = Generator.Category.SEED;
-		lootChance = 0.15f;
-
+		maxLvl=3;
 		state = WANDERING = new Waiting();
 
-		defenseSkill = 3;
 	}
 
 	@Override
@@ -90,11 +85,11 @@ public class SandWorm2 extends Mob {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 5); }
+	public int damageRoll() { return Random.NormalIntRange(2, 6); }
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(0, 4);
 	}
 
 	private class Waiting extends Wandering{}

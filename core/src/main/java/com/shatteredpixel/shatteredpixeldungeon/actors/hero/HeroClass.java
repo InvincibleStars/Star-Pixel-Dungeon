@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Sh
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.StarWar;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.HeroArmor;
@@ -101,12 +102,13 @@ public enum HeroClass {
 
 		new Torch().quantity(5).identify().collect();
 
+		//new Torch2().quantity(5).identify().collect();
+
 		new RingOfWealth().quantity(5).identify().collect();
-
+		//给予5份口粮
 		new Food().quantity(5).identify().collect();
-
+		//两个随机戒指
 		new RingOfNone().quantity(1).identify().collect();
-
 		new RingOfNone().quantity(1).identify().collect();
 
 		Item i = new HeroArmor().identify();

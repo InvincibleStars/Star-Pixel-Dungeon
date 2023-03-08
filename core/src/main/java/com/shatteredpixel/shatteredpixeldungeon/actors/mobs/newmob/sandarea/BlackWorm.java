@@ -51,7 +51,7 @@ public class BlackWorm extends Mob {
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange( 0, 3);
+		return Random.NormalIntRange( 0, 2);
 	}
 
 }

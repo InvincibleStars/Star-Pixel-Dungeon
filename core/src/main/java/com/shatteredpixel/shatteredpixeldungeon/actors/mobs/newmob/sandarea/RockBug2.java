@@ -28,16 +28,14 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RockBugSprite;
 import com.watabou.utils.Random;
 
-public class RockBug2 extends Mob {
+public class RockBug2 extends RockBug {
 
 	{
 		spriteClass = RockBugSprite.class;
 		
-		HP = HT = 14;
+		HP = HT = 16;
 		EXP = 2;
 		baseSpeed = 0.75f;
-		
-		maxLvl = 6;
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.22f; //by default, see rollToDropLoot()
 		defenseSkill = 3;
