@@ -100,13 +100,13 @@ public abstract class ChampionEnemy extends Buff {
 		Dungeon.mobsToChampion--;
 
 		if (Dungeon.mobsToChampion <= 0){
-			switch (Random.Int(6)){
+			switch (Random.Int(5)){
 				case 0: default:    Buff.affect(m, Blazing.class);      break;
 				case 1:             Buff.affect(m, Projecting.class);   break;
 				case 2:             Buff.affect(m, AntiMagic.class);    break;
 				case 3:             Buff.affect(m, Giant.class);        break;
 				case 4:             Buff.affect(m, Blessed.class);      break;
-				case 5:             Buff.affect(m, Growing.class);      break;
+				//case 5:             Buff.affect(m, Growing.class);      break;
 			}
 			m.state = m.WANDERING;
 		}

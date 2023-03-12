@@ -102,6 +102,7 @@ public enum HeroClass {
 
 		new Torch().quantity(5).identify().collect();
 
+
 		//new Torch2().quantity(5).identify().collect();
 
 		new RingOfWealth().quantity(5).identify().collect();
@@ -116,23 +117,7 @@ public enum HeroClass {
 
 		new ScrollOfTransmutation().quantity(300).collect();
 
-		//测试物品
-		/*
-		new UpdateStone().quantity(300).identify().collect();
-
-		new BlueDust().quantity(300).identify().collect();
-
-		new GreenDust().quantity(300).identify().collect();
-
-		new PotionOfLiquidFlame	().quantity(300).identify().collect();
-
-		new PotionOfToxicGas().quantity(300).identify().collect();
-
-
-		//i = new Food();
-		//if (!Challenges.isItemBlocked(i)) i.collect();
-
-		//new HeroArmor().quantity(1).identify().collect();
+		//测试
 
 		//检测到开启一个指定挑战后给予一个东西
 
@@ -142,21 +127,6 @@ public enum HeroClass {
 			if (!Challenges.isItemBlocked(i)) i.collect();
 
 		}*/
-
-
-		//测试用的武器
-
-		new CutOff().quantity(1).identify().collect();
-
-		new Scalpel().quantity(1).identify().collect();
-
-		new Knuckle().quantity(1).identify().collect();
-
-		new ScrollOfTransmutation().quantity(100).collect();
-
-
-		new ScrollOfUpgrade().quantity(100).collect();
-
 
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 

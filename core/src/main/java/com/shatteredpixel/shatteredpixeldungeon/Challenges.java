@@ -42,6 +42,12 @@ public class Challenges {
 
 	public static final String[] NAME_IDS = {
 			"champion_enemies",
+			"darkness",
+	};
+
+	/*
+	public static final String[] NAME_IDS = {
+			"champion_enemies",
 			"stronger_bosses",
 			"no_food",
 			"no_armor",
@@ -52,9 +58,12 @@ public class Challenges {
 			"no_scrolls",
 			"gold_kill"
 	};
+	 */
+
+	//public static final int[] MASKS = {CHAMPION_ENEMIES, STRONGER_BOSSES, NO_FOOD, NO_ARMOR, NO_HEALING, NO_HERBALISM, SWARM_INTELLIGENCE, DARKNESS, NO_SCROLLS, GOLD_KILL};
 
 	public static final int[] MASKS = {
-			CHAMPION_ENEMIES, STRONGER_BOSSES, NO_FOOD, NO_ARMOR, NO_HEALING, NO_HERBALISM, SWARM_INTELLIGENCE, DARKNESS, NO_SCROLLS, GOLD_KILL
+			CHAMPION_ENEMIES,DARKNESS
 	};
 
 	public static int activeChallenges(){
