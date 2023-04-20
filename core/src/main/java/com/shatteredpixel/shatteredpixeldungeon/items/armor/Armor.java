@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -76,49 +78,50 @@ import java.util.Arrays;
 public class Armor extends EquipableItem {
 
 	protected static final String AC_DETACH       = "DETACH";
-	
+
 	public enum Augment {
 		EVASION (2f , -1f),
 		DEFENSE (-2f, 1f),
 		NONE	(0f   ,  0f);
-		
+
 		private float evasionFactor;
 		private float defenceFactor;
-		
+
 		Augment(float eva, float df){
 			evasionFactor = eva;
 			defenceFactor = df;
 		}
-		
+
 		public int evasionFactor(int level){
 			return Math.round((2 + level) * evasionFactor);
 		}
-		
+
 		public int defenseFactor(int level){
 			return Math.round((2 + level) * defenceFactor);
 		}
 	}
 
 
-	
+
 	public Augment augment = Augment.NONE;
-	
+
 	public Glyph glyph;
 	public boolean curseInfusionBonus = false;
-	public boolean masteryPotionBonus = false;
-	
+	//public boolean masteryPotionBonus = false;
+	public int masteryPotionBonus = 0;
+
 	private BrokenSeal seal;
-	
+
 	public int tier;
-	
+
 	private static final int USES_TO_ID = 10;
 	private float usesLeftToID = USES_TO_ID;
 	private float availableUsesToID = USES_TO_ID/2f;
-	
+
 	public Armor( int tier ) {
 		this.tier = tier;
 	}
-	
+
 	private static final String USES_LEFT_TO_ID = "uses_left_to_id";
 	private static final String AVAILABLE_USES  = "available_uses";
 	private static final String GLYPH			= "glyph";
@@ -146,9 +149,9 @@ public class Armor extends EquipableItem {
 		availableUsesToID = bundle.getInt( AVAILABLE_USES );
 		inscribe((Glyph) bundle.get(GLYPH));
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
-		masteryPotionBonus = bundle.getBoolean( MASTERY_POTION_BONUS );
+		masteryPotionBonus = bundle.getInt( MASTERY_POTION_BONUS );
 		seal = (BrokenSeal)bundle.get(SEAL);
-		
+
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}
 
@@ -204,30 +207,30 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public boolean doEquip( Hero hero ) {
-		
+
 		detach(hero.belongings.backpack);
 
 		if (hero.belongings.armor == null || hero.belongings.armor.doUnequip( hero, true, false )) {
-			
+
 			hero.belongings.armor = this;
-			
+
 			cursedKnown = true;
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( Messages.get(Armor.class, "equip_cursed") );
 			}
-			
+
 			((HeroSprite)hero.sprite).updateArmor();
 			activate(hero);
 			Talent.onItemEquipped(hero, this);
 			hero.spendAndNext( time2equip( hero ) );
 			return true;
-			
+
 		} else {
-			
+
 			collect( hero.belongings.backpack );
 			return false;
-			
+
 		}
 	}
 
@@ -248,8 +251,8 @@ public class Armor extends EquipableItem {
 		if (seal.getGlyph() != null){
 			inscribe(seal.getGlyph());
 		}
-		if (isEquipped(Dungeon.hero)){
-			Buff.affect(Dungeon.hero, BrokenSeal.WarriorShield.class).setArmor(this);
+		if (isEquipped(hero)){
+			Buff.affect(hero, BrokenSeal.WarriorShield.class).setArmor(this);
 		}
 	}
 
@@ -280,18 +283,17 @@ public class Armor extends EquipableItem {
 
 		}
 	}
-	
+
 	@Override
 	public boolean isEquipped( Hero hero ) {
 		return hero.belongings.armor() == this;
 	}
 
 	//最大防御
-
 	public final int DRMax(){
 		return DRMax(buffedLvl());
 	}
-
+	/*
 	public int DRMax(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 1 + tier + lvl + augment.defenseFactor(lvl);
@@ -323,6 +325,33 @@ public class Armor extends EquipableItem {
 			return lvl;
 		}
 	}
+	 */
+  //NEW
+	public int DRMax(int lvl){
+		int max = (tier * 2) * (2 + lvl) + augment.defenseFactor(lvl)+(masteryPotionBonus*4);
+		if (lvl > max){
+			return ((lvl - max)+1)/2+(masteryPotionBonus*4);
+		} else {
+			return max;
+		}
+	}
+
+	//最低防御
+
+	public final int DRMin(){
+		return DRMin(buffedLvl());
+	}
+
+	public int DRMin(int lvl){
+		int max = DRMax(lvl);
+		if (lvl >= max){
+			return (lvl - max)+(masteryPotionBonus*2);
+		} else {
+			return lvl+(masteryPotionBonus*2);
+		}
+	}
+
+
 	
 	public float evasionFactor( Char owner, float evasion ){
 		
@@ -391,7 +420,7 @@ public class Armor extends EquipableItem {
 	//other things can equip these, for now we assume only the hero can be affected by levelling debuffs
 	@Override
 	public int buffedLvl() {
-		if (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this )){
+		if (isEquipped( hero ) || hero.belongings.contains( this )){
 			return super.buffedLvl();
 		} else {
 			return level();
@@ -431,8 +460,8 @@ public class Armor extends EquipableItem {
 			damage = glyph.proc( this, attacker, defender, damage );
 		}
 		
-		if (!levelKnown && defender == Dungeon.hero) {
-			float uses = Math.min( availableUsesToID, Talent.itemIDSpeedFactor(Dungeon.hero, this) );
+		if (!levelKnown && defender == hero) {
+			float uses = Math.min( availableUsesToID, Talent.itemIDSpeedFactor(hero, this) );
 			availableUsesToID -= uses;
 			usesLeftToID -= uses;
 			if (usesLeftToID <= 0) {
@@ -461,18 +490,20 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public String info() {
+		//NEW
 		String info = desc();
+		info += "\n\n" + Messages.get(Armor.class, "point", masteryPotionBonus,masteryPotionBonus*2,masteryPotionBonus*4);
 		
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", DRMin(), DRMax(), STRReq());
 			
-			if (STRReq() > Dungeon.hero.STR()) {
+			if (STRReq() > hero.STR()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
 			}
 		} else {
 			info += "\n\n" + Messages.get(Armor.class, "avg_absorb", DRMin(0), DRMax(0), STRReq(0));
 
-			if (STRReq(0) > Dungeon.hero.STR()) {
+			if (STRReq(0) > hero.STR()) {
 				info += " " + Messages.get(Armor.class, "probably_too_heavy");
 			}
 		}
@@ -492,7 +523,7 @@ public class Armor extends EquipableItem {
 			info += " " + glyph.desc();
 		}
 		
-		if (cursed && isEquipped( Dungeon.hero )) {
+		if (cursed && isEquipped( hero )) {
 			info += "\n\n" + Messages.get(Armor.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
 			info += "\n\n" + Messages.get(Armor.class, "cursed");
@@ -537,12 +568,13 @@ public class Armor extends EquipableItem {
 
 		return this;
 	}
-
+//NEW
 	public int STRReq(){
-		int req = STRReq(level());
-		if (masteryPotionBonus){
-			req -= 1;
-		}
+		int req = 0;
+				//STRReq(level());
+		//if (masteryPotionBonus>=0){
+			//req -= 1;
+		//}
 		return req;
 	}
 
@@ -554,7 +586,8 @@ public class Armor extends EquipableItem {
 		lvl = Math.max(0, lvl);
 
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return (Math.round((tier -1) * 2)) - (int)((Math.sqrt(lvl))*2);
+		return 0;
+				//(Math.round((tier -1) * 2)) - (int)((Math.sqrt(lvl))*2);
 	}
 	
 	@Override
@@ -736,4 +769,5 @@ public class Armor extends EquipableItem {
 			return true;
 		}
 	}
+
 }

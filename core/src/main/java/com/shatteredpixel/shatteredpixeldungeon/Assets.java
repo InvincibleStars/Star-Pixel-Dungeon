@@ -293,10 +293,34 @@ public class Assets {
 		public static final String LOTUS	= "sprites/lotus.png";
 		public static final String NINJA_LOG= "sprites/ninja_log.png";
 		public static final String SPIRIT_HAWK= "sprites/spirit_hawk.png";
+
+
+		//Sand Area
+
+		//沙虫
 		public static final String SAND_WORM= "sprites/sand_worm.png";
+		public static final String SAND_WORM2= "sprites/sand_worm2.png";
+		//岩石虫
 		public static final String ROCK_BUG= "sprites/rock_bug.png";
+		public static final String ROCK_BUG2= "sprites/rock_bug2.png";
+		//黑色晶虫
 		public static final String BLACK_WORM= "sprites/black_worm.png";
+		//激光蟹
+		public static final String SAND_CRAB= "sprites/sand_crab.png";
+		//节肢蝎子
+		public static final String KILLROCK= "sprites/killrock.png";
+		//沙团
+		public static final String SAND= "sprites/sand.png";
+
+		//Tree Area
+
+
+
+
+
+		//盒子
 		public static final String POT= "sprites/pot.png";
+
 
 	}
 }

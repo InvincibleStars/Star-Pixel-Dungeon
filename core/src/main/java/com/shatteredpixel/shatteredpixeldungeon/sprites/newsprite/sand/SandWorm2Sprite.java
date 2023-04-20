@@ -19,38 +19,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
-
-import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2.DURATION;
+package com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
+import com.watabou.noosa.TextureFilm;
 
-public class WornShortsword extends MeleeWeapon {
+public class SandWorm2Sprite extends MobSprite {
 
-	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
+	public SandWorm2Sprite() {
+		super();
 
-		tier = 1;
-		
-		bones = false;
+		texture( Assets.Sprites.SAND_WORM2 );
+
+		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+
+		idle = new Animation( 2, true );
+		idle.frames( frames, 0, 0, 1, 2, 1 );
+
+		run = new Animation( 0, true );
+		run.frames( frames, 0);
+
+		attack = new Animation( 24, false );
+		attack.frames( frames, 0, 3, 4, 4, 3, 0 );
+
+		die = new Animation( 12, false );
+		die.frames( frames, 5, 6, 6, 7, 7, 7 );
+
+		play( idle );
 	}
 
-
-	/*
 	@Override
-	public int proc(Char attacker, Char defender, int damage ) {
-		Buff.prolong(attacker, Adrenaline2.class, DURATION);
-		return super.proc(attacker, defender, damage);
+	public int blood() {
+		return 0xEDD872;
 	}
-
-	 */
-
-
-
 }

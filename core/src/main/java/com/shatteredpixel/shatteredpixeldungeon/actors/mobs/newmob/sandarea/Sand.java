@@ -21,43 +21,27 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
-import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SandCrabSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandSprite;
 import com.watabou.utils.Random;
 
 public class Sand extends Mob {
 	
 	{
-		spriteClass = SlimeSprite.class;
+		spriteClass = SandSprite.class;
 		
-		HP = HT = 25;
+		HP = HT = 7;
 		
 		EXP = 4;
-		maxLvl = 10;
+		maxLvl = 5;
 
 
-		defenseSkill = 3;
+		defenseSkill = 2;
 	}
 
 	@Override
@@ -67,7 +51,7 @@ public class Sand extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(4, 8);
+		return Random.NormalIntRange(1, 3);
 	}
 
 	@Override
@@ -79,6 +63,7 @@ public class Sand extends Mob {
 		damage = super.attackProc( enemy, damage );
 		if (Random.Int( 2 ) == 0) {
 			Buff.prolong( enemy, Cripple.class, BuffWait.T6 );
+
 		}
 
 		return damage;

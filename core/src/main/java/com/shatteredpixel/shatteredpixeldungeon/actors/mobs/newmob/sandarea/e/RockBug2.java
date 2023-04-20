@@ -19,30 +19,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.e;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.RockBug;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
-import com.watabou.utils.Bundle;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBug2Sprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBugSprite;
 import com.watabou.utils.Random;
 
-public class KillRock extends Mob {
+public class RockBug2 extends RockBug {
 
 	{
-		spriteClass = RatSprite.class;
-		
-		HP = HT = 8;
-		EXP =3;
-		baseSpeed = 2f;
-		loot = Generator.Category.SEED;
-		lootChance = 0.5f;
-		
-		maxLvl = 6;
-		defenseSkill = 2;
+		spriteClass = RockBug2Sprite.class;
+
+		EXP = 2;
+		baseSpeed = 0.75f;
+		maxLvl = 4;
+		loot = Generator.Category.ARMOR;
+		lootChance = 0.22f; //by default, see rollToDropLoot()
 	}
 
 	@Override
@@ -50,15 +45,10 @@ public class KillRock extends Mob {
 		return 10;
 	}
 
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 0, 4 );
-	}
-
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 3);
+		return Random.NormalIntRange(0, 2);
 	}
 
 }

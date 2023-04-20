@@ -35,12 +35,12 @@ public class MeleeWeapon extends Weapon {
 
 	@Override
 	public int min(int lvl) {
-		return  2 + tier + lvl;	//(2+阶数+等级)作为初始伤害   （最低伤害）
+		return  2 + tier + lvl+(masteryPotionBonus*4);	//(2+阶数+等级)作为初始伤害   （最低伤害）
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  5*(tier+1) + lvl*(tier+1);   //5x（武器阶数+1）+等级x武器阶数+1（最高伤害）
+		return  5*(tier+1) + lvl*(tier+1)+(masteryPotionBonus*2);   //5x（武器阶数+1）+等级x武器阶数+1（最高伤害）
 	}
 
 	public int STRReq(int lvl){

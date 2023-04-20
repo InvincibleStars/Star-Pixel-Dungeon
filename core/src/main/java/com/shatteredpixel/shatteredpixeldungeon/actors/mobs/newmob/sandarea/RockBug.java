@@ -21,14 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RockBugSprite;
-import com.watabou.utils.Bundle;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBugSprite;
 import com.watabou.utils.Random;
 
 public class RockBug extends Mob {
@@ -36,12 +32,12 @@ public class RockBug extends Mob {
 	{
 		spriteClass = RockBugSprite.class;
 		
-		HP = HT = 14;
+		HP = HT = 5;
 		EXP = 1;
-		maxLvl = 6;
+		maxLvl = 3;
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.18f; //by default, see rollToDropLoot()
-		defenseSkill = 3;
+		defenseSkill = 2;
 	}
 
 	@Override
@@ -52,13 +48,13 @@ public class RockBug extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 3 );
+		return Random.NormalIntRange( 0, 2 );
 	}
 
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(1, 2);
+		return Random.NormalIntRange(0, 1);
 	}
 
 }

@@ -53,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level0;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
@@ -197,8 +198,8 @@ public class Dungeon {
 
 		quickslot.reset();
 		QuickSlotButton.reset();
-
-		depth = 0;
+		//初始楼层为0层（depth=0时为1层）
+		depth = -1;
 		gold = 0;
 		energy = 0;
 
@@ -245,6 +246,9 @@ public class Dungeon {
 
 		Level level;
 		switch (depth) {
+			case 0:
+				level = new Level0(); //初始楼层
+				break;
 			case 1: case 2: case 3: case 4: //沙暴大地
 			case 5:
 				level = new SandAreaLevel();
@@ -365,7 +369,8 @@ public class Dungeon {
 	}
 
 	public static void dropToChasm( Item item ) {
-		int depth = Dungeon.depth + 1;
+		//int depth = Dungeon.depth + 1;
+		int depth = Dungeon.depth + 150;
 		ArrayList<Item> dropped = Dungeon.droppedItems.get( depth );
 		if (dropped == null) {
 			Dungeon.droppedItems.put( depth, dropped = new ArrayList<>() );
@@ -373,25 +378,24 @@ public class Dungeon {
 		dropped.add( item );
 	}
 
-	public static boolean posNeeded() {
-		//一个区域只有一张
+	public static boolean posNeeded() { //力量药水
 		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 1);
 		if (posLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
 
-		//一个区域只有一张
 		int targetPOSLeft = 2 - floorThisSet/2;
-		if (floorThisSet % 2 == 1 && Random.Int(2) == 0) targetPOSLeft --;
+		if (floorThisSet % 2 == 1
+			&& Random.Int(2) == 0)
+			targetPOSLeft --;
 
 		if (targetPOSLeft < posLeftThisSet) return true;
 		else return false;
 
 	}
 
-	public static boolean souNeeded() {
+	public static boolean souNeeded() { //升级卷轴（不自然生成）
 		int souLeftThisSet;
-		//3 SOU each floor set, 1.5 (rounded) on forbidden runes challenge
 		if (isChallenged(Challenges.NO_SCROLLS)){
 			souLeftThisSet = Math.round(0.0f - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 0.0f));
 		} else {
@@ -404,11 +408,10 @@ public class Dungeon {
 		return Random.Int(5 - floorThisSet) < souLeftThisSet;
 	}
 
-	//生成强化结晶，每个区域生成1个
+	//生成强化结晶，每个区域生成2个
 	public static boolean updNeeded() {
 		int souLeftThisSet;
-		//3 SOU each floor set, 1.5 (rounded) on forbidden runes challenge
-			souLeftThisSet = 1 - (LimitedDrops.UPDATE_STONE.count - (depth / 5) * 1);
+			souLeftThisSet = 2 - (LimitedDrops.UPDATE_STONE.count - (depth / 5) * 2);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);

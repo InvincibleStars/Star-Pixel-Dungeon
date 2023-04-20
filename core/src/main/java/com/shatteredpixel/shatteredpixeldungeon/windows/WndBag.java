@@ -59,15 +59,16 @@ public class WndBag extends WndTabbed {
 	//only one bag window can appear at a time
 	public static Window INSTANCE;
 
-	protected static final int COLS_P   = 6;
-	protected static final int COLS_L   = 6;
+	//方格数量
+	protected static final int COLS_P   = 5;
+	protected static final int COLS_L   = 5;
 
 	//方格宽度
-	protected static int SLOT_WIDTH_P   = 20;
+	protected static int SLOT_WIDTH_P   = 25;
 	protected static int SLOT_WIDTH_L   = 25;//横屏
 	//方格高度
 	protected static int SLOT_HEIGHT_P	= 25;
-	protected static int SLOT_HEIGHT_L	= 20;//横屏
+	protected static int SLOT_HEIGHT_L	= 25;//横屏
 	//方框边距
 	protected static final int SLOT_MARGIN	= 1;//1
 	//标题高度
@@ -108,18 +109,18 @@ public class WndBag extends WndTabbed {
 		slotHeight = PixelScene.landscape() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
 		nCols = PixelScene.landscape() ? COLS_L : COLS_P;
-		nRows = (int)Math.ceil(36/(float)nCols); //we expect to lay out 25 slots in all cases
+		nRows = (int)Math.ceil(25/(float)nCols); //we expect to lay out 25 slots in all cases
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);
 		int windowHeight = TITLE_HEIGHT + slotHeight * nRows + SLOT_MARGIN * (nRows - 1);
 
 		if (PixelScene.landscape()){
-			while (slotHeight >= 35 && (windowHeight + 31 + chrome.marginTop()) > PixelScene.uiCamera.height){
+			while (slotHeight >= 25 && (windowHeight + 25 + chrome.marginTop()) > PixelScene.uiCamera.height){
 				slotHeight--;
 				windowHeight -= nRows;
 			}
 		} else {
-			while (slotWidth >= 37 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){
+			while (slotWidth >= 25 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){
 				slotWidth--;
 				windowWidth -= nCols;
 			}

@@ -19,14 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.sprites;
+package com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.watabou.noosa.TextureFilm;
 
-public class SandWormSprite extends MobSprite {
+public class KillRockSprite extends MobSprite {
 
-	public SandWormSprite() {
+	public KillRockSprite() {
 		super();
 
 		texture( Assets.Sprites.SAND_WORM );

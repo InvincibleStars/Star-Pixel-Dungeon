@@ -45,11 +45,11 @@ public class KingsCrown extends Item {
 	private static final String AC_WEAR = "WEAR";
 	
 	{
-		image = ItemSpriteSheet.CROWN;
+		image = ItemSpriteSheet.KIT;
 
 		defaultAction = AC_WEAR;
 
-		unique = true;
+		//unique = true;
 	}
 	
 	@Override
@@ -123,5 +123,12 @@ public class KingsCrown extends Item {
 		hero.sprite.operate( hero.pos );
 		Sample.INSTANCE.play( Assets.Sounds.MASTERY );
 	}
+
+
+	@Override
+	public int value() {
+		return 800;
+	}
+
 
 }

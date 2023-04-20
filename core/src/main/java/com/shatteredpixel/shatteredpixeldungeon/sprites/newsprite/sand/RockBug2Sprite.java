@@ -19,26 +19,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.armor;
+package com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
+import com.watabou.noosa.TextureFilm;
 
-public class ClothArmor extends Armor {
+public class RockBug2Sprite extends MobSprite {
 
-	{
-		image = ItemSpriteSheet.ARMOR_CLOTH;
+	public RockBug2Sprite() {
+		super();
 
-		bones = false; //Finding them in bones would be semi-frequent and disappointing.
+		
+		texture( Assets.Sprites.ROCK_BUG2 );
+		
+		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+		
+		idle = new Animation( 2, true );
+		idle.frames( frames, 0, 0, 0, 1 );
+		
+		run = new Animation( 20, true );
+		run.frames( frames, 2, 3, 4, 5 );
+		
+		attack = new Animation( 15, false );
+		attack.frames( frames, 6, 7, 8, 9 );
+		
+		die = new Animation( 10, false );
+		die.frames( frames, 0, 10, 11);
+		
+		play( idle );
 	}
-	
-	public ClothArmor() {
-		super( 1 );
-	}
-
-	public int STRReq(int lvl) {
-		return 0;
-	}
-
 }

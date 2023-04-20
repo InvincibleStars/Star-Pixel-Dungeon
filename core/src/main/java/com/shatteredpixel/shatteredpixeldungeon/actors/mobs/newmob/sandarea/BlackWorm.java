@@ -21,10 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.BlackWormSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
 import com.watabou.utils.Random;
 
 public class BlackWorm extends Mob {
@@ -32,13 +31,15 @@ public class BlackWorm extends Mob {
 	{
 		spriteClass = BlackWormSprite.class;
 		
-		HP = HT =  8 + (Dungeon.depth*2);
+		HP = HT =  4;
 
-		EXP = 1+(Dungeon.depth*3);
+		EXP = 0;
 		
 		maxLvl = 1;
 
-		defenseSkill = 3;
+		defenseSkill = 2;
+
+
 	}
 
 	@Override
@@ -47,11 +48,22 @@ public class BlackWorm extends Mob {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 2, 3 +Dungeon.depth / 2 ); }
+	public int damageRoll() { return Random.NormalIntRange( 0, 1 ); }
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange( 0, 2);
+		return Random.NormalIntRange( 0, 1);
+	}
+	/*
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		damage = super.attackProc( enemy, damage );
+			HP = Math.min(HT, HP - 1);
+			if (HP <= 0) {
+				die(true);
+			}
+		return damage;
 	}
 
+	 */
 }

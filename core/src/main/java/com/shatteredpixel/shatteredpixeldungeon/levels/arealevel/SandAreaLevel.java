@@ -61,7 +61,7 @@ public class SandAreaLevel extends RegularLevel {
 	protected int specialRooms(boolean forceMax) {
 		if (forceMax) return 2;
 		//0-4
-		return 0+Random.chances(new float[]{1, 1, 1, 1});
+		return 1+Random.chances(new float[]{0, 1, 1, 1});
 	}
 	
 	@Override
@@ -123,6 +123,18 @@ public class SandAreaLevel extends RegularLevel {
 		switch (tile) {
 			case Terrain.WATER:
 				return Messages.get(SandAreaLevel.class, "water_name");
+			case Terrain.DOOR:
+				return Messages.get(SandAreaLevel.class, "door_name");
+			case Terrain.ENTRANCE:
+				return Messages.get(SandAreaLevel.class, "entrance_name");
+			case Terrain.EXIT:
+				return Messages.get(SandAreaLevel.class, "exit_name");
+			case Terrain.GRASS:
+				return Messages.get(SandAreaLevel.class, "grass_name");
+			case Terrain.HIGH_GRASS:
+				return Messages.get(SandAreaLevel.class, "high_grass_name");
+			case Terrain.WALL:
+				return Messages.get(SandAreaLevel.class, "wall_name");
 			default:
 				return super.tileName( tile );
 		}
@@ -135,6 +147,20 @@ public class SandAreaLevel extends RegularLevel {
 				return Messages.get(SandAreaLevel.class, "empty_deco_desc");
 			case Terrain.BOOKSHELF:
 				return Messages.get(SandAreaLevel.class, "bookshelf_desc");
+			case Terrain.DOOR:
+				return Messages.get(SandAreaLevel.class, "door_desc");
+			case Terrain.WATER:
+				return Messages.get(SandAreaLevel.class, "water_desc");
+			case Terrain.ENTRANCE:
+				return Messages.get(SandAreaLevel.class, "entrance_desc");
+			case Terrain.EXIT:
+				return Messages.get(SandAreaLevel.class, "exit_desc");
+			case Terrain.GRASS:
+				return Messages.get(SandAreaLevel.class, "grass_desc");
+			case Terrain.HIGH_GRASS:
+				return Messages.get(SandAreaLevel.class, "high_grass_desc");
+			case Terrain.WALL:
+				return Messages.get(SandAreaLevel.class, "wall_desc");
 			default:
 				return super.tileDesc( tile );
 		}

@@ -194,6 +194,8 @@ public class WndHero extends WndTabbed {
 			add(pane);
 		}
 
+
+
 		@Override
 		protected void layout() {
 			super.layout();

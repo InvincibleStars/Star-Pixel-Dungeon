@@ -24,8 +24,9 @@ public class WndInfoArmorAbility extends WndTitledMessage {
 
 		TalentsPane.TalentTierPane talentPane = new TalentsPane.TalentTierPane(talentList.get(3), 4, TalentButton.Mode.INFO);
 		talentPane.title.text( Messages.titleCase(Messages.get(WndHeroInfo.class, "talents")));
-		talentPane.setRect(0, height + 5, width, talentPane.height());
-		add(talentPane);
+		talentPane.setRect(0, height - 25, width, talentPane.height());
+		//add(talentPane);
+		//NEW
 		resize(width, (int) talentPane.bottom());
 
 	}

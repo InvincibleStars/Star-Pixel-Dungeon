@@ -72,8 +72,10 @@ public class PotionOfMastery extends ExoticPotion {
 		@Override
 		public boolean itemSelectable(Item item) {
 			return
-					(item instanceof MeleeWeapon && !((MeleeWeapon) item).masteryPotionBonus)
-					|| (item instanceof Armor && !((Armor) item).masteryPotionBonus);
+					(item instanceof MeleeWeapon)
+							//&& !((MeleeWeapon) item).masteryPotionBonus)
+					|| (item instanceof Armor);
+			// && !((Armor) item).masteryPotionBonus);
 		}
 
 		@Override
@@ -104,10 +106,10 @@ public class PotionOfMastery extends ExoticPotion {
 			} else if (item != null) {
 
 				if (item instanceof Weapon) {
-					((Weapon) item).masteryPotionBonus = true;
+					((Weapon) item).masteryPotionBonus += 1;
 					GLog.p( Messages.get(PotionOfMastery.class, "weapon_easier") );
 				} else if (item instanceof Armor) {
-					((Armor) item).masteryPotionBonus = true;
+					((Armor) item).masteryPotionBonus += 1;
 					GLog.p( Messages.get(PotionOfMastery.class, "armor_easier") );
 				}
 				updateQuickslot();

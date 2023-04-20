@@ -19,33 +19,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.sprites;
+package com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.watabou.noosa.TextureFilm;
 
-public class RockBugSprite extends MobSprite {
+public class SandWormSprite extends MobSprite {
 
-	public RockBugSprite() {
+	public SandWormSprite() {
 		super();
 
-		
-		texture( Assets.Sprites.ROCK_BUG );
-		
+		texture( Assets.Sprites.SAND_WORM );
+
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
-		
+
 		idle = new Animation( 2, true );
-		idle.frames( frames, 0, 0, 0, 1 );
-		
-		run = new Animation( 20, true );
-		run.frames( frames, 2, 3, 4, 5 );
-		
-		attack = new Animation( 15, false );
-		attack.frames( frames, 6, 7, 8, 9 );
-		
-		die = new Animation( 10, false );
-		die.frames( frames, 0, 10, 11);
-		
+		idle.frames( frames, 0, 0, 1, 2, 1 );
+
+		run = new Animation( 0, true );
+		run.frames( frames, 0);
+
+		attack = new Animation( 24, false );
+		attack.frames( frames, 0, 3, 4, 4, 3, 0 );
+
+		die = new Animation( 12, false );
+		die.frames( frames, 5, 6, 6, 7, 7, 7 );
+
 		play( idle );
+	}
+
+	@Override
+	public int blood() {
+		return 0xEDD872;
 	}
 }

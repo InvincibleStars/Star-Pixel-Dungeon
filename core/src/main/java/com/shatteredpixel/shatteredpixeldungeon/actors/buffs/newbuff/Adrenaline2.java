@@ -19,43 +19,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
+package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RockBugSprite;
-import com.watabou.utils.Random;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
-public class RockBug2 extends RockBug {
-
+public class Adrenaline2 extends FlavourBuff {
+	
 	{
-		spriteClass = RockBugSprite.class;
+		type = buffType.POSITIVE;
 		
-		HP = HT = 16;
-		EXP = 2;
-		baseSpeed = 0.75f;
-		loot = Generator.Category.ARMOR;
-		lootChance = 0.22f; //by default, see rollToDropLoot()
-		defenseSkill = 3;
+		announced = true;
 	}
-
-	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
-
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 3 );
-	}
-
+	
+	public static final float DURATION	= 30f;
 	
 	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(1, 5);
+	public int icon() {
+		return BuffIndicator.AMOK;
 	}
 
+	@Override
+	public float iconFadePercent() {
+		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+	}
+	
+	@Override
+	public String toString() {
+		return Messages.get(this, "name");
+	}
+
+
+	@Override
+	public String desc() {
+		return Messages.get(this, "desc")
+				+"\n"
+				+Messages.get( this,"time")
+				+dispTurns()
+				+Messages.get( this,"turn");
+	}
+	
 }

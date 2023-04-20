@@ -19,55 +19,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.e;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SandWormSprite;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandWorm;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWorm2Sprite;
 import com.watabou.utils.Random;
 
 public class SandWorm2 extends SandWorm {
 
 	{
-		spriteClass = SandWormSprite.class;
-
-		HP = HT =16;
-		defenseSkill = 0;
-		EXP = 3;
-		maxLvl=3;
-		state = WANDERING = new Waiting();
-
+		spriteClass = SandWorm2Sprite.class;
+		EXP = 2;
 	}
 
-	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
-
-	@Override
-	protected boolean act() {
-		if (enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)) {
-			HP = Math.min(HT, HP + 1);
-		}
-		return super.act();
-	}
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		damage = super.attackProc( enemy, damage );
 		if (Random.Int(2) == 0) {
 			Buff.affect(enemy, Vulnerable.class, BuffWait.T4 );
+			HP = Math.min(HT, HP + 1);
 		}
 		return damage;
 	}
-
-
-
 
 	@Override
 	public boolean reset() {
@@ -85,11 +63,11 @@ public class SandWorm2 extends SandWorm {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 6); }
+	public int damageRoll() { return Random.NormalIntRange(1, 2); }
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 4);
+		return Random.NormalIntRange(0, 1);
 	}
 
 	private class Waiting extends Wandering{}

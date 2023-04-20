@@ -21,8 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Statistics.duration;
-
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -40,11 +38,10 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SandCrabSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandCrabSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class SandCrab extends Mob {
@@ -52,11 +49,11 @@ public class SandCrab extends Mob {
 	{
 		spriteClass = SandCrabSprite.class;
 		
-		HP = HT = 20;
+		HP = HT = 7;
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 3;
-		maxLvl = 9;
+		maxLvl = 5;
 
 		baseSpeed = 1.50f;
 
@@ -66,7 +63,7 @@ public class SandCrab extends Mob {
 		loot = Generator.Category.WAND;
 		lootChance = 0.125f; //by default, see rollToDropLoot()
 
-		defenseSkill = 3;
+		defenseSkill = 2;
 	}
 
 	@Override
@@ -76,7 +73,7 @@ public class SandCrab extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(2, 7);
+		return Random.NormalIntRange(1, 3);
 	}
 
 	

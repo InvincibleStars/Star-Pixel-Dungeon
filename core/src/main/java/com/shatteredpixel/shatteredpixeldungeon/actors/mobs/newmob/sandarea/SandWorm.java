@@ -23,22 +23,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RotLasherSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SandWormSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWormSprite;
 import com.watabou.utils.Random;
 
 public class SandWorm extends Mob {
@@ -46,17 +33,13 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 14;
+		HP = HT = 6;
 		defenseSkill = 0;
-		EXP = 2;
-		maxLvl=3;
-		loot = Generator.Category.SEED;
-		lootChance = 0.1f;
-		state = WANDERING = new Waiting();
-		//alignment = Alignment.NEUTRAL;
-		//state = PASSIVE;
+		EXP = 1;
+		maxLvl = 3;
 		loot = Generator.Category.SEED;
 		lootChance = 0.15f;
+		state = WANDERING = new Waiting();
 	}
 
 	@Override
@@ -64,6 +47,16 @@ public class SandWorm extends Mob {
 		return 10;
 	}
 
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		if(HP<0){
+			die(true);
+		}else {
+			damage = super.attackProc(enemy, damage);
+			HP = Math.min(HT, HP - 1);
+		}
+			return damage;
+	}
 	@Override
 	protected boolean act() {
 		if (enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)) {
@@ -86,11 +79,11 @@ public class SandWorm extends Mob {
 	protected boolean getFurther(int target) { return true; }
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 5); }
+	public int damageRoll() { return Random.NormalIntRange(0, 2); }
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 3);
+		return Random.NormalIntRange(0, 1);
 	}
 
 	//{ immunities.add( ToxicGas.class ); }

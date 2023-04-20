@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
@@ -30,14 +32,14 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Alchemy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AnkhInvulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BiologicalActivity;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
@@ -110,6 +112,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -148,7 +151,6 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
@@ -218,14 +220,42 @@ public class Hero extends Char {
 		
 		visibleEnemies = new ArrayList<>();
 
-		HP = HT = 25;
+		HP = HT = 12;
 
 	}
 	
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
-		
-		HT = 25 + 8*(lvl-1) + HTBoost;
+		/*
+		if(hero.heroClass==HeroClass.WARRIOR){
+			HT = 25 + 8*(lvl-1) + HTBoost;
+		} else if (hero.heroClass==HeroClass.MAGE){
+			HT = 23 + 6*(lvl-1) + HTBoost;
+		} else if (hero.heroClass==HeroClass.ROGUE){
+			HT = 25 + 6*(lvl-1) + HTBoost;
+		} else if (hero.heroClass==HeroClass.HUNTRESS){
+			HT = 20 + 6*(lvl-1) + HTBoost;
+		} else {
+			HT = 25 + 8 * (lvl - 1) + HTBoost;
+		}
+		 */
+		switch (Dungeon.hero.heroClass) {
+			case WARRIOR:
+                HT = 12 + 3*(lvl-1) + HTBoost;
+                break;
+            case MAGE:
+                HT = 10 + 3*(lvl-1) + HTBoost;
+                break;
+            case ROGUE:
+                HT = 11 + 3*(lvl-1) + HTBoost;
+                break;
+            case HUNTRESS:
+                HT = 10 + 3*(lvl-1) + HTBoost;
+                break;
+            default:
+                HT = 12 + 3 * (lvl - 1) + HTBoost;
+
+		}
 		float multiplier = RingOfMight.HTMultiplier(this);
 		HT = Math.round(multiplier * HT);
 		
@@ -594,7 +624,7 @@ public class Hero extends Char {
 			return true;
 		}
 
-		KindOfWeapon wep = Dungeon.hero.belongings.weapon();
+		KindOfWeapon wep = hero.belongings.weapon();
 
 		if (wep != null){
 			return wep.canReach(this, enemy.pos);
@@ -604,12 +634,20 @@ public class Hero extends Char {
 	}
 	
 	public float attackDelay() {
+
 		if (buff(Talent.LethalMomentumTracker.class) != null){
 			buff(Talent.LethalMomentumTracker.class).detach();
 			return 0;
 		}
 
 		if (belongings.weapon() != null) {
+
+			//判断效果存在
+			if ( buff(Adrenaline2.class) != null) {
+				//return 1f/DURATION;
+				//Buff.affect( this, Bleeding.class ).set( Math.round(2) );
+				return belongings.weapon().delayFactor( this )/(float) (Adrenaline2.DURATION*0.1+1);
+			}
 			
 			return belongings.weapon().delayFactor( this );
 			
@@ -617,9 +655,25 @@ public class Hero extends Char {
 			//Normally putting furor speed on unarmed attacks would be unnecessary
 			//But there's going to be that one guy who gets a furor+force ring combo
 			//This is for that one guy, you shall get your fists of fury!
+
+			//判断效果存在
+			if ( buff(Adrenaline2.class) != null) {
+				//return 1f/DURATION;
+				//Buff.affect( this, Bleeding.class ).set( Math.round(2) );
+				return 1f/(float) (Adrenaline2.DURATION*0.1+1)/RingOfFuror.attackSpeedMultiplier(this);
+			}
 			return 1f/RingOfFuror.attackSpeedMultiplier(this);
 		}
+
 	}
+
+
+
+
+
+
+
+
 
 	@Override
 	public void spend( float time ) {
@@ -1048,26 +1102,46 @@ public class Hero extends Char {
 		//there can be multiple entrance tiles, so descend on any of them
 		//TODO this is slightly brittle, it assumes there are no disjointed sets of entrance tiles
 		} else if (Dungeon.level.map[pos] == Terrain.ENTRANCE) {
-			
-			if (Dungeon.depth == 1) {
-				
-				if (belongings.getItem( Amulet.class ) == null) {
+
+			if (Dungeon.depth == 0) {
+
+				if (belongings.getItem(Amulet.class) == null) {
 					Game.runOnRenderThread(new Callback() {
 						@Override
 						public void call() {
-							GameScene.show( new WndMessage( Messages.get(Hero.this, "leave") ) );
+							GameScene.show(new WndMessage(Messages.get(Hero.this, "leave")));
 						}
 					});
 					ready();
 				} else {
 					Badges.silentValidateHappyEnd();
-					Dungeon.win( Amulet.class );
-					Dungeon.deleteGame( GamesInProgress.curSlot, true );
-					Game.switchScene( SurfaceScene.class );
+					Dungeon.win(Amulet.class);
+					Dungeon.deleteGame(GamesInProgress.curSlot, true);
+					Game.switchScene(SurfaceScene.class);
 				}
-				
+			} else if (Dungeon.depth == 1) {
+
+				if (belongings.getItem( Amulet.class ) == null) {
+					Game.runOnRenderThread(new Callback() {
+						@Override
+						public void call() {
+							GameScene.show( new WndMessage( Messages.get(Hero.this, "leave2") ) );
+						}
+					});
+					ready();
+				} else {
+					curAction = null;
+
+					TimekeepersHourglass.timeFreeze timeFreeze = buff(TimekeepersHourglass.timeFreeze.class);
+					if (timeFreeze != null) timeFreeze.disarmPressedTraps();
+					Swiftthistle.TimeBubble timeBubble = buff(Swiftthistle.TimeBubble.class);
+					if (timeBubble != null) timeBubble.disarmPressedTraps();
+
+					InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
+					Game.switchScene( InterlevelScene.class );
+				}
 			} else {
-				
+
 				curAction = null;
 
 				TimekeepersHourglass.timeFreeze timeFreeze = buff(TimekeepersHourglass.timeFreeze.class);
@@ -1140,6 +1214,11 @@ public class Hero extends Char {
 
 		if (wep != null) damage = wep.proc( this, enemy, damage );
 
+		//判断是否带有buff和是否使用武器进行更新
+		if ( buff(Adrenaline2.class) != null && wep instanceof MeleeWeapon) {
+			Buff.affect( this, Bleeding.class ).set( Math.round(2) );
+		}
+
 		if (buff(Talent.SpiritBladesTracker.class) != null
 				&& Random.Int(10) < 3*pointsInTalent(Talent.SPIRIT_BLADES)){
 			SpiritBow bow = belongings.getItem(SpiritBow.class);
@@ -1161,6 +1240,7 @@ public class Hero extends Char {
 					@Override
 					protected boolean act() {
 						if (enemy.isAlive()) {
+							//NEW
 							int bonusTurns = hasTalent(Talent.SHARED_UPGRADES) ? wep.buffedLvl() : 0;
 							Buff.prolong(Hero.this, SnipersMark.class, SnipersMark.DURATION + bonusTurns).set(enemy.id(), bonusTurns);
 						}
@@ -1172,6 +1252,8 @@ public class Hero extends Char {
 			break;
 		default:
 		}
+
+		//
 		
 		return damage;
 	}
@@ -1725,9 +1807,9 @@ public class Hero extends Char {
 		Dungeon.observe();
 		GameScene.updateFog();
 				
-		Dungeon.hero.belongings.identify();
+		hero.belongings.identify();
 
-		int pos = Dungeon.hero.pos;
+		int pos = hero.pos;
 
 		ArrayList<Integer> passable = new ArrayList<>();
 		for (Integer ofs : PathFinder.NEIGHBOURS8) {
@@ -1738,7 +1820,7 @@ public class Hero extends Char {
 		}
 		Collections.shuffle( passable );
 
-		ArrayList<Item> items = new ArrayList<>(Dungeon.hero.belongings.backpack.items);
+		ArrayList<Item> items = new ArrayList<>(hero.belongings.backpack.items);
 		for (Integer cell : passable) {
 			if (items.isEmpty()) {
 				break;
