@@ -37,7 +37,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CrabSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandCrabSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -47,7 +49,7 @@ import com.watabou.utils.Random;
 public class SandCrab extends Mob {
 	
 	{
-		spriteClass = SandCrabSprite.class;
+		spriteClass = CrabSprite.class;
 		
 		HP = HT = 7;
 		viewDistance = Light.DISTANCE;

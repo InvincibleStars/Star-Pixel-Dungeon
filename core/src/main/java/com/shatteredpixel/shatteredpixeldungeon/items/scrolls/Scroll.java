@@ -53,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -63,6 +64,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public abstract class Scroll extends Item {
+	//发光颜色，速度
+	private static ItemSprite.Glowing WRITE = new ItemSprite.Glowing( 0xFFFFFF ,3.5f);
+	//使用发光颜色
+	public ItemSprite.Glowing glowing() {
+		return WRITE;
+	}
 	
 	public static final String AC_READ	= "READ";
 	

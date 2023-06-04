@@ -30,27 +30,28 @@ public class KillRockSprite extends MobSprite {
 	public KillRockSprite() {
 		super();
 
-		texture( Assets.Sprites.SAND_WORM );
+		texture( Assets.Sprites.KILLROCK );
 
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
 		idle = new Animation( 2, true );
-		idle.frames( frames, 0, 0, 1, 2, 1 );
+		idle.frames( frames, 0, 0, 1, 1, 1, 0 );
 
 		run = new Animation( 0, true );
-		run.frames( frames, 0);
+		run.frames( frames, 0, 3, 0, 4);
 
 		attack = new Animation( 24, false );
-		attack.frames( frames, 0, 3, 4, 4, 3, 0 );
+		attack.frames( frames, 0, 1, 1, 0 );
 
 		die = new Animation( 12, false );
-		die.frames( frames, 5, 6, 6, 7, 7, 7 );
+		die.frames( frames, 6, 6, 7, 7, 7, 8, 8 );
 
 		play( idle );
 	}
-
+	/*
 	@Override
 	public int blood() {
-		return 0xEDD872;
+		return 0x000000;
 	}
+	 */
 }

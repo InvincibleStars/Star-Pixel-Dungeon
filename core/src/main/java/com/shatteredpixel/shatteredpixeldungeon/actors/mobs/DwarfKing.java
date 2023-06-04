@@ -140,19 +140,19 @@ public class DwarfKing extends Mob {
 	protected boolean act() {
 		if (phase == 1) {
 
-			if (summonCooldown <= 0 && summonSubject(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2 : 3)){
+			if (summonCooldown <= 0 && summonSubject(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2 : 3)) {
 				summonsMade++;
 				summonCooldown += Random.NormalIntRange(MIN_COOLDOWN, MAX_COOLDOWN);
-			} else if (summonCooldown > 0){
+			} else if (summonCooldown > 0) {
 				summonCooldown--;
 			}
 
-			if (paralysed > 0){
+			if (paralysed > 0) {
 				spend(TICK);
 				return true;
 			}
 
-			if (abilityCooldown <= 0){
+			if (abilityCooldown <= 0) {
 
 				if (lastAbility == NONE) {
 					//50/50 either ability
@@ -165,7 +165,7 @@ public class DwarfKing extends Mob {
 					lastAbility = Random.Int(8) != 0 ? LINK : TELE;
 				}
 
-				if (lastAbility == LINK && lifeLinkSubject()){
+				if (lastAbility == LINK && lifeLinkSubject()) {
 					abilityCooldown += Random.NormalIntRange(MIN_COOLDOWN, MAX_COOLDOWN);
 					spend(TICK);
 					return true;
@@ -180,10 +180,11 @@ public class DwarfKing extends Mob {
 				abilityCooldown--;
 			}
 
-		} else if (phase == 2){
+		} else if (phase == 2) {
 
-			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-				//challenge logic
+			//if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+			//challenge logic
+				/*
 				if (summonsMade < 6){
 					if (summonsMade == 0) {
 						sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
@@ -234,50 +235,53 @@ public class DwarfKing extends Mob {
 					return true;
 				}
 			} else {
-				//non-challenge logic
-				if (summonsMade < 4) {
-					if (summonsMade == 0) {
-						sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
-						Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
-						yell(Messages.get(this, "wave_1"));
-					}
-					summonSubject(3, DKGhoul.class);
-					spend(3 * TICK);
-					summonsMade++;
-					return true;
-				} else if (shielding() <= 200 && summonsMade < 8) {
-					if (summonsMade == 4) {
-						sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
-						Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
-						yell(Messages.get(this, "wave_2"));
-					}
-					if (summonsMade == 7) {
-						summonSubject(3, Random.Int(2) == 0 ? DKMonk.class : DKWarlock.class);
-					} else {
-						summonSubject(3, DKGhoul.class);
-					}
-					summonsMade++;
-					spend(TICK);
-					return true;
-				} else if (shielding() <= 100 && summonsMade < 12) {
+				 */
+			//non-challenge logic
+			if (summonsMade < 4) {
+				if (summonsMade == 0) {
 					sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
 					Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
-					yell(Messages.get(this, "wave_3"));
-					summonSubject(4, DKWarlock.class);
-					summonSubject(4, DKMonk.class);
-					summonSubject(4, DKGhoul.class);
-					summonSubject(4, DKGhoul.class);
-					summonsMade = 12;
-					spend(TICK);
-					return true;
-				} else {
-					spend(TICK);
-					return true;
+					yell(Messages.get(this, "wave_1"));
 				}
+				summonSubject(3, DKGhoul.class);
+				spend(3 * TICK);
+				summonsMade++;
+				return true;
+			} else if (shielding() <= 200 && summonsMade < 8) {
+				if (summonsMade == 4) {
+					sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
+					Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
+					yell(Messages.get(this, "wave_2"));
+				}
+				if (summonsMade == 7) {
+					summonSubject(3, Random.Int(2) == 0 ? DKMonk.class : DKWarlock.class);
+				} else {
+					summonSubject(3, DKGhoul.class);
+				}
+				summonsMade++;
+				spend(TICK);
+				return true;
+			} else if (shielding() <= 100 && summonsMade < 12) {
+				sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
+				Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
+				yell(Messages.get(this, "wave_3"));
+				summonSubject(4, DKWarlock.class);
+				summonSubject(4, DKMonk.class);
+				summonSubject(4, DKGhoul.class);
+				summonSubject(4, DKGhoul.class);
+				summonsMade = 12;
+				spend(TICK);
+				return true;
+			} else {
+				spend(TICK);
+				return true;
 			}
+		}
+		/*
 		} else if (phase == 3 && buffs(Summoning.class).size() < 4){
 			if (summonSubject(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2 : 3)) summonsMade++;
-		}
+	}
+		 */
 
 		return super.act();
 	}

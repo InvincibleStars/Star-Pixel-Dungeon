@@ -50,8 +50,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.levelparticle.SandLevelParticles;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -141,6 +143,7 @@ public abstract class Level implements Bundlable {
 	public Feeling feeling = Feeling.NONE;
 
 	public int entrance;
+	public int entrance2;
 	public int exit;
 
 	//when a boss level has become locked.
@@ -168,6 +171,7 @@ public abstract class Level implements Bundlable {
 	private static final String VISITED		= "visited";
 	private static final String MAPPED		= "mapped";
 	private static final String ENTRANCE	= "entrance";
+	private static final String ENTRANCE2	= "entrance";
 	private static final String EXIT		= "exit";
 	private static final String LOCKED      = "locked";
 	private static final String HEAPS		= "heaps";
@@ -336,6 +340,7 @@ public abstract class Level implements Bundlable {
 		mapped	= bundle.getBooleanArray( MAPPED );
 
 		entrance	= bundle.getInt( ENTRANCE );
+		entrance2	= bundle.getInt( ENTRANCE );
 		exit		= bundle.getInt( EXIT );
 
 		locked      = bundle.getBoolean( LOCKED );
@@ -413,6 +418,7 @@ public abstract class Level implements Bundlable {
 		bundle.put( VISITED, visited );
 		bundle.put( MAPPED, mapped );
 		bundle.put( ENTRANCE, entrance );
+		bundle.put( ENTRANCE2, entrance2 );
 		bundle.put( EXIT, exit );
 		bundle.put( LOCKED, locked );
 		bundle.put( HEAPS, heaps.valueList() );
@@ -510,12 +516,17 @@ public abstract class Level implements Bundlable {
 			visuals.clear();
 			visuals.camera = null;
 		}
+
 		for (int i=0; i < length(); i++) {
 			if (pit[i]) {
 				visuals.add( new WindParticle.Wind( i ) );
 				if (i >= width() && water[i-width()]) {
 					visuals.add( new FlowParticle.Flow( i - width() ) );
 				}
+			}
+
+			if(Dungeon.depth <= 10){
+			visuals.add( new SandLevelParticles.Sand(i));
 			}
 		}
 		return visuals;
@@ -560,7 +571,7 @@ public abstract class Level implements Bundlable {
 					count += mob.spawningWeight();
 				}
 			}
-
+			//刷新判断
 			if (count < Dungeon.level.nMobs()) {
 
 				PathFinder.buildDistanceMap(Dungeon.hero.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
@@ -589,6 +600,7 @@ public abstract class Level implements Bundlable {
 		}
 	}
 
+	//刷新时间
 	public float respawnCooldown(){
 		if (Statistics.amuletObtained){
 			return TIME_TO_RESPAWN/2f;
@@ -1304,6 +1316,8 @@ public abstract class Level implements Bundlable {
 				return Messages.get(Level.class, "open_door_name");
 			case Terrain.ENTRANCE:
 				return Messages.get(Level.class, "entrace_name");
+			case Terrain.ENTRANCE2:
+				return Messages.get(Level.class, "entrace_name");
 			case Terrain.EXIT:
 				return Messages.get(Level.class, "exit_name");
 			case Terrain.EMBERS:
@@ -1350,6 +1364,8 @@ public abstract class Level implements Bundlable {
 			case Terrain.WATER:
 				return Messages.get(Level.class, "water_desc");
 			case Terrain.ENTRANCE:
+				return Messages.get(Level.class, "entrance_desc");
+			case Terrain.ENTRANCE2:
 				return Messages.get(Level.class, "entrance_desc");
 			case Terrain.EXIT:
 			case Terrain.UNLOCKED_EXIT:

@@ -405,7 +405,16 @@ public class GameScene extends PixelScene {
 			case DESCEND:
 			case FALL:
 				switch (Dungeon.depth) {
-				case 1: default:
+					//返回不存在的楼层时使用这个
+				default:
+					WndStory.showChapter( WndStory.ID_ERROR );
+					break;
+					//0层（初始楼层）
+				case 0:
+					WndStory.showChapter( WndStory.ID_LEVEL_0 );
+					break;
+					//沙漠
+				case 1:
 					WndStory.showChapter( WndStory.ID_SAND1 );
 					break;
 				case 2:
@@ -420,6 +429,7 @@ public class GameScene extends PixelScene {
 				case 5:
 					WndStory.showChapter( WndStory.ID_SAND5 );
 					break;
+					//森林
 				case 6:
 					WndStory.showChapter( WndStory.ID_TREE1 );
 					break;
@@ -435,12 +445,15 @@ public class GameScene extends PixelScene {
 				case 10:
 					WndStory.showChapter( WndStory.ID_TREE5 );
 					break;
+					//神殿
 				case 11:
 					WndStory.showChapter( WndStory.ID_CAVES );
 					break;
+					//矿洞
 				case 16:
 					WndStory.showChapter( WndStory.ID_CITY );
 					break;
+					//要塞
 				case 21:
 					WndStory.showChapter( WndStory.ID_HALLS );
 					break;

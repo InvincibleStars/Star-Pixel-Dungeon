@@ -56,9 +56,11 @@ public class WndCombo extends Window {
 
 		Image icon;
 		if (Dungeon.hero.belongings.weapon() != null){
-			icon = new ItemSprite(Dungeon.hero.belongings.weapon().image, null);
+			//icon = new ItemSprite(Dungeon.hero.belongings.weapon().image, null);
+			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.TWO_SWORD; }});
 		} else {
-			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.WEAPON_HOLDER; }});
+			//icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.WEAPON_HOLDER; }});
+			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.TWO_SWORD; }});
 		}
 
 		for (Combo.ComboMove move : Combo.ComboMove.values()) {
@@ -72,7 +74,7 @@ public class WndCombo extends Window {
 					combo.useMove(move);
 				}
 			};
-			ic.tint(move.tintColor);
+			//ic.tint(move.tintColor);
 			moveBtn.icon(ic);
 			moveBtn.leftJustify = true;
 			moveBtn.multiline = true;

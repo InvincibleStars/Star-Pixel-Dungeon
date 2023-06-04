@@ -37,12 +37,18 @@ public class Regeneration extends Buff {
 	//private static final float REGENERATION_DELAY = 10;
 
 	public static float REGENERATION_DELAY = 10;
+
+	//public static float REGENERATION_POTION = 1;
 	/*private变成public可以使得这个变量在其他类也可以被调用*/
 	/*final是不能重复赋值的常量，因此需要去掉 */
 	
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
+
+			if(target.HP>target.HT){
+				target.HP=target.HT;
+			}
 
 			if (target.HP < regencap() && !((Hero)target).isStarving()) {
 				LockedFloor lock = target.buff(LockedFloor.class);

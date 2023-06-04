@@ -569,14 +569,14 @@ public class Armor extends EquipableItem {
 		return this;
 	}
 //NEW
-	public int STRReq(){
-		int req = 0;
-				//STRReq(level());
-		//if (masteryPotionBonus>=0){
-			//req -= 1;
-		//}
-		return req;
+public int STRReq(){
+	int req = STRReq(level());
+	if (masteryPotionBonus!=0){
+		req += 1;
+
 	}
+	return req;
+}
 
 	public int STRReq(int lvl){
 		return STRReq(tier, lvl);
@@ -586,8 +586,7 @@ public class Armor extends EquipableItem {
 		lvl = Math.max(0, lvl);
 
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return 0;
-				//(Math.round((tier -1) * 2)) - (int)((Math.sqrt(lvl))*2);
+		return 10+(Math.round((tier -1) * 2)) - (int)((Math.sqrt(lvl))*2);
 	}
 	
 	@Override

@@ -37,8 +37,5 @@ public class ClothArmor extends Armor {
 		super( 1 );
 	}
 
-	public int STRReq(int lvl) {
-		return 0;
-	}
 
 }

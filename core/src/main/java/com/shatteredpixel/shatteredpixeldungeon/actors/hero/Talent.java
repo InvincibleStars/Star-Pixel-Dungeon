@@ -490,16 +490,16 @@ public enum Talent {
 		//tier 1
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, HEROIC_ENERGY, HEARTY_MEAL, IRON_WILL,DURABLE_TIPS);
+				Collections.addAll(tierTalents, HEARTY_MEAL, IRON_WILL,DURABLE_TIPS);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, HEROIC_ENERGY, ENERGIZING_MEAL,BACKUP_BARRIER,WAND_PRESERVATION);
+				Collections.addAll(tierTalents,  ENERGIZING_MEAL,BACKUP_BARRIER,WAND_PRESERVATION);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, HEROIC_ENERGY, LIGHT_CLOAK, WIDE_SEARCH, DURABLE_TIPS);
+				Collections.addAll(tierTalents,  LIGHT_CLOAK, WIDE_SEARCH, DURABLE_TIPS);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, HEROIC_ENERGY, SEER_SHOT,INVIGORATING_MEAL,DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents,  SEER_SHOT,INVIGORATING_MEAL,DURABLE_PROJECTILES);
 				break;
 		}
 		for (Talent talent : tierTalents){

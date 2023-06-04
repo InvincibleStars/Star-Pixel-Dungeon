@@ -37,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
@@ -66,7 +67,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Stamina;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -112,14 +115,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public abstract class Char extends Actor {
-	
+
 	public int pos = 0;
-	
+
 	public CharSprite sprite;
-	
+
 	public int HT;
 	public int HP;
-	
+
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
 
@@ -127,7 +130,7 @@ public abstract class Char extends Actor {
 	public boolean rooted		= false;
 	public boolean flying		= false;
 	public int invisible		= 0;
-	
+
 	//these are relative to the hero
 	public enum Alignment{
 		ENEMY,
@@ -135,13 +138,13 @@ public abstract class Char extends Actor {
 		ALLY
 	}
 	public Alignment alignment;
-	
+
 	public int viewDistance	= 8;
-	
+
 	public boolean[] fieldOfView = null;
-	
+
 	private HashSet<Buff> buffs = new HashSet<>();
-	
+
 	@Override
 	protected boolean act() {
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
@@ -182,7 +185,7 @@ public abstract class Char extends Actor {
 			return false;
 		}
 	}
-	
+
 	//swaps places by default
 	public boolean interact(Char c){
 
@@ -220,10 +223,10 @@ public abstract class Char extends Actor {
 
 		moveSprite( pos, c.pos );
 		move( c.pos );
-		
+
 		c.sprite.move( c.pos, curPos );
 		c.move( curPos );
-		
+
 		c.spend( 1 / c.speed() );
 
 		if (c == Dungeon.hero){
@@ -233,12 +236,12 @@ public abstract class Char extends Actor {
 
 			Dungeon.hero.busy();
 		}
-		
+
 		return true;
 	}
-	
+
 	protected boolean moveSprite( int from, int to ) {
-		
+
 		if (sprite.isVisible() && (Dungeon.level.heroFOV[from] || Dungeon.level.heroFOV[to])) {
 			sprite.move( from, to );
 			return true;
@@ -256,33 +259,33 @@ public abstract class Char extends Actor {
 	public boolean blockSound( float pitch ) {
 		return false;
 	}
-	
+
 	protected static final String POS       = "pos";
 	protected static final String TAG_HP    = "HP";
 	protected static final String TAG_HT    = "HT";
 	protected static final String TAG_SHLD  = "SHLD";
 	protected static final String BUFFS	    = "buffs";
-	
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
-		
+
 		super.storeInBundle( bundle );
-		
+
 		bundle.put( POS, pos );
 		bundle.put( TAG_HP, HP );
 		bundle.put( TAG_HT, HT );
 		bundle.put( BUFFS, buffs );
 	}
-	
+
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
-		
+
 		super.restoreFromBundle( bundle );
-		
+
 		pos = bundle.getInt( POS );
 		HP = bundle.getInt( TAG_HP );
 		HT = bundle.getInt( TAG_HT );
-		
+
 		for (Bundlable b : bundle.getCollection( BUFFS )) {
 			if (b != null) {
 				((Buff)b).attachTo( this );
@@ -293,11 +296,11 @@ public abstract class Char extends Actor {
 	final public boolean attack( Char enemy ){
 		return attack(enemy, 1f, 0f, 1f);
 	}
-	
+
 	public boolean attack( Char enemy, float dmgMulti, float dmgBonus, float accMulti ) {
 
 		if (enemy == null) return false;
-		
+
 		boolean visibleFight = Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[enemy.pos];
 
 		if (enemy.isInvulnerable(getClass())) {
@@ -311,7 +314,7 @@ public abstract class Char extends Actor {
 			return false;
 
 		} else if (hit( this, enemy, accMulti )) {
-			
+
 			int dr = enemy.drRoll();
 
 			Barkskin bark = enemy.buff(Barkskin.class);
@@ -319,7 +322,7 @@ public abstract class Char extends Actor {
 
 			Blocking.BlockBuff block = enemy.buff(Blocking.BlockBuff.class);
 			if (block != null)  dr += block.blockingRoll();
-			
+
 			if (this instanceof Hero){
 				Hero h = (Hero)this;
 				if (h.belongings.weapon() instanceof MissileWeapon
@@ -328,7 +331,7 @@ public abstract class Char extends Actor {
 					dr = 0;
 				}
 			}
-			
+
 			int dmg;
 			Preparation prep = buff(Preparation.class);
 			if (prep != null){
@@ -364,20 +367,25 @@ public abstract class Char extends Actor {
 			if (enemy.buff(ScrollOfChallenge.ChallengeArena.class) != null){
 				dmg *= 0.67f;
 			}
-			
+
 			int effectiveDamage = enemy.defenseProc( this, dmg );
 			effectiveDamage = Math.max( effectiveDamage - dr, 0 );
-			
+
 			if ( enemy.buff( Vulnerable.class ) != null){
 				effectiveDamage *= 1.33f;
 			}
 
+			if ( enemy.buff( Vulnerable2.class ) != null){
+				effectiveDamage -= 564650;
+			}
+
+
 			if ( enemy.buff( IncreaseDamage.class ) != null){
 				effectiveDamage *= 1.5f;
 			}
-			
+
 			effectiveDamage = attackProc( enemy, effectiveDamage );
-			
+
 			if (visibleFight) {
 				if (effectiveDamage > 0 || !enemy.blockSound(Random.Float(0.96f, 1.05f))) {
 					hitSound(Random.Float(0.87f, 1.15f));
@@ -412,21 +420,21 @@ public abstract class Char extends Actor {
 
 			if (!enemy.isAlive() && visibleFight) {
 				if (enemy == Dungeon.hero) {
-					
+
 					if (this == Dungeon.hero) {
 						return true;
 					}
 
 					Dungeon.fail( getClass() );
 					GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );
-					
+
 				} else if (this == Dungeon.hero) {
 					GLog.i( Messages.capitalize(Messages.get(Char.class, "defeat", enemy.name())) );
 				}
 			}
-			
+
 			return true;
-			
+
 		} else {
 
 			enemy.sprite.showStatus( CharSprite.NEUTRAL, enemy.defenseVerb() );
@@ -434,9 +442,9 @@ public abstract class Char extends Actor {
 				//TODO enemy.defenseSound? currently miss plays for monks/crab even when they parry
 				Sample.INSTANCE.play(Assets.Sounds.MISS);
 			}
-			
+
 			return false;
-			
+
 		}
 	}
 
@@ -465,53 +473,65 @@ public abstract class Char extends Actor {
 		for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)){
 			acuRoll *= buff.evasionAndAccuracyFactor();
 		}
-		
+
 		float defRoll = Random.Float( defStat );
 		if (defender.buff(Bless.class) != null) defRoll *= 1.25f;
 		if (defender.buff(  Hex.class) != null) defRoll *= 0.8f;
 		for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)){
 			defRoll *= buff.evasionAndAccuracyFactor();
 		}
-		
+
 		return (acuRoll * accMulti) >= defRoll;
 	}
-	
+
 	public int attackSkill( Char target ) { return 0; }
-	
+
 	public int defenseSkill( Char enemy ) {
 		return 0;
 	}
-	
+
 	public String defenseVerb() {
 		return Messages.get(this, "def_verb");
 	}
-	
+
 	public int drRoll() {
 		return 0;
 	}
-	
+
 	public int damageRoll() {
 		return 1;
 	}
-	
+
 	//TODO it would be nice to have a pre-armor and post-armor proc.
 	// atm attack is always post-armor and defence is already pre-armor
-	
+
 	public int attackProc( Char enemy, int damage ) {
 		if ( buff(Weakness.class) != null ){
 			damage *= 0.67f;
 		}
+		//连击数会增加伤害（三点连击提高一伤害）
+		for (Combo buff : buffs(Combo.class)){
+			if (5 != 0 && buff.count % 5 == 0) {
+				damage += buff.count/2;
+			}
+			damage += buff.count/3;
+		}
+
+
+
+
+
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			damage *= buff.meleeDamageFactor();
 			buff.onAttackProc( enemy );
 		}
 		return damage;
 	}
-	
+
 	public int defenseProc( Char enemy, int damage ) {
 		return damage;
 	}
-	
+
 	public float speed() {
 		float speed = baseSpeed;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
@@ -520,18 +540,22 @@ public abstract class Char extends Actor {
 		if ( buff( Haste.class ) != null) speed *= 3f;
 		if ( buff( CutoffSpeed.class ) != null) speed *= 2f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
+		for (Adrenaline2 buff : buffs(Adrenaline2.class)) {
+				speed *= 1+buff.visualcooldown()/10f;
+		}
 		return speed;
 	}
-	
+
+
 	//used so that buffs(Shieldbuff.class) isn't called every time unnecessarily
 	private int cachedShield = 0;
 	public boolean needsShieldUpdate = true;
-	
+
 	public int shielding(){
 		if (!needsShieldUpdate){
 			return cachedShield;
 		}
-		
+
 		cachedShield = 0;
 		for (ShieldBuff s : buffs(ShieldBuff.class)){
 			cachedShield += s.shielding();
@@ -539,9 +563,11 @@ public abstract class Char extends Actor {
 		needsShieldUpdate = false;
 		return cachedShield;
 	}
-	
+
+
+
 	public void damage( int dmg, Object src ) {
-		
+
 		if (!isAlive() || dmg < 0) {
 			return;
 		}
@@ -597,20 +623,34 @@ public abstract class Char extends Actor {
 		if (alignment != Alignment.ALLY && this.buff(DeathMark.DeathMarkTracker.class) != null){
 			dmg *= 1.25f;
 		}
-		
+
+
+
+		/*
+		for(Buff buff:Dungeon.hero.buffs()){
+			if (buff instanceof Combo){
+				((Combo)buff).count++;
+			}
+		}
+
+		 */
+
+
+
+
 		Class<?> srcClass = src.getClass();
 		if (isImmune( srcClass )) {
 			dmg = 0;
 		} else {
 			dmg = Math.round( dmg * resist( srcClass ));
 		}
-		
+
 		//TODO improve this when I have proper damage source logic
 		if (AntiMagic.RESISTS.contains(src.getClass()) && buff(ArcaneArmor.class) != null){
 			dmg -= Random.NormalIntRange(0, buff(ArcaneArmor.class).level());
 			if (dmg < 0) dmg = 0;
 		}
-		
+
 		if (buff( Paralysis.class ) != null) {
 			buff( Paralysis.class ).processDamage(dmg);
 		}
@@ -630,7 +670,7 @@ public abstract class Char extends Actor {
 		}
 		shielded -= dmg;
 		HP -= dmg;
-		
+
 		if (sprite != null) {
 			sprite.showStatus(HP > HT / 2 ?
 							CharSprite.WARNING :
@@ -646,7 +686,7 @@ public abstract class Char extends Actor {
 			DeathMark.processFearTheReaper(this);
 		}
 	}
-	
+
 	public void destroy() {
 		HP = 0;
 		Actor.remove( this );
@@ -666,7 +706,7 @@ public abstract class Char extends Actor {
 			}
 		}
 	}
-	
+
 	public void die( Object src ) {
 		destroy();
 		if (src != Chasm.class) sprite.die();
@@ -676,14 +716,14 @@ public abstract class Char extends Actor {
 	//This is relevant because we call isAlive during drawing, which has both performance
 	//and thread coordination implications
 	public boolean deathMarked = false;
-	
+
 	public boolean isAlive() {
 		return HP > 0 || deathMarked;
 	}
-	
+
 	@Override
 	protected void spend( float time ) {
-		
+
 		float timeScale = 1f;
 		if (buff( Slow.class ) != null) {
 			timeScale *= 0.5f;
@@ -694,14 +734,14 @@ public abstract class Char extends Actor {
 		if (buff( Speed.class ) != null) {
 			timeScale *= 2.0f;
 		}
-		
+
 		super.spend( time / timeScale );
 	}
-	
+
 	public synchronized HashSet<Buff> buffs() {
 		return new HashSet<>(buffs);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	//returns all buffs assignable from the given buff class
 	public synchronized <T extends Buff> HashSet<T> buffs( Class<T> c ) {
@@ -762,33 +802,33 @@ public abstract class Char extends Actor {
 			}
 
 	}
-	
+
 	public synchronized void remove( Buff buff ) {
-		
+
 		buffs.remove( buff );
 		Actor.remove( buff );
 
 	}
-	
+
 	public synchronized void remove( Class<? extends Buff> buffClass ) {
 		for (Buff buff : buffs( buffClass )) {
 			remove( buff );
 		}
 	}
-	
+
 	@Override
 	protected synchronized void onRemove() {
 		for (Buff buff : buffs.toArray(new Buff[buffs.size()])) {
 			buff.detach();
 		}
 	}
-	
+
 	public synchronized void updateSpriteState() {
 		for (Buff buff:buffs) {
 			buff.fx( true );
 		}
 	}
-	
+
 	public float stealth() {
 		return 0;
 	}
@@ -818,34 +858,34 @@ public abstract class Char extends Actor {
 		}
 
 		pos = step;
-		
+
 		if (this != Dungeon.hero) {
 			sprite.visible = Dungeon.level.heroFOV[pos];
 		}
-		
+
 		Dungeon.level.occupyCell(this );
 	}
-	
+
 	public int distance( Char other ) {
 		return Dungeon.level.distance( pos, other.pos );
 	}
-	
+
 	public void onMotionComplete() {
 		//Does nothing by default
 		//The main actor thread already accounts for motion,
 		// so calling next() here isn't necessary (see Actor.process)
 	}
-	
+
 	public void onAttackComplete() {
 		next();
 	}
-	
+
 	public void onOperateComplete() {
 		next();
 	}
-	
+
 	protected final HashSet<Class> resistances = new HashSet<>();
-	
+
 	//returns percent effectiveness after resistances
 	//TODO currently resistances reduce effectiveness by a static 50%, and do not stack.
 	public float resist( Class effect ){
@@ -856,7 +896,7 @@ public abstract class Char extends Actor {
 		for (Buff b : buffs()){
 			resists.addAll(b.resistances());
 		}
-		
+
 		float result = 1f;
 		for (Class c : resists){
 			if (c.isAssignableFrom(effect)){
@@ -865,9 +905,9 @@ public abstract class Char extends Actor {
 		}
 		return result * RingOfElements.resist(this, effect);
 	}
-	
+
 	protected final HashSet<Class> immunities = new HashSet<>();
-	
+
 	public boolean isImmune(Class effect ){
 		HashSet<Class> immunes = new HashSet<>(immunities);
 		for (Property p : properties()){
@@ -876,7 +916,7 @@ public abstract class Char extends Actor {
 		for (Buff b : buffs()){
 			immunes.addAll(b.immunities());
 		}
-		
+
 		for (Class c : immunes){
 			if (c.isAssignableFrom(effect)){
 				return true;
@@ -921,23 +961,23 @@ public abstract class Char extends Actor {
 				new HashSet<Class>()),
 		LARGE,
 		IMMOVABLE;
-		
+
 		private HashSet<Class> resistances;
 		private HashSet<Class> immunities;
-		
+
 		Property(){
 			this(new HashSet<Class>(), new HashSet<Class>());
 		}
-		
+
 		Property( HashSet<Class> resistances, HashSet<Class> immunities){
 			this.resistances = resistances;
 			this.immunities = immunities;
 		}
-		
+
 		public HashSet<Class> resistances(){
 			return new HashSet<>(resistances);
 		}
-		
+
 		public HashSet<Class> immunities(){
 			return new HashSet<>(immunities);
 		}

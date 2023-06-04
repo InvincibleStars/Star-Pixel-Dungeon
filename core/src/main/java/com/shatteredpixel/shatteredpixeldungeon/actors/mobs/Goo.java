@@ -48,64 +48,83 @@ import com.watabou.utils.Random;
 public class Goo extends Mob {
 
 	{
+		//基础数据
+		//IF
 		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 120 : 100;
 		EXP = 10;
 		defenseSkill = 8;
 		spriteClass = GooSprite.class;
 
+		//生物词条
 		properties.add(Property.BOSS);
 		properties.add(Property.DEMONIC);
 		properties.add(Property.ACIDIC);
 	}
 
+	//蓄力层数
 	private int pumpedUp = 0;
+	//回复量
 	private int healInc = 1;
 
+	//伤害
 	@Override
 	public int damageRoll() {
+		//int
 		int min = 1;
 		int max = (HP*2 <= HT) ? 12 : 8;
+		//蓄力
 		if (pumpedUp > 0) {
 			pumpedUp = 0;
 			return Random.NormalIntRange( min*3, max*3 );
 		} else {
+			//normal
 			return Random.NormalIntRange( min, max );
 		}
 	}
 
+	//命中
 	@Override
 	public int attackSkill( Char target ) {
 		int attack = 10;
+		//损伤
 		if (HP*2 <= HT) attack = 15;
+		//蓄力
 		if (pumpedUp > 0) attack *= 2;
 		return attack;
 	}
 
+	//闪避
 	@Override
 	public int defenseSkill(Char enemy) {
+		//IF
 		return (int)(super.defenseSkill(enemy) * ((HP*2 <= HT)? 1.5 : 1));
 	}
 
+	//防御
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange(0, 2);
 	}
 
+	//动作逻辑
 	@Override
 	public boolean act() {
-
+		//回血
 		if (Dungeon.level.water[pos] && HP < HT) {
+			//执行
 			HP += healInc;
-
+			//背水一战
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 			if (lock != null) lock.removeTime(healInc*2);
-
+			//粒子
 			if (Dungeon.level.heroFOV[pos] ){
 				sprite.emitter().burst( Speck.factory( Speck.HEALING ), healInc );
 			}
+			//挑战
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) && healInc < 3) {
 				healInc++;
 			}
+			//血条
 			if (HP*2 > HT) {
 				BossHealthBar.bleed(false);
 				((GooSprite)sprite).spray(false);
@@ -114,7 +133,7 @@ public class Goo extends Mob {
 		} else {
 			healInc = 1;
 		}
-		
+		//未睡眠前
 		if (state != SLEEPING){
 			Dungeon.level.seal();
 		}
@@ -122,28 +141,33 @@ public class Goo extends Mob {
 		return super.act();
 	}
 
+	//攻击范围
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		if (pumpedUp > 0){
 			//we check both from and to in this case as projectile logic isn't always symmetrical.
 			//this helps trim out BS edge-cases
 			return Dungeon.level.distance(enemy.pos, pos) <= 2
+					//获取敌人位置
 						&& new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos
+					//获取自身位置
 						&& new Ballistica( enemy.pos, pos, Ballistica.PROJECTILE).collisionPos == pos;
 		} else {
 			return super.canAttack(enemy);
 		}
 	}
-
+	//附伤
 	@Override
 	public int attackProc( Char enemy, int damage ) {
 		damage = super.attackProc( enemy, damage );
+		//BUFF
 		if (Random.Int( 3 ) == 0) {
 			Buff.affect( enemy, Ooze.class ).set( Ooze.DURATION );
 			enemy.sprite.burst( 0x000000, 5 );
 		}
 
 		if (pumpedUp > 0) {
+			//视角震动
 			Camera.main.shake( 3, 0.2f );
 		}
 
@@ -155,31 +179,40 @@ public class Goo extends Mob {
 		super.updateSpriteState();
 
 		if (pumpedUp > 0){
+			//粒子扩散
 			((GooSprite)sprite).pumpUp( pumpedUp );
 		}
 	}
 
+
 	@Override
 	protected boolean doAttack( Char enemy ) {
 		if (pumpedUp == 1) {
+			//加强蓄力
 			pumpedUp++;
+			//
 			((GooSprite)sprite).pumpUp( pumpedUp );
 
 			spend( attackDelay() );
 
 			return true;
+        //蓄力完毕
 		} else if (pumpedUp >= 2 || Random.Int( (HP*2 <= HT) ? 2 : 5 ) > 0) {
 
 			boolean visible = Dungeon.level.heroFOV[pos];
 
 			if (visible) {
+
 				if (pumpedUp >= 2) {
+					//动画
 					((GooSprite) sprite).pumpAttack();
 				} else {
+					//ATK
 					sprite.attack(enemy.pos);
 				}
 			} else {
 				if (pumpedUp >= 2){
+					//动画
 					((GooSprite)sprite).triggerEmitters();
 				}
 				attack( enemy );
@@ -189,14 +222,16 @@ public class Goo extends Mob {
 			return !visible;
 
 		} else {
-
+			//增加蓄力范围
 			pumpedUp++;
+			//检测到挑战后瞬间蓄力完成（再增加一次蓄力）
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 				pumpedUp++;
 			}
 
 			((GooSprite)sprite).pumpUp( pumpedUp );
 
+			//在玩家的视野内时播放动作
 			if (Dungeon.level.heroFOV[pos]) {
 				sprite.showStatus( CharSprite.NEGATIVE, Messages.get(this, "!!!") );
 				GLog.n( Messages.get(this, "pumpup") );
@@ -215,6 +250,7 @@ public class Goo extends Mob {
 		return result;
 	}
 
+	//清除粒子效果
 	@Override
 	protected boolean getCloser( int target ) {
 		if (pumpedUp != 0) {
@@ -229,6 +265,7 @@ public class Goo extends Mob {
 		if (!BossHealthBar.isAssigned()){
 			BossHealthBar.assignBoss( this );
 		}
+		//激怒 粒子效果
 		boolean bleeding = (HP*2 <= HT);
 		super.damage(dmg, src);
 		if ((HP*2 <= HT) && !bleeding){
@@ -237,10 +274,12 @@ public class Goo extends Mob {
 			((GooSprite)sprite).spray(true);
 			yell(Messages.get(this, "gluuurp"));
 		}
+		//背水一战
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 		if (lock != null) lock.addTime(dmg*2);
 	}
 
+	//死亡效果
 	@Override
 	public void die( Object cause ) {
 		

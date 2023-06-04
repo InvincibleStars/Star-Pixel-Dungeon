@@ -27,13 +27,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.KillRockSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class KillRock extends Mob {
 
 	{
-		spriteClass = RatSprite.class;
+		spriteClass = KillRockSprite.class;
 		
 		HP = HT = 8;
 		EXP =3;

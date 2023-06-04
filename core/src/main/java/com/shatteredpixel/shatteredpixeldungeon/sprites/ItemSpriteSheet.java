@@ -901,64 +901,126 @@ public class ItemSpriteSheet {
 	}
 
 	//新物品
+	//子弹）
 	private static final int AMMOS = xy(1, 32);
+	//子弹
 	public static final int AMMO = AMMOS + 0;
+	//子弹（投射物）
 	public static final int AMMO_MINI = AMMOS + 1;
-
+	//贴图截取
 	static {
 		assignItemRect(AMMO, 6, 7);
 		assignItemRect(AMMO_MINI, 2, 2);
 	}
 
+	//彩红石
 	private static final int COLOR_STONE = xy(1, 33);
-	public static final int UPDATE_STONE = COLOR_STONE + 0;
-
+	//翡翠晶体
+	public static final int GREEN_STONE = COLOR_STONE + 0;
+	//黄昏晶体
+	public static final int RED_STONE = COLOR_STONE + 1;
+	//幽蓝晶体
+	public static final int BLUE_STONE = COLOR_STONE + 2;
+	//晶体高度（统一）
 	static {
-		assignItemRect(UPDATE_STONE, 6, 8);
+		for (int i = COLOR_STONE; i < COLOR_STONE + 16; i++)
+			assignItemRect(i, 6, 8);
 	}
-
+	//星尘
 	private static final int COLOR_DUST = xy(1, 34);
+	//复苏之尘
 	public static final int GREEN_DUST = COLOR_DUST + 0;
+	//静谧之尘
 	public static final int BLUE_DUST = COLOR_DUST + 1;
 
 	static {
-		assignItemRect(GREEN_DUST, 9, 9);
-		assignItemRect(BLUE_DUST, 9, 9);
+		for (int i = COLOR_DUST; i < COLOR_DUST + 16; i++)
+			assignItemRect(i, 9, 9);
 	}
-
+	//新武器-T1
 	private static final int NEW_WEAPON_T1 = xy(1, 35);
+	//手术刀
 	public static final int SCALPEL = NEW_WEAPON_T1 + 0;
+	//指虎
 	public static final int KUNCKLES = NEW_WEAPON_T1 + 1;
-
+	//短棍
+	public static final int STICK = NEW_WEAPON_T1 + 2;
 	static {
 		assignItemRect(SCALPEL, 11, 12);
-		assignItemRect(KUNCKLES, 13, 8);
+		assignItemRect(KUNCKLES, 13, 9);
+		assignItemRect(STICK, 15, 14);
 	}
-
+	//新武器-T2
 	private static final int NEW_WEAPON_T2       =                                   xy(1, 36);
+	//铁扇
 	public static final int IROM_LEAVE   = NEW_WEAPON_T2+0;
+	//沧澜
 	public static final int CUTOFF   = NEW_WEAPON_T2+1;
+	//链条
+	public static final int CHAIN   = NEW_WEAPON_T2+2;
+	//压电手套
+	public static final int ELEOVE   = NEW_WEAPON_T2+3;
 	static{
 		assignItemRect(IROM_LEAVE,   15, 15);
 		assignItemRect(CUTOFF,   13, 13);
+		assignItemRect(CHAIN,   15, 16);
+		assignItemRect(ELEOVE,   13, 15);
+
 	}
 
+	//新武器-T3
 	private static final int NEW_WEAPON_T3       =                                   xy(1, 37);
+	//断流
 	public static final int  CANG_LAN  = NEW_WEAPON_T3+0;
+	//长镰
+	public static final int  SICKLE  = NEW_WEAPON_T3+1;
+	//对剑
+	public static final int  TWO_SWORD  = NEW_WEAPON_T3+2;
+	//刃环
+	public static final int  KNIFE_TURN  = NEW_WEAPON_T3+3;
+	//复仇女神
+	public static final int  NEMESIS  = NEW_WEAPON_T3+4;
+	//双头刀
+	public static final int  TWO_KNIFE  = NEW_WEAPON_T3+5;
 	static{
-		assignItemRect(CANG_LAN,   16, 16);
+		assignItemRect(CANG_LAN,   14, 14);
+		assignItemRect(SICKLE,   14, 12);
+		assignItemRect(TWO_SWORD,   14, 14);
+		assignItemRect(KNIFE_TURN,   16, 16);
+		assignItemRect(NEMESIS,   15, 15);
+		assignItemRect(TWO_KNIFE,   16, 16);
 	}
-
+	//新武器-T4
 	private static final int NEW_WEAPON_T4       =                                   xy(1, 38);
-	public static final int  STINGER  = NEW_WEAPON_T4+0;
-	static{
-		assignItemRect(STINGER,   14, 16);
-	}
+	//刺剑
+	public static final int  STAB_SWORD  = NEW_WEAPON_T4+0;
+	//高能手套
+	public static final int  FIRE_GLOVE  = NEW_WEAPON_T4+1;
+	//棘刺
+	public static final int  THORN  = NEW_WEAPON_T4+2;
 
+	static{
+		assignItemRect(STAB_SWORD,   15, 15);
+		assignItemRect(FIRE_GLOVE,   13, 15);
+		assignItemRect(THORN,   14, 16);
+	}
+	//新武器-T5
 	private static final int NEW_WEAPON_T5       =                                   xy(1, 39);
+	//双头猎斧
 	public static final int  DRAGON_AXE  = NEW_WEAPON_T5+0;
+	//重阔剑
+	public static final int  BROAD_SWORD  = NEW_WEAPON_T5+1;
 	static{
 		assignItemRect(DRAGON_AXE,   16, 16);
+		assignItemRect(BROAD_SWORD,   16, 16);
+	}
+
+	//设置按钮
+	private static final int SEETING       =                                   xy(1, 41);
+	//扳手
+	public static final int  SEETING1  = SEETING+0;
+	static{
+		assignItemRect(SEETING1,   13, 13);
 	}
 
 

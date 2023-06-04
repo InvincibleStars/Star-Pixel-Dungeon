@@ -72,7 +72,7 @@ public class WndChallenges extends Window {
 			CheckBox cb = new CheckBox(Messages.titleCase(Messages.get(Challenges.class, challenge)));
 			cb.checked((checked & Challenges.MASKS[i]) != 0);
 			cb.active = editable;
-			//
+			//满足成就后开启某项挑战
 			if (Challenges.NAME_IDS[i].equals(("darkness"))){
 				if(Badges.isUnlocked(Badges.Badge.ALL_POTIONS_IDENTIFIED)||Badges.isUnlocked(Badges.Badge.ALL_SCROLLS_IDENTIFIED)){
 					cb.active = true;

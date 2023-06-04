@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.Sand
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.e.SandWorm2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.GnollThrow;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.PerfectReplicator;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Rat;
 import com.watabou.utils.Random;
 
@@ -55,12 +56,17 @@ public class Bestiary {
 			// 沙暴大地
 			case 0:
 				return new ArrayList<>(Arrays.asList(
+
+						//SandWorm.class, SandWorm.class,SandWorm.class,
+						//BlackWorm.class,BlackWorm.class,
 						Rat.class));
 			case 1: default:
 
 				return new ArrayList<>(Arrays.asList(
+
 						SandWorm.class, SandWorm.class,SandWorm.class,
-						BlackWorm.class,BlackWorm.class));
+						BlackWorm.class,BlackWorm.class
+						));
 			case 2:
 
 				return new ArrayList<>(Arrays.asList(

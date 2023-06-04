@@ -21,6 +21,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BATTLEMAGE;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.FREERUNNER;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.GLADIATOR;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.SNIPER;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.WARDEN;
+import static com.shatteredpixel.shatteredpixeldungeon.items.Generator.randomWeapon;
+
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -40,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.StarWar;
@@ -68,25 +77,34 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutat
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk2;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Knuckle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Scalpel;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Chain;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.CutOff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Eleove;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.IronLeave;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.A1145;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.IronSuper;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.Random;
+
+import sun.jvm.hotspot.gc.z.ZCollectedHeap;
 
 public enum HeroClass {
 
-	WARRIOR(HeroSubClass.BERSERKER, HeroSubClass.GLADIATOR),
+	WARRIOR(HeroSubClass.BERSERKER, GLADIATOR),
 	MAGE(HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK),
 	ROGUE(HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER),
 	HUNTRESS(HeroSubClass.SNIPER, HeroSubClass.WARDEN);
@@ -98,28 +116,79 @@ public enum HeroClass {
 	}
 
 	public void initHero(Hero hero) {
-
 		hero.heroClass = this;
 		Talent.initClassTalents(hero);
 		Dungeon.gold += 500; //初始金钱
 
-		//初始物品
+		//初始物品2
 		new PotionOfHealing().quantity(3).identify().collect();
 		//火把
 		new Torch().quantity(5).identify().collect();
 		//口粮
 		new Food().quantity(5).identify().collect();
 
-		new Syringe().quantity(525).identify().collect();
+		new A1145().quantity(1).identify().collect();
+		new Dirk2().quantity(1).identify().collect();
+		new ScrollOfMagicMapping().quantity(100).identify().collect();
+
+		/*
+
+		new Chain().quantity(5).identify().collect();
+
+		new CutOff().quantity(5).identify().collect();
+
+		new Eleove().quantity(5).identify().collect();
+
+		new IronLeave().quantity(5).identify().collect();
+
+		new Knuckle().quantity(5).identify().collect();
+
+		new Scalpel().quantity(5).identify().collect();
+
+		new Syringe().quantity(5).identify().collect();
+
+		 */
+
+		//定义一个随机武器
+		Weapon randomWeapon;
+		//改变武器的阶数
+		randomWeapon = (Weapon) Generator.random(Generator.Category.WEP_T2);
+		randomWeapon.quantity();
+		//武器的初始等级
+		randomWeapon.level(6);
+		//是否诅咒和附魔
+		randomWeapon.cursed=false;
+		randomWeapon.enchantment=null;
+		//给予武器
+		randomWeapon.identify().collect();
+
+		Weapon randomWeapon2;
+		//修改这里的Category来改变武器的等级
+		randomWeapon2 = (Weapon) Generator.random(Generator.Category.WEP_T2);
+		randomWeapon2.quantity();
+		randomWeapon2.level(-1);
+		randomWeapon2.cursed=false;
+		randomWeapon2.enchantment=null;
+		//如果不想要鉴定，那就去掉.identify()
+		randomWeapon2.identify().collect();
+		randomWeapon2.identify().collect();
+
+
+		//Generator.Category.WEAPON;
+
+
+
 		//原初戒指
 		new RingOfNone().quantity(1).identify().collect();
-		new ScrollOfTransmutation().quantity(100).identify().collect();
 
 		Item i = new ClothArmor().identify();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor) i;
 
 		new ScrollOfUpgrade().quantity(300).collect();
 		new PotionOfMastery().quantity(300).collect();
+		new ScrollOfRage().quantity(300).collect();
+		new PotionOfInvisibility().quantity(300).collect();
+
 
 
 		//测试
@@ -139,14 +208,15 @@ public enum HeroClass {
 		Waterskin waterskin = new Waterskin();
 		waterskin.collect();
 
-		KingsCrown kingscrown = new KingsCrown();
-		kingscrown.collect();
-
+		//KingsCrown kingscrown = new KingsCrown();
+		//kingscrown.collect();
+		//初始鉴定真知符文
 		new ScrollOfIdentify().identify();
 
 		switch (this) {
 			case WARRIOR:
 				initWarrior(hero);
+				//战士拥有额外的力量
 				Dungeon.hero.STR++;
 				break;
 
@@ -168,7 +238,7 @@ public enum HeroClass {
 			//快捷栏
 			if (Dungeon.quickslot.getItem(s) == null) {
 				Dungeon.quickslot.setSlot(s++, waterskin);
-				Dungeon.quickslot.setSlot(s++, kingscrown);
+				//Dungeon.quickslot.setSlot(s++, kingscrown);
 				break;
 			}
 		}
@@ -190,13 +260,16 @@ public enum HeroClass {
 	}
 
 
-    //职业初始物品
+    //职业初始物品 战士
 	private static void initWarrior(Hero hero) {
 		(hero.belongings.weapon = new WornShortsword()).identify();
 		ThrowingStone stones = new ThrowingStone();
 		stones.quantity(3).collect();
 		new PotionBandolier().quantity(1).collect();
 		Dungeon.quickslot.setSlot(0, stones);
+
+		//hero.subClass=GLADIATOR;
+
 
 
 
@@ -208,7 +281,7 @@ public enum HeroClass {
 		new ScrollOfUpgrade().identify();
 		new ScrollOfRage().identify();
 	}
-	//职业初始物品
+	//职业初始物品 法师
 	private static void initMage(Hero hero) {
 		MagesStaff staff;
 
@@ -223,8 +296,11 @@ public enum HeroClass {
 		new ScrollOfUpgrade().identify();
 		new PotionOfLiquidFlame().identify();
 		new ScrollOfEnchantment().identify();
+
+		//法师职业
+		hero.subClass=BATTLEMAGE;
 	}
-	//职业初始物品
+	//职业初始物品 盗贼
 	private static void initRogue(Hero hero) {
 		(hero.belongings.weapon = new Dagger()).identify();
 		new VelvetPouch().quantity(1).collect();
@@ -243,8 +319,10 @@ public enum HeroClass {
 		new ScrollOfMagicMapping().identify();
 		new ScrollOfUpgrade().identify();
 		new PotionOfInvisibility().identify();
+
+		hero.subClass=FREERUNNER;
 	}
-	//职业初始物品
+	//职业初始物品 女猎手
 	private static void initHuntress(Hero hero) {
 
 		(hero.belongings.weapon = new Gloves()).identify();
@@ -257,6 +335,8 @@ public enum HeroClass {
 		new PotionOfMindVision().identify();
 		new ScrollOfUpgrade().identify();
 		new ScrollOfLullaby().identify();
+
+		hero.subClass=SNIPER;
 	}
 
 
@@ -315,7 +395,7 @@ public enum HeroClass {
 				return Assets.Splashes.HUNTRESS;
 		}
 	}
-
+	//职业介绍
 	public String[] perks() {
 		switch (this) {
 			case WARRIOR:
@@ -373,6 +453,7 @@ public enum HeroClass {
 
 	public String unlockMsg() {
 		switch (this) {
+			/*
 			case WARRIOR:
 			default:
 				return "";
@@ -382,6 +463,19 @@ public enum HeroClass {
 				return Messages.get(HeroClass.class, "rogue_unlock");
 			case HUNTRESS:
 				return Messages.get(HeroClass.class, "huntress_unlock");
+		}
+
+			 */
+
+			case WARRIOR:
+			default:
+				return "";
+			case MAGE:
+				return "";
+			case ROGUE:
+				return "";
+			case HUNTRESS:
+				return "";
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

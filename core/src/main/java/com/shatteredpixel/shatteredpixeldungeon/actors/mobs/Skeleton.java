@@ -24,6 +24,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
@@ -74,6 +77,8 @@ public class Skeleton extends Mob {
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;
 				}
+				Buff.affect(ch, Burning.class).reignite(ch);
+				Buff.affect(ch, Ooze.class).set( Ooze.DURATION );
 			}
 		}
 		
@@ -85,6 +90,10 @@ public class Skeleton extends Mob {
 			Dungeon.fail( getClass() );
 			GLog.n( Messages.get(this, "explo_kill") );
 		}
+
+
+
+		//Buff.affect(enemy, Ooze.class).set( Ooze.DURATION );
 	}
 
 	@Override

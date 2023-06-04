@@ -52,8 +52,9 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Combo extends Buff implements ActionIndicator.Action {
-	
-	private int count = 0;
+
+	//private int count = 0;
+	public int count = 0;
 	private float comboTime = 0f;
 	private float initialComboTime = 5f;
 
@@ -169,12 +170,14 @@ public class Combo extends Buff implements ActionIndicator.Action {
 	public Image getIcon() {
 		Image icon;
 		if (((Hero)target).belongings.weapon() != null){
-			icon = new ItemSprite(((Hero)target).belongings.weapon().image, null);
+			//icon = new ItemSprite(((Hero)target).belongings.weapon().image, null);
+			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.TWO_SWORD; }});
 		} else {
-			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.WEAPON_HOLDER; }});
+			//icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.WEAPON_HOLDER; }});
+			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.TWO_SWORD; }});
 		}
 
-		icon.tint(getHighestMove().tintColor);
+		//icon.tint(getHighestMove().tintColor);
 		return icon;
 	}
 
@@ -476,4 +479,8 @@ public class Combo extends Buff implements ActionIndicator.Action {
 			return Messages.get(Combo.class, "prompt");
 		}
 	};
+
+
+
+
 }

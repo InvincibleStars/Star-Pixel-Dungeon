@@ -33,6 +33,7 @@ import com.watabou.noosa.audio.Sample;
 
 public abstract class InventoryScroll extends Scroll {
 
+
 	protected static boolean identifiedByUse = false;
 
 	@Override

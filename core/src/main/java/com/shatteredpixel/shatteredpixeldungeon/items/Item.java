@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -561,6 +562,7 @@ public class Item implements Bundlable {
 		final float delay = castDelay(user, dst);
 
 		if (enemy != null) {
+			//((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).
 			((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).
 					reset(user.sprite,
 							enemy.sprite,
@@ -573,6 +575,8 @@ public class Item implements Bundlable {
 							if (i != null) i.onThrow(cell);
 							if (curUser.hasTalent(Talent.IMPROVISED_PROJECTILES)
 									&& !(Item.this instanceof MissileWeapon)
+									//NEW CODE
+									&& !(Item.this instanceof MeleeWeapon)
 									&& curUser.buff(Talent.ImprovisedProjectileCooldown.class) == null){
 								if (enemy != null && enemy.alignment != curUser.alignment){
 									Sample.INSTANCE.play(Assets.Sounds.HIT);

@@ -23,6 +23,8 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -94,7 +96,7 @@ public class Star_v0_1_X_Changes {
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_NONE, null), "原初戒指",
 				"_-_ 初始携带的物品，可以通过嬗变转换成其他戒指"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.UPDATE_STONE, null), "强化晶体",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_STONE, null), "强化晶体",
 				"_-_ 用于炼金釜合成的小玩意\n"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.AMMO, null), "枪械/子弹",
@@ -107,6 +109,9 @@ public class Star_v0_1_X_Changes {
 				"_-_ 更多的新武器\n"+
 				"_-_ 更多的投掷武器"));
 
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SEETING1, new ItemSprite.Glowing( 0xFFFFFF )), "调整",
+				"_-_ 更多的新武器\n"+
+				"_-_ 更多的投掷武器"));
 
 
 

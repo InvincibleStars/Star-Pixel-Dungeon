@@ -298,19 +298,19 @@ public class Assets {
 		//Sand Area
 
 		//沙虫
-		public static final String SAND_WORM= "sprites/sand_worm.png";
-		public static final String SAND_WORM2= "sprites/sand_worm2.png";
+		public static final String SAND_WORM= "sprites/newsprites/sand/sand_worm.png";
+		public static final String SAND_WORM2= "sprites/newsprites/sand/sand_worm2.png";
 		//岩石虫
-		public static final String ROCK_BUG= "sprites/rock_bug.png";
-		public static final String ROCK_BUG2= "sprites/rock_bug2.png";
+		public static final String ROCK_BUG= "sprites/newsprites/sand/rock_bug.png";
+		public static final String ROCK_BUG2= "sprites/newsprites/sand/rock_bug2.png";
 		//黑色晶虫
-		public static final String BLACK_WORM= "sprites/black_worm.png";
+		public static final String BLACK_WORM= "sprites/newsprites/sand/black_worm.png";
 		//激光蟹
-		public static final String SAND_CRAB= "sprites/sand_crab.png";
+		public static final String SAND_CRAB= "sprites/newsprites/sand/sand_crab.png";
 		//节肢蝎子
-		public static final String KILLROCK= "sprites/killrock.png";
+		public static final String KILLROCK= "sprites/newsprites/sand/killrock.png";
 		//沙团
-		public static final String SAND= "sprites/sand.png";
+		public static final String SAND= "sprites/newsprites/sand/sand.png";
 
 		//Tree Area
 
@@ -319,7 +319,7 @@ public class Assets {
 
 
 		//盒子
-		public static final String POT= "sprites/pot.png";
+		public static final String POT= "sprites/newsprites/other/pot.png";
 
 
 	}

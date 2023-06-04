@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class UpdateStone extends Item {
 	
 	{
-		image = ItemSpriteSheet.UPDATE_STONE;
+		image = ItemSpriteSheet.GREEN_STONE;
 		//可堆叠
 		stackable = true;
 		//不可装备

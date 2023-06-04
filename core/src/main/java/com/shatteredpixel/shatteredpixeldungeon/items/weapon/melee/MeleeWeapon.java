@@ -21,22 +21,46 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.Random;//
 
 
 public class MeleeWeapon extends Weapon {
-	
+
+	{
+
+			usesTargeting = true;
+			defaultAction = AC_THROW;
+
+
+	}
+
+	protected boolean sticky = true;
+
 	public int tier;
 
 	@Override
 	public int min(int lvl) {
 		return  2 + tier + lvl+(masteryPotionBonus*4);	//(2+阶数+等级)作为初始伤害   （最低伤害）
 	}
+
+
 
 	@Override
 	public int max(int lvl) {
@@ -51,9 +75,27 @@ public class MeleeWeapon extends Weapon {
 	public int damageRoll(Char owner) {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
 
+
 		if (owner instanceof Hero) {
 			int exStr = ((Hero)owner).STR() - STRReq();
+
+			Hero hero = (Hero)owner;
+			Char enemy = hero.enemy();
+			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
+				//deals 75% toward max to max on surprise, instead of min to max.
+				if (exStr > 0 && Dungeon.hero.heroClass==HeroClass.ROGUE) {
+					damage += Random.IntRange(0, 2000*exStr);
+				}else{
+					damage += Random.IntRange(0, exStr);
+				}
+			}
+
 			if (exStr > 0) {
+				//战士近战受到额外力量的二倍加成
+				if(Dungeon.hero.heroClass== HeroClass.WARRIOR){
+					damage += Random.IntRange( 0, 2*exStr );
+				}
+			}else{
 				damage += Random.IntRange( 0, exStr );
 			}
 		}
@@ -68,14 +110,14 @@ public class MeleeWeapon extends Weapon {
 
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), STRReq());
-			if (STRReq() > Dungeon.hero.STR()) {
+			if (STRReq() > hero.STR()) {
 				info += " " + Messages.get(Weapon.class, "too_heavy");
-			} else if (Dungeon.hero.STR() > STRReq()){
-				info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.STR() - STRReq());
+			} else if (hero.STR() > STRReq()){
+				info += " " + Messages.get(Weapon.class, "excess_str", hero.STR() - STRReq());
 			}
 		} else {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(0), max(0), STRReq(0));
-			if (STRReq(0) > Dungeon.hero.STR()) {
+			if (STRReq(0) > hero.STR()) {
 				info += " " + Messages.get(MeleeWeapon.class, "probably_too_heavy");
 			}
 		}
@@ -98,7 +140,7 @@ public class MeleeWeapon extends Weapon {
 			info += " " + Messages.get(enchantment, "desc");
 		}
 
-		if (cursed && isEquipped( Dungeon.hero )) {
+		if (cursed && isEquipped( hero )) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed");
@@ -131,7 +173,42 @@ public class MeleeWeapon extends Weapon {
 		return price;
 	}
 
+	@Override
+	protected void onThrow(int cell) {
+		Char enemy = Actor.findChar(cell);
+		if (enemy == null || enemy == curUser) {
+			super.onThrow(cell);
+		} else {
+			if (!curUser.shoot(enemy, this)) {
+				rangedMiss(cell);
+			} else {
+
+				rangedHit(enemy, cell);
+
+			}
+		}
+	}
+
+	protected void rangedMiss( int cell ) {
+		super.onThrow(cell);
+	}
+
+	protected void rangedHit( Char enemy, int cell ){
+			//attempt to stick the missile weapon to the enemy, just drop it if we can't.
+			if ( enemy != null && enemy.isAlive() && enemy.alignment != Char.Alignment.ALLY){
+				PinCushion2 p = Buff.affect(enemy, PinCushion2.class);
+				if (p.target == enemy){
+					p.stick(this);
+					return;
+				}
+			}
+			Dungeon.level.drop( this, cell ).sprite.drop();
+		}
+	}
 
 
 
-}
+
+
+
+

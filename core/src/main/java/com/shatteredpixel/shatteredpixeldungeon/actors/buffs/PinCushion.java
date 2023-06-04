@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -33,9 +34,9 @@ import java.util.Collection;
 
 public class PinCushion extends Buff {
 
-	private ArrayList<MissileWeapon> items = new ArrayList<>();
+	private ArrayList<Weapon> items = new ArrayList<>();
 
-	public void stick(MissileWeapon projectile){
+	public void stick(Weapon  projectile){
 		for (Item item : items){
 			if (item.isSimilar(projectile)){
 				item.merge(projectile);
@@ -53,7 +54,7 @@ public class PinCushion extends Buff {
 		return item;
 	}
 
-	public ArrayList<MissileWeapon> getStuckItems(){
+	public ArrayList<Weapon> getStuckItems(){
 		return new ArrayList<>(items);
 	}
 

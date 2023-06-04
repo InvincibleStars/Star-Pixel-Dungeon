@@ -193,7 +193,8 @@ public abstract class Room extends Rect implements Graph.Node, Bundlable {
 	}
 	
 	public int remConnections(int direction){
-		if (curConnections(ALL) >= maxConnections(ALL)) return 0;
+		if (curConnections(ALL) >= maxConnections(ALL)) return 0;  //0
+		//else return maxConnections(direction) - curConnections(direction);
 		else return maxConnections(direction) - curConnections(direction);
 	}
 	

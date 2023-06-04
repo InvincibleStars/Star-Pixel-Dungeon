@@ -25,6 +25,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -32,19 +34,28 @@ import com.watabou.utils.Random;
 public class Chain extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.WHIP;
+		image = ItemSpriteSheet.CHAIN;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.1f;
 
 		tier = 3;
 		RCH = 3;    //lots of extra reach
+		DLY = 1.5f; //DLY计算公式：1/DLY=攻击速度（一回合X次）
+	}
+
+
+	//最低，最高伤害各加3
+	@Override
+	public int min(int lvl) {
+		return  2 + tier + lvl+(masteryPotionBonus*4)+3;
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  3*(tier+1) +    //12 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
+		return  5*(tier+1) + lvl*(tier+1)+(masteryPotionBonus*2)+3;
 	}
+
+
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
@@ -52,7 +63,7 @@ public class Chain extends MeleeWeapon {
 			Buff.affect(defender, Bleeding.class).set(Math.round(damage * 0.4f));
 		}
 		else if(Random.Int(4) == 1) {
-			Buff.affect(attacker, Bleeding.class).set(Math.round(damage * 0.4f));
+			Buff.prolong(attacker, Cripple.class, BuffWait.T3);
 		}
 		return super.proc(attacker, defender, damage);
 	}

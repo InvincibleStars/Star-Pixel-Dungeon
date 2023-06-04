@@ -27,7 +27,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class WornShortsword extends MeleeWeapon {
 
@@ -50,6 +52,45 @@ public class WornShortsword extends MeleeWeapon {
 	}
 
 	 */
+
+
+	@Override
+	public int max(int lvl) {
+		return  0;
+	}
+
+	@Override
+	public int min(int lvl) {
+		return  0;
+	}
+
+
+	@Override
+	public Item random() {
+		//+0: 75% (3/4)
+		//+1: 25% (4/20)
+		int n = 0;
+		if (Random.Float() >= 0.75f) {
+			n++;
+		}
+		level(n);
+
+		/*
+		//30% chance to be cursed
+		//10% chance to be enchanted
+		float effectRoll = Random.Float();
+		if (effectRoll < 0.3f) {
+			enchant(Enchantment.randomCurse());
+			cursed = true;
+		} else if (effectRoll >= 0.9f){
+			enchant();
+		}
+
+		 */
+
+
+		return this;
+	}
 
 
 

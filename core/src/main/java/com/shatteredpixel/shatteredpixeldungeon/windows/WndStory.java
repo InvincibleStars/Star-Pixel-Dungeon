@@ -57,10 +57,17 @@ public class WndStory extends Window {
 	public static final int ID_CAVES		= 12;
 	public static final int ID_CITY     	= 13;
 	public static final int ID_HALLS		= 14;
+
+
+
+	public static final int ID_ERROR		= 999;
+	public static final int ID_LEVEL_0 		= 1000;
 	
 	private static final SparseArray<String> CHAPTERS = new SparseArray<>();
 	
 	static {
+		CHAPTERS.put( ID_ERROR, "error" );
+		CHAPTERS.put( ID_LEVEL_0, "level0" );
 		CHAPTERS.put( ID_SAND1, "sand1" );
 		CHAPTERS.put( ID_SAND2, "sand2" );
 		CHAPTERS.put( ID_SAND3, "sand3" );

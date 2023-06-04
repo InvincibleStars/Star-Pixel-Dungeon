@@ -22,9 +22,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.newitem;
 
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class RingOfNone extends Ring {
 
@@ -32,5 +35,13 @@ public class RingOfNone extends Ring {
 	{
 		image = ItemSpriteSheet.RING_NONE;
 		icon = ItemSpriteSheet.Icons.RING_UNUSED;
+	}
+
+	@Override
+	public ArrayList<String> actions(Hero hero) {
+		ArrayList<String> actions = super.actions(hero);
+		//隐藏装备动作（无法被装备）
+		actions.remove(AC_EQUIP);
+		return actions;
 	}
 }

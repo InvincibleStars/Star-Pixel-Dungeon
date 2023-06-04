@@ -35,7 +35,27 @@ public class Adrenaline2 extends FlavourBuff {
 	}
 	
 	public static final float DURATION	= 30f;
+
+
+
+	public int A = 4;
+
+	//public int CIURFGH = Integer.parseInt(dispTurns());
 	
+
+	/*
+	@Override
+	protected String dispTurns() {
+		Integer.parseInt(String ,dispTurns());
+		return dispTurns(visualcooldown());
+	}
+
+	 */
+
+
+
+
+
 	@Override
 	public int icon() {
 		return BuffIndicator.AMOK;
@@ -56,9 +76,10 @@ public class Adrenaline2 extends FlavourBuff {
 	public String desc() {
 		return Messages.get(this, "desc")
 				+"\n"
-				+Messages.get( this,"time")
-				+dispTurns()
-				+Messages.get( this,"turn");
+				//剩余回合计数（保留两位小数）
+				+Messages.get( this,"time") +(int)visualcooldown() +Messages.get( this,"turn")
+				//攻击速度加成值
+				+Messages.get( this,"add")+(int)(visualcooldown()*10)+Messages.get( this,"speed");
 	}
 	
 }

@@ -74,6 +74,8 @@ public class Belongings implements Iterable<Item> {
 
 	//used when thrown weapons temporary become the current weapon
 	public KindOfWeapon thrownWeapon = null;
+//NEW
+	public KindOfWeapon meleeWeapon = null;
 
 	//*** these accessor methods are so that worn items can be affected by various effects/debuffs
 	// we still want to access the raw equipped items in cases where effects should be ignored though,
@@ -82,6 +84,7 @@ public class Belongings implements Iterable<Item> {
 	public KindOfWeapon weapon(){
 		//no point in lost invent check, if it's assigned it must be usable
 		if (thrownWeapon != null) return thrownWeapon;
+		if (meleeWeapon != null) return meleeWeapon;
 
 		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
 		if (!lostInvent || (weapon != null && weapon.keptThoughLostInvent)){

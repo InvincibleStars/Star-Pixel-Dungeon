@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.SURVIVALISTS_INTUITION;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -35,7 +37,9 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
+import com.sun.nio.sctp.MessageInfo;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
@@ -47,6 +51,7 @@ public class WndHeroInfo extends WndTabbed {
 
 	private HeroInfoTab heroInfo;
 	private TalentInfoTab talentInfo;
+	private MessageInfoTab messageInfo;
 	private SubclassInfoTab subclassInfo;
 	private ArmorAbilityInfoTab abilityInfo;
 
@@ -72,6 +77,10 @@ public class WndHeroInfo extends WndTabbed {
 				break;
 		}
 
+		//通用
+		Image messageIcon;
+		messageIcon = new ItemSprite(ItemSpriteSheet.AMULET, null);
+
 		int finalHeight = MIN_HEIGHT;
 
 		heroInfo = new HeroInfoTab(cl);
@@ -84,6 +93,19 @@ public class WndHeroInfo extends WndTabbed {
 			protected void select(boolean value) {
 				super.select(value);
 				heroInfo.visible = heroInfo.active = value;
+			}
+		});
+		//介绍文本
+		messageInfo = new MessageInfoTab(cl);
+		add(messageInfo);
+		messageInfo.setSize(WIDTH, MIN_HEIGHT);
+		finalHeight = (int)Math.max(finalHeight, messageInfo.height());
+
+		add( new IconTab( messageIcon ){
+			@Override
+			protected void select(boolean value) {
+				super.select(value);
+				messageInfo.visible = messageInfo.active = value;
 			}
 		});
 
@@ -162,26 +184,32 @@ public class WndHeroInfo extends WndTabbed {
 
 			switch (cls){
 				case WARRIOR: default:
-					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SEAL),
-							new ItemSprite(ItemSpriteSheet.WORN_SHORTSWORD),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+					icons = new Image[]{new ItemSprite(ItemSpriteSheet.SEAL),
+							new ItemSprite(ItemSpriteSheet.ARMOR_WARRIOR),
+							new ItemSprite(ItemSpriteSheet.BANDOLIER),
+							new TalentIcon(SURVIVALISTS_INTUITION)};
 					break;
 				case MAGE:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.MAGES_STAFF),
-							new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(ItemSpriteSheet.ARMOR_MAGE),
+							//new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE),
+							new ItemSprite(ItemSpriteSheet.HOLDER),
+							new TalentIcon(SURVIVALISTS_INTUITION)};
 					break;
 				case ROGUE:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.ARTIFACT_CLOAK),
-							Icons.get(Icons.DEPTH),
-							new ItemSprite(ItemSpriteSheet.DAGGER),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							//Icons.get(Icons.DEPTH),
+							new ItemSprite(ItemSpriteSheet.ARMOR_ROGUE),
+							new ItemSprite(ItemSpriteSheet.POUCH),
+							//new ItemSprite(ItemSpriteSheet.DAGGER),
+							new TalentIcon(SURVIVALISTS_INTUITION)};
 					break;
 				case HUNTRESS:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SPIRIT_BOW),
-							new Image(Assets.Environment.TILES_SEWERS, 112, 96, 16, 16),
-							new ItemSprite(ItemSpriteSheet.GLOVES),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(ItemSpriteSheet.ARMOR_HUNTRESS),
+							new ItemSprite(ItemSpriteSheet.POUCH),
+							//new Image(Assets.Environment.TILES_SEWERS, 112, 96, 16, 16),
+							new TalentIcon(SURVIVALISTS_INTUITION)};
 					break;
 			}
 			for (Image im : icons) {
@@ -249,6 +277,64 @@ public class WndHeroInfo extends WndTabbed {
 			height = Math.max(height, talentPane.bottom());
 		}
 	}
+
+	//Message
+
+	private static class MessageInfoTab extends Component {
+
+		private RenderedTextBlock title;
+		private RenderedTextBlock message;
+
+		public MessageInfoTab( HeroClass cls ){
+			super();
+			title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(WndHeroInfo.class, "message")), 9);
+			title.hardlight(TITLE_COLOR);
+			add(title);
+
+			switch(cls){
+				default:
+					message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "none"), 6);
+					break;
+				case WARRIOR:
+					message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "warrior"), 6);
+					break;
+				case MAGE:
+					message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "mage"), 6);
+					break;
+				case ROGUE:
+					message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "rogue"), 6);
+					break;
+				case HUNTRESS:
+					message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "huntress"), 6);
+					break;
+			}
+			add(message);
+
+			//ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
+			//Talent.initClassTalents(cls, talents);
+			//talents.get(2).clear(); //we show T3 talents with subclasses
+
+			//talentPane = new TalentsPane(TalentButton.Mode.INFO, talents);
+			//add(talentPane);
+		}
+
+		@Override
+		protected void layout() {
+			super.layout();
+
+			title.setPos((width-title.width())/2, MARGIN);
+			message.maxWidth((int)width);
+			message.setPos(0, title.bottom()+4*MARGIN);
+
+			//talentPane.setRect(0, message.bottom() + 3*MARGIN, width, 85);
+
+			height = Math.max(height, message.bottom());
+		}
+	}
+
+
+
+
 
 	private static class SubclassInfoTab extends Component {
 

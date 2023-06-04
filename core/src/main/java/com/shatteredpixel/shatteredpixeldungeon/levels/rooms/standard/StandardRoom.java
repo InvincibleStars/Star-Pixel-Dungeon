@@ -35,17 +35,27 @@ public abstract class StandardRoom extends Room {
 	
 	public enum SizeCategory {
 		
-		NORMAL(4, 10, 1),
-		LARGE(10, 14, 2),
-		GIANT(14, 18, 3);
+		NORMAL(4, 10, 1),   //4 10 1
+		LARGE(10, 14, 2),   //10 14 2
+		GIANT(14, 18, 3);   //18 18 3
 		
-		public final int minDim, maxDim;
-		public final int roomValue;
+		public final int minDim, maxDim;  //final
+		public final int roomValue;		//final
 		
-		SizeCategory(int min, int max, int val){
-			minDim = min;
-			maxDim = max;
-			roomValue = val;
+		SizeCategory(int min, int max, int val) {
+/*
+			if(Dungeon.depth<=10 && Dungeon.depth>=1){
+				minDim = 2*min;
+				maxDim = 2*max;
+				roomValue = 2*val;
+			}else
+			*/
+			{
+				minDim = min;
+				maxDim = max;
+				roomValue = val;
+			}
+
 		}
 		
 		public int connectionWeight(){

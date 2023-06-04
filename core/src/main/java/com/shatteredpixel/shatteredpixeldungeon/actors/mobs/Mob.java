@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -42,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BUFF_Mob_RCH_ADD_3;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
@@ -376,14 +378,23 @@ public abstract class Mob extends Char {
 	}
 	
 	protected boolean canAttack( Char enemy ) {
+
 		if (Dungeon.level.adjacent( pos, enemy.pos )){
 			return true;
 		}
+
+		for (BUFF_Mob_RCH_ADD_3 buff : buffs(BUFF_Mob_RCH_ADD_3.class)) {
+			if (buff.canAttackWithExtraReach(enemy)) {
+				return true;
+			}
+		}
+
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			if (buff.canAttackWithExtraReach( enemy )){
 				return true;
 			}
 		}
+
 		return false;
 	}
 	
@@ -541,11 +552,12 @@ public abstract class Mob extends Char {
 				|| Dungeon.hero.buff(Swiftthistle.TimeBubble.class) != null)
 			sprite.add( CharSprite.State.PARALYSED );
 	}
-	
+
+
 	public float attackDelay() {
 		float delay = 1f;
 		if ( buff(Adrenaline.class) != null) delay /= 1.5f;
-		if ( buff(Adrenaline2.class) != null) delay /= 195f;
+		if ( buff(Adrenaline2.class) != null) delay /= 3f;
 		return delay;
 	}
 	

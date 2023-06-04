@@ -5,7 +5,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.BlackWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
@@ -27,9 +30,22 @@ public class Level0 extends Level {
     //定义地块
  private int mapToTerrain(int code){
         switch (code){
-            case 1:
-            default:
+            case 1: default:
                 return Terrain.EMPTY;
+            case 0:
+                return Terrain.EMPTY;
+                /*
+                if(Random.Int(1,5)==1)
+                     return Terrain.EMPTY;
+                else if(Random.Int(1,5)==2)
+                    return Terrain.HIGH_GRASS;
+                else if(Random.Int(1,5)==3)
+                    return Terrain.WATER;
+                else if(Random.Int(1,5)==4)
+                    return Terrain.GRASS;
+
+                 */
+
                 //墙壁
             case 64:
                 return Terrain.WALL;
@@ -82,8 +98,8 @@ public class Level0 extends Level {
     private static final int[] pre_map = {
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 66, 66, 66, 66, 66, 64,
             64, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 64,
-            64, 0, 85, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 64,
-            64, 0, 0, 0, 1017, 0, 80, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 64,
+            64, 0, 85, 2, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 64,
+            64, 0, 0, 0, 2, 2, 80, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 64,
             64, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 64, 64, 64, 80, 64, 64, 64,
             64, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 64,
             64, 64, 64, 64, 64, 64, 64, 0, 0, 0, 0, 0, 4, 64, 64, 64, 80, 64, 64, 64, 0, 4, 0, 0, 64,
@@ -127,6 +143,7 @@ public class Level0 extends Level {
         setSize(WIDTH, HEIGHT);
         //上楼梯
         entrance = WIDTH*2+2;
+        entrance2 = WIDTH*2+3;
         //下楼梯
         exit =WIDTH*13+12 ;
 
@@ -142,27 +159,37 @@ public class Level0 extends Level {
 
 
     //创建生物
+
     @Override
     protected void createMobs() {
-        //
-        BlackWorm n= new BlackWorm();
-        n.pos = (this.width *3+3);
-        mobs.add(n);
+        /*
+
+
+        Rat s= new Rat();
+        s.pos = (this.width *7+3);
+        mobs.add(s);
 
        // for(int c=3; c<15; c+=1){
            // BlackWorm i= new BlackWorm();
            // i.pos = (this.width * c +8);
           //  mobs.add(i);
      //   }
+
+         */
     }
 
     public Actor addRespawner() {
         return null;
     }
 
+
+
+
+
+
     @Override
     protected void createItems() {
-        drop(new Torch(),0).type = Heap.Type.FOR_SALE;
+        drop(new Torch(),2).type = Heap.Type.FOR_SALE;
         //Dungeon.level.drop(new Torch(),0).type = Heap.Type.FOR_SALE;
     }
 
@@ -170,5 +197,24 @@ public class Level0 extends Level {
     public int randomRespawnCell( Char ch ) {
         return entrance-width();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

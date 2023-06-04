@@ -21,12 +21,24 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.Camera;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class BlackWorm extends Mob {
+
 
 	{
 		spriteClass = BlackWormSprite.class;
@@ -66,4 +78,13 @@ public class BlackWorm extends Mob {
 	}
 
 	 */
+
+	@Override
+	public void die( Object cause ) {
+
+		super.die( cause );
+		Camera.main.shake( 1, 245654654f );
+
+	}
+
 }

@@ -23,6 +23,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BUFF_Mob_RCH_ADD_3;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
@@ -36,10 +38,14 @@ public class Rat extends Mob {
 		
 		HP = HT = 8;
 		defenseSkill = 2;
+
+		Buff.affect(this, BUFF_Mob_RCH_ADD_3.class);
 		
 		maxLvl = 5;
 	}
 
+
+	/*
 	@Override
 	protected boolean act() {
 		if (Dungeon.level.heroFOV[pos] && Dungeon.hero.armorAbility instanceof Ratmogrify){
@@ -49,9 +55,11 @@ public class Rat extends Mob {
 		return super.act();
 	}
 
+	 */
+
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 4 );
+		return Random.NormalIntRange( 2, 5 );
 	}
 	
 	@Override
@@ -64,6 +72,7 @@ public class Rat extends Mob {
 		return Random.NormalIntRange(0, 1);
 	}
 
+	/*
 	private static final String RAT_ALLY = "rat_ally";
 
 	@Override
@@ -77,4 +86,6 @@ public class Rat extends Mob {
 		super.restoreFromBundle(bundle);
 		if (bundle.contains(RAT_ALLY)) alignment = Alignment.ALLY;
 	}
+
+	 */
 }

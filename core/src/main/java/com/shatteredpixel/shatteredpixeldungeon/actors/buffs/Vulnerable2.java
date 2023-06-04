@@ -19,39 +19,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
+package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
-import com.watabou.utils.Random;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
-public class RockMonster extends Mob {
-
+public class Vulnerable2 extends FlavourBuff {
+	
+	public static final float DURATION = 20f;
+	
 	{
-		spriteClass = RatSprite.class;
-		
-		HP = HT = 21;
-		defenseSkill = 3;
-		EXP = 2;
-		
-		maxLvl = 5;
-	}
-
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 7 );
+		type = buffType.NEGATIVE;
+		announced = true;
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
-		return 10;
+	public int icon() {
+		return BuffIndicator.VULNERABLE;
+	}
+
+	@Override
+	public float iconFadePercent() {
+		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
 	}
 	
 	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(0, 0);
+	public String toString() {
+		return Messages.get(this, "name");
 	}
-
+	
+	@Override
+	public String heroMessage() {
+		return Messages.get(this, "heromsg");
+	}
+	
+	@Override
+	public String desc() {
+		return Messages.get(this, "desc", dispTurns());
+	}
 }

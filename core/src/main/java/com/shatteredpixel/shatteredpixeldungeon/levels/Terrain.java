@@ -60,6 +60,7 @@ public class Terrain {
 	public static final int WATER		    = 29;
 
 	public static final int FURROWED_GRASS	= 30;
+	public static final int ENTRANCE2		= 31;
 	
 	public static final int PASSABLE		= 0x01;
 	public static final int LOS_BLOCKING	= 0x02;
@@ -81,6 +82,7 @@ public class Terrain {
 		flags[DOOR]			= PASSABLE | LOS_BLOCKING | FLAMABLE | SOLID;
 		flags[OPEN_DOOR]	= PASSABLE | FLAMABLE;
 		flags[ENTRANCE]		= PASSABLE/* | SOLID*/;
+		flags[ENTRANCE2]		= PASSABLE/* | SOLID*/;
 		flags[EXIT]			= PASSABLE;
 		flags[EMBERS]		= PASSABLE;
 		flags[LOCKED_DOOR]	= LOS_BLOCKING | SOLID;
