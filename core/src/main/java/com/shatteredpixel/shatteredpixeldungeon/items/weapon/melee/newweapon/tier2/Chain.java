@@ -35,35 +35,38 @@ public class Chain extends MeleeWeapon {
 
 	{
 		image = ItemSpriteSheet.CHAIN;
-		hitSound = Assets.Sounds.HIT;
-		hitSoundPitch = 1.1f;
 
-		tier = 3;
+		tier = 2;
 		RCH = 3;    //lots of extra reach
 		DLY = 1.5f; //DLY计算公式：1/DLY=攻击速度（一回合X次）
 	}
 
 
-	//最低，最高伤害各加3
 	@Override
 	public int min(int lvl) {
-		return  2 + tier + lvl+(masteryPotionBonus*4)+3;
+		return tier + 2 +					//基础
+				lvl +						//成长
+				(masteryPotionBonus*2);		//附加
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  5*(tier+1) + lvl*(tier+1)+(masteryPotionBonus*2)+3;
+		return  4*(tier+1) + 2 +			//基础
+				lvl*(tier+1) +				//成长
+				(masteryPotionBonus*2);   	//附加
 	}
+
+
 
 
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
 		if (Random.Int(4) == 0) {
-			Buff.affect(defender, Bleeding.class).set(Math.round(damage * 0.4f));
+			Buff.affect(attacker, Bleeding.class).set(Math.round(damage * 0.2f));
 		}
 		else if(Random.Int(4) == 1) {
-			Buff.prolong(attacker, Cripple.class, BuffWait.T3);
+			Buff.prolong(attacker, Cripple.class, BuffWait.T5);
 		}
 		return super.proc(attacker, defender, damage);
 	}

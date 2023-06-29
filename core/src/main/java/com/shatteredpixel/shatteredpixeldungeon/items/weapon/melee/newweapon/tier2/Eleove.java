@@ -39,13 +39,28 @@ public class Eleove extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1f;
 
-		tier = 3;
+		tier = 2;
 		DLY = 0.5f;
 	}
 
 	@Override
+	public int min(int lvl) {
+		return tier - 1 +					//基础
+				lvl +						//成长
+				(masteryPotionBonus*2);		//附加
+	}
+
+	@Override
+	public int max(int lvl) {
+		return  3*(tier+1) - 1 +			//基础
+				lvl*(tier+1) +				//成长
+				(masteryPotionBonus*2);   	//附加
+	}
+
+
+	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
-		Buff.prolong(attacker, Recharging.class, BuffWait.T3);
+		Buff.prolong(attacker, Recharging.class, BuffWait.T2);
 		return super.proc(attacker, defender, damage);
 	}
 

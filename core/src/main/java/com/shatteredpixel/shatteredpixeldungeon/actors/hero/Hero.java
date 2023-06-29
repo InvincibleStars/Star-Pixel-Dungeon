@@ -246,18 +246,33 @@ public class Hero extends Char {
 			HT = 25 + 8 * (lvl - 1) + HTBoost;
 		}
 		 */
+
+		/*
+		//健康状态影响血量和回复间隔
+		if(HP>=(HT/4)*3){
+			REGENERATION_DELAY -= 2;
+		}else if(HP>=(HT/3)*2){
+			REGENERATION_DELAY -= 1;
+		}else if(HP<=(HT/4)*1){
+            REGENERATION_DELAY += 1f;
+		}else{
+            REGENERATION_DELAY += 0f;
+		}
+		*/
+
+		//职业HP,HT
 		switch (Dungeon.hero.heroClass) {
 			case WARRIOR:
-                HT = 30 + 8*(lvl-1) + HTBoost;
+                HT = 25 + 7*(lvl-1) + HTBoost;
                 break;
             case MAGE:
-                HT = 20 + 5*(lvl-1) + HTBoost;
+                HT = 23 + 4*(lvl-1) + HTBoost;
                 break;
             case ROGUE:
                 HT = 25 + 5*(lvl-1) + HTBoost;
                 break;
             case HUNTRESS:
-                HT = 20 + 5*(lvl-1) + HTBoost;
+                HT = 23 + 4*(lvl-1) + HTBoost;
                 break;
             default:
                 HT = 20 + 5 * (lvl - 1) + HTBoost;

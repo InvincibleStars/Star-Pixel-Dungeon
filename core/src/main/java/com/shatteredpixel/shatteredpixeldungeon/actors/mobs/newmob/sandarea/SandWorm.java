@@ -33,7 +33,7 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 6;
+		HP = HT = 12 + Random.Int(5);
 		defenseSkill = 0;
 		EXP = 1;
 		maxLvl = 3;
@@ -46,11 +46,11 @@ public class SandWorm extends Mob {
 	public int attackSkill( Char target ) {
 		return 10;
 	}
-
+/*
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if(HP<0){
-			die(true);
+		if(HP<=1){
+			super.die(true);
 		}else {
 			damage = super.attackProc(enemy, damage);
 			HP = Math.min(HT, HP - 1);
@@ -62,6 +62,7 @@ public class SandWorm extends Mob {
 		if (enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)) {
 			HP = Math.min(HT, HP + 1);
 		}
+
 		return super.act();
 	}
 
@@ -69,6 +70,7 @@ public class SandWorm extends Mob {
 	public boolean reset() {
 		return true;
 	}
+ */
 
 	@Override
 	protected boolean getCloser(int target) {
@@ -79,7 +81,7 @@ public class SandWorm extends Mob {
 	protected boolean getFurther(int target) { return true; }
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(0, 2); }
+	public int damageRoll() { return Random.NormalIntRange(2, 6); }
 
 	@Override
 	public int drRoll() {

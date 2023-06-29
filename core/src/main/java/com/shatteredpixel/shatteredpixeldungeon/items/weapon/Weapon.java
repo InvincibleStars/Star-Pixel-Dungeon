@@ -229,7 +229,7 @@ abstract public class Weapon extends KindOfWeapon {
 		lvl = Math.max(0, lvl);
 
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return 10+((tier-1) * 2) - ((lvl)*2);
+		return 8+(tier * 2) - lvl;
 	}
 
 	@Override

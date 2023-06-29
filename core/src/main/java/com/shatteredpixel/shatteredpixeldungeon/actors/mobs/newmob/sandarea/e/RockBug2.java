@@ -48,7 +48,7 @@ public class RockBug2 extends RockBug {
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(3, 3);
 	}
 
 }

@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
@@ -54,6 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.levelparticle.SandLevelParticles;
+import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -77,10 +79,12 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
+import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
@@ -100,6 +104,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import javax.swing.SpringLayout;
+
 public abstract class Level implements Bundlable {
 	public static enum Feeling {
 		NONE,
@@ -116,7 +122,7 @@ public abstract class Level implements Bundlable {
 	protected int height;
 	protected int length;
 
-	protected static final float TIME_TO_RESPAWN	= 50;
+	protected static final float TIME_TO_RESPAWN = 50;
 
 	public int version;
 
@@ -125,7 +131,53 @@ public abstract class Level implements Bundlable {
 	public boolean[] mapped;
 	public boolean[] discoverable;
 
-	public int viewDistance = Dungeon.isChallenged( Challenges.DARKNESS ) ? 2 : 8;
+
+
+
+	private int foundview() {
+		int foundview = 0;
+		//挑战是最先定义的
+		if (Dungeon.isChallenged(Challenges.DARKNESS)) {
+			//没入黑暗的挑战
+			foundview = 2;
+		}
+		return foundview;
+	}
+
+	private int lesshp() {
+		int lesshp = 0;
+		if (Dungeon.hero.HP <= (Dungeon.hero.HT) / 4) {
+			//重度失血通常会使得我们的视野变得模糊
+			lesshp = 1;
+		}
+		return lesshp;
+	}
+
+	private int fullhp() {
+		int fullhp = 0;
+		if (Dungeon.hero.HP >= ((Dungeon.hero.HT) * 4) / 5) {
+			//健康将获得更大的视野
+			fullhp = 1;
+		}
+		return fullhp;
+	}
+
+	private int timenight() {
+		int timenight = 0;
+		if (StatusPane.hh >= 5 && Dungeon.depth == 1) {
+			//只有零层真正暴露在地面上，因此受到“夜晚”的影响
+			timenight = 1;
+		}
+		return timenight;
+	}
+
+	//视野计算为：8 - 挑战视野 - 低生命视野惩罚 - 夜间视野限制 + 健康额外视野
+	public int viewShort = 8 - foundview() - lesshp() - timenight() + fullhp(); //8
+
+	//上者起到暂存作用
+	public int viewDistance = viewShort;
+
+
 
 	public boolean[] heroFOV;
 
@@ -845,7 +897,7 @@ public abstract class Level implements Bundlable {
 		if (plant != null) {
 			plant.wither();
 		}
-
+		//NEW
 		if (map[pos] == Terrain.HIGH_GRASS ||
 				map[pos] == Terrain.FURROWED_GRASS ||
 				map[pos] == Terrain.EMPTY ||
@@ -1010,11 +1062,12 @@ public abstract class Level implements Bundlable {
 			case Terrain.TRAP:
 				trap = traps.get( cell );
 				break;
-
+//
 			case Terrain.HIGH_GRASS:
 			case Terrain.FURROWED_GRASS:
 				HighGrass.trample( this, cell);
 				break;
+
 
 			case Terrain.WELL:
 				WellWater.affectCell( cell );
@@ -1087,8 +1140,8 @@ public abstract class Level implements Bundlable {
 			if (modifiableBlocking == null || modifiableBlocking.length != Dungeon.level.losBlocking.length){
 				modifiableBlocking = new boolean[Dungeon.level.losBlocking.length];
 			}
-
-			if ((c instanceof Hero && ((Hero) c).subClass == HeroSubClass.WARDEN)
+			//女猎的视线可以穿过高草
+			if ((c instanceof Hero && ((Hero) c).heroClass == HeroClass.HUNTRESS)
 					|| c instanceof YogFist.SoiledFist) {
 				System.arraycopy(Dungeon.level.losBlocking, 0, modifiableBlocking, 0, modifiableBlocking.length);
 				blocking = modifiableBlocking;

@@ -21,8 +21,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 public class Sai extends MeleeWeapon {
 
@@ -31,7 +36,7 @@ public class Sai extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.3f;
 
-		tier = 3;
+		tier = 1;
 		DLY = 0.5f; //2x speed
 	}
 
@@ -39,6 +44,13 @@ public class Sai extends MeleeWeapon {
 	public int max(int lvl) {
 		return  Math.round(2.5f*(tier+1)) +     //10 base, down from 20
 				lvl*Math.round(0.5f*(tier+1));  //+2 per level, down from +4
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage ) {
+		int dam = Random.Int(min(),max());
+		defender.damage(dam, this);
+		return super.proc(attacker, defender, damage);
 	}
 
 }

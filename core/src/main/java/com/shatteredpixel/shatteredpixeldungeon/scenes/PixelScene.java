@@ -65,6 +65,7 @@ public class PixelScene extends Scene {
 	public static Camera uiCamera;
 
 	//stylized 3x5 bitmapped pixel font. Only latin characters supported.
+	//改动
 	public static BitmapText.Font pixelFont;
 
 	protected boolean inGameScene = false;
@@ -113,6 +114,7 @@ public class PixelScene extends Scene {
 			TextureCache.get( Assets.Fonts.PIXELFONT), 0x00000000, BitmapText.Font.LATIN_FULL );
 		pixelFont.baseLine = 6;
 		pixelFont.tracking = -1;
+
 		
 		//set up the texture size which rendered text will use for any new glyphs.
 		int renderedTextPageSize;

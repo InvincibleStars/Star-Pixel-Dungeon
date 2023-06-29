@@ -27,18 +27,23 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndStory;
+import com.watabou.gltextures.TextureCache;
 import com.watabou.input.GameAction;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.audio.Sample;
@@ -46,6 +51,13 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Button;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.ColorMath;
+//
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class StatusPane extends Component {
 
@@ -83,6 +95,14 @@ public class StatusPane extends Component {
 	
 	private BitmapText version;
 
+	private RenderedTextBlock info;
+	//private BitmapText times;
+	//时间
+	public static Calendar cal=Calendar.getInstance();
+	public static int hh = cal.get(Calendar.HOUR);
+	public static int mm = cal.get(Calendar.MINUTE);
+
+
 	@Override
 	protected void createChildren() {
 
@@ -95,7 +115,7 @@ public class StatusPane extends Component {
 				Camera.main.panTo( Dungeon.hero.sprite.center(), 5f );
 				GameScene.show( new WndHero() );
 			}
-			
+
 			@Override
 			public GameAction keyAction() {
 				return SPDAction.HERO_INFO;
@@ -152,18 +172,40 @@ public class StatusPane extends Component {
 		add( buffs );
 
 		add( pickedUp = new Toolbar.PickedUpItem());
-		
+
+		int assn = (Dungeon.depth % 5);
+
+		if(Dungeon.depth == 0){
+			info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "area0") +assn +Messages.get(StatusPane.class, "depth"), 6);
+		}else if(Dungeon.depth>=1 && Dungeon.depth<=5){
+			info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "area1") +assn +Messages.get(StatusPane.class, "depth"), 6);
+		}else if(Dungeon.depth>5 && Dungeon.depth<=10){
+			info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "area2") +assn +Messages.get(StatusPane.class, "depth"), 6);
+		}else if(Dungeon.depth>10 && Dungeon.depth<=15){
+			info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "area3") +assn +Messages.get(StatusPane.class, "depth"), 6);
+		}else if(Dungeon.depth>15 && Dungeon.depth<=20){
+			info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "area4") +assn +Messages.get(StatusPane.class, "depth"), 6);
+		}else if(Dungeon.depth>20 && Dungeon.depth<=25){
+			info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "area5") +assn +Messages.get(StatusPane.class, "depth"), 6);
+		}else if(Dungeon.depth>25 && Dungeon.depth<=30){
+			info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "area6") +assn +Messages.get(StatusPane.class, "depth"), 6);
+		}
+
 		version = new BitmapText( "v" + Game.version, PixelScene.pixelFont);
 		version.alpha( 0.5f );
 		add(version);
+		add(info);
+
 	}
 
 	@Override
 	protected void layout() {
 
+
 		height = 32;
 
 		bg.size( width, bg.height );
+
 
 		avatar.x = bg.x + 15 - avatar.width / 2f;
 		avatar.y = bg.y + 16 - avatar.height / 2f;
@@ -184,6 +226,7 @@ public class StatusPane extends Component {
 
 		bossHP.setPos( 6 + (width - bossHP.width())/2, 20);
 
+
 		depth.x = width - 35.5f - depth.width() / 2f;
 		depth.y = 8f - depth.baseLine() / 2f;
 		PixelScene.align(depth);
@@ -195,23 +238,61 @@ public class StatusPane extends Component {
 		btnJournal.setPos( width - 42, 1 );
 
 		btnMenu.setPos( width - btnMenu.width(), 1 );
+
+
 		
 		version.scale.set(PixelScene.align(0.5f));
 		version.measure();
 		version.x = width - version.width();
 		version.y = btnMenu.bottom() + (4 - version.baseLine());
 		PixelScene.align(version);
+
+		//定义文本的范围（使用到了版本的位置，因此要排在他后面）
+		info.setPos(version.x-20, version.y+10);
+
+
 	}
 	
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
 
+
+
 	@Override
 	public void update() {
 		super.update();
+		Calendar cal=Calendar.getInstance();
 		
 		int health = Dungeon.hero.HP;
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.HT;
+		int mm = cal.get(Calendar.MINUTE);
+		int HH = cal.get(Calendar.HOUR);
+
+
+
+
+		////////////////////////
+
+		//时钟控件
+		if(Dungeon.hero.isAlive()) {
+			//实例化日期(也许？)
+			Date date = new Date();
+			//实例化cal(也许？)
+			//Calendar cal=Calendar.getInstance();
+			//定义小时和分钟
+			//int mm = cal.get(Calendar.MINUTE);
+			//int HH = cal.get(Calendar.HOUR);
+			//定义字段
+			String strDateFormat = "yyyy-MM-dd HH:mm";
+			//不清楚用途
+			SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat, Locale.getDefault());
+			//一个文本？(在前面建立了字段)
+			//timeText.text(sdf.format(date));
+		}
+
+
+
+
 
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);

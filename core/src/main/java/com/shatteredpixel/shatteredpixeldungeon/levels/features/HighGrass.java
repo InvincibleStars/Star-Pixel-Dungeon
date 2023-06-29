@@ -63,7 +63,7 @@ public class HighGrass {
 				//Do nothing
 				freezeTrample = true;
 			} else {
-				Level.set(pos, Terrain.GRASS);
+				Level.set(pos, Terrain.FURROWED_GRASS);
 			}
 			
 		} else {
@@ -71,7 +71,7 @@ public class HighGrass {
 				Level.set(pos, Terrain.FURROWED_GRASS);
 				freezeTrample = true;
 			} else {
-				Level.set(pos, Terrain.GRASS);
+				Level.set(pos, Terrain.FURROWED_GRASS);
 			}
 			
 			int naturalismLevel = 0;

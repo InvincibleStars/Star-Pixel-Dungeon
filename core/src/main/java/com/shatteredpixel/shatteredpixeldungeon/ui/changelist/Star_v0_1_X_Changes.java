@@ -58,22 +58,16 @@ public class Star_v0_1_X_Changes {
 				""));
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "楼层",
-			"_-_ 移除了BOSS层\n" +
 				"_-_ 1层现在有商店了\n" +
 				"_-_ 每层的开始位置会生成一个补给箱"));
 		
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GOLD, null), "生成",
 				"_-_ 强化符文的生成调整\n" +
-				"_-_ 玩家的初始力量调整为0，武器和护甲的力量需求同步\n" +
+				"_-_ 武器和护甲的力量需求进行了调整\n" +
 				"_-_ 玩家和生物的攻击能力调整至固定值\n"));
-		
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.ARMOR_HOLDER, null), "护甲",
-				"_-_ 护甲不再生成\n"+
-				"_-_ 初始护甲替换为英雄护甲\n"+
-				"_-_ 护甲的成长得到了提高"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_HOLDER, null), "药水",
-				"_-_ 急救制剂使用会获得最大生命的魔法护盾\n" +
+				"_-_ 急救制剂使用会获得最大生命的魔法护盾，同时缓慢回复生命力\n" +
 						"_-_ 火焰存在时间变为5回合\n" +
 						"_-_ 毒气存在时间延长50%\n"));
 
@@ -83,6 +77,7 @@ public class Star_v0_1_X_Changes {
 						"_-_ 武器/投掷武器升级会获得附魔，不过存在附魔时无法覆盖"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AGATE, null), "戒指",
+				"_-_ 加入了可以嬗变成其他戒指的“原初戒指”，角色初始携带\n" +
 				"_-_ 戒指的升级收益得到了调整"));
 
 	}
@@ -97,21 +92,18 @@ public class Star_v0_1_X_Changes {
 				"_-_ 初始携带的物品，可以通过嬗变转换成其他戒指"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_STONE, null), "强化晶体",
-				"_-_ 用于炼金釜合成的小玩意\n"));
+				"_-_ 足够的数量可以在炼金釜\n"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.AMMO, null), "枪械/子弹",
-				"_-_ 枪械作为地牢中强大的远程武器，本身需要子弹来装填，你可以在投掷武器房间内找到子弹，也可以在商店购买弹药"));
+		//changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.AMMO, null), "枪械/子弹",
+		//		"_-_ 枪械作为地牢中强大的远程武器，本身需要子弹来装填，你可以在投掷武器房间内找到子弹，也可以在商店购买弹药"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_DUST, null), "合成",
-				"_-_ 加入了几个新的合成配方"));
+				"_-_ 现在一些武器可以被拆解成为强化晶体了"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER, null), "武器",
 				"_-_ 更多的新武器\n"+
 				"_-_ 更多的投掷武器"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SEETING1, new ItemSprite.Glowing( 0xFFFFFF )), "调整",
-				"_-_ 更多的新武器\n"+
-				"_-_ 更多的投掷武器"));
 
 
 

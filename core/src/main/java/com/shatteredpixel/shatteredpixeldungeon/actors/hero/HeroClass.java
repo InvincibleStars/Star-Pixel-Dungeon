@@ -25,10 +25,8 @@ import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.FREERUNNER;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.GLADIATOR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.SNIPER;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.WARDEN;
 import static com.shatteredpixel.shatteredpixeldungeon.items.Generator.randomWeapon;
 
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -50,13 +48,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.En
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.KingsCrown;
-import com.shatteredpixel.shatteredpixeldungeon.items.StarWar;
-import com.shatteredpixel.shatteredpixeldungeon.items.Syringe;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.HeroArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
@@ -68,39 +62,34 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.newitem.RingOfNone;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMastery;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk2;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Knuckle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Scalpel;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HandAxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Chain;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.CutOff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Eleove;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.IronLeave;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.A1145;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.IronSuper;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.KnifeTurn;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.Nemesis;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.DeviceCompat;
-import com.watabou.utils.Random;
-
-import sun.jvm.hotspot.gc.z.ZCollectedHeap;
 
 public enum HeroClass {
 
@@ -127,28 +116,19 @@ public enum HeroClass {
 		//口粮
 		new Food().quantity(5).identify().collect();
 
-		new A1145().quantity(1).identify().collect();
-		new Dirk2().quantity(1).identify().collect();
-		new ScrollOfMagicMapping().quantity(100).identify().collect();
+		new Chain().quantity(1).identify().collect();
+
+		new CutOff().quantity(1).identify().collect();
+
+		new IronLeave().quantity(1).identify().collect();
+
+		new KnifeAoe().quantity(1).identify().collect();
+
+		new Eleove().quantity(1).identify().collect();
+
+		new HandAxe().quantity(1).identify().collect();
 
 		/*
-
-		new Chain().quantity(5).identify().collect();
-
-		new CutOff().quantity(5).identify().collect();
-
-		new Eleove().quantity(5).identify().collect();
-
-		new IronLeave().quantity(5).identify().collect();
-
-		new Knuckle().quantity(5).identify().collect();
-
-		new Scalpel().quantity(5).identify().collect();
-
-		new Syringe().quantity(5).identify().collect();
-
-		 */
-
 		//定义一个随机武器
 		Weapon randomWeapon;
 		//改变武器的阶数
@@ -173,10 +153,7 @@ public enum HeroClass {
 		randomWeapon2.identify().collect();
 		randomWeapon2.identify().collect();
 
-
-		//Generator.Category.WEAPON;
-
-
+		 */
 
 		//原初戒指
 		new RingOfNone().quantity(1).identify().collect();
@@ -184,9 +161,9 @@ public enum HeroClass {
 		Item i = new ClothArmor().identify();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor) i;
 
-		new ScrollOfUpgrade().quantity(300).collect();
+		new ScrollOfUpgrade().quantity(2).collect();
 		new PotionOfMastery().quantity(300).collect();
-		new ScrollOfRage().quantity(300).collect();
+		new ScrollOfRage().quantity(2).collect();
 		new PotionOfInvisibility().quantity(300).collect();
 
 

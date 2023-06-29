@@ -43,7 +43,7 @@ public class BlackWorm extends Mob {
 	{
 		spriteClass = BlackWormSprite.class;
 		
-		HP = HT =  4;
+		HP = HT =  8 + Random.Int(2);
 
 		EXP = 0;
 		
@@ -53,6 +53,15 @@ public class BlackWorm extends Mob {
 
 
 	}
+	public boolean act() {
+		//baseSpeed = Random.Float(1,2);
+		return super.act();
+	}
+
+	@Override
+	public float attackDelay() {
+		return Random.Float(0.8f, 1f);
+	}
 
 	@Override
 	public int attackSkill( Char target ) {
@@ -60,31 +69,13 @@ public class BlackWorm extends Mob {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 0, 1 ); }
+	public int damageRoll() { return Random.NormalIntRange( 1, 4 ); }
 
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange( 0, 1);
 	}
-	/*
-	@Override
-	public int attackProc(Char enemy, int damage) {
-		damage = super.attackProc( enemy, damage );
-			HP = Math.min(HT, HP - 1);
-			if (HP <= 0) {
-				die(true);
-			}
-		return damage;
-	}
 
-	 */
-
-	@Override
-	public void die( Object cause ) {
-
-		super.die( cause );
-		Camera.main.shake( 1, 245654654f );
-
-	}
+		//Camera.main.shake( 1, 245654654f );
 
 }

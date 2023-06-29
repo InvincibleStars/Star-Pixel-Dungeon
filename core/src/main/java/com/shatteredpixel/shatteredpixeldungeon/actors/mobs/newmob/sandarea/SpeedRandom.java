@@ -21,29 +21,33 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.KillRockSprite;
-import com.watabou.utils.Bundle;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
 import com.watabou.utils.Random;
 
-public class KillRock extends Mob {
+public class SpeedRandom extends Mob {
+
 
 	{
-		spriteClass = KillRockSprite.class;
+
+		spriteClass = BlackWormSprite.class;
 		
-		HP = HT = 8;
-		EXP =3;
-		baseSpeed = 2f;
-		loot = Generator.Category.SEED;
-		lootChance = 0.5f;
+		HP = HT =  Random.Int(5,9);
+
+		EXP = 2100000000;
 		
-		maxLvl = 6;
+		maxLvl = 1;
+
 		defenseSkill = 2;
+
+
 	}
 
 	@Override
@@ -52,14 +56,17 @@ public class KillRock extends Mob {
 	}
 
 	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 0, 4 );
-	}
+	public int damageRoll() { return Random.NormalIntRange( 0, 1 ); }
 
-	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 3);
+		return Random.NormalIntRange( 0, 1);
+	}
+
+	public boolean act() {
+		//baseSpeed = Random.Float(1,2);
+		//baseSpeed = Random.Float(1,2);
+		return super.act();
 	}
 
 }

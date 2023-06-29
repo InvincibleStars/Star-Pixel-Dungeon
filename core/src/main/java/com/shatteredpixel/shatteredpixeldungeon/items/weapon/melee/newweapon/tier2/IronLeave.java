@@ -33,20 +33,22 @@ public class IronLeave extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.1f;
 
-		tier = 3;
+		tier = 2;
 
-	}
-
-	@Override
-	public int max(int lvl) {
-		return  Math.round(2f*(tier*1)) +
-				lvl*Math.round(4f+(tier*2))+3;
 	}
 
 	@Override
 	public int min(int lvl) {
-		return  Math.round(2f*(tier*1)) +
-				lvl*Math.round(4f+(tier*2))-2;
+		return tier - 2 +					//基础
+				lvl +						//成长
+				(masteryPotionBonus*2);		//附加
+	}
+
+	@Override
+	public int max(int lvl) {
+		return  3*(tier+1) - 2 +			//基础
+				lvl*(tier+1) +				//成长
+				(masteryPotionBonus*2);   	//附加
 	}
 
 	@Override

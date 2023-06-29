@@ -405,11 +405,7 @@ public class GameScene extends PixelScene {
 			case DESCEND:
 			case FALL:
 				switch (Dungeon.depth) {
-					//返回不存在的楼层时使用这个
-				default:
-					WndStory.showChapter( WndStory.ID_ERROR );
-					break;
-					//0层（初始楼层）
+					//0层
 				case 0:
 					WndStory.showChapter( WndStory.ID_LEVEL_0 );
 					break;
@@ -419,43 +415,6 @@ public class GameScene extends PixelScene {
 					break;
 				case 2:
 					WndStory.showChapter( WndStory.ID_SAND2 );
-					break;
-				case 3:
-					WndStory.showChapter( WndStory.ID_SAND3 );
-					break;
-				case 4:
-					WndStory.showChapter( WndStory.ID_SAND4 );
-					break;
-				case 5:
-					WndStory.showChapter( WndStory.ID_SAND5 );
-					break;
-					//森林
-				case 6:
-					WndStory.showChapter( WndStory.ID_TREE1 );
-					break;
-				case 7:
-					WndStory.showChapter( WndStory.ID_TREE2 );
-					break;
-				case 8:
-					WndStory.showChapter( WndStory.ID_TREE3 );
-					break;
-				case 9:
-					WndStory.showChapter( WndStory.ID_TREE4 );
-					break;
-				case 10:
-					WndStory.showChapter( WndStory.ID_TREE5 );
-					break;
-					//神殿
-				case 11:
-					WndStory.showChapter( WndStory.ID_CAVES );
-					break;
-					//矿洞
-				case 16:
-					WndStory.showChapter( WndStory.ID_CITY );
-					break;
-					//要塞
-				case 21:
-					WndStory.showChapter( WndStory.ID_HALLS );
 					break;
 				}
 				if (Dungeon.hero.isAlive() && Dungeon.depth>=2) {

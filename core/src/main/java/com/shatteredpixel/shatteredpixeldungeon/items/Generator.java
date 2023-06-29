@@ -115,6 +115,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BattleAxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Knuckle;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Scalpel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Chain;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
@@ -142,6 +144,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarHammer;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Whip;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.CutOff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Eleove;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.IronLeave;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.FishingSpear;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ForceCube;
@@ -338,19 +344,24 @@ public class Generator {
 					WornShortsword.class,
 					Gloves.class,
 					Dagger.class,
-					MagesStaff.class
+					MagesStaff.class,
+					Knuckle.class,
+					Scalpel.class,
 			};//三目运算法，检测到?前成立执行?:，负责执行:后内容
-			WEP_T1.probs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 1, 1, 1, 0 }:new float[]{ 1, 1, 1, 0 };
+			WEP_T1.probs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 1, 1, 1, 0, 1, 1 }:new float[]{ 1, 1, 1, 0, 1, 1 };
 			
 			WEP_T2.classes = new Class<?>[]{
 					Shortsword.class,
 					HandAxe.class,
 					Spear.class,
-					Quarterstaff.class,
 					Dirk.class,
 					Chain.class,
+					CutOff.class,
+					Eleove.class,
+					IronLeave.class,
+					KnifeAoe.class,
 			};
-			WEP_T2.probs = new float[]{ 5, 5, 5, 4, 4, 4 };
+			WEP_T2.probs = new float[]{ 3, 3, 3, 3, 3, 3 ,3 ,3 ,3 };
 			
 			WEP_T3.classes = new Class<?>[]{
 					Sword.class,

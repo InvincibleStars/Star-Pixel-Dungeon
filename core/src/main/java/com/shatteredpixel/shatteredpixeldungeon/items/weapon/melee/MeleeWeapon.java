@@ -55,21 +55,40 @@ public class MeleeWeapon extends Weapon {
 
 	public int tier;
 
+
+	//伤害计算
+
 	@Override
 	public int min(int lvl) {
-		return  2 + tier + lvl+(masteryPotionBonus*4);	//(2+阶数+等级)作为初始伤害   （最低伤害）
+		return tier +						//基础
+				lvl +						//成长
+				(masteryPotionBonus*2);		//附加
 	}
-
-
 
 	@Override
 	public int max(int lvl) {
-		return  5*(tier+1) + lvl*(tier+1)+(masteryPotionBonus*2);   //5x（武器阶数+1）+等级x武器阶数+1（最高伤害）
+		return  5*(tier+1) +				//基础
+				lvl*(tier+1) +				//成长
+				(masteryPotionBonus*2);   	//附加
 	}
+
+
+	//伤害保存
+
+	public int damin(int lvl) {
+		return min();
+	}
+
+	public int damax(int lvl) {
+		return max();
+	}
+
+	//力量需求
 
 	public int STRReq(int lvl){
 		return STRReq(tier, lvl);
 	}
+
 	
 	@Override
 	public int damageRoll(Char owner) {
@@ -84,7 +103,7 @@ public class MeleeWeapon extends Weapon {
 			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
 				//deals 75% toward max to max on surprise, instead of min to max.
 				if (exStr > 0 && Dungeon.hero.heroClass==HeroClass.ROGUE) {
-					damage += Random.IntRange(0, 2000*exStr);
+					damage += Random.IntRange(0, 2*exStr);
 				}else{
 					damage += Random.IntRange(0, exStr);
 				}

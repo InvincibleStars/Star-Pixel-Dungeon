@@ -24,20 +24,27 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBugSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandScorpionSprite;
 import com.watabou.utils.Random;
 
-public class RockBug extends Mob {
+public class SandScorpion extends Mob {
 
 	{
-		spriteClass = RockBugSprite.class;
+		spriteClass = SandScorpionSprite.class;
 
-		HP = HT = 12 + Random.Int(4);
-		EXP = 1;
-		maxLvl = 3;
-		loot = Generator.Category.ARMOR;
-		lootChance = 0.18f; //by default, see rollToDropLoot()
+		HP = HT = 17 + Random.Int(8);
+		EXP =3;
+		loot = Generator.Category.SEED;
+		lootChance = 0.5f;
+		
+		maxLvl = 6;
 		defenseSkill = 2;
+	}
+
+	//行动逻辑
+	public boolean act() {
+		baseSpeed = Random.Float(1,2);
+		return super.act();
 	}
 
 	@Override
@@ -45,16 +52,15 @@ public class RockBug extends Mob {
 		return 10;
 	}
 
-
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 2, 4 );
+		return Random.NormalIntRange( 2, 7 );
 	}
 
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(2, 2);
+		return Random.NormalIntRange(0, 3);
 	}
 
 }

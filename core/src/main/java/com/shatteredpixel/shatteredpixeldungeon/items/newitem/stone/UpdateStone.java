@@ -62,6 +62,7 @@ public class UpdateStone extends Item {
 	//合成配方（关联QuickRecipe.java和Recipe.java）
 	public static class Scroll extends Recipe.SimpleRecipe {
 		{
+			//消耗3个晶体和4费用合成一张升级卷轴
 			inputs = new Class[]{UpdateStone.class};
 			inQuantity = new int[]{3};
 
@@ -85,7 +86,9 @@ public class UpdateStone extends Item {
 		//进行本次合成的水晶消耗
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 5;
+			Weapon w = (Weapon)ingredients.get(0);
+			int level = w.level();
+			return level*5+5;
 		}
 
 		@Override

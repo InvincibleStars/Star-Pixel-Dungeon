@@ -77,7 +77,9 @@ public class Item implements Bundlable {
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;
 	
-	private int level = 0;
+	//private int level = 0;
+
+	public int level = 0;
 
 	public boolean levelKnown = false;
 	
@@ -223,6 +225,7 @@ public class Item implements Bundlable {
 
 		if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
 			Badges.validateItemLevelAquired( this );
+			Badges.weaponLevel( this );
 			Talent.onItemCollected( Dungeon.hero, this );
 		}
 

@@ -46,7 +46,13 @@ public class RenderedTextBlock extends Component {
 	private int color = -1;
 	
 	private int hightlightColor = Window.TITLE_COLOR;
+//RED
+	private int redColor = Window.RED_COLOR;
+
+
 	private boolean highlightingEnabled = true;
+//RED
+	private boolean redEnabled = true;
 
 	public static final int LEFT_ALIGN = 1;
 	public static final int CENTER_ALIGN = 2;
@@ -113,10 +119,13 @@ public class RenderedTextBlock extends Component {
 		clear();
 		words = new ArrayList<>();
 		boolean highlighting = false;
+		boolean red = false;
 		for (String str : tokens){
 			
-			if (str.equals("_") && highlightingEnabled){
+			if (str.equals("_") && highlightingEnabled) {
 				highlighting = !highlighting;
+			} else if (str.equals("#R") && redEnabled){
+				red = !red;
 			} else if (str.equals("\n")){
 				words.add(NEWLINE);
 			} else if (str.equals(" ")){
@@ -125,7 +134,11 @@ public class RenderedTextBlock extends Component {
 				RenderedText word = new RenderedText(str, size);
 				
 				if (highlighting) word.hardlight(hightlightColor);
+				//RED
+				if (red) word.hardlight(redColor);
 				else if (color != -1) word.hardlight(color);
+
+
 				word.scale.set(zoom);
 				
 				words.add(word);
@@ -176,6 +189,24 @@ public class RenderedTextBlock extends Component {
 			build();
 		}
 	}
+
+	//RED
+	public synchronized void setRed(boolean enabled){
+		setRed(enabled, Window.RED_COLOR);
+	}
+
+	public synchronized void setRed(boolean enabled, int color){
+		if (enabled != redEnabled || color != redColor) {
+			redColor = color;
+			redEnabled = enabled;
+			build();
+		}
+	}
+
+
+
+
+
 
 	public synchronized void invert(){
 		if (words != null) {

@@ -45,6 +45,7 @@ public class WndStory extends Window {
 	
 	public static final int ID_SAND1		= 0;
 	public static final int ID_SAND2		= 1;
+	/*
 	public static final int ID_SAND3		= 3;
 	public static final int ID_SAND4		= 4;
 	public static final int ID_SAND5		= 5;
@@ -58,6 +59,8 @@ public class WndStory extends Window {
 	public static final int ID_CITY     	= 13;
 	public static final int ID_HALLS		= 14;
 
+	 */
+
 
 
 	public static final int ID_ERROR		= 999;
@@ -69,7 +72,7 @@ public class WndStory extends Window {
 		CHAPTERS.put( ID_ERROR, "error" );
 		CHAPTERS.put( ID_LEVEL_0, "level0" );
 		CHAPTERS.put( ID_SAND1, "sand1" );
-		CHAPTERS.put( ID_SAND2, "sand2" );
+		/*CHAPTERS.put( ID_SAND2, "sand2" );
 		CHAPTERS.put( ID_SAND3, "sand3" );
 		CHAPTERS.put( ID_SAND4, "sand4" );
 		CHAPTERS.put( ID_SAND5, "sand5" );
@@ -82,6 +85,8 @@ public class WndStory extends Window {
 		CHAPTERS.put( ID_CAVES, "caves1" );
 		CHAPTERS.put( ID_CITY, "city1" );
 		CHAPTERS.put( ID_HALLS, "halls1" );
+		
+		 */
 	}
 
 	private IconTitle ttl;

@@ -56,15 +56,15 @@ public class WornShortsword extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  0;
+		return  10 + lvl ;
 	}
 
 	@Override
 	public int min(int lvl) {
-		return  0;
+		return  lvl + 1 ;
 	}
 
-
+	/*
 	@Override
 	public Item random() {
 		//+0: 75% (3/4)
@@ -75,7 +75,7 @@ public class WornShortsword extends MeleeWeapon {
 		}
 		level(n);
 
-		/*
+
 		//30% chance to be cursed
 		//10% chance to be enchanted
 		float effectRoll = Random.Float();
@@ -86,11 +86,12 @@ public class WornShortsword extends MeleeWeapon {
 			enchant();
 		}
 
-		 */
+
 
 
 		return this;
 	}
+	*/
 
 
 

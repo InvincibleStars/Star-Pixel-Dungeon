@@ -85,7 +85,8 @@ public abstract class Mob extends Char {
 
 	{
 		actPriority = MOB_PRIO;
-		
+
+		//默认阵营
 		alignment = Alignment.ENEMY;
 	}
 	
@@ -100,8 +101,10 @@ public abstract class Mob extends Char {
 	public AiState WANDERING	= new Wandering();
 	public AiState FLEEING		= new Fleeing();
 	public AiState PASSIVE		= new Passive();
-	//默认生物动作（原来是睡眠）
-	public AiState state = HUNTING;
+	//默认生物动作(1/3立刻醒来，2/3睡眠)
+	public AiState state = Random.Int(0,3)==1?HUNTING:SLEEPING;
+
+
 	public Class<? extends CharSprite> spriteClass;
 	
 	protected int target = -1;
@@ -228,6 +231,8 @@ public abstract class Mob extends Char {
 		}
 		
 		//if we are an alert enemy, auto-hunt a target that is affected by aggression, even another enemy
+
+		//攻击&追随逻辑
 		if (alignment == Alignment.ENEMY && state != PASSIVE && state != SLEEPING) {
 			if (enemy != null && enemy.buff(StoneOfAggression.Aggression.class) != null){
 				state = HUNTING;

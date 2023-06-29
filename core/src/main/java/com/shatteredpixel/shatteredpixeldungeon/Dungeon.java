@@ -378,8 +378,10 @@ public class Dungeon {
 		dropped.add( item );
 	}
 
-	public static boolean posNeeded() { //力量药水
-		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 1);
+	//固定生成的物品
+
+	public static boolean posNeeded() { //力量药水（每区两瓶）
+		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
 		if (posLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -394,12 +396,12 @@ public class Dungeon {
 
 	}
 
-	public static boolean souNeeded() { //升级卷轴（不自然生成）
+	public static boolean souNeeded() { //升级卷轴（每区2张）
 		int souLeftThisSet;
 		if (isChallenged(Challenges.NO_SCROLLS)){
-			souLeftThisSet = Math.round(0.0f - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 0.0f));
+			souLeftThisSet = Math.round(2.0f - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 2.0f));
 		} else {
-			souLeftThisSet = 1 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 1);
+			souLeftThisSet = 2 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 2);
 		}
 		if (souLeftThisSet <= 0) return false;
 

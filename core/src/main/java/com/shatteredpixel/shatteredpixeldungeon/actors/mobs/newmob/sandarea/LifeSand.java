@@ -26,16 +26,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.LifeSandSprite;
 import com.watabou.utils.Random;
 
-public class Sand extends Mob {
+public class LifeSand extends Mob {
 	
 	{
-		spriteClass = SandSprite.class;
-		
-		HP = HT = 7;
+		spriteClass = LifeSandSprite.class;
+
+		HP = HT = 20 + Random.Int(5);
 		
 		EXP = 4;
 		maxLvl = 5;

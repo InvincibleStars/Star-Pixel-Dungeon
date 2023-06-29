@@ -25,33 +25,34 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.watabou.noosa.TextureFilm;
 
-public class KillRockSprite extends MobSprite {
+public class LifeSandSprite extends MobSprite {
 
-	public KillRockSprite() {
+	public LifeSandSprite() {
 		super();
 
-		texture( Assets.Sprites.KILLROCK );
+		texture( Assets.Sprites.LIFE_SAND );
 
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+		TextureFilm frames = new TextureFilm( texture, 14, 12 );
 
-		idle = new Animation( 2, true );
-		idle.frames( frames, 0, 0, 1, 1, 1, 0 );
+		idle = new Animation( 3, true );
+		idle.frames( frames, 0, 1, 1, 0 );
+		
+		run = new Animation( 10, true );
+		run.frames( frames, 0, 2, 3, 3, 2, 0 );
 
-		run = new Animation( 0, true );
-		run.frames( frames, 0, 3, 0, 4);
-
-		attack = new Animation( 24, false );
-		attack.frames( frames, 0, 1, 1, 0 );
-
-		die = new Animation( 12, false );
-		die.frames( frames, 6, 6, 7, 7, 7, 8, 8 );
-
-		play( idle );
+		
+		attack = new Animation( 15, false );
+		attack.frames( frames, 2, 3, 4, 6, 5 );
+		
+		die = new Animation( 10, false );
+		die.frames( frames, 0, 5, 6, 7 );
+		
+		play(idle);
 	}
-	/*
+
 	@Override
 	public int blood() {
-		return 0x000000;
+		return 0xFF88CC44;
 	}
-	 */
+	
 }

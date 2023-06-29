@@ -32,26 +32,27 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CrabSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandCrabSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class SandCrab extends Mob {
 	
 	{
 		spriteClass = CrabSprite.class;
-		
-		HP = HT = 7;
+
+		HP = HT = 13 + Random.Int(5);
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 3;
@@ -127,14 +128,14 @@ public class SandCrab extends Mob {
 		if (beamCooldown > 0) {
 			return super.doAttack(enemy);
 		} else if (!beamCharged){
-			((SandCrabSprite)sprite).charge( enemy.pos );
+			((CrabSprite)sprite).charge( enemy.pos );
 			spend( attackDelay()*2f );
 			beamCharged = true;
 			return true;
 		} else {
 
 			spend( attackDelay() );
-			
+
 			beam = new Ballistica(pos, beamTarget, Ballistica.STOP_SOLID);
 			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
 				sprite.zap( beam.collisionPos );
@@ -150,10 +151,10 @@ public class SandCrab extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		if (beamCharged) dmg /= 100000;
+		if (beamCharged) dmg /= 2100000000;
 		super.damage(dmg, src);
 	}
-	
+
 	//used so resistances can differentiate between melee and magical attacks
 	public static class DeathGaze{}
 
@@ -162,7 +163,7 @@ public class SandCrab extends Mob {
 			return;
 
 		beamCharged = false;
-		beamCooldown = Random.IntRange(4, 6);
+		beamCooldown = Random.IntRange(12, 15);
 
 		boolean terrainAffected = false;
 
@@ -180,12 +181,11 @@ public class SandCrab extends Mob {
 			if (ch == null) {
 				continue;
 			}
-//ch,
+
 			if (hit( this, ch, true )) {
-				if (ch == Dungeon.hero && Random.Int( 0 ) == 0) {
-					Buff.prolong( ch, Blindness.class, BuffWait.T10 );
-					Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
-				}
+				Buff.prolong( ch, Blindness.class, BuffWait.T5 );
+				Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
+				//ch.damage( Random.NormalIntRange( 0, 0 ), new SandCrab.DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
 					ch.sprite.flash();
@@ -234,7 +234,7 @@ public class SandCrab extends Mob {
 	{
 		resistances.add( WandOfDisintegration.class );
 	}
-	
+
 	{
 		//immunities.add( Terror.class );
 	}

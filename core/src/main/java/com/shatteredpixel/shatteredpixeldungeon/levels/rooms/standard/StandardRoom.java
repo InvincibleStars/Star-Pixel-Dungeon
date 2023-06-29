@@ -43,13 +43,13 @@ public abstract class StandardRoom extends Room {
 		public final int roomValue;		//final
 		
 		SizeCategory(int min, int max, int val) {
-/*
-			if(Dungeon.depth<=10 && Dungeon.depth>=1){
-				minDim = 2*min;
-				maxDim = 2*max;
-				roomValue = 2*val;
+
+			if(Dungeon.depth<=10 && Dungeon.depth>=5){
+				minDim = min*3;
+				maxDim = max*3;
+				roomValue = val*3;
 			}else
-			*/
+
 			{
 				minDim = min;
 				maxDim = max;

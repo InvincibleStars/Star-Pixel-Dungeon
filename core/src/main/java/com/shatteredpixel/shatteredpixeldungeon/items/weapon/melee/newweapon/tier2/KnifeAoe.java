@@ -19,45 +19,62 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class HandAxe extends MeleeWeapon {
+public class KnifeAoe extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.HAND_AXE;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		image = ItemSpriteSheet.DIRK;
+		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1f;
 
-		tier = 1;
-		ACC = 1.32f; //32% boost to accuracy
+		tier = 2;
+		RCH=2;
+	}
+
+	@Override
+	public int min(int lvl) {
+		return tier +						//基础
+				lvl +						//成长
+				(masteryPotionBonus*2);		//附加
 	}
 
 	@Override
 	public int max(int lvl) {
-		return 4 * (tier + 1) +    //12 base, down from 15
-				lvl * (tier + 1);   //scaling unchanged
+		return  2*(tier+1) +				//基础
+				lvl*(tier+1) +				//成长
+				(masteryPotionBonus*2);   	//附加
 	}
 
-	//attackBuff
-	public int proc(Char attacker, Char defender, int damage) {
-			if (defender instanceof Mob && ((Mob) defender).surprisedBy(hero)) {
-				Buff.affect(defender, Bleeding.class).set(Math.round(damage * 588.2f));
-				damage = 0;
+
+	@Override
+	public int damageRoll(Char owner) {
+		return super.damageRoll(owner);
+	}
+
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage ) {
+		Char ch;
+		int dam =Random.Int(min(),max());
+
+		for( int i: PathFinder.NEIGHBOURS8){
+			if ((ch = Char.findChar(hero.pos +i))!= null){
+				ch.damage(dam, this);
 			}
+		}
 		return super.proc(attacker, defender, damage);
 	}
+
+
+
 }

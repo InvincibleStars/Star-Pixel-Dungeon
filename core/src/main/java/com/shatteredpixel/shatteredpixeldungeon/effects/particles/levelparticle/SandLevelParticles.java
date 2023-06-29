@@ -25,7 +25,7 @@ public class SandLevelParticles extends PixelParticle {
     private float size;
 
     public SandLevelParticles() {
-        texture("sa.png");
+        texture("sprites/newsprites/levelpart/sa.png");
         lifespan = Random.Float( 1,2);
         scale.set( size = Random.Float() );
         origin.set(width/4,height/4);
@@ -46,7 +46,8 @@ public class SandLevelParticles extends PixelParticle {
         angularSpeed=120;
         speed = (new PointF()).polar(angle, 16.0F);
         am=0;
-        color(0x8780FFFF);
+        //染色
+        color(0x00000000);
     }
 
     //
@@ -77,7 +78,7 @@ public class SandLevelParticles extends PixelParticle {
 
         public void update() {
 
-
+            super.update();
             if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
                 float f = delay - Game.elapsed;
                 delay = f;
@@ -86,7 +87,6 @@ public class SandLevelParticles extends PixelParticle {
                     ((SandLevelParticles)recycle(SandLevelParticles.class)).reset(this.x + Random.Float(16.0F), this.y + Random.Float(16.0F));
                 }
             }
-            super.update();
         }
     }
 }

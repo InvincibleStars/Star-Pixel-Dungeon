@@ -42,11 +42,21 @@ public class CutOff extends MeleeWeapon {
 	}
 
 	@Override
-	public int max(int lvl) {
-		return  3*(tier+1) +    //12 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
+	public int min(int lvl) {
+		return tier +						//基础
+				lvl +						//成长
+				(masteryPotionBonus*2);		//附加
 	}
 
+	@Override
+	public int max(int lvl) {
+		return  4*(tier+1) +				//基础
+				lvl*(tier+1) +				//成长
+				(masteryPotionBonus*2);   	//附加
+	}
+
+
+	//attackBuff
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
 		Buff.prolong(attacker, CutoffSpeed.class, BuffWait.T1);

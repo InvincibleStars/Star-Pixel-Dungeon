@@ -19,53 +19,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
-
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class Dirk2 extends MeleeWeapon {
+public class KnifeTurn extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.DIRK;
+		image = ItemSpriteSheet.SAI;
 		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 1f;
+		hitSoundPitch = 1.3f;
 
-		tier = 1;
-		RCH=2;
+		tier = 3;
+		DLY = 0.3f;
 	}
-	
+
 	@Override
-	public int damageRoll(Char owner) {
-		return super.damageRoll(owner);
+	public int max(int lvl) {
+		return  Math.round((2.5f*(tier+1)) + lvl*Math.round(0.5f*(tier+1)))/3;  //+2 per level, down from +4
 	}
-
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
-		Char ch;
-		int dam =Random.Int(min(),max());
-
-		for( int i: PathFinder.NEIGHBOURS8){
-			if ((ch = Char.findChar(hero.pos +i))!= null){
-				ch.damage(dam, this);
-			}
-		}
+		if(Random.Int(0,3)==3)
+		Buff.affect(attacker, Bleeding.class).set(Math.round(damage * 0.2f));
 		return super.proc(attacker, defender, damage);
 	}
-
-
 
 }

@@ -27,6 +27,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.Nemesis;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -148,7 +150,8 @@ public class Badges {
 		//diamond
 		GAMES_PLAYED_4              ( 112, true ),
 		CHAMPION_2                  ( 113 ),
-		CHAMPION_3                  ( 114 );
+		CHAMPION_3                  ( 114 ),
+		NEMESIS_LEVEL         ( 115 );
 
 		public boolean meta;
 
@@ -345,7 +348,27 @@ public class Badges {
 		
 		displayBadge( badge );
 	}
-	
+
+
+
+	public static void weaponLevel(Item item) {
+
+		//调取背包内物品做动作
+		//Dungeon.hero.belongings.getItem(Nemesis.class);
+		Badge badge = null;
+
+		Nemesis asdf = Dungeon.hero.belongings.getItem(Nemesis.class);
+
+		if(asdf!=null) {
+			if (asdf.level == 3) {
+				badge = Badge.NEMESIS_LEVEL;
+				local.add(badge);
+			}
+		}
+		displayBadge( badge );
+	}
+
+
 	public static void validateStrengthAttained() {
 		Badge badge = null;
 		
@@ -921,7 +944,8 @@ public class Badges {
 			{Badge.ITEMS_CRAFTED_1, Badge.ITEMS_CRAFTED_2, Badge.ITEMS_CRAFTED_3, Badge.ITEMS_CRAFTED_4},
 			{Badge.BOSS_SLAIN_1, Badge.BOSS_SLAIN_2, Badge.BOSS_SLAIN_3, Badge.BOSS_SLAIN_4},
 			{Badge.GAMES_PLAYED_1, Badge.GAMES_PLAYED_2, Badge.GAMES_PLAYED_3, Badge.GAMES_PLAYED_4},
-			{Badge.CHAMPION_1, Badge.CHAMPION_2, Badge.CHAMPION_3}
+			{Badge.CHAMPION_1, Badge.CHAMPION_2, Badge.CHAMPION_3},
+			{Badge.NEMESIS_LEVEL},
 	};
 
 	private static final Badge[][] metaBadgeReplacements = new Badge[][]{
@@ -952,7 +976,8 @@ public class Badges {
 		leaveBest( badges, Badge.ITEM_LEVEL_1, Badge.ITEM_LEVEL_2, Badge.ITEM_LEVEL_3, Badge.ITEM_LEVEL_4 );
 		leaveBest( badges, Badge.ITEMS_CRAFTED_1, Badge.ITEMS_CRAFTED_2, Badge.ITEMS_CRAFTED_3, Badge.ITEMS_CRAFTED_4 );
 		leaveBest( badges, Badge.GAMES_PLAYED_1, Badge.GAMES_PLAYED_2, Badge.GAMES_PLAYED_3, Badge.GAMES_PLAYED_4 );
-		leaveBest( badges, Badge.CHAMPION_1, Badge.CHAMPION_2, Badge.CHAMPION_3 );
+		leaveBest( badges, Badge.CHAMPION_1, Badge.CHAMPION_2, Badge.CHAMPION_3);
+		leaveBest( badges, Badge.NEMESIS_LEVEL );
 
 		for (Badge[] tierReplace : tierBadgeReplacements){
 			leaveBest( badges, tierReplace );

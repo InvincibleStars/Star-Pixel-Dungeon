@@ -63,7 +63,7 @@ public class SandWorm2 extends SandWorm {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(1, 2); }
+	public int damageRoll() { return Random.NormalIntRange(3, 7); }
 
 	@Override
 	public int drRoll() {

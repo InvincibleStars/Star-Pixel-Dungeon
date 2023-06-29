@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.BlackWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SpeedRandom;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -162,10 +163,10 @@ public class Level0 extends Level {
 
     @Override
     protected void createMobs() {
-        /*
 
 
-        Rat s= new Rat();
+
+        SpeedRandom s= new SpeedRandom();
         s.pos = (this.width *7+3);
         mobs.add(s);
 
@@ -175,7 +176,7 @@ public class Level0 extends Level {
           //  mobs.add(i);
      //   }
 
-         */
+
     }
 
     public Actor addRespawner() {

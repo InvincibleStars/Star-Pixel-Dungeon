@@ -121,7 +121,7 @@ public abstract class Char extends Actor {
 	public CharSprite sprite;
 
 	public int HT;
-	public int HP;
+	public int HP = HT;
 
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
@@ -132,6 +132,7 @@ public abstract class Char extends Actor {
 	public int invisible		= 0;
 
 	//these are relative to the hero
+	//阵营
 	public enum Alignment{
 		ENEMY,
 		NEUTRAL,

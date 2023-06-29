@@ -308,9 +308,9 @@ public class Assets {
 		//激光蟹
 		public static final String SAND_CRAB= "sprites/newsprites/sand/sand_crab.png";
 		//节肢蝎子
-		public static final String KILLROCK= "sprites/newsprites/sand/killrock.png";
+		public static final String SAND_SCORPION= "sprites/newsprites/sand/killrock.png";
 		//沙团
-		public static final String SAND= "sprites/newsprites/sand/sand.png";
+		public static final String LIFE_SAND= "sprites/newsprites/sand/sand.png";
 
 		//Tree Area
 
