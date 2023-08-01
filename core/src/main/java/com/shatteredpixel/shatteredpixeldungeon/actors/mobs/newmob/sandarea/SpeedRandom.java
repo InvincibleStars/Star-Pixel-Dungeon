@@ -47,6 +47,8 @@ public class SpeedRandom extends Mob {
 
 		defenseSkill = 2;
 
+		state = SLEEPING;
+
 
 	}
 

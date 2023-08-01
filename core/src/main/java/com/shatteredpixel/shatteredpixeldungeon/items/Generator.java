@@ -133,7 +133,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Longsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Mace;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Quarterstaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RunicBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
@@ -146,7 +145,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Whip;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.CutOff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Eleove;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.IronLeave;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Iron_Leave;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.FishingSpear;
@@ -358,7 +357,7 @@ public class Generator {
 					Chain.class,
 					CutOff.class,
 					Eleove.class,
-					IronLeave.class,
+					Iron_Leave.class,
 					KnifeAoe.class,
 			};
 			WEP_T2.probs = new float[]{ 3, 3, 3, 3, 3, 3 ,3 ,3 ,3 };

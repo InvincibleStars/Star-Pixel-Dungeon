@@ -34,18 +34,18 @@ public class Level0 extends Level {
             case 1: default:
                 return Terrain.EMPTY;
             case 0:
-                return Terrain.EMPTY;
-                /*
-                if(Random.Int(1,5)==1)
-                     return Terrain.EMPTY;
-                else if(Random.Int(1,5)==2)
-                    return Terrain.HIGH_GRASS;
-                else if(Random.Int(1,5)==3)
-                    return Terrain.WATER;
-                else if(Random.Int(1,5)==4)
-                    return Terrain.GRASS;
 
-                 */
+                if(Random.Int(0,5)==0)
+                     return Terrain.EMPTY;
+                else if(Random.Int(0,5)==1)
+                    return Terrain.HIGH_GRASS;
+                else if(Random.Int(0,5)==2)
+                    return Terrain.WATER;
+                else if(Random.Int(0,5)==3)
+                    return Terrain.GRASS;
+                else if(Random.Int(0,5)==4)
+                    return Terrain.WALL;
+
 
                 //墙壁
             case 64:

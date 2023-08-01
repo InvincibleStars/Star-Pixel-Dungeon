@@ -26,7 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class BuffWait extends FlavourBuff {
-//谁叫evan用这玩意表示持续时间（）
+//效果的持续时间
 	public static final float T1 = 1f;
 	public static final float T2 = 2f;
 	public static final float T3 = 3f;
@@ -39,5 +39,7 @@ public class BuffWait extends FlavourBuff {
 	public static final float T10 = 10f;
 	public static final float T15 = 15f;
 	public static final float T20 = 20f;
+	public static final float T30 = 30f;
+	public static final float T50 = 50f;
 
 }

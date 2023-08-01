@@ -60,6 +60,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
@@ -215,6 +216,8 @@ public class Hero extends Char {
 	//This list is maintained so that some logic checks can be skipped
 	// for enemies we know we aren't seeing normally, resultign in better performance
 	public ArrayList<Mob> mindVisionEnemies = new ArrayList<>();
+	//NEW
+	public ArrayList<Mob> burningEnemies = new ArrayList<>();
 
 	public Hero() {
 		super();
@@ -263,7 +266,7 @@ public class Hero extends Char {
 		//职业HP,HT
 		switch (Dungeon.hero.heroClass) {
 			case WARRIOR:
-                HT = 25 + 7*(lvl-1) + HTBoost;
+                HT = 25000000 + 7*(lvl-1) + HTBoost;
                 break;
             case MAGE:
                 HT = 23 + 4*(lvl-1) + HTBoost;
@@ -468,6 +471,7 @@ public class Hero extends Char {
 		Buff.affect( this, Regeneration.class );
 		//Buff.affect( this, BiologicalActivity.class );
 		Buff.affect( this, Hunger.class);
+		Buff.affect( this, BurnVest.class);
 	}
 	
 	public int tier() {
@@ -753,6 +757,10 @@ public class Hero extends Char {
 			//do a full observe (including fog update) if not resting.
 			if (!resting || buff(MindVision.class) != null || buff(Awareness.class) != null) {
 				Dungeon.observe();
+
+			//}else if (!resting || buff(Burning.class) != null || buff(Awareness.class) != null) {
+			//	Dungeon.observe();
+
 			} else {
 				//otherwise just directly re-calculate FOV
 				level.updateFieldOfView(this, fieldOfView);
@@ -1428,7 +1436,7 @@ public class Hero extends Char {
 					newMob = true;
 				}
 
-				if (!mindVisionEnemies.contains(m) && QuickSlotButton.autoAim(m) != -1){
+				if ((!mindVisionEnemies.contains(m)||(!burningEnemies.contains(m))) && QuickSlotButton.autoAim(m) != -1){
 					if (target == null){
 						target = m;
 					} else if (distance(target) > distance(m)) {

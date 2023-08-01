@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -31,7 +32,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
@@ -67,20 +70,34 @@ public abstract class EquipableItem extends Item {
 
 	@Override
 	public void execute( Hero hero, String action ) {
+		super.execute(hero, action);
 
-		super.execute( hero, action );
-
-		if (action.equals( AC_EQUIP )) {
-			//In addition to equipping itself, item reassigns itself to the quickslot
-			//This is a special case as the item is being removed from inventory, but is staying with the hero.
-			int slot = Dungeon.quickslot.getSlot( this );
-			doEquip(hero);
-			if (slot != -1) {
-				Dungeon.quickslot.setSlot( slot, this );
+		//In addition to equipping itself, item reassigns itself to the quickslot
+		//This is a special case as the item is being removed from inventory, but is staying with the hero.
+		if (action.equals(AC_EQUIP)) {
+			//装备诅咒的装备会有提示
+			if (cursedKnown) {
+				ShatteredPixelDungeon.scene().add(new WndOptions(Icons.get(Icons.WARNING),
+						Messages.get(this, "warm"),
+						Messages.get(this, "tip"),
+						Messages.get(this, "yes"),
+						Messages.get(this, "no")) {
+					@Override
+					protected void onSelect(int index) {
+						if (index == 0) {
+							doEquip(hero);
+						}
+					}
+				});
+			} else {
+				//int slot = Dungeon.quickslot.getSlot( this );
+				doEquip(hero);
+				//if (slot != -1) {
+				//	Dungeon.quickslot.setSlot( slot, this );
 				updateQuickslot();
 			}
-		} else if (action.equals( AC_UNEQUIP )) {
-			doUnequip( hero, true );
+		} else if (action.equals(AC_UNEQUIP)) {
+			doUnequip(hero, true);
 		}
 	}
 

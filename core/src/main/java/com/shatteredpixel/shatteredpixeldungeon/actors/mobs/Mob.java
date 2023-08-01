@@ -43,7 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BUFF_Mob_RCH_ADD_3;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.RchAddBy3;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
@@ -388,7 +388,7 @@ public abstract class Mob extends Char {
 			return true;
 		}
 
-		for (BUFF_Mob_RCH_ADD_3 buff : buffs(BUFF_Mob_RCH_ADD_3.class)) {
+		for (RchAddBy3 buff : buffs(RchAddBy3.class)) {
 			if (buff.canAttackWithExtraReach(enemy)) {
 				return true;
 			}

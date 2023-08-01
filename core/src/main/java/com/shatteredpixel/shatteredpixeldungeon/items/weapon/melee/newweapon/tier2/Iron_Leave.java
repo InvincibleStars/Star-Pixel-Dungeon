@@ -26,7 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class IronLeave extends MeleeWeapon {
+public class Iron_Leave extends MeleeWeapon {
 
 	{
 		image = ItemSpriteSheet.IROM_LEAVE;

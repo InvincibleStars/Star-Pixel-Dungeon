@@ -21,14 +21,17 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
@@ -737,6 +740,24 @@ public class Dungeon {
 				GameScene.updateFog(m.pos, 2);
 			}
 		}
+
+		// Dungeon.level.distance(pos, c.pos) <=
+
+
+		for (Mob m : level.mobs.toArray(new Mob[0])){
+		if ((hero.buff(Burning.class) != null)&& BurnVest.burnadd>=1.8f){
+				if(Dungeon.level.distance(m.pos, hero.pos) >= 5) {
+					BArray.or(level.visited, level.heroFOV, m.pos - 1 - level.width(), 3, level.visited);
+					BArray.or(level.visited, level.heroFOV, m.pos, 3, level.visited);
+					BArray.or(level.visited, level.heroFOV, m.pos - 1 + level.width(), 3, level.visited);
+					//updates adjacent cells too
+					GameScene.updateFog(m.pos, 2);
+				} else {
+				}
+			}
+		}
+
+
 
 		if (hero.buff(Awareness.class) != null){
 			for (Heap h : level.heaps.valueList()){

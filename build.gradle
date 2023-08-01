@@ -3,8 +3,10 @@ buildscript {
         kotlin_version = '1.8.0'
     }
     repositories {
-        google()
-        mavenCentral()
+        //google()
+        //mavenCentral()
+        maven{ url 'https://maven.aliyun.com/repository/google' }
+        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
@@ -28,15 +30,18 @@ allprojects {
         appAndroidTargetSDK = 31
 
         gdxVersion = '1.10.0'
-        robovmVersion = '2.3.14'
+        //robovmVersion = '2.3.14'
     }
     version = appVersionName
 
     repositories {
-        google()
-        mavenCentral()
+       //google()
+        //mavenCentral()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
         maven { url 'https://jitpack.io' }
+
+        maven{ url 'https://maven.aliyun.com/repository/google' }
+        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
     }
 
 }

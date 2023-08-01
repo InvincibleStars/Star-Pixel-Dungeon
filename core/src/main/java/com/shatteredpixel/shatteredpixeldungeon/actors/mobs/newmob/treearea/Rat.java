@@ -21,14 +21,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BUFF_Mob_RCH_ADD_3;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.RchAddBy3;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Rat extends Mob {
@@ -39,7 +36,7 @@ public class Rat extends Mob {
 		HP = HT = 8;
 		defenseSkill = 2;
 
-		Buff.affect(this, BUFF_Mob_RCH_ADD_3.class);
+		Buff.affect(this, RchAddBy3.class);
 		
 		maxLvl = 5;
 	}

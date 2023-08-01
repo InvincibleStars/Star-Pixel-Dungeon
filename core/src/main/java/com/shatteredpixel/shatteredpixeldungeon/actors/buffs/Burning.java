@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -56,10 +57,12 @@ public class Burning extends Buff implements Hero.Doom {
 	
 	private static final String LEFT	= "left";
 	private static final String BURN	= "burnIncrement";
+	public int distance2 = 2;
 
 	{
 		type = buffType.NEGATIVE;
 		announced = true;
+
 	}
 	
 	@Override
@@ -87,14 +90,15 @@ public class Burning extends Buff implements Hero.Doom {
 	public boolean act() {
 		
 		if (target.isAlive() && !target.isImmune(getClass())) {
+
 			
-			int damage = Random.NormalIntRange( 1, 3 + Dungeon.depth/4 );
+			int damage = (Random.NormalIntRange( 1, 3 + Dungeon.depth/4 ))*(int)BurnVest.burnadd;
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero) {
 				
 				Hero hero = (Hero)target;
-
+				//浓度增加
 				hero.damage( damage, this );
 				burnIncrement++;
 
@@ -107,6 +111,8 @@ public class Burning extends Buff implements Hero.Doom {
 					if (hero.buff(LostInventory.class) == null) {
 						for (Item i : hero.belongings.backpack.items) {
 							if (!i.unique && (i instanceof Scroll || i instanceof MysteryMeat || i instanceof FrozenCarpaccio)) {
+								//浓度增加
+								BurnVest.burnadd += 0.05f;
 								burnable.add(i);
 							}
 						}
@@ -117,16 +123,28 @@ public class Burning extends Buff implements Hero.Doom {
 						GLog.w( Messages.get(this, "burnsup", Messages.capitalize(toBurn.toString())) );
 						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio){
 							ChargrilledMeat steak = new ChargrilledMeat();
+							//浓度增加
+							BurnVest.burnadd += 0.05f;
 							if (!steak.collect( hero.belongings.backpack )) {
 								Dungeon.level.drop( steak, hero.pos ).sprite.drop();
+								//浓度增加
+								BurnVest.burnadd += 0.05f;
 							}
 						}
 						Heap.burnFX( hero.pos );
+						//浓度增加
+						BurnVest.burnadd += 0.05f;
 					}
+					//浓度增加
+					BurnVest.burnadd += 0.05f;
 				}
+				//浓度增加
+				BurnVest.burnadd += 0.05f;
 				
 			} else {
 				target.damage( damage, this );
+				//浓度增加
+				BurnVest.burnadd += 0.05f;
 			}
 
 			if (target instanceof Thief && ((Thief) target).item != null) {
@@ -136,20 +154,27 @@ public class Burning extends Buff implements Hero.Doom {
 				if (!item.unique && item instanceof Scroll) {
 					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
 					((Thief)target).item = null;
+					//浓度增加
+					BurnVest.burnadd += 0.05f;
 				} else if (item instanceof MysteryMeat) {
 					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
 					((Thief)target).item = new ChargrilledMeat();
+					//浓度增加
+					BurnVest.burnadd += 0.05f;
 				}
 
 			}
 
 		} else {
-
+			//浓度增加
+			BurnVest.burnadd += 0.05f;
 			detach();
 		}
 		
 		if (Dungeon.level.flamable[target.pos] && Blob.volumeAt(target.pos, Fire.class) == 0) {
 			GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
+			//浓度增加
+			BurnVest.burnadd += 0.05f;
 		}
 		
 		spend( TICK );
@@ -194,7 +219,11 @@ public class Burning extends Buff implements Hero.Doom {
 
 	@Override
 	public String heroMessage() {
-		return Messages.get(this, "heromsg");
+		if (BurnVest.burnadd >= 1.8f) {
+			return Messages.get(this, "heromsg2");
+		} else {
+			return Messages.get(this, "heromsg");
+		}
 	}
 
 	@Override

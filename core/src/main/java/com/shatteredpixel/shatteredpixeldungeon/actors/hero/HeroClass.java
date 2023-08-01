@@ -46,7 +46,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
@@ -68,24 +67,19 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMappi
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HandAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Chain;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.CutOff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Eleove;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.IronLeave;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Iron_Leave;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.A1145;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.KnifeTurn;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.Nemesis;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -120,13 +114,17 @@ public enum HeroClass {
 
 		new CutOff().quantity(1).identify().collect();
 
-		new IronLeave().quantity(1).identify().collect();
+		new Iron_Leave().quantity(1).identify().collect();
 
 		new KnifeAoe().quantity(1).identify().collect();
 
 		new Eleove().quantity(1).identify().collect();
 
 		new HandAxe().quantity(1).identify().collect();
+
+		new ScrollOfMagicMapping().quantity(300).collect();
+
+		new CurseInfusion().quantity(300).collect();
 
 		/*
 		//定义一个随机武器
