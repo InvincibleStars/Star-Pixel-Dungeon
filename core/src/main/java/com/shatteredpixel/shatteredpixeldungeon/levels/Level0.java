@@ -5,8 +5,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotHeart2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.BlackWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandCrab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SpeedRandom;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
@@ -166,9 +168,10 @@ public class Level0 extends Level {
 
 
 
-        SpeedRandom s= new SpeedRandom();
-        s.pos = (this.width *7+3);
-        mobs.add(s);
+        RotHeart2 a= new RotHeart2();
+        a.pos = (this.WIDTH*13+22);
+        mobs.add(a);
+
 
        // for(int c=3; c<15; c+=1){
            // BlackWorm i= new BlackWorm();

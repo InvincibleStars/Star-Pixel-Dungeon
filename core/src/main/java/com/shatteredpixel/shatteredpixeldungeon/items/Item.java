@@ -113,16 +113,23 @@ public class Item implements Bundlable {
 		return Messages.get(this, "ac_" + action);
 	}
 
-	public final boolean doPickUp( Hero hero ) {
+	public boolean doPickUp( Hero hero ) {
 		return doPickUp( hero, hero.pos );
 	}
 
 	public boolean doPickUp(Hero hero, int pos) {
+		return doPickUp( hero, hero.pos, TIME_TO_PICK_UP);
+	}
+
+
+	public boolean doPickUp(Hero hero, int pos, float time) {
 		if (collect( hero.belongings.backpack )) {
 			
 			GameScene.pickUp( this, pos );
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
 			hero.spendAndNext( TIME_TO_PICK_UP );
+			if (time > 0f)
+				hero.spendAndNext( time );
 			return true;
 			
 		} else {
@@ -162,7 +169,7 @@ public class Item implements Bundlable {
 			if (hero.belongings.backpack.contains(this) || isEquipped(hero)) {
 				doThrow(hero);
 			}
-			
+			//doThrow(hero);
 		}
 	}
 	
@@ -175,6 +182,7 @@ public class Item implements Bundlable {
 		if (!heap.isEmpty()) {
 			heap.sprite.drop( cell );
 		}
+		//heap.sprite.drop( cell );
 	}
 	
 	//takes two items and merges them (if possible)

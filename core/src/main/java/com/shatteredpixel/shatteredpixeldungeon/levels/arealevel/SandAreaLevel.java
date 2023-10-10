@@ -54,21 +54,21 @@ public class SandAreaLevel extends RegularLevel {
 	protected int standardRooms(boolean forceMax) {
 		if (forceMax) return 6;
 		//3-6
-		return 9+Random.chances(new float[]{1, 1, 1});
+		return 3+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override
 	protected int specialRooms(boolean forceMax) {
 		if (forceMax) return 2;
-		//0-4
-		return 0+Random.chances(new float[]{0, 0, 0, 0});
+		//1-4
+		return 1+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override
 	protected Painter painter() {
 		return new SewerPainter()
-				.setWater(feeling == Feeling.WATER ? 0.05f : 0.05f, 0)
-				.setGrass(feeling == Feeling.GRASS ? 0.05f : 0.05f, 8)
+				.setWater(feeling == Feeling.WATER ? 0.00f : 0.00f, 0)
+				.setGrass(feeling == Feeling.GRASS ? 0.40f : 0.40f, 8)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
 	

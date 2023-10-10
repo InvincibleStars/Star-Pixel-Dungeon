@@ -250,7 +250,7 @@ abstract public class MissileWeapon extends Weapon {
 	public Weapon enchant() {
 
 		Class<? extends Enchantment> oldEnchantment = enchantment != null ? enchantment.getClass() : null;
-		Enchantment ench = Enchantment.random( oldEnchantment );
+		Enchantment ench = Enchantment.random(null, oldEnchantment );
 
 		return enchant( ench );
 	}

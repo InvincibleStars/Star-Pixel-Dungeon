@@ -45,8 +45,9 @@ public class CharHealthIndicator extends HealthBar {
 	@Override
 	public void update() {
 		super.update();
-		
-		if (target != null && target.isAlive() && target.sprite.visible) {
+		//最后一句判断生物所属阵营
+		if (target != null && target.isAlive() && target.sprite.visible
+				&& !target.properties.contains(Char.Property.NOHP)) {
 			CharSprite sprite = target.sprite;
 			width = sprite.width()*(4/6f);
 			x = sprite.x + sprite.width()/6f;

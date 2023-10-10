@@ -252,6 +252,7 @@ public class Dungeon {
 			case 0:
 				level = new Level0(); //初始楼层
 				break;
+				/*
 			case 1: case 2: case 3: case 4: //沙暴大地
 			case 5:
 				level = new SandAreaLevel();
@@ -278,9 +279,13 @@ public class Dungeon {
 			case 30:
 				level = new HallsLevel();
 				break;
+
+			 */
 			default:
-				level = new DeadEndLevel();
-				Statistics.deepestFloor--;
+				//level = new DeadEndLevel();
+				//Statistics.deepestFloor--;
+				level = new SandAreaLevel();
+				break;
 		}
 
 		level.create();

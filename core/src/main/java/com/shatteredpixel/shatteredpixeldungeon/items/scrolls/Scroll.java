@@ -97,7 +97,7 @@ public abstract class Scroll extends Item {
 	protected String rune;
 	
 	{
-		stackable = false;
+		stackable = true;
 		defaultAction = AC_READ;
 	}
 	

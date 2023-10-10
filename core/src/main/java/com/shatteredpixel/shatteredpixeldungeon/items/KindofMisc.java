@@ -41,9 +41,7 @@ public abstract class KindofMisc extends EquipableItem {
 	public boolean doEquip(final Hero hero) {
 
 		boolean equipFull = false;
-		if ( this instanceof Artifact
-				&& hero.belongings.artifact != null
-				&& hero.belongings.misc != null){
+		if ( this instanceof Artifact && hero.belongings.artifact != null && hero.belongings.misc != null){
 
 			//see if we can re-arrange items first
 			if (hero.belongings.misc instanceof Ring && hero.belongings.ring == null){
@@ -52,9 +50,7 @@ public abstract class KindofMisc extends EquipableItem {
 			} else {
 				equipFull = true;
 			}
-		} else if (this instanceof Ring
-				&& hero.belongings.misc != null
-				&& hero.belongings.ring != null){
+		} else if (this instanceof Ring && hero.belongings.misc != null && hero.belongings.ring != null){
 
 			//see if we can re-arrange items first
 			if (hero.belongings.misc instanceof Artifact && hero.belongings.artifact == null){
@@ -79,9 +75,9 @@ public abstract class KindofMisc extends EquipableItem {
 
 			//force swapping with the same type of item if 2x of that type is already present
 			if (this instanceof Ring && hero.belongings.misc instanceof Ring){
-				enabled[0] = false; //disable artifact
+				enabled[0] = true; //disable artifact
 			} else if (this instanceof Artifact && hero.belongings.misc instanceof Artifact){
-				enabled[2] = false; //disable ring
+				enabled[2] = true; //disable ring
 			}
 
 			GameScene.show(
@@ -98,21 +94,29 @@ public abstract class KindofMisc extends EquipableItem {
 							KindofMisc equipped = miscs[index];
 							int slot = Dungeon.quickslot.getSlot(KindofMisc.this);
 							detach(hero.belongings.backpack);
-							if (equipped.doUnequip(hero, true, false)) {
+
+							if (equipped.doUnequip(hero, true, true)) {
 								//swap out equip in misc slot if needed
 								if (index == 0 && KindofMisc.this instanceof Ring){
-									hero.belongings.artifact = (Artifact)hero.belongings.misc;
+									//
+									if(hero.belongings.misc != null) {
+
+										hero.belongings.artifact = (Artifact) hero.belongings.misc;
+									}
 									hero.belongings.misc = null;
+
+
+
 								} else if (index == 2 && KindofMisc.this instanceof Artifact){
-									hero.belongings.ring = (Ring) hero.belongings.misc;
+									hero.belongings.artifact = (Artifact) hero.belongings.misc;
 									hero.belongings.misc = null;
 								}
 								doEquip(hero);
 							} else {
 								collect();
 							}
-							if (slot != -1) Dungeon.quickslot.setSlot(slot, KindofMisc.this);
-							updateQuickslot();
+							//if (slot != -1) Dungeon.quickslot.setSlot(slot, KindofMisc.this);
+							//updateQuickslot();
 						}
 
 						@Override

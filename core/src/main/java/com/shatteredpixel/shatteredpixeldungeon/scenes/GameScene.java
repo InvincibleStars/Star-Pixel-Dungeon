@@ -1237,6 +1237,10 @@ public class GameScene extends PixelScene {
 		if (o == Dungeon.hero){
 			GameScene.show( new WndHero() );
 		} else if ( o instanceof Mob ){
+			if(((Mob) o).properties.contains(Char.Property.NOHP)){
+				GameScene.show(new WndInfoCell(((Mob) o).pos));
+				return;
+			}
 			GameScene.show(new WndInfoMob((Mob) o));
 			if (o instanceof Snake && !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_SURPRISE_ATKS)){
 				GLog.p(Messages.get(Guidebook.class, "hint"));

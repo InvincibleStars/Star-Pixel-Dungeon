@@ -88,7 +88,8 @@ public class DangerIndicator extends Tag {
 		
 		if (Dungeon.hero.isAlive()) {
 			int v =  Dungeon.hero.visibleEnemies();
-			if (v != lastNumber) {
+			//114514
+			if (v != lastNumber && Mob.EyeAllow==1) {
 				lastNumber = v;
 				if (visible = lastNumber > 0) {
 					number.text( Integer.toString( lastNumber ) );

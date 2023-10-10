@@ -122,6 +122,7 @@ public abstract class Char extends Actor {
 
 	public int HT;
 	public int HP = HT;
+	public int BOSSCOUNT = 0;
 
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
@@ -136,7 +137,8 @@ public abstract class Char extends Actor {
 	public enum Alignment{
 		ENEMY,
 		NEUTRAL,
-		ALLY
+		ALLY,
+		ALLY2
 	}
 	public Alignment alignment;
 
@@ -932,7 +934,7 @@ public abstract class Char extends Actor {
 		return false;
 	}
 
-	protected HashSet<Property> properties = new HashSet<>();
+	public HashSet<Property> properties = new HashSet<>();
 
 	public HashSet<Property> properties() {
 		HashSet<Property> props = new HashSet<>(properties);
@@ -961,7 +963,10 @@ public abstract class Char extends Actor {
 		ELECTRIC ( new HashSet<Class>( Arrays.asList(WandOfLightning.class, Shocking.class, Potential.class, Electricity.class, ShockingDart.class, Elemental.ShockElemental.class )),
 				new HashSet<Class>()),
 		LARGE,
-		IMMOVABLE;
+		IMMOVABLE,
+
+		NOHP; //该标签生物不会显示血条
+
 
 		private HashSet<Class> resistances;
 		private HashSet<Class> immunities;

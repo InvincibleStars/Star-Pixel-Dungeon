@@ -327,7 +327,7 @@ public class Ghost extends NPC {
 
 				//10% to be enchanted. We store it separately so enchant status isn't revealed early
 				if (Random.Int(10) == 0){
-					enchant = Weapon.Enchantment.random();
+					enchant = Weapon.Enchantment.random(null);
 					glyph = Armor.Glyph.random();
 				}
 

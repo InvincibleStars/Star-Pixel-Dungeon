@@ -47,7 +47,7 @@ public class PotionOfLiquidFlame extends Potion {
 			Sample.INSTANCE.play( Assets.Sounds.BURNING );
 		}
 
-		for (int offset : PathFinder.NEIGHBOURS9){
+		for (int offset : PathFinder.RANDOM9){
 			if (!Dungeon.level.solid[cell+offset]) {
 
 				GameScene.add(Blob.seed(cell+offset, 5, Fire.class));

@@ -166,6 +166,7 @@ public class Eye extends Mob {
 
 				Dungeon.level.destroy( pos );
 				GameScene.updateMap( pos );
+				//破坏地形
 				terrainAffected = true;
 
 			}

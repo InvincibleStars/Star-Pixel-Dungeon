@@ -68,14 +68,13 @@ public class Belongings implements Iterable<Item> {
 
 	public KindOfWeapon weapon = null;
 	public Armor armor = null;
-	public Artifact artifact = null;
+	public KindofMisc artifact = null;
 	public KindofMisc misc = null;
-	public Ring ring = null;
+	public KindofMisc ring = null;
 
 	//used when thrown weapons temporary become the current weapon
 	public KindOfWeapon thrownWeapon = null;
-//NEW
-	public KindOfWeapon meleeWeapon = null;
+
 
 	//*** these accessor methods are so that worn items can be affected by various effects/debuffs
 	// we still want to access the raw equipped items in cases where effects should be ignored though,
@@ -84,7 +83,6 @@ public class Belongings implements Iterable<Item> {
 	public KindOfWeapon weapon(){
 		//no point in lost invent check, if it's assigned it must be usable
 		if (thrownWeapon != null) return thrownWeapon;
-		if (meleeWeapon != null) return meleeWeapon;
 
 		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
 		if (!lostInvent || (weapon != null && weapon.keptThoughLostInvent)){
@@ -103,7 +101,7 @@ public class Belongings implements Iterable<Item> {
 		}
 	}
 
-	public Artifact artifact(){
+	public KindofMisc artifact(){
 		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
 		if (!lostInvent || (artifact != null && artifact.keptThoughLostInvent)){
 			return artifact;
@@ -121,7 +119,7 @@ public class Belongings implements Iterable<Item> {
 		}
 	}
 
-	public Ring ring(){
+	public KindofMisc ring(){
 		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
 		if (!lostInvent || (ring != null && ring.keptThoughLostInvent)){
 			return ring;

@@ -104,6 +104,8 @@ public abstract class Mob extends Char {
 	//默认生物动作(1/3立刻醒来，2/3睡眠)
 	public AiState state = Random.Int(0,3)==1?HUNTING:SLEEPING;
 
+	public static int EyeAllow = 1;
+
 
 	public Class<? extends CharSprite> spriteClass;
 	
@@ -313,10 +315,12 @@ public abstract class Mob extends Char {
 						}
 				
 			//if we are an enemy...
-			} else if (alignment == Alignment.ENEMY) {
+			//谁可以攻击带有ALLY标签的单位
+			} else if (alignment == Alignment.ENEMY || alignment == Alignment.ALLY2) {
 				//look for ally mobs to attack
 				for (Mob mob : Dungeon.level.mobs)
-					if (mob.alignment == Alignment.ALLY && fieldOfView[mob.pos] && mob.invisible <= 0)
+					if ((mob.alignment == Alignment.ALLY)
+							&&((Mob) mob).properties.contains(Char.Property.NOHP))
 						enemies.add(mob);
 
 				//and look for the hero

@@ -56,7 +56,7 @@ public class Statue extends Mob {
 			weapon = (MeleeWeapon) Generator.random(Generator.Category.WEAPON);
 		} while (weapon.cursed);
 		
-		weapon.enchant( Enchantment.random() );
+		weapon.enchant( Enchantment.random(null) );
 		
 		HP = HT = 15 + Dungeon.depth * 5;
 		defenseSkill = 4 + Dungeon.depth;

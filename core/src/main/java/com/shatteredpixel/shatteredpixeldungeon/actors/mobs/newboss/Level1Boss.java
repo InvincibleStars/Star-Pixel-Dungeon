@@ -1,10 +1,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -17,42 +20,85 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
+
+import java.util.ArrayList;
 
 public class Level1Boss extends Mob {
 
-   //基础数据
+    //基础数据
     {
-        spriteClass= RatSprite.class;
-        HT=HP=80;
-        EXP=50;
+        spriteClass = RatSprite.class;
+        HT = HP = 80;
+        EXP = 50;
         //BOSS词条
         properties.add(Property.BOSS);
         defenseSkill = 0;
 
+        loot = new PotionOfHealing();
+        lootChance = 1f; //by default, see rollToDropLoot()
+       // createLoot();
+
 
     }
 
-    //格挡，12-15回合
+    //召唤物
+    private Class<?extends Mob> summon;
     protected float SkillCollDown = 0;
-    //回血，15-20回合
-    protected float SkillCollDown2 = 0;
-    //点燃，20-25回合
-    protected float SkillCollDown3 = 0;
+
+    private int summonCooldown = 7;
+
+    //召唤计数
+    public static int SummonCount = 0;
+
+    //召唤物组
+    public static class Call1 extends BossCall {
+        {
+            HT = HP = 10 + (Level1Boss.SummonCount * 5);
+            state = HUNTING;
+            attackskill = 50;
+            defenseSkill = 0;
+
+        }
+        /*
+        public void detach(){
+         super.detach();
+         for ( Mob boss : Dungeon.level.mobs){
+             if( boss instanceof Level1Boss){
+                 boss.HP +=5;
+             }
+
+         }
+        }
+
+         */
+    }
+
 
     //动作逻辑
     @Override
@@ -60,101 +106,76 @@ public class Level1Boss extends Mob {
         //背水一战
         LockedFloor lock = hero.buff(LockedFloor.class);
 
+        while (summonCooldown <= 0){
+
+            Class<?extends Mob> cls = regularSummons.remove(0);
+            Mob summon = Reflection.newInstance(cls);
+            regularSummons.add(cls);
+
+            int spawnPos = -1;
+            for (int i : PathFinder.NEIGHBOURS8){
+                if (Actor.findChar(pos+i) == null){
+                    if (spawnPos == -1 || Dungeon.level.trueDistance(Dungeon.hero.pos, spawnPos) > Dungeon.level.trueDistance(Dungeon.hero.pos, pos+i)){
+                        spawnPos = pos + i;
+                    }
+                }
+            }
+
+            if (spawnPos != -1 && this.BOSSCOUNT<=1) {
+                summon.pos = spawnPos;
+                GameScene.add( summon );
+                Actor.addDelayed( new Pushing( summon, pos, summon.pos ), -1 );
+                summon.beckon(Dungeon.hero.pos);
+                this.BOSSCOUNT+=1;
+
+                summonCooldown = 5;
+
+            } else {
+                break;
+            }
+        }
+
         //格挡攻击
         if (buff(Monk.Focus.class) == null && state == HUNTING && SkillCollDown <= 0) {
-        Buff.affect( this, Monk.Focus.class );
-        }
-
-        //额外回血
-        if (SkillCollDown2 <= 0 && this.HP<=HT-8 ) {
-            this.HP+=8;
-            SkillCollDown2=Random.IntRange(12,15);
-        }else if (HP>=HT-8 && SkillCollDown2 <= 0){
-            this.HP=this.HT;
-            SkillCollDown2=Random.IntRange(12,15);
-
-        }
-
-        if (SkillCollDown3 <=0) {
-           // Buff.affect(this, Burning.class );
-           // hero.buff(Burning.class).reignite(this);
-            SkillCollDown3=Random.IntRange(12,15);
+            Buff.affect(this, Monk.Focus.class);
         }
 
 
-         //未睡眠前
-         if (state != SLEEPING){
-             Dungeon.level.seal();
-         }
-         return super.act();
+
+        //未睡眠前
+        if (state != SLEEPING) {
+            Dungeon.level.seal();
+        }
+        return super.act();
     }
 
     //每回合进行的效果
     @Override
-    protected void spend( float time ) {
-        this.HP+=1;
-        if (Dungeon.level.heroFOV[pos] ){
-            Buff.affect( hero, Burning.class).reignite(this);
-        }
-        //Buff.affect( hero, Burning.class).reignite(this);
-        Buff.affect( this, Invisibility.class, BuffWait.T10);
-        SkillCollDown -= time;
-        SkillCollDown2 -= time;
-        SkillCollDown3 -= time;
-        super.spend( time );
+    protected void spend(float time) {
+        summonCooldown -= 1 ;
+
+        super.spend(time);
     }
 
     @Override
-    public int attackSkill( Char target ) {
+    public int attackSkill(Char target) {
         return 0;
     }
 
-    @Override
-    public int defenseSkill( Char enemy ) {
-        //判断存在效果即为无限闪避
-        if (buff(Monk.Focus.class) != null && paralysed == 0 && state != SLEEPING){
-            return INFINITE_EVASION;
-        }
-        return super.defenseSkill( enemy );
-    }
-
-    //招架动作
-    @Override
-    public String defenseVerb() {
-        Monk.Focus f = buff(Monk.Focus.class);
-        if (f == null) {
-            return super.defenseVerb();
-        } else {
-            f.detach();
-            if (sprite != null && sprite.visible) {
-                Sample.INSTANCE.play(Assets.Sounds.HIT_PARRY, 1, Random.Float(0.96f, 1.05f));
-            }
-            //修改冷却
-            SkillCollDown = Random.NormalFloat( 6, 7 );
-            return Messages.get(this, "parried");
-        }
-    }
 
     private static String FOCUS_COOLDOWN = "focus_cooldown";
-    private static String FOCUS_COOLDOWN3 = "focus_cooldown";
-    private static String FOCUS_COOLDOWN2 = "focus_cooldown";
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle( bundle );
-        bundle.put( FOCUS_COOLDOWN, SkillCollDown );
-        bundle.put( FOCUS_COOLDOWN2, SkillCollDown2 );
-        bundle.put( FOCUS_COOLDOWN3, SkillCollDown3 );
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(FOCUS_COOLDOWN, SkillCollDown);
 
     }
 
     @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle( bundle );
-        SkillCollDown = bundle.getInt( FOCUS_COOLDOWN );
-        SkillCollDown2 = bundle.getInt( FOCUS_COOLDOWN2 );
-        SkillCollDown3 = bundle.getInt( FOCUS_COOLDOWN3 );
-
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        SkillCollDown = bundle.getInt(FOCUS_COOLDOWN);
     }
 
     //内置技能
@@ -190,6 +211,53 @@ public class Level1Boss extends Mob {
 
         //immunities.add( Burning.class );
     }
+
+    //产生单位
+    private ArrayList<Class> regularSummons = new ArrayList<>();
+
+    {
+        for (int i = 0; i < 6; i++) {
+            if (i >= Statistics.spawnersAlive) {
+                regularSummons.add(Level1Boss.Call1.class);
+            } else {
+                regularSummons.add(Level1Boss.Call1.class);
+            }
+        }
+        Random.shuffle(regularSummons);
+    }
+
+    public static class Level1BOSSDamager extends Buff {
+
+        @Override
+        public boolean act() {
+            if (target.alignment != Alignment.ENEMY){
+                detach();
+            }
+            spend( TICK );
+            return true;
+        }
+
+        @Override
+        public void detach() {
+            super.detach();
+            for (Mob m : Dungeon.level.mobs){
+                if (m instanceof Level1Boss){
+                    int damage = m.HT/12;
+                    m.damage(damage, this);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void die(Object cause){
+        super.die(cause);
+        GLog.n( Messages.get(this, "die"));
+        for(int i=0;i<=Random.Int(3,10);i=i+1){
+            level.drop(Generator.randomUsingDefaults(Generator.Category.POTION), pos).sprite.drop();
+        }
+    }
+
 
 
 

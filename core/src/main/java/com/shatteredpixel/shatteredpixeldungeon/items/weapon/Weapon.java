@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Enchanting;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
@@ -52,7 +53,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projec
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.Thorn;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -69,6 +74,8 @@ abstract public class Weapon extends KindOfWeapon {
 	public float    ACC = 1f;	// Accuracy modifier
 	public float	DLY	= 1f;	// Speed modifier
 	public int      RCH = 1;    // Reach modifier (only applies to melee hits)
+
+	public Class<? extends CharSprite> spriteClass;
 
 	public enum Augment {
 		SPEED   (0.7f, 0.6667f),
@@ -99,6 +106,7 @@ abstract public class Weapon extends KindOfWeapon {
 	private float availableUsesToID = USES_TO_ID/2f;
 
 	public Enchantment enchantment;
+	public MeleeWeapon meleeWeapon;
 	public boolean curseInfusionBonus = false;
 	public int masteryPotionBonus = 0;
 
@@ -266,7 +274,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 		if (enchant){
 			if (enchantment == null){
-				enchant(Enchantment.random());
+				enchant(Enchantment.random(null));
 			}
 		} else {
 			if (hasCurseEnchant()){
@@ -319,7 +327,8 @@ abstract public class Weapon extends KindOfWeapon {
 	public Weapon enchant() {
 
 		Class<? extends Enchantment> oldEnchantment = enchantment != null ? enchantment.getClass() : null;
-		Enchantment ench = Enchantment.random( oldEnchantment );
+		//Class<? extends MeleeWeapon> oldWeapon = meleeWeapon != null ? meleeWeapon.getClass() : null;
+		Enchantment ench = Enchantment.random( (MeleeWeapon) this,oldEnchantment );
 
 		return enchant( ench );
 	}
@@ -343,21 +352,30 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public static abstract class Enchantment implements Bundlable {
-		
+
+		//RARE
 		private static final Class<?>[] common = new Class<?>[]{
-				Blazing.class, Chilling.class, Kinetic.class, Shocking.class};
-		
+				Blazing.class, Chilling.class, Kinetic.class,
+				Shocking.class, Kinetic.class, Shocking.class,
+				Chilling.class,
+				Kinetic.class
+		};
+
 		private static final Class<?>[] uncommon = new Class<?>[]{
 				Blocking.class, Blooming.class, Elastic.class,
 				Lucky.class, Projecting.class, Unstable.class};
-		
+
 		private static final Class<?>[] rare = new Class<?>[]{
 				Corrupting.class, Grim.class, Vampiric.class};
+//NEW
+		private static final Class<?>[] annoying = new Class<?>[]{
+				Annoying.class};
 		
 		private static final float[] typeChances = new float[]{
-				50, //12.5% each
-				40, //6.67% each
-				10  //3.33% each
+				100, //12.5% each
+				0, //6.67% each
+				0  //3.33% each
+				//5 4 1
 		};
 		
 		private static final Class<?>[] curses = new Class<?>[]{
@@ -417,10 +435,10 @@ abstract public class Weapon extends KindOfWeapon {
 		public abstract ItemSprite.Glowing glowing();
 		
 		@SuppressWarnings("unchecked")
-		public static Enchantment random( Class<? extends Enchantment> ... toIgnore ) {
+		public static Enchantment random(MeleeWeapon meleeWeapon,Class<? extends Enchantment> ... toIgnore ) {
 			switch(Random.chances(typeChances)){
 				case 0: default:
-					return randomCommon( toIgnore );
+					return randomCommon( meleeWeapon,toIgnore );
 				case 1:
 					return randomUncommon( toIgnore );
 				case 2:
@@ -429,22 +447,35 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 		@SuppressWarnings("unchecked")
-		public static Enchantment randomCommon( Class<? extends Enchantment> ... toIgnore ) {
+		public static Enchantment randomCommon(MeleeWeapon meleeWeapon ,Class<? extends Enchantment> ... toIgnore ) {
 			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(common));
 			enchants.removeAll(Arrays.asList(toIgnore));
-			if (enchants.isEmpty()) {
-				return random();
+			Enchantment enchant;
+
+			if(enchants.isEmpty()) {
+				enchant =random(meleeWeapon);
 			} else {
-				return (Enchantment) Reflection.newInstance(Random.element(enchants));
+				//return (Enchantment) Reflection.newInstance(Random.element(enchants));
+				//存储
+				enchant =(Enchantment) Reflection.newInstance(Random.element(enchants));
 			}
+			//判断武器附魔
+			if (meleeWeapon instanceof Thorn && enchant instanceof Kinetic){
+				GLog.i("附魔与武器特性相冲突，重新随机附魔");
+				//存储
+				enchant=randomCommon(meleeWeapon,toIgnore);
+			//	return random(null);
+			}
+			return enchant;
 		}
+		//enchant=randomCommon(meleeWeapon,toIgnore)
 		
 		@SuppressWarnings("unchecked")
 		public static Enchantment randomUncommon( Class<? extends Enchantment> ... toIgnore ) {
 			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(uncommon));
 			enchants.removeAll(Arrays.asList(toIgnore));
 			if (enchants.isEmpty()) {
-				return random();
+				return random(null);
 			} else {
 				return (Enchantment) Reflection.newInstance(Random.element(enchants));
 			}
@@ -455,7 +486,7 @@ abstract public class Weapon extends KindOfWeapon {
 			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(rare));
 			enchants.removeAll(Arrays.asList(toIgnore));
 			if (enchants.isEmpty()) {
-				return random();
+				return random(null);
 			} else {
 				return (Enchantment) Reflection.newInstance(Random.element(enchants));
 			}
@@ -466,7 +497,7 @@ abstract public class Weapon extends KindOfWeapon {
 			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(curses));
 			enchants.removeAll(Arrays.asList(toIgnore));
 			if (enchants.isEmpty()) {
-				return random();
+				return random(null);
 			} else {
 				return (Enchantment) Reflection.newInstance(Random.element(enchants));
 			}
@@ -482,6 +513,10 @@ abstract public class Weapon extends KindOfWeapon {
 	}else{
 		return true;
 		}
+	}
+
+	public CharSprite sprite() {
+		return Reflection.newInstance(spriteClass);
 	}
 
 	public static class PlaceHolder extends Weapon {

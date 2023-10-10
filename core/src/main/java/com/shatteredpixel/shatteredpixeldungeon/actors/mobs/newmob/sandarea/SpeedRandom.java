@@ -39,9 +39,9 @@ public class SpeedRandom extends Mob {
 
 		spriteClass = BlackWormSprite.class;
 		
-		HP = HT =  Random.Int(5,9);
+		HP = HT =  Random.Int(50000,90000);
 
-		EXP = 2100000000;
+		EXP = 2;
 		
 		maxLvl = 1;
 
@@ -58,7 +58,7 @@ public class SpeedRandom extends Mob {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 0, 1 ); }
+	public int damageRoll() { return Random.NormalIntRange( -3, -5 ); }
 
 	@Override
 	public int drRoll() {
@@ -68,6 +68,9 @@ public class SpeedRandom extends Mob {
 	public boolean act() {
 		//baseSpeed = Random.Float(1,2);
 		//baseSpeed = Random.Float(1,2);
+	if (Dungeon.level.distance(this.pos, hero.pos) >= 3){
+			EyeAllow=0;
+		}
 		return super.act();
 	}
 

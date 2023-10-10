@@ -21,8 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
-import static com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTileSheet.FURROWED_GRASS;
-
 public class Terrain {
 
 	public static final int CHASM			= 0;

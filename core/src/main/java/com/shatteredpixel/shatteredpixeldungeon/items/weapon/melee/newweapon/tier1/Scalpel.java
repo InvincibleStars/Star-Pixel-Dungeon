@@ -46,6 +46,7 @@ public class Scalpel extends MeleeWeapon {
 		DLY=0.3f;
 	}
 
+
 	@Override
 	public int proc( Char attacker, Char defender, int damage ) {
 		if (Random.Int(2) == 0) {

@@ -33,6 +33,7 @@ public class ToxicTrap extends Trap{
 	{
 		color = GREEN;
 		shape = GRILL;
+		visible = false;
 	}
 
 	@Override

@@ -38,10 +38,11 @@ public class SewerPainter extends RegularPainter {
 		int l = level.length();
 		
 		for (int i=0; i < w; i++) {
-			if (map[i] == Terrain.WALL &&
-					map[i + w] == Terrain.WATER &&
-					Random.Int( 4 ) == 0) {
+			if (map[i] == Terrain.WALL && map[i + w] == Terrain.WATER&& Random.Int( 1 ) == 0)
+					//&& Random.Int( 1 ) == 0)
+			{
 				
+				map[i + w] = Terrain.WALL;
 				map[i] = Terrain.WALL_DECO;
 			}
 		}

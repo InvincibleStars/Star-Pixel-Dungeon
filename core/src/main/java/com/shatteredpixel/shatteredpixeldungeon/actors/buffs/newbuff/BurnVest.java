@@ -58,12 +58,15 @@ public class BurnVest extends Buff {
 		if (target.isAlive() && target instanceof Hero) {
 
 			Hero hero = (Hero) target;
-
+			/*
 			if (burnadd > 1) {
 				burnadd -= 0.07f;
 				b   =  (float)(Math.round(burnadd*100))/100;
 				//GLog.n(Messages.get(this, "onstarving"));
-			}else if(burnadd<=1){
+			}else
+
+			 */
+				if(burnadd<=1){
 				burnadd +=0.12f;
 				b   =  (float)(Math.round(burnadd*100))/100;
 				//GLog.n(Messages.get(this, "onstarving"));
@@ -85,9 +88,9 @@ public class BurnVest extends Buff {
 		ArrayList<Item> items = new ArrayList<>();
 
 		//数据达到5时不再增长
-		 if (burnadd > 5) {
-			burnadd = 5;
-		}
+		// if (burnadd > 5) {
+			//burnadd = 5;
+		//}
 		BuffIndicator.refreshHero();
 	}
 

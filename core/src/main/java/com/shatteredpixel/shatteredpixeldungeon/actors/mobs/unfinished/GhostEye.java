@@ -19,69 +19,71 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.unfinished;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CrabSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.EyeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class SandCrab extends Mob {
+public class GhostEye extends Mob {
 	
 	{
-		spriteClass = CrabSprite.class;
-
-		HP = HT = 13 + Random.Int(5);
-		viewDistance = Light.DISTANCE;
-		EyeAllow=1;
+		spriteClass = EyeSprite.class;
 		
-		EXP = 3;
-		maxLvl = 5;
-
-		baseSpeed = 1.50f;
-
+		HP = HT = 100;
+		defenseSkill = 20;
+		viewDistance = Light.DISTANCE;
+		
+		EXP = 13;
+		maxLvl = 26;
+		
+		flying = true;
+		EyeAllow = 0;
 
 		HUNTING = new Hunting();
+		
+		loot = new Dewdrop();
+		lootChance = 1f;
 
-		loot = Generator.Category.WAND;
-		lootChance = 0.125f; //by default, see rollToDropLoot()
-
-		defenseSkill = 2;
-	}
-
-	@Override
-	public int attackSkill( Char target ) {
-		return 10;
+		properties.add(Property.DEMONIC);
 	}
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(1, 3);
+		return Random.NormalIntRange(20, 30);
 	}
 
+	@Override
+	public int attackSkill( Char target ) {
+		return 30;
+	}
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(0, 10);
 	}
 	
 	private Ballistica beam;
@@ -127,14 +129,14 @@ public class SandCrab extends Mob {
 		if (beamCooldown > 0) {
 			return super.doAttack(enemy);
 		} else if (!beamCharged){
-			((CrabSprite)sprite).charge( enemy.pos );
+			((EyeSprite)sprite).charge( enemy.pos );
 			spend( attackDelay()*2f );
 			beamCharged = true;
 			return true;
 		} else {
 
 			spend( attackDelay() );
-
+			
 			beam = new Ballistica(pos, beamTarget, Ballistica.STOP_SOLID);
 			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
 				sprite.zap( beam.collisionPos );
@@ -150,10 +152,10 @@ public class SandCrab extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		if (beamCharged) dmg /= 2100000000;
+		if (beamCharged) dmg /= 4;
 		super.damage(dmg, src);
 	}
-
+	
 	//used so resistances can differentiate between melee and magical attacks
 	public static class DeathGaze{}
 
@@ -162,7 +164,7 @@ public class SandCrab extends Mob {
 			return;
 
 		beamCharged = false;
-		beamCooldown = Random.IntRange(12, 15);
+		beamCooldown = Random.IntRange(4, 6);
 
 		boolean terrainAffected = false;
 
@@ -182,9 +184,7 @@ public class SandCrab extends Mob {
 			}
 
 			if (hit( this, ch, true )) {
-				Buff.prolong( ch, Blindness.class, BuffWait.T5 );
-				Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
-				//ch.damage( Random.NormalIntRange( 0, 0 ), new SandCrab.DeathGaze() );
+				ch.damage( Random.NormalIntRange( 30, 50 ), new DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
 					ch.sprite.flash();
@@ -208,6 +208,32 @@ public class SandCrab extends Mob {
 		beamTarget = -1;
 	}
 
+	//generates an average of 1 dew, 0.25 seeds, and 0.25 stones
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		switch(Random.Int(4)){
+			case 0: case 1: default:
+				loot = new Dewdrop();
+				int ofs;
+				do {
+					ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
+				} while (Dungeon.level.solid[pos + ofs] && !Dungeon.level.passable[pos + ofs]);
+				if (Dungeon.level.heaps.get(pos+ofs) == null) {
+					Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos);
+				} else {
+					Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos + ofs);
+				}
+				break;
+			case 2:
+				loot = Generator.random(Generator.Category.SEED);
+				break;
+			case 3:
+				loot = Generator.random(Generator.Category.STONE);
+				break;
+		}
+		return loot;
+	}
 
 	private static final String BEAM_TARGET     = "beamTarget";
 	private static final String BEAM_COOLDOWN   = "beamCooldown";
@@ -233,7 +259,7 @@ public class SandCrab extends Mob {
 	{
 		resistances.add( WandOfDisintegration.class );
 	}
-
+	
 	{
 		//immunities.add( Terror.class );
 	}
@@ -249,4 +275,19 @@ public class SandCrab extends Mob {
 			return super.act(enemyInFOV, justAlerted);
 		}
 	}
+
+	@Override
+	protected void spend( float time ) {
+		this.HP+=1;
+		//超过英雄三格后不可见
+		if (Dungeon.level.distance(this.pos, hero.pos) >= 3){
+			EyeAllow=0;
+		}
+		super.spend( time );
+	}
+
+
+	//Dungeon.level.distance(m.pos, hero.pos) >= 5
+
+
 }

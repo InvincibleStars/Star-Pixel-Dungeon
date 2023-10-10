@@ -68,6 +68,27 @@ public abstract class EquipableItem extends Item {
 		}
 	}
 
+
+	//@Override
+	public void execute2( Hero hero, String action ) {
+		super.execute( hero, action );
+
+		if (action.equals( AC_EQUIP )) {
+			//In addition to equipping itself, item reassigns itself to the quickslot
+			//This is a special case as the item is being removed from inventory, but is staying with the hero.
+			int slot = Dungeon.quickslot.getSlot( this );
+			doEquip(hero);
+			if (slot != -1) {
+				Dungeon.quickslot.setSlot(slot, this);
+				updateQuickslot();
+			}
+		} else if (action.equals(AC_UNEQUIP)) {
+			doUnequip(hero, true);
+		}
+	}
+
+//-------------------------------------------------------------------------------------------------------------------------
+
 	@Override
 	public void execute( Hero hero, String action ) {
 		super.execute(hero, action);
@@ -76,6 +97,7 @@ public abstract class EquipableItem extends Item {
 		//This is a special case as the item is being removed from inventory, but is staying with the hero.
 		if (action.equals(AC_EQUIP)) {
 			//装备诅咒的装备会有提示
+			//if (cursedKnown&&cursed) {
 			if (cursedKnown) {
 				ShatteredPixelDungeon.scene().add(new WndOptions(Icons.get(Icons.WARNING),
 						Messages.get(this, "warm"),
@@ -90,16 +112,41 @@ public abstract class EquipableItem extends Item {
 					}
 				});
 			} else {
-				//int slot = Dungeon.quickslot.getSlot( this );
 				doEquip(hero);
-				//if (slot != -1) {
-				//	Dungeon.quickslot.setSlot( slot, this );
-				updateQuickslot();
 			}
+		//	updateQuickslot();
+
 		} else if (action.equals(AC_UNEQUIP)) {
 			doUnequip(hero, true);
+		}else {
+			int slot = Dungeon.quickslot.getSlot(this);
+			doEquip(hero);
+			if (slot != -1) {
+				Dungeon.quickslot.setSlot(slot, this);
+			}
+			doEquip(hero);
 		}
+	//	updateQuickslot();
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	@Override
 	public void doDrop( Hero hero ) {

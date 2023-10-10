@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.messages;
 import java.util.Locale;
 
 public enum Languages {
+	/*
 	ENGLISH("english",      "",   Status.UNREVIEWED,   null, null),
 	RUSSIAN("русский",      "ru", Status.REVIEWED, new String[]{"ConsideredHamster", "Inevielle", "apxwn", "yarikonline" }, new String[]{"AttHawk46", "BlueberryShortcake", "HerrGotlieb", "HoloTheWise", "Ilbko", "JleHuBbluKoT", "KirStaLong", "MrXantar", "Nikets", "Originalej0name", "Raymundo", "Shamahan", "Thomasg63", "Ya6lo4ko", "kirusyaga", "perefrazz", "roman.yagodin", "un_logic", "vivatimperia", "Вoвa"}),
 	SPANISH("español",      "es", Status.REVIEWED, new String[]{"KeyKai", "Kiroto", "Kohru", "airman12", "grayscales"}, new String[]{"AdventurerKilly", "Alesxanderk", "CorvosUtopy", "D0n.Kak0", "Dewstend", "Dyrran", "Enddox", "Fervoreking", "Illyatwo2", "JPCHZ", "LastCry", "Marquezo_577_284", "NAVI1237", "STKmonoqui", "Sh4rkill3r", "alfongad", "benzarr410", "chepe567.jc", "ctrijueque", "damc0616", "desen90", "dhg121", "javifs", "jonismack1", "magmax", "tres.14159"}),
@@ -45,6 +46,10 @@ public enum Languages {
 	CATALAN("català",       "ca", Status.INCOMPLETE, new String[]{"Illyatwo2"}, new String[]{"Elosy", "n1ngu"}),
 	BASQUE("euskara",       "eu", Status.INCOMPLETE, new String[]{"Deathrevenge", "Osoitz"}, null),
 	ESPERANTO("esperanto",  "eo", Status.UNREVIEWED, new String[]{"Verdulo"}, new String[]{"Raizin"});
+
+	 */
+	ENGLISH("english",      "", 	  Status.UNREVIEWED,   null, null),
+	CHINESE("中文",          "zh", Status.REVIEWED,		 new String[]{"80008"}, new String[]{"Raizin"});
 
 	public enum Status{
 		//below 80% complete languages are not added.
@@ -98,7 +103,7 @@ public enum Languages {
 			if (lang.code().equals(code))
 				return lang;
 		}
-		return ENGLISH;
+		return CHINESE;
 	}
 
 }

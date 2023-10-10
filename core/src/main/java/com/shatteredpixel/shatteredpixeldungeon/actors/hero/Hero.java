@@ -183,7 +183,12 @@ public class Hero extends Char {
 	public ArmorAbility armorAbility = null;
 	public ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
 	public LinkedHashMap<Talent, Talent> metamorphedTalents = new LinkedHashMap<>();
-	
+
+	//经验PESK
+	public ArrayList<Perks.Perk> perks = new ArrayList<>();
+
+
+
 	private int attackSkill = 10;
 	private int defenseSkill = 3;
 
@@ -216,8 +221,11 @@ public class Hero extends Char {
 	//This list is maintained so that some logic checks can be skipped
 	// for enemies we know we aren't seeing normally, resultign in better performance
 	public ArrayList<Mob> mindVisionEnemies = new ArrayList<>();
+
+
 	//NEW
 	public ArrayList<Mob> burningEnemies = new ArrayList<>();
+	public ArrayList<Mob> eyeAllowEnemies = new ArrayList<>();
 
 	public Hero() {
 		super();
@@ -323,6 +331,9 @@ public class Hero extends Char {
 	private static final String LEVEL		= "lvl";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
+
+	//经验
+	private static final String PERKS = "perks";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -333,6 +344,8 @@ public class Hero extends Char {
 		bundle.put( SUBCLASS, subClass );
 		bundle.put( ABILITY, armorAbility );
 		Talent.storeTalentsInBundle( bundle, this );
+		//经验
+		Perks.storeInBundle(bundle, perks);
 		
 		bundle.put( ATTACK, attackSkill );
 		bundle.put( DEFENSE, defenseSkill );
@@ -361,6 +374,8 @@ public class Hero extends Char {
 		subClass = bundle.getEnum( SUBCLASS, HeroSubClass.class );
 		armorAbility = (ArmorAbility)bundle.get( ABILITY );
 		Talent.restoreTalentsFromBundle( bundle, this );
+		//EXP
+		Perks.restoreFromBundle(bundle, perks);
 		
 		attackSkill = bundle.getInt( ATTACK );
 		defenseSkill = bundle.getInt( DEFENSE );
@@ -392,7 +407,7 @@ public class Hero extends Char {
 				if (f == talent) return tier.get(f);
 			}
 		}
-		return 0;
+		return 0;//0
 	}
 
 	public void upgradeTalent( Talent talent ){
@@ -484,29 +499,20 @@ public class Hero extends Char {
 		}
 	}
 	
-	public boolean shoot( Char enemy, Weapon wep ) {
+	public boolean shoot( Char enemy, MissileWeapon wep ) {
 
 		this.enemy = enemy;
 
 		//temporarily set the hero's weapon to the missile weapon being used
 		//TODO improve this!
 		belongings.thrownWeapon = wep;
-		belongings.meleeWeapon = wep;
 		boolean hit = attack( enemy );
 		Invisibility.dispel();
 		belongings.thrownWeapon = null;
-		belongings.meleeWeapon = null;
 
 		if (hit && heroClass == WARRIOR){
 			Buff.affect( this, Combo.class ).hit( enemy );
 		}
-
-		/*
-		if (hit && subClass == HeroSubClass.GLADIATOR){
-			Buff.affect( this, Combo.class ).hit( enemy );
-		}
-
-		 */
 
 		return hit;
 	}
@@ -562,6 +568,12 @@ public class Hero extends Char {
 		if (belongings.armor() != null) {
 			evasion = belongings.armor().evasionFactor(this, evasion);
 		}
+
+		if (perks.contains(Perks.Perk.PROTEIN_INFUSION)){
+			int hunger = buff(Hunger.class).hunger();
+			evasion *= 1f + 0.5f*((Hunger.STARVING - hunger)/Hunger.STARVING);
+		}
+
 
 		return Math.round(evasion);
 	}
@@ -640,6 +652,10 @@ public class Hero extends Char {
 		} else {
 			((HeroSprite)sprite).sprint( 1f );
 		}
+		if (perks.contains(Perks.Perk.PROTEIN_INFUSION)){
+			int hunger = buff(Hunger.class).hunger();
+			speed *= 1f + 1f*((Hunger.STARVING - hunger)/Hunger.STARVING);
+		}
 
 		NaturesPower.naturesPowerTracker natStrength = buff(NaturesPower.naturesPowerTracker.class);
 		if (natStrength != null){
@@ -664,7 +680,7 @@ public class Hero extends Char {
 		}
 
 		//can always attack adjacent enemies
-		if (level.adjacent(pos, enemy.pos)) {
+		if (Dungeon.level.adjacent(pos, enemy.pos)) {
 			return true;
 		}
 
@@ -747,7 +763,7 @@ public class Hero extends Char {
 	public boolean act() {
 		
 		//calls to dungeon.observe will also update hero's local FOV.
-		fieldOfView = level.heroFOV;
+		fieldOfView = Dungeon.level.heroFOV;
 
 		if (buff(Endure.EndureTracker.class) != null){
 			buff(Endure.EndureTracker.class).endEnduring();
@@ -763,7 +779,7 @@ public class Hero extends Char {
 
 			} else {
 				//otherwise just directly re-calculate FOV
-				level.updateFieldOfView(this, fieldOfView);
+				Dungeon.level.updateFieldOfView(this, fieldOfView);
 			}
 		}
 		
@@ -777,6 +793,14 @@ public class Hero extends Char {
 			spendAndNext( TICK );
 			return false;
 		}
+		if (!(curAction instanceof HeroAction.Move))
+			if (buff(Perks.DirectiveMovingTracker.class) != null) {
+				if (buff(Perks.DirectiveMovingTracker.class).count() > -1) {
+					Buff.detach(this, Perks.DirectiveMovingTracker.class);
+				} else {
+					buff(Perks.DirectiveMovingTracker.class).countUp(1);
+				}
+			}
 		
 		boolean actResult;
 		if (curAction == null) {
@@ -831,7 +855,7 @@ public class Hero extends Char {
 			}
 		}
 		
-		if(hasTalent(Talent.BARKSKIN) && level.map[pos] == Terrain.FURROWED_GRASS){
+		if(hasTalent(Talent.BARKSKIN) && Dungeon.level.map[pos] == Terrain.FURROWED_GRASS){
 			Buff.affect(this, Barkskin.class).set( (lvl*pointsInTalent(Talent.BARKSKIN))/2, 1 );
 		}
 		
@@ -1265,8 +1289,11 @@ public class Hero extends Char {
 	public void rest( boolean fullRest ) {
 		spendAndNext( TIME_TO_REST );
 		if (!fullRest) {
+		//	if (perks.contains(Perks.Perk.HOLD_FAST)){
+				//Buff.affect(this, HoldFast.class).pos = pos;
+		//	}
 			if (hasTalent(Talent.HOLD_FAST)){
-				Buff.affect(this, HoldFast.class);
+				Buff.affect(this, HoldFast.class).pos = pos;
 			}
 			if (sprite != null) {
 				sprite.showStatus(CharSprite.DEFAULT, Messages.get(this, "wait"));
@@ -1295,7 +1322,8 @@ public class Hero extends Char {
 			buff(Talent.SpiritBladesTracker.class).detach();
 		}
 
-		damage = Talent.onAttackProc( this, enemy, damage );
+		//damage = Talent.onAttackProc( this, enemy, damage );
+		damage = Perks.onAttackProc( this, enemy, damage );
 		
 		switch (subClass) {
 		case SNIPER:
@@ -1395,6 +1423,10 @@ public class Hero extends Char {
 		if (buff(Talent.WarriorFoodImmunity.class) != null){
 			if (pointsInTalent(Talent.IRON_STOMACH) == 1)       dmg = Math.round(dmg*0.25f);
 			else if (pointsInTalent(Talent.IRON_STOMACH) == 2)  dmg = Math.round(dmg*0.00f);
+		}
+
+		if (perks.contains(Perks.Perk.NO_ONESHOTS) && dmg >= HT && HP == HT){
+			dmg /= 2;
 		}
 
 		int preHP = HP + shielding();
@@ -1561,6 +1593,8 @@ public class Hero extends Char {
 
 		if (step != -1) {
 
+			float delay =1 / speed();
+
 			if (subClass == HeroSubClass.FREERUNNER){
 				Buff.affect(this, Momentum.class).gainStack();
 			}
@@ -1570,7 +1604,18 @@ public class Hero extends Char {
 			sprite.move(pos, step);
 			move(step);
 
-			spend( 1 / speed );
+			if (buff(Perks.DirectiveMovingTracker.class) != null){
+				Perks.DirectiveMovingTracker b = buff(Perks.DirectiveMovingTracker.class);
+				b.countUp(1);
+				if (b.count() >= 3){
+					b.detach();
+				}
+			}
+			else {
+				spend(delay);
+			}
+
+			//spend( 1 / speed );
 			justMoved = true;
 			
 			search(false);
@@ -1703,6 +1748,7 @@ public class Hero extends Char {
 				updateHT( true );
 				//attackSkill++;
 				//defenseSkill++;
+				Perks.earnPerk(this);
 
 			} else {
 				Buff.prolong(this, Bless.class, Bless.DURATION);
