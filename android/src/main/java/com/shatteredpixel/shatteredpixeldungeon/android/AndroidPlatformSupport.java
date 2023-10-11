@@ -213,9 +213,9 @@ public class AndroidPlatformSupport extends PlatformSupport {
 			//typefaces are 0-JP, 1-KR, 2-SC, 3-TC.
 			int typeFace;
 			switch (SPDSettings.language()) {
-				case JAPANESE:
-					typeFace = 0;
-					break;
+				//case JAPANESE:
+					//typeFace = 0;
+					//break;
 //				case KOREAN:
 //					typeFace = 1;
 //					break;
@@ -279,11 +279,12 @@ public class AndroidPlatformSupport extends PlatformSupport {
 				//case HARDCHINESE:
 					//fallbackFontGenerator = TCFontGenerator;
 					//break;
-				case JAPANESE:
-					fallbackFontGenerator = JPFontGenerator;
-					break;
+				//case JAPANESE:
+					//fallbackFontGenerator = JPFontGenerator;
+					//break;
 			}
-			KRFontGenerator = SCFontGenerator = TCFontGenerator = JPFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/fangzhengkai.ttf"));
+			//设定“系统”字体
+			KRFontGenerator = SCFontGenerator = TCFontGenerator = JPFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
 		}
 
 		if (basicFontGenerator != null) fonts.put(basicFontGenerator, new HashMap<>());

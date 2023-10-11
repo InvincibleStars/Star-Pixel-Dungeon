@@ -329,27 +329,27 @@ public abstract class RegularPainter extends Painter {
 	}
 	
 	protected void paintGrass( Level l, ArrayList<Room> rooms ) {
-		boolean[] grass = Patch.generate( l.width(), l.height(), grassFill, grassSmoothness, true );
-		
+		boolean[] grass = Patch.generate(l.width(), l.height(), grassFill, grassSmoothness, true);
+
 		ArrayList<Integer> grassCells = new ArrayList<>();
-		
-		if (!rooms.isEmpty()){
-			for (Room r : rooms){
-				for (Point p : r.grassPlaceablePoints()){
+
+		if (!rooms.isEmpty()) {
+			for (Room r : rooms) {
+				for (Point p : r.grassPlaceablePoints()) {
 					int i = l.pointToCell(p);
-					if (grass[i] && l.map[i] == Terrain.EMPTY){
+					if (grass[i] && l.map[i] == Terrain.EMPTY) {
 						grassCells.add(i);
 					}
 				}
 			}
 		} else {
-			for (int i = 0; i < l.length(); i ++) {
-				if (grass[i] && l.map[i] == Terrain.EMPTY){
+			for (int i = 0; i < l.length(); i++) {
+				if (grass[i] && l.map[i] == Terrain.EMPTY) {
 					grassCells.add(i);
 				}
 			}
 		}
-		
+
 		//Adds chaos to grass height distribution. Ratio of high grass depends on fill and smoothing
 		//Full range is 8.3% to 75%, but most commonly (20% fill with 3 smoothing) is around 60%
 		//low smoothing, or very low fill, will begin to push the ratio down, normally to 50-30%
@@ -358,7 +358,7 @@ public abstract class RegularPainter extends Painter {
 				l.map[i] = Terrain.GRASS;
 				continue;
 			}
-			
+
 			int count = 1;
 			for (int n : PathFinder.NEIGHBOURS8) {
 				if (grass[i + n]) {
@@ -366,7 +366,32 @@ public abstract class RegularPainter extends Painter {
 				}
 			}
 			//l.map[i] = (Random.Float() < count / 12f) ? Terrain.HIGH_GRASS : Terrain.GRASS;
-			l.map[i] = (Random.Float() < count / 2f) ? Terrain.HIGH_GRASS : Terrain.FURROWED_GRASS;
+			//l.map[i] = (Random.Float() < count / 2f) ? Terrain.HIGH_GRASS : Terrain.FURROWED_GRASS;
+
+
+
+			//沙漠不会生成高草，只有草地和枯草
+			if (Dungeon.depth > 0 && Dungeon.depth < 6) {
+				if (Random.Float() < count / 2f) {
+					l.map[i] = Terrain.FURROWED_GRASS;
+				} else {
+					l.map[i] = Terrain.GRASS;
+				}
+				//森林里有大量的高草，一部分高草将转化为水体
+			} else if (Dungeon.depth > 5 && Dungeon.depth < 11) {
+				if (Random.Float() < count / 2f) {
+					l.map[i] = Terrain.WATER;
+				} else {
+					l.map[i] = Terrain.HIGH_GRASS;
+				}
+				//塌陷区植被将被替换为虚空
+			} else if (Dungeon.depth >= 10 && Dungeon.depth < 16) {
+				if (Random.Float() < count / 2f) {
+					l.map[i] = Terrain.CHASM;
+				} else {
+					l.map[i] = Terrain.CHASM;
+				}
+			}
 		}
 	}
 	

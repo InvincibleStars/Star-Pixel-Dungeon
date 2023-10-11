@@ -67,8 +67,8 @@ public class SandAreaLevel extends RegularLevel {
 	@Override
 	protected Painter painter() {
 		return new SewerPainter()
-				.setWater(feeling == Feeling.WATER ? 0.00f : 0.00f, 0)
-				.setGrass(feeling == Feeling.GRASS ? 0.40f : 0.40f, 8)
+				.setWater(feeling == Feeling.WATER ? 0.40f : 0.40f, 0)
+				.setGrass(feeling == Feeling.GRASS ? 0.40f : 0.40f, 0)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
 	

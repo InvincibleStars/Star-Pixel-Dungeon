@@ -32,10 +32,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmoredStatue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
@@ -57,17 +59,8 @@ public class HighGrass {
 		if (freezeTrample) return;
 
 		Char ch = Actor.findChar(pos);
-	/*
 
-		if (level.map[pos] == Terrain.FURROWED_GRASS){
-			if(ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){ freezeTrample = true; } else {Level.set(pos, Terrain.GRASS);}
-
-		} else {if(ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){Level.set(pos, Terrain.FURROWED_GRASS);freezeTrample = true;
-			} else {Level.set(pos, Terrain.GRASS);}
-
-	 */
-
-
+/*
 		//植被交互动作
 		if (level.map[pos] == Terrain.FURROWED_GRASS){
 			//经过枯草无事发生
@@ -79,16 +72,15 @@ public class HighGrass {
 			Level.set(pos, Terrain.FURROWED_GRASS);
 			GameScene.updateMap(pos);
 			freezeTrample = true;
+		*/
 
 
 
 
 
-			/*
-			//判断地块类型
 		if (level.map[pos] == Terrain.FURROWED_GRASS){
-			//判断职业
-			if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){
+			//生物不会破坏植被
+			if ( ch instanceof Hero|| ch instanceof Mob){
 				//Do nothing
 				freezeTrample = true;
 			} else {
@@ -96,14 +88,12 @@ public class HighGrass {
 			}
 
 		} else {
-			if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){
+			if (ch instanceof Hero|| ch instanceof Mob) {
 				Level.set(pos, Terrain.FURROWED_GRASS);
 				freezeTrample = true;
 			} else {
 				Level.set(pos, Terrain.GRASS);
 			}
-
-			 */
 
 
 

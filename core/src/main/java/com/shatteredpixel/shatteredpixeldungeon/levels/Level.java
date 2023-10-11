@@ -1383,8 +1383,8 @@ public abstract class Level implements Bundlable {
 				return Messages.get(Level.class, "open_door_name");
 			case Terrain.ENTRANCE:
 				return Messages.get(Level.class, "entrace_name");
-			case Terrain.ENTRANCE2:
-				return Messages.get(Level.class, "entrace_name");
+			//case Terrain.ENTRANCE2:
+			//	return Messages.get(Level.class, "entrace_name");
 			case Terrain.EXIT:
 				return Messages.get(Level.class, "exit_name");
 			case Terrain.EMBERS:
@@ -1432,8 +1432,8 @@ public abstract class Level implements Bundlable {
 				return Messages.get(Level.class, "water_desc");
 			case Terrain.ENTRANCE:
 				return Messages.get(Level.class, "entrance_desc");
-			case Terrain.ENTRANCE2:
-				return Messages.get(Level.class, "entrance_desc");
+			//case Terrain.ENTRANCE2:
+			//	return Messages.get(Level.class, "entrance_desc");
 			case Terrain.EXIT:
 			case Terrain.UNLOCKED_EXIT:
 				return Messages.get(Level.class, "exit_desc");

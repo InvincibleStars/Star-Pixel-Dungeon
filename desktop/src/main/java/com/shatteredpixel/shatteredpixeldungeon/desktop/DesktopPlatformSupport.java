@@ -87,7 +87,7 @@ public class DesktopPlatformSupport extends PlatformSupport {
 		} else {
 			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
 			//TODO 改成你自己的字库文件名，放到fonts文件夹里面
-			asianFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/fangzhengkai.ttf"));
+			asianFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/droid_sans.ttf"));
 			fallbackFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/droid_sans.ttf"));
 		}
 

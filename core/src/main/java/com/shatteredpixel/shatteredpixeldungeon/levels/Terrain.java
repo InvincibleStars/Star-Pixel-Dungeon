@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+
 public class Terrain {
 
 	public static final int CHASM			= 0;
@@ -34,11 +35,13 @@ public class Terrain {
 	public static final int EXIT			= 8;
 	public static final int EMBERS			= 9;
 	public static final int LOCKED_DOOR		= 10;
+	public static final int CRYSTAL_DOOR	= 31;
 	public static final int PEDESTAL		= 11;
 	public static final int WALL_DECO		= 12;
 	public static final int BARRICADE		= 13;
 	public static final int EMPTY_SP		= 14;
 	public static final int HIGH_GRASS		= 15;
+	public static final int FURROWED_GRASS	= 30;
 
 	public static final int SECRET_DOOR	    = 16;
 	public static final int SECRET_TRAP     = 17;
@@ -57,9 +60,6 @@ public class Terrain {
 
 	public static final int WATER		    = 29;
 
-	public static final int FURROWED_GRASS	= 30;
-	public static final int ENTRANCE2		= 31;
-	
 	public static final int PASSABLE		= 0x01;
 	public static final int LOS_BLOCKING	= 0x02;
 	public static final int FLAMABLE		= 0x04;
@@ -68,7 +68,7 @@ public class Terrain {
 	public static final int AVOID			= 0x20;
 	public static final int LIQUID			= 0x40;
 	public static final int PIT				= 0x80;
-	
+
 	public static final int[] flags = new int[256];
 	static {
 		flags[CHASM]		= AVOID	| PIT;
@@ -80,10 +80,10 @@ public class Terrain {
 		flags[DOOR]			= PASSABLE | LOS_BLOCKING | FLAMABLE | SOLID;
 		flags[OPEN_DOOR]	= PASSABLE | FLAMABLE;
 		flags[ENTRANCE]		= PASSABLE/* | SOLID*/;
-		flags[ENTRANCE2]		= PASSABLE/* | SOLID*/;
 		flags[EXIT]			= PASSABLE;
 		flags[EMBERS]		= PASSABLE;
 		flags[LOCKED_DOOR]	= LOS_BLOCKING | SOLID;
+		flags[CRYSTAL_DOOR]	= SOLID;
 		flags[PEDESTAL]		= PASSABLE;
 		flags[WALL_DECO]	= flags[WALL];
 		flags[BARRICADE]	= FLAMABLE | SOLID | LOS_BLOCKING;
@@ -110,12 +110,12 @@ public class Terrain {
 
 	public static int discover( int terr ) {
 		switch (terr) {
-		case SECRET_DOOR:
-			return DOOR;
-		case SECRET_TRAP:
-			return TRAP;
-		default:
-			return terr;
+			case SECRET_DOOR:
+				return DOOR;
+			case SECRET_TRAP:
+				return TRAP;
+			default:
+				return terr;
 		}
 	}
 

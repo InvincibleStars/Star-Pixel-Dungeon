@@ -122,6 +122,9 @@ public enum HeroClass {
 
 		new Food().quantity(10000).identify().collect();
 
+		new Gloves().quantity(1).identify().collect();
+		new ScrollOfMagicMapping().quantity(100).identify().collect();
+
 	//	new Displace().quantity(300).collect();
 
 		/*
