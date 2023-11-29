@@ -24,7 +24,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BATTLEMAGE;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.FREERUNNER;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.GLADIATOR;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.SNIPER;
 import static com.shatteredpixel.shatteredpixeldungeon.items.Generator.randomWeapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -47,47 +46,34 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Sh
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CapeOfThorns;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.TechTree;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.goodbag.DefaultBag;
-import com.shatteredpixel.shatteredpixeldungeon.items.newitem.Displace;
+import com.shatteredpixel.shatteredpixeldungeon.items.Science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.newitem.RingOfNone;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMastery;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HandAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Chain;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.CutOff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Eleove;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Iron_Leave;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarHammer;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.Thorn;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -95,10 +81,11 @@ import com.watabou.utils.DeviceCompat;
 
 public enum HeroClass {
 
-	WARRIOR(HeroSubClass.BERSERKER, GLADIATOR),
+	WARRIOR(HeroSubClass.BERSERKER, HeroSubClass.GLADIATOR),
 	MAGE(HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK),
 	ROGUE(HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER),
-	HUNTRESS(HeroSubClass.SNIPER, HeroSubClass.WARDEN);
+	HUNTRESS(HeroSubClass.SNIPER, HeroSubClass.WARDEN),
+	STAR(HeroSubClass.SNIPER, HeroSubClass.WARDEN);
 
 	private HeroSubClass[] subClasses;
 
@@ -116,16 +103,17 @@ public enum HeroClass {
 		//火把
 		new Torch().quantity(5).identify().collect();
 		//口粮
-		new TengusMask().quantity(5).identify().collect();
+		new Food().quantity(5).identify().collect();
 
-		new DefaultBag().quantity(10000).identify().collect();
+		//new RingLevel().quantity(1).identify().collect();
 
-		new Food().quantity(10000).identify().collect();
+		new Sword().quantity(1).identify().collect();
 
-		new Gloves().quantity(1).identify().collect();
-		new ScrollOfMagicMapping().quantity(100).identify().collect();
+		new WarHammer().quantity(1).identify().collect();
 
-	//	new Displace().quantity(300).collect();
+		new PotionLevel().quantity(1).identify().collect();
+
+		new TechTree().quantity(1).identify().collect();
 
 		/*
 		//定义一个随机武器
@@ -155,28 +143,14 @@ public enum HeroClass {
 		 */
 
 		//原初戒指
-		new RingOfNone().quantity(1).identify().collect();
+		//new RingOfNone().quantity(1).identify().collect();
 
-		new ScrollOfUpgrade().quantity(41).identify().collect();
+		new ScrollOfUpgrade().quantity(10).identify().collect();
+
+		//new RingOfElements().quantity(1).identify().collect();
 
 		Item i = new ClothArmor().identify();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor) i;
-		/*
-		new ScrollOfUpgrade().quantity(2).collect();
-		new PotionOfMastery().quantity(300).collect();
-		new ScrollOfRage().quantity(2).collect();
-		new StoneOfEnchantment().quantity(300).collect();
-
-		new ChaliceOfBlood().quantity(1).collect();
-		new CapeOfThorns().quantity(1).collect();
-		new CloakOfShadows().quantity(1).collect();
-		new DriedRose().quantity(1).collect();
-
-		 */
-
-
-
-		//测试
 
 		//检测到开启一个指定挑战后给予一个东西
 
@@ -217,6 +191,10 @@ public enum HeroClass {
 				initHuntress(hero);
 				break;
 
+			case STAR:
+				initStar(hero);
+				break;
+
 		}
 
 		for (int s = 0; s < QuickSlot.SIZE; s++) {
@@ -239,6 +217,8 @@ public enum HeroClass {
 			case ROGUE:
 				return Badges.Badge.MASTERY_ROGUE;
 			case HUNTRESS:
+				return Badges.Badge.MASTERY_HUNTRESS;
+			case STAR:
 				return Badges.Badge.MASTERY_HUNTRESS;
 		}
 		return null;
@@ -327,6 +307,22 @@ public enum HeroClass {
 		//hero.subClass=SNIPER;
 	}
 
+	private static void initStar(Hero hero) {
+
+		(hero.belongings.weapon = new Gloves()).identify();
+		SpiritBow bow = new SpiritBow();
+		bow.identify().collect();
+		new VelvetPouch().quantity(1).collect();
+
+		Dungeon.quickslot.setSlot(0, bow);
+
+		new PotionOfMindVision().identify();
+		new ScrollOfUpgrade().identify();
+		new ScrollOfLullaby().identify();
+
+		//hero.subClass=SNIPER;
+	}
+
 
 	public String title() {
 		return Messages.get(HeroClass.class, name());
@@ -353,6 +349,8 @@ public enum HeroClass {
 				return new ArmorAbility[]{new SmokeBomb(), new DeathMark(), new ShadowClone()};
 			case HUNTRESS:
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
+			case STAR:
+				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
 		}
 	}
 
@@ -367,6 +365,8 @@ public enum HeroClass {
 				return Assets.Sprites.ROGUE;
 			case HUNTRESS:
 				return Assets.Sprites.HUNTRESS;
+			case STAR:
+				return Assets.Sprites.HUNTRESS;
 		}
 	}
 
@@ -380,6 +380,8 @@ public enum HeroClass {
 			case ROGUE:
 				return Assets.Splashes.ROGUE;
 			case HUNTRESS:
+				return Assets.Splashes.HUNTRESS;
+			case STAR:
 				return Assets.Splashes.HUNTRESS;
 		}
 	}
@@ -419,6 +421,14 @@ public enum HeroClass {
 						Messages.get(HeroClass.class, "huntress_perk4"),
 						Messages.get(HeroClass.class, "huntress_perk5"),
 				};
+			case STAR:
+				return new String[]{
+						Messages.get(HeroClass.class, "huntress_perk1"),
+						Messages.get(HeroClass.class, "huntress_perk2"),
+						Messages.get(HeroClass.class, "huntress_perk3"),
+						Messages.get(HeroClass.class, "huntress_perk4"),
+						Messages.get(HeroClass.class, "huntress_perk5"),
+				};
 		}
 	}
 
@@ -435,6 +445,8 @@ public enum HeroClass {
 			case ROGUE:
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_ROGUE);
 			case HUNTRESS:
+				return Badges.isUnlocked(Badges.Badge.UNLOCK_HUNTRESS);
+			case STAR:
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_HUNTRESS);
 		}
 	}

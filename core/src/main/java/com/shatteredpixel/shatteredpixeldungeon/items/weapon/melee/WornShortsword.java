@@ -24,9 +24,11 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2.DURATION;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -41,25 +43,16 @@ public class WornShortsword extends MeleeWeapon {
 		hitSoundPitch = 1.1f;
 
 		tier = 1;
-		enchant();
+		//enchant();
 		
 		bones = false;
 	}
 
 
-	/*
-	@Override
-	public int proc(Char attacker, Char defender, int damage ) {
-		Buff.prolong(attacker, Adrenaline2.class, DURATION);
-		return super.proc(attacker, defender, damage);
-	}
-
-	 */
-
 
 	@Override
 	public int max(int lvl) {
-		return  10 + lvl ;
+		return  10 + lvl+(( Dungeon.hero.STR-10)/2);
 	}
 
 	@Override

@@ -1,23 +1,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotHeart2;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.BlackWorm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandCrab;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SpeedRandom;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Rat;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.WoodenCross;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
-import com.shatteredpixel.shatteredpixeldungeon.levels.painters.HallsPainter;
-import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
-import com.sun.tools.javac.jvm.Items;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -42,12 +32,11 @@ public class Level0 extends Level {
                 else if(Random.Int(0,5)==1)
                     return Terrain.HIGH_GRASS;
                 else if(Random.Int(0,5)==2)
-                    return Terrain.WATER;
-                else if(Random.Int(0,5)==3)
                     return Terrain.GRASS;
-                else if(Random.Int(0,5)==4)
+                else if(Random.Int(0,5)==3)
                     return Terrain.WALL;
-
+                else if(Random.Int(0,5)==4)
+                    return Terrain.CHASM;
 
                 //墙壁
             case 64:
@@ -129,12 +118,12 @@ public class Level0 extends Level {
     //地块贴图
     @Override
     public String tilesTex() {
-        return Assets.Environment.TILES_CITY;
+        return Assets.Environment.TILES_SEWERS;
     }
     //水体贴图
     @Override
     public String waterTex() {
-        return Assets.Environment.WATER_CITY;
+        return Assets.Environment.WATER_SEWERS;
     }
 
     private static final int WIDTH = 25;
@@ -168,8 +157,8 @@ public class Level0 extends Level {
 
 
 
-        RotHeart2 a= new RotHeart2();
-        a.pos = (this.WIDTH*13+22);
+        WoodenCross a= new WoodenCross();
+        a.pos = (this.WIDTH*13+13);
         mobs.add(a);
 
 

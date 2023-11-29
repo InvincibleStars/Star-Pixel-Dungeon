@@ -70,7 +70,7 @@ public abstract class EquipableItem extends Item {
 
 
 	//@Override
-	public void execute2( Hero hero, String action ) {
+	public void execute( Hero hero, String action ) {
 		super.execute( hero, action );
 
 		if (action.equals( AC_EQUIP )) {
@@ -86,66 +86,6 @@ public abstract class EquipableItem extends Item {
 			doUnequip(hero, true);
 		}
 	}
-
-//-------------------------------------------------------------------------------------------------------------------------
-
-	@Override
-	public void execute( Hero hero, String action ) {
-		super.execute(hero, action);
-
-		//物品被装备的同时也放到了快捷栏
-		//这是一个特殊情况
-		if (action.equals(AC_EQUIP)) {
-			//装备诅咒的装备会有提示
-			int slot = Dungeon.quickslot.getSlot(this);
-			//诅咒必须是已知的
-			if (cursedKnown) {
-				ShatteredPixelDungeon.scene().add(new WndOptions(Icons.get(Icons.WARNING),
-						Messages.get(this, "warm"),
-						Messages.get(this, "tip"),
-						Messages.get(this, "yes"),
-						Messages.get(this, "no")) {
-					@Override
-					protected void onSelect(int index) {
-						//玩家仍然可以无视提醒装备
-						if (index == 0) {
-							doEquip(hero);
-						}
-					}
-				});
-			}
-
-			if (slot != -1) {
-				Dungeon.quickslot.setSlot(slot, this);
-				doEquip(hero);
-			}
-
-
-
-		} else if (action.equals(AC_UNEQUIP)){
-			doUnequip(hero,true);
-		}
-
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	@Override
 	public void doDrop( Hero hero ) {

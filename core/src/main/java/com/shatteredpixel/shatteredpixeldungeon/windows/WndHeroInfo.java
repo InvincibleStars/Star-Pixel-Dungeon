@@ -75,6 +75,9 @@ public class WndHeroInfo extends WndTabbed {
 			case HUNTRESS:
 				tabIcon = new ItemSprite(ItemSpriteSheet.SPIRIT_BOW, null);
 				break;
+			case STAR:
+				tabIcon = new ItemSprite(ItemSpriteSheet.SPIRIT_BOW, null);
+				break;
 		}
 
 		//通用

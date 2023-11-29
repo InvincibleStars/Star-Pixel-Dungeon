@@ -23,9 +23,12 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff.affect;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger.HUNGRY;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration.REGENERATION_DELAY;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BERSERKER;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.GLADIATOR;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
@@ -36,6 +39,10 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Speed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -67,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.En
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
+import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
@@ -78,6 +86,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap.Type;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
@@ -103,6 +113,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
@@ -137,6 +148,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.SurfaceScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Banner;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
@@ -190,7 +202,7 @@ public class Hero extends Char {
 
 
 	private int attackSkill = 10;
-	private int defenseSkill = 3;
+	private int defenseSkill = 1;
 
 	public boolean ready = false;
 	private boolean damageInterrupt = true;
@@ -227,76 +239,47 @@ public class Hero extends Char {
 	public ArrayList<Mob> burningEnemies = new ArrayList<>();
 	public ArrayList<Mob> eyeAllowEnemies = new ArrayList<>();
 
+
+
+
 	public Hero() {
 		super();
 
 
 		STR = STARTING_STR;
-		
+
 		belongings = new Belongings( this );
-		
+
 		visibleEnemies = new ArrayList<>();
 
-		HP = HT = 30;
+
+		HP = HT= 1;
 
 	}
 	
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
-		//
-		/*
-		if(hero.heroClass==HeroClass.WARRIOR){
-			HT = 25 + 8*(lvl-1) + HTBoost;
-		} else if (hero.heroClass==HeroClass.MAGE){
-			HT = 23 + 6*(lvl-1) + HTBoost;
-		} else if (hero.heroClass==HeroClass.ROGUE){
-			HT = 25 + 6*(lvl-1) + HTBoost;
-		} else if (hero.heroClass==HeroClass.HUNTRESS){
-			HT = 20 + 6*(lvl-1) + HTBoost;
-		} else {
-			HT = 25 + 8 * (lvl - 1) + HTBoost;
-		}
-		 */
 
-		/*
-		//健康状态影响血量和回复间隔
-		if(HP>=(HT/4)*3){
-			REGENERATION_DELAY -= 2;
-		}else if(HP>=(HT/3)*2){
-			REGENERATION_DELAY -= 1;
-		}else if(HP<=(HT/4)*1){
-            REGENERATION_DELAY += 1f;
-		}else{
-            REGENERATION_DELAY += 0f;
-		}
-		*/
-
+		float healthBoost = 1;
+		float multiplier = RingOfMight.HTMultiplier(this);
 		//职业HP,HT
 		switch (Dungeon.hero.heroClass) {
 			case WARRIOR:
-                HT = 25000000 + 7*(lvl-1) + HTBoost;
-                break;
-            case MAGE:
-                HT = 23 + 4*(lvl-1) + HTBoost;
-                break;
-            case ROGUE:
-                HT = 25 + 5*(lvl-1) + HTBoost;
-                break;
-            case HUNTRESS:
-                HT = 23 + 4*(lvl-1) + HTBoost;
-                break;
-            default:
-                HT = 20 + 5 * (lvl - 1) + HTBoost;
-
+				HP=HT = 30 + 7*(lvl-1) + HTBoost;
+				break;
+			case MAGE:
+				HP=HT = 23 + 4*(lvl-1) + HTBoost;
+				break;
+			case ROGUE:
+				HP=HT = 25 + 5*(lvl-1) + HTBoost;
+				break;
+			case HUNTRESS:
+				HP=HT = 23 + 4*(lvl-1) + HTBoost;
+				break;
+			default:
+				HP=HT = 200 + 5 * (lvl - 1) + HTBoost;
 		}
-		float multiplier = RingOfMight.HTMultiplier(this);
-		HT = Math.round(multiplier * HT);
-		
-		if (buff(ElixirOfMight.HTBoost.class) != null){
-			HT += buff(ElixirOfMight.HTBoost.class).boost();
-
-		}
-		
+		HP = HT = 30 + 8 * (lvl-1);
 		if (boostHP){
 			HP += Math.max(HT - curHT, 0);
 		}
@@ -761,7 +744,12 @@ public class Hero extends Char {
 	
 	@Override
 	public boolean act() {
-		
+
+		if(Dungeon.level.water[pos] &&( Dungeon.depth>15 && Dungeon.depth<=20)){
+			Buff.prolong(this, Blindness.class, BuffWait.T3);
+			//hero.sprite.showStatus(CharSprite.POSITIVE, "请离开水源方块");
+		}
+
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
 
@@ -896,6 +884,9 @@ public class Hero extends Char {
 
 	//角色移动事件
 	private boolean actMove( HeroAction.Move action ) {
+		if(Dungeon.level.water[pos]){
+			//Buff.prolong(this, Blindness.class, BuffWait.T10);
+		}
 
 		//携带 口粮 时执行动作
 		//创建实例
@@ -912,11 +903,18 @@ public class Hero extends Char {
 
 		 */
 
+		//if(hero.buff(BurnVest.class) == null){
+			//Buff.affect(hero,BurnVest.class);
+		//}
+
+
 
 
 	//自带的动作
 		if (getCloser( action.dst )) {
 			return true;
+
+
 
 		} else {
 			ready();
@@ -1358,7 +1356,7 @@ public class Hero extends Char {
 	@Override
 	public int defenseProc( Char enemy, int damage ) {
 		
-		if (damage > 0 && subClass == HeroSubClass.BERSERKER){
+		if (damage > 0 && subClass == BERSERKER){
 			Berserk berserk = Buff.affect(this, Berserk.class);
 			berserk.damage(damage);
 		}
@@ -2000,6 +1998,10 @@ public class Hero extends Char {
 			} else {
 				Sample.INSTANCE.play( Assets.Sounds.STEP, 1, Random.Float( 0.96f, 1.05f ) );
 			}
+		}
+
+		if(Dungeon.level.water[pos]){
+			Buff.affect(hero, Speed.class, BuffWait.T10);
 		}
 	}
 	

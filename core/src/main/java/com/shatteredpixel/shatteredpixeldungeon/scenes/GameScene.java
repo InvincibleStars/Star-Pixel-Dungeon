@@ -486,6 +486,13 @@ public class GameScene extends PixelScene {
 				GLog.h(Messages.get(this, "descend"), Dungeon.depth);
 				//在此插入的一些数据可以在每次下楼的时候更新
 				Sample.INSTANCE.play(Assets.Sounds.DESCEND);
+
+				if(Dungeon.depth==1 ||Dungeon.depth==6 ||Dungeon.depth==11 ||Dungeon.depth==16 ||Dungeon.depth==21){
+					GLog.h(Messages.get(this, "update"), Dungeon.depth);
+				}
+
+
+
 				
 				for (Char ch : Actor.chars()){
 					if (ch instanceof DriedRose.GhostHero){

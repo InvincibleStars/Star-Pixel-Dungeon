@@ -38,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.Wafer;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
@@ -147,6 +148,10 @@ public class HighGrass {
 				// Dew, scales from 1/6 to 1/3
 				if (Random.Int(24 - naturalismLevel*3) <= 3) {
 					level.drop(new Dewdrop(), pos).sprite.drop();
+				}
+
+				if (Random.Int(24 - naturalismLevel*3) <= 6 && Random.Int(24 - naturalismLevel*3)>=3 ) {
+					level.drop(new Wafer(), pos).sprite.drop();
 				}
 			}
 

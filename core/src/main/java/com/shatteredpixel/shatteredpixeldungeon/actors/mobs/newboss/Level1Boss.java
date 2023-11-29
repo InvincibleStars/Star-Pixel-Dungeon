@@ -3,6 +3,10 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
 
+import java.util.ArrayList;
+import java.util.List;
+//import java.util.Random;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -257,10 +261,4 @@ public class Level1Boss extends Mob {
             level.drop(Generator.randomUsingDefaults(Generator.Category.POTION), pos).sprite.drop();
         }
     }
-
-
-
-
-
-
 }

@@ -111,7 +111,7 @@ public class BurnVest extends Buff {
 	public String desc() {
 		String result;
 		result = Messages.get(this, "desc")
-		+b
+		+burnadd
 		+"x"
 		;
 		return result;

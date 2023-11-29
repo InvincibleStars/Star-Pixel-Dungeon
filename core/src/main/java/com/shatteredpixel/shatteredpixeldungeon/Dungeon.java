@@ -404,6 +404,8 @@ public class Dungeon {
 
 	}
 
+
+
 	public static boolean souNeeded() { //升级卷轴（每区2张）
 		int souLeftThisSet;
 		if (isChallenged(Challenges.NO_SCROLLS)){

@@ -371,7 +371,7 @@ public abstract class RegularPainter extends Painter {
 
 
 			//沙漠不会生成高草，只有草地和枯草
-			if (Dungeon.depth > 0 && Dungeon.depth < 6) {
+			if (Dungeon.depth >0 && Dungeon.depth < 6) {
 				if (Random.Float() < count / 2f) {
 					l.map[i] = Terrain.FURROWED_GRASS;
 				} else {

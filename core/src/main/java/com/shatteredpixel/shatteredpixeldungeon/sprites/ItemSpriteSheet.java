@@ -1023,6 +1023,21 @@ public class ItemSpriteSheet {
 		assignItemRect(SEETING1,   13, 13);
 	}
 
+	//升级
+	private static final int UPDATE       =                                   xy(1, 42);
+	private static final int UPDATE1   = UPDATE+0;
+	private static final int UPDATE2   = UPDATE+1;
+	private static final int UPDATE3   = UPDATE+2;
+	private static final int UPDATE4   = UPDATE+3;
+	private static final int UPDATE5   = UPDATE+4;
+	public static final int  UPDATE6  = UPDATE+5;
+
+
+	static {
+		for (int i = UPDATE; i < UPDATE + 11; i++)
+			assignItemRect(i, 16, 16);
+	}
+
 
 
 }

@@ -111,7 +111,7 @@ public abstract class Mob extends Char {
 	
 	protected int target = -1;
 	
-	public int defenseSkill = 3;
+	public int defenseSkill = 2;
 
 	public int attackskill = 10;
 	

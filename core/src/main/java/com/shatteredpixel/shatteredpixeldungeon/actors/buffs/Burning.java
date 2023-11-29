@@ -48,7 +48,7 @@ import java.util.ArrayList;
 
 public class Burning extends Buff implements Hero.Doom {
 	
-	private static final float DURATION = 8f;
+	private static final float DURATION = 8f* BurnVest.burnadd;;
 	
 	private float left;
 	
@@ -112,7 +112,7 @@ public class Burning extends Buff implements Hero.Doom {
 						for (Item i : hero.belongings.backpack.items) {
 							if (!i.unique && (i instanceof Scroll || i instanceof MysteryMeat || i instanceof FrozenCarpaccio)) {
 								//浓度增加
-								BurnVest.burnadd += 0.05f;
+								BurnVest.burnadd += 5f;
 								burnable.add(i);
 							}
 						}
@@ -124,27 +124,27 @@ public class Burning extends Buff implements Hero.Doom {
 						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio){
 							ChargrilledMeat steak = new ChargrilledMeat();
 							//浓度增加
-							BurnVest.burnadd += 0.05f;
+							BurnVest.burnadd += 5000000f;
 							if (!steak.collect( hero.belongings.backpack )) {
 								Dungeon.level.drop( steak, hero.pos ).sprite.drop();
 								//浓度增加
-								BurnVest.burnadd += 0.05f;
+								BurnVest.burnadd += 5000000f;
 							}
 						}
 						Heap.burnFX( hero.pos );
 						//浓度增加
-						BurnVest.burnadd += 0.05f;
+						BurnVest.burnadd += 5f;
 					}
 					//浓度增加
-					BurnVest.burnadd += 0.05f;
+					BurnVest.burnadd += 5f;
 				}
 				//浓度增加
-				BurnVest.burnadd += 0.05f;
+				BurnVest.burnadd *= 5000000f;
 				
 			} else {
 				target.damage( damage, this );
 				//浓度增加
-				BurnVest.burnadd += 0.05f;
+				BurnVest.burnadd += 5f;
 			}
 
 			if (target instanceof Thief && ((Thief) target).item != null) {
@@ -155,26 +155,26 @@ public class Burning extends Buff implements Hero.Doom {
 					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
 					((Thief)target).item = null;
 					//浓度增加
-					BurnVest.burnadd += 0.05f;
+					BurnVest.burnadd += 5f;
 				} else if (item instanceof MysteryMeat) {
 					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
 					((Thief)target).item = new ChargrilledMeat();
 					//浓度增加
-					BurnVest.burnadd += 0.05f;
+					BurnVest.burnadd += 5f;
 				}
 
 			}
 
 		} else {
 			//浓度增加
-			BurnVest.burnadd += 0.05f;
+			BurnVest.burnadd += 5f;
 			detach();
 		}
 		
 		if (Dungeon.level.flamable[target.pos] && Blob.volumeAt(target.pos, Fire.class) == 0) {
 			GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
 			//浓度增加
-			BurnVest.burnadd += 0.05f;
+			BurnVest.burnadd += 5f;
 		}
 		
 		spend( TICK );

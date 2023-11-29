@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
@@ -38,7 +39,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -59,12 +62,15 @@ public class PotionOfHealing extends Potion {
 	}
 
 	public static void heal( Char ch ){
+		int MUL =ch.HT*ABBM;
 		if (ch == Dungeon.hero && Dungeon.isChallenged(Challenges.NO_HEALING)){
 			pharmacophobiaProc(Dungeon.hero);
 		} else {
 			//starts out healing 30 hp, equalizes with hero health total at level 11
-			Buff.affect(ch, Healing.class).setHeal((int) (1.0f * ch.HT + 0), 0.15f, 2);   //回复15%最大生命值，同时每回合额外回复两点生命
-			Buff.affect(ch, Barrier.class).incShield(ch.HT);   //0.25f,15HP
+			//回复15%最大生命值，同时每回合额外回复两点生命
+			Buff.affect(ch, Healing.class).setHeal((int) (1.0f * ch.HT + 0), 0.15f, 2);
+			//科技树加成区
+			Buff.affect(ch, Barrier.class).incShield(MUL);
 
 			if (ch == Dungeon.hero){
 				GLog.p( Messages.get(PotionOfHealing.class, "heal") );
@@ -93,4 +99,27 @@ public class PotionOfHealing extends Potion {
 	public int value() {
 		return isKnown() ? 30 * quantity : super.value();
 	}
+
+	public static class FiveHealth extends PotionOfHealing {
+
+		{
+			image = ItemSpriteSheet.DBL_BOMB;
+			stackable = false;
+		}
+
+		@Override
+		public boolean doPickUp(Hero hero, int pos) {
+			PotionOfHealing potionOfHealing = new PotionOfHealing();
+			potionOfHealing.quantity(5);
+			if (potionOfHealing.doPickUp(hero, pos)) {
+				//isaaaaac.... (don't bother doing this when not in english)
+				if (SPDSettings.language() == Languages.ENGLISH)
+					hero.sprite.showStatus(CharSprite.NEUTRAL, "1+1 free!");
+				return true;
+			}
+			return false;
+		}
+	}
+
+
 }

@@ -30,8 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.Sand
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandWorm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.e.SandWorm2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Gnoll;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.GnollThrow;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Rat;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -58,7 +56,8 @@ public class Bestiary {
 			case 1:
 				return new ArrayList<>(Arrays.asList(
 						SandWorm.class, SandWorm.class,SandWorm.class,
-						BlackWorm.class,BlackWorm.class
+						BlackWorm.class,BlackWorm.class,
+						SandCrab.class, SandCrab.class
 						));
 			case 2:
 				return new ArrayList<>(Arrays.asList(

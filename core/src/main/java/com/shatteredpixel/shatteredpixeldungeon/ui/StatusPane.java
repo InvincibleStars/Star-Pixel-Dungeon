@@ -120,7 +120,7 @@ public class StatusPane extends Component {
 			public GameAction keyAction() {
 				return SPDAction.HERO_INFO;
 			}
-		}.setRect( 0, 1, 30, 30 ));
+		}.setRect( height/2, width/2, 30, 30 ));
 
 		btnJournal = new JournalButton();
 		add( btnJournal );

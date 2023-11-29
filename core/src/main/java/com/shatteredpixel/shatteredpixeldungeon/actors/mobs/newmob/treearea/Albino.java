@@ -24,12 +24,12 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Acidic;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.AlbinoSprite;
 import com.watabou.utils.Random;
 
-public class Albino extends Rat {
+public class Albino extends Acidic.Rat {
 
 	{
 		spriteClass = AlbinoSprite.class;

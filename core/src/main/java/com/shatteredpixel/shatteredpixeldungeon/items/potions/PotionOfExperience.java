@@ -21,6 +21,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -31,11 +36,21 @@ public class PotionOfExperience extends Potion {
 
 		bones = true;
 	}
+
+	public float dsjk=0;
+
+	public float update(){
+		dsjk = (float)(ABBM*1.2);
+		return dsjk;
+	}
 	
 	@Override
 	public void apply( Hero hero ) {
 		identify();
-		hero.earnExp( hero.maxExp(), getClass() );
+		hero.earnExp( (int) (hero.maxExp()*dsjk), getClass() );
+		if(ABBM>=3){
+			Buff.prolong(hero, Bless.class, BuffWait.T10+ABBM*5);
+		}
 	}
 	
 	@Override

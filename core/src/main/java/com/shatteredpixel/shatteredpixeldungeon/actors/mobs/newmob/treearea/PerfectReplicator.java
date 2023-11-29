@@ -83,7 +83,7 @@ public class PerfectReplicator extends Mob {
 
 
 
-
+/*
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
@@ -100,8 +100,10 @@ public class PerfectReplicator extends Mob {
 
 		cmaa=true;
 		invulnWarned = true;
-
-
 	}
+ */
+
+
+
 }
 

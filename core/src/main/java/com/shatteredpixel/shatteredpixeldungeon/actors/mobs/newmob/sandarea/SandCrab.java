@@ -86,6 +86,8 @@ public class SandCrab extends Mob {
 	
 	private Ballistica beam;
 	private int beamTarget = -1;
+
+	private int skill = -1;
 	private int beamCooldown;
 	public boolean beamCharged;
 
@@ -112,9 +114,11 @@ public class SandCrab extends Mob {
 			beamCharged = false;
 			sprite.idle();
 		}
+
 		if (beam == null && beamTarget != -1) {
 			beam = new Ballistica(pos, beamTarget, Ballistica.STOP_SOLID);
 			sprite.turnTo(pos, beamTarget);
+			skill-=1;
 		}
 		if (beamCooldown > 0)
 			beamCooldown--;
@@ -124,12 +128,13 @@ public class SandCrab extends Mob {
 	@Override
 	protected boolean doAttack( Char enemy ) {
 
-		if (beamCooldown > 0) {
+		if (beamCooldown > 0 && skill ==0) {
 			return super.doAttack(enemy);
 		} else if (!beamCharged){
 			((CrabSprite)sprite).charge( enemy.pos );
 			spend( attackDelay()*2f );
 			beamCharged = true;
+			skill+=1;
 			return true;
 		} else {
 
@@ -184,7 +189,7 @@ public class SandCrab extends Mob {
 			if (hit( this, ch, true )) {
 				Buff.prolong( ch, Blindness.class, BuffWait.T5 );
 				Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
-				//ch.damage( Random.NormalIntRange( 0, 0 ), new SandCrab.DeathGaze() );
+				ch.damage( Random.NormalIntRange( 0, skill * 3 ), new SandCrab.DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
 					ch.sprite.flash();

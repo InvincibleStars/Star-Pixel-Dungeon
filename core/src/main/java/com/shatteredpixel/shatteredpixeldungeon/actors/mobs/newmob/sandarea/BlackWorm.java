@@ -43,24 +43,22 @@ public class BlackWorm extends Mob {
 	{
 		spriteClass = BlackWormSprite.class;
 		
-		HP = HT =  8 + Random.Int(2);
+		HP = HT =  10 + Random.Int(6);
 
-		EXP = 0;
+		EXP = 2;
 		
-		maxLvl = 1;
-
-		defenseSkill = 2;
+		maxLvl = 6;
 
 
 	}
 	public boolean act() {
-		//baseSpeed = Random.Float(1,2);
+		baseSpeed = Random.Float(1f,1.5f);
 		return super.act();
 	}
 
 	@Override
 	public float attackDelay() {
-		return Random.Float(0.8f, 1f);
+		return Random.Float(0.7f, 1.1f);
 	}
 
 	@Override
@@ -69,7 +67,7 @@ public class BlackWorm extends Mob {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 4 ); }
+	public int damageRoll() { return Random.NormalIntRange( 1, 5 ); }
 
 	@Override
 	public int drRoll() {

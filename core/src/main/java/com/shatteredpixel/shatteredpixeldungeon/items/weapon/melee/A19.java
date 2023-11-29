@@ -19,28 +19,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.newitem;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
-
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-import java.util.ArrayList;
-
-public class RingOfNone extends Ring {
+public class A19 extends ShieldType {
 
 	{
-		image = ItemSpriteSheet.RING_NONE;
-		icon = ItemSpriteSheet.Icons.RING_UNUSED;
+		image = ItemSpriteSheet.WORN_SHORTSWORD;
+		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSoundPitch = 1.1f;
+
+		tier = 1;
 	}
 
 	@Override
-	public ArrayList<String> actions(Hero hero) {
-		ArrayList<String> actions = super.actions(hero);
-		//隐藏装备动作（无法被装备）
-		actions.remove(AC_EQUIP);
-		return actions;
+	public int max(int lvl) {
+		return  0;
 	}
+
+	@Override
+	public int min(int lvl) {
+		return  0;
+	}
+
 }

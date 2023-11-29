@@ -42,7 +42,7 @@ public class RotHeart2 extends Mob {
 	{
 		spriteClass = RotHeartSprite.class;
 
-		HP = HT = 80;
+		HP = HT = 8000;
 		defenseSkill = 0;
 
 		EXP = 4;
@@ -50,7 +50,7 @@ public class RotHeart2 extends Mob {
 		state = PASSIVE;
 
 		properties.add(Property.IMMOVABLE);
-		properties.add(Property.MINIBOSS);
+		//properties.add(Property.MINIBOSS);
 	}
 
 	@Override
@@ -124,6 +124,7 @@ public class RotHeart2 extends Mob {
 	}
 	
 	{
+		/*
 		immunities.add( Paralysis.class );
 		immunities.add( Amok.class );
 		immunities.add( Sleep.class );
@@ -131,6 +132,9 @@ public class RotHeart2 extends Mob {
 		immunities.add( Terror.class );
 		immunities.add( Dread.class );
 		immunities.add( Vertigo.class );
+
+		 */
 	}
+
 
 }

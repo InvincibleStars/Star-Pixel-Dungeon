@@ -59,11 +59,12 @@ public class Star_v0_1_X_Changes {
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "楼层",
 				"_-_ 1层现在有商店了\n" +
-				"_-_ 每层的开始位置会生成一个补给箱"));
+				"_-_ 每层的开始位置会生成一个补给箱"+
+				"_-_补给箱的物品会随楼层产生变化(一般是每5层)"));
 		
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GOLD, null), "生成",
 				"_-_ 强化符文的生成调整\n" +
-				"_-_ 武器和护甲的力量需求进行了调整\n" +
+				"_-_ 武器和护甲升级时的力量减少公式进行了调整\n" +
 				"_-_ 玩家和生物的攻击能力调整至固定值\n"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_HOLDER, null), "药水",
@@ -79,6 +80,10 @@ public class Star_v0_1_X_Changes {
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AGATE, null), "戒指",
 				"_-_ 加入了可以嬗变成其他戒指的“原初戒指”，角色初始携带\n" +
 				"_-_ 戒指的升级收益得到了调整"));
+
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AGATE, null), "戒指",
+				"_-_ 加入了可以嬗变成其他戒指的“原初戒指”，角色初始携带\n" +
+						"_-_ 戒指的升级收益得到了调整"));
 
 	}
 	
@@ -100,12 +105,13 @@ public class Star_v0_1_X_Changes {
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_DUST, null), "合成",
 				"_-_ 现在一些武器可以被拆解成为强化晶体了"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER, null), "武器",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.UPDATE6, null), "科技树强化",
 				"_-_ 更多的新武器\n"+
 				"_-_ 更多的投掷武器"));
 
-
-
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER, null), "武器",
+				"_-_ 更多的新武器\n"+
+						"_-_ 更多的投掷武器"));
 
 	}
 	
