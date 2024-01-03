@@ -39,10 +39,6 @@ public class PotionLevel extends Science {
         image = ItemSpriteSheet.UPDATE6;
     }
 
-
-
-
-
 //    @Override //升级设定
 //    public boolean isUpgradable() {
 //        boolean pasty = false;

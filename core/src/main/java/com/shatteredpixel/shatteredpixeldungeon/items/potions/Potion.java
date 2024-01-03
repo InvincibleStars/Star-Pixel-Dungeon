@@ -555,16 +555,17 @@ public class Potion extends Item {
 	public int level() {
 
 		PotionLevel areass = Dungeon.hero.belongings.getItem(PotionLevel.class);
-		if(Dungeon.hero!=null){
-
-
-
 
 		if (areass != null) {
 			level = areass.level;
-		} else {
-			areass.level = 0;
 		}
+
+//		if (areass != null) {
+//			level = areass.level;
+		//问题在于不应该else
+//		} else {
+//			areass.level = 0;
+//		}
 
 
 		if (areass == null) {
@@ -580,7 +581,7 @@ public class Potion extends Item {
 					}
 				}
 			}
-		}}
+		}
 
 		if (Dungeon.shopOnLevel()) {
 			return level;
@@ -594,9 +595,5 @@ public class Potion extends Item {
 
 		return level;
 	}
-
-
-
-
 
 }
