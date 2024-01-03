@@ -19,40 +19,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.newitem.stone;
+package com.shatteredpixel.shatteredpixeldungeon.items.Gem;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
 
-public class UpdateStone extends Item {
+public class UpdateStone extends Gem {
 	
 	{
 		image = ItemSpriteSheet.GREEN_STONE;
-		//可堆叠
-		stackable = true;
-		//不可装备
-		unique = true;
+
 	}
-	//不会被爆炸摧毁
-	public boolean unique() {
-		return false;
-	}
-	//不能被升级
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
-	//始终是被鉴定的
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
+
 	//物品的价值
 	@Override
 	public int value() {
@@ -91,6 +74,7 @@ public class UpdateStone extends Item {
 			return level*5+5;
 		}
 
+		//合成表检查
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			Item result = sampleOutput(ingredients);

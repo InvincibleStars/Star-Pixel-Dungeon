@@ -77,8 +77,6 @@ public class PotionLevel extends Science {
 
     @Override
     public int level(){
-        //int level = 0;
-        Potion.ABBM=level();
         return level;
     }
 

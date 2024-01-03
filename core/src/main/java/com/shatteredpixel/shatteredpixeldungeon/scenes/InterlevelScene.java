@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LostBackpack;
@@ -123,7 +124,7 @@ public class InterlevelScene extends PixelScene {
 					loadingDepth = 1;
 					fadeTime = SLOW_FADE;
 				} else {
-					loadingDepth = Dungeon.depth+1;
+					loadingDepth = Dungeon.depth+0;
 					if (!(Statistics.deepestFloor < loadingDepth)) {
 						fadeTime = FAST_FADE;
 					} else if (loadingDepth == 6 || loadingDepth == 11
@@ -134,12 +135,13 @@ public class InterlevelScene extends PixelScene {
 				scrollSpeed = 5;
 				break;
 			case FALL:
+
 				loadingDepth = Dungeon.depth+1;
-				scrollSpeed = 50;
+				scrollSpeed = 5;
 				break;
 			case ASCEND:
 				fadeTime = FAST_FADE;
-				loadingDepth = Dungeon.depth-1;
+				loadingDepth = Dungeon.depth - 1;
 				scrollSpeed = -5;
 				break;
 			case RETURN:
@@ -385,7 +387,7 @@ public class InterlevelScene extends PixelScene {
 		if (Dungeon.depth >= Statistics.deepestFloor) {
 			level = Dungeon.newLevel();
 		} else {
-			Dungeon.depth++;
+			Dungeon.depth+=1;
 			level = Dungeon.loadLevel( GamesInProgress.curSlot );
 		}
 		Dungeon.switchLevel( level, level.entrance );
@@ -402,7 +404,7 @@ public class InterlevelScene extends PixelScene {
 		if (Dungeon.depth >= Statistics.deepestFloor) {
 			level = Dungeon.newLevel();
 		} else {
-			Dungeon.depth++;
+			Dungeon.depth+=1;
 			level = Dungeon.loadLevel( GamesInProgress.curSlot );
 		}
 		Dungeon.switchLevel( level, level.fallCell( fallIntoPit ));

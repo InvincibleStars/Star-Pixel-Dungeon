@@ -45,18 +45,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.levelparticle.SandLevelParticles;
-import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -64,7 +61,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
-import com.shatteredpixel.shatteredpixeldungeon.items.newitem.stone.UpdateStone;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gem.UpdateStone;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
@@ -80,10 +78,8 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.FistSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
@@ -105,8 +101,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-
-import javax.swing.SpringLayout;
 
 public abstract class Level implements Bundlable {
 	public static enum Feeling {
@@ -217,6 +211,7 @@ public abstract class Level implements Bundlable {
 
 	public int color1 = 0x004400;
 	public int color2 = 0x88CC44;
+
 
 	private static final String VERSION     = "version";
 	private static final String WIDTH       = "width";
@@ -1000,9 +995,12 @@ public abstract class Level implements Bundlable {
 	}
 
 	public void occupyCell( Char ch ){
+		GLog.w(String.valueOf(Dungeon.hero.pos));
+		GLog.w(String.valueOf(Potion.ABBM));
 		if (!ch.isImmune(Web.class) && Blob.volumeAt(ch.pos, Web.class) > 0){
 			blobs.get(Web.class).clear(ch.pos);
 			Web.affectChar( ch );
+
 		}
 
 		if (!ch.flying){
@@ -1346,7 +1344,8 @@ public abstract class Level implements Bundlable {
 	//returns true if the input is a valid tile within the level
 	public boolean insideMap( int tile ){
 		//top and bottom row and beyond
-		return !((tile < width || tile >= length - width) ||
+		return !((tile < width || tile >= 300) ||
+				//return !((tile < width || tile >= length - width) ||
 				//left and right column
 				(tile % width == 0 || tile % width == width-1));
 	}
@@ -1463,4 +1462,12 @@ public abstract class Level implements Bundlable {
 				return "";
 		}
 	}
+
+//	@Override
+//	public void occupyCell(Char ch) {
+//		super.occupyCell(ch);
+//
+//		//GLog.w(String.valueOf(hero.pos));
+//	}
+//
 }

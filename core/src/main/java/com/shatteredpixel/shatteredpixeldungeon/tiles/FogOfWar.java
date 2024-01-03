@@ -52,6 +52,7 @@ public class FogOfWar extends Image {
 			0x55224488
 			}, {
 			//invisible
+			//黑色迷雾
 			0xFF000000,
 			0xFF000000,
 			0xFF000000

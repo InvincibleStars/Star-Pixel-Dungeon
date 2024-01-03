@@ -62,7 +62,7 @@ public class PotionOfHealing extends Potion {
 	}
 
 	public static void heal( Char ch ){
-		int MUL =ch.HT*ABBM;
+		int MUL =ch.HT*(ABBM/2);
 		if (ch == Dungeon.hero && Dungeon.isChallenged(Challenges.NO_HEALING)){
 			pharmacophobiaProc(Dungeon.hero);
 		} else {

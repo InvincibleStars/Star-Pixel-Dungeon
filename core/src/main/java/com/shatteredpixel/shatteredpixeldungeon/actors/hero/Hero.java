@@ -253,7 +253,7 @@ public class Hero extends Char {
 		visibleEnemies = new ArrayList<>();
 
 
-		HP = HT= 1;
+		HP = HT= 10000;
 
 	}
 	
@@ -753,6 +753,7 @@ public class Hero extends Char {
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
 
+
 		if (buff(Endure.EndureTracker.class) != null){
 			buff(Endure.EndureTracker.class).endEnduring();
 		}
@@ -1153,7 +1154,7 @@ public class Hero extends Char {
 		int stairs = action.dst;
 
 		if (rooted) {
-			Camera.main.shake(1, 1f);
+			Camera.main.shake(10, 1f);
 			ready();
 			return false;
 		//there can be multiple exit tiles, so descend on any of them

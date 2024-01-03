@@ -51,7 +51,9 @@ public class StudyRoom extends StandardRoom {
 		Painter.fill( level, this, Terrain.WALL );
 		Painter.fill( level, this, 1 , Terrain.BOOKSHELF );
 		Painter.fill( level, this, 2 , Terrain.EMPTY_SP );
-		
+
+
+
 		for (Door door : connected.values()) {
 			Painter.drawInside(level, this, door, 2, Terrain.EMPTY_SP);
 			door.set( Door.Type.REGULAR );

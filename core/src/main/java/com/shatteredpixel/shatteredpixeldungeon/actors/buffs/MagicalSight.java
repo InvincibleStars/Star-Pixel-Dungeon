@@ -32,6 +32,7 @@ public class MagicalSight extends FlavourBuff {
 	public static final float DURATION = 50f;
 	
 	public static final int DISTANCE = 12;
+	//12
 	
 	{
 		type = buffType.POSITIVE;

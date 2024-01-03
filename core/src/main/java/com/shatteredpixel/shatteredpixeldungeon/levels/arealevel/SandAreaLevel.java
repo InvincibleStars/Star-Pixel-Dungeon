@@ -54,14 +54,14 @@ public class SandAreaLevel extends RegularLevel {
 	protected int standardRooms(boolean forceMax) {
 		if (forceMax) return 6;
 		//3-6
-		return 13+Random.chances(new float[]{1, 1, 1});
+		return 20+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override
 	protected int specialRooms(boolean forceMax) {
 		if (forceMax) return 2;
 		//1-4
-		return 4+Random.chances(new float[]{1, 1, 1});
+		return 9+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override

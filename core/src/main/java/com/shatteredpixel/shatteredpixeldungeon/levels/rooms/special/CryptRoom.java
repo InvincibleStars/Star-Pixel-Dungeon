@@ -36,6 +36,18 @@ import com.watabou.utils.Point;
 
 public class CryptRoom extends SpecialRoom {
 
+
+	@Override
+	public int minWidth() { return 7; }
+	@Override
+	public int minHeight() {
+		return 7;
+	}
+	@Override
+	public int maxWidth() { return 7; }
+	@Override
+	public int maxHeight() { return 7; }
+
 	public void paint( Level level ) {
 		
 		Painter.fill( level, this, Terrain.WALL );

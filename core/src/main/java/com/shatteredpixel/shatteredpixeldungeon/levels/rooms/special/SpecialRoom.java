@@ -82,12 +82,14 @@ public abstract class SpecialRoom extends Room {
 	//special rooms which give an equipment reward
 	private static final ArrayList<Class<? extends SpecialRoom>> EQUIP_SPECIALS = new ArrayList<>( Arrays.asList(
 			WeakFloorRoom.class, CryptRoom.class, PoolRoom.class, ArmoryRoom.class, TrapsRoom.class, StatueRoom.class, VaultRoom.class
+
 	));
 
 	//special rooms which give a consumable reward
 	//note that alchemy rooms are spawned separately
 	private static final ArrayList<Class<? extends SpecialRoom>> CONSUMABLES_SPECIALS = new ArrayList<>( Arrays.asList(
 			RunestoneRoom.class, GardenRoom.class, LibraryRoom.class, StorageRoom.class, TreasuryRoom.class, MagicWellRoom.class
+
 	) );
 
 	public static ArrayList<Class<? extends Room>> runSpecials = new ArrayList<>();

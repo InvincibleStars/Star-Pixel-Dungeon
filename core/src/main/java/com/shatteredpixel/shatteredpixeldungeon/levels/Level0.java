@@ -1,6 +1,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -16,8 +18,11 @@ public class Level0 extends Level {
 
 
     {
-        color1 = 0x534f3e;
-        color2 = 0xb9d661;
+//        color1 = 0x534f3e;
+//        color2 = 0xb9d661;
+
+        color1 = 0xff0000;
+        color2 = 0x0000ff;
     }
 
     //定义地块
@@ -135,7 +140,6 @@ public class Level0 extends Level {
         setSize(WIDTH, HEIGHT);
         //上楼梯
         entrance = WIDTH*2+2;
-        entrance2 = WIDTH*2+3;
         //下楼梯
         exit =WIDTH*13+12 ;
 
@@ -158,7 +162,10 @@ public class Level0 extends Level {
 
 
         WoodenCross a= new WoodenCross();
-        a.pos = (this.WIDTH*13+13);
+        if ( Badges.isUnlocked(Badges.Badge.ALL_ARMOR_IDENTIFIED)) {
+        }
+//        a.pos = (this.WIDTH*13+13);
+        a.pos=310;
         mobs.add(a);
 
 
@@ -182,8 +189,11 @@ public class Level0 extends Level {
 
     @Override
     protected void createItems() {
-        drop(new Torch(),2).type = Heap.Type.FOR_SALE;
-        //Dungeon.level.drop(new Torch(),0).type = Heap.Type.FOR_SALE;
+        drop(new Torch(),137).type = Heap.Type.FOR_SALE;
+        if(Badges.isUnlocked(Badges.Badge.ALL_ARMOR_IDENTIFIED)){
+            drop(new Torch(), 312);
+        }
+        drop(new Torch(), 162);
     }
 
     @Override

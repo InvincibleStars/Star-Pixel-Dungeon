@@ -49,7 +49,7 @@ public class PotionOfExperience extends Potion {
 		identify();
 		hero.earnExp( (int) (hero.maxExp()*dsjk), getClass() );
 		if(ABBM>=3){
-			Buff.prolong(hero, Bless.class, BuffWait.T10+ABBM*5);
+			Buff.prolong(hero, Bless.class, BuffWait.T10+(ABBM-3)*5);
 		}
 	}
 	

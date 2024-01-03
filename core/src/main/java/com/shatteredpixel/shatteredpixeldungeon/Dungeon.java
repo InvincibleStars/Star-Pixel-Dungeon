@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level0;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level1;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
@@ -252,6 +253,9 @@ public class Dungeon {
 			case 0:
 				level = new Level0(); //初始楼层
 				break;
+			case 1:
+				level = new Level1();
+				break;
 				/*
 			case 1: case 2: case 3: case 4: //沙暴大地
 			case 5:
@@ -378,7 +382,7 @@ public class Dungeon {
 
 	public static void dropToChasm( Item item ) {
 		//int depth = Dungeon.depth + 1;
-		int depth = Dungeon.depth + 150;
+		int depth = Dungeon.depth + 1;
 		ArrayList<Item> dropped = Dungeon.droppedItems.get( depth );
 		if (dropped == null) {
 			Dungeon.droppedItems.put( depth, dropped = new ArrayList<>() );

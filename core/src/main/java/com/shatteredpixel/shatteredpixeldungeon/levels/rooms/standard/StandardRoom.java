@@ -120,11 +120,19 @@ public abstract class StandardRoom extends Room {
 	//FIXME this is a very messy way of handing variable standard rooms
 	private static ArrayList<Class<?extends StandardRoom>> rooms = new ArrayList<>();
 	static {
-		rooms.add(EmptyRoom.class);
+		//rooms.add(EmptyRoom.class);
+
+		rooms.add(FangXingRoom.class);
+
+		rooms.add(RoomAlassRoomRoom.class);
+
+		rooms.add(RoomAlassRoomRoom.class);
+
+		rooms.add(RoomAlassRoomRoom.class);
 
 
-		rooms.add(SewerPipeRoom.class);
-		rooms.add(RingRoom.class);
+		//rooms.add(SewerPipeRoom.class);
+		//rooms.add(RingRoom.class);
 		rooms.add(CircleBasinRoom.class);
 
 		rooms.add(SegmentedRoom.class);
@@ -158,6 +166,9 @@ public abstract class StandardRoom extends Room {
 	
 	private static float[][] chances = new float[27][];
 	static {
+		chances[1] =  new float[]{10,  0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  0,0,0,0,0,0,0,0,0,0};
+		chances[5] =chances[4] =chances[3] =chances[2] =chances[1];
+		/*
 		chances[1] =  new float[]{10,  10,10,5, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  1,0,1,0,1,0,1,1,0,0};
 		chances[2] =  new float[]{10,  10,10,5, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  1,1,1,1,1,1,1,1,1,1};
 		chances[4] =  chances[3] = chances[2];
@@ -174,6 +185,8 @@ public abstract class StandardRoom extends Room {
 
 		chances[21] = new float[]{10,  0,0,0, 0,0,0, 0,0,0, 0,0,0, 10,10,5,  1,1,1,1,1,1,1,1,1,1};
 		chances[26] = chances[25] = chances[24] = chances[23] = chances[22] = chances[21];
+
+		 */
 	}
 	
 	

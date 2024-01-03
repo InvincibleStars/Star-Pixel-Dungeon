@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Inferno;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
@@ -46,14 +47,25 @@ public class PotionOfLiquidFlame extends Potion {
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 			Sample.INSTANCE.play( Assets.Sounds.BURNING );
 		}
+		if(ABBM>=3){
+			for (int offset : PathFinder.NEIGHBOURS25){
+				GameScene.add( Blob.seed( cell, 1000, Inferno.class ) );
+				if (!Dungeon.level.solid[cell+offset]) {
+					GameScene.add(Blob.seed(cell+offset, 5+ABBM*2, Fire.class));
 
-		for (int offset : PathFinder.RANDOM9){
+
+				}
+			}
+
+		}else{
+
+		for (int offset : PathFinder.NEIGHBOURS9){
 			if (!Dungeon.level.solid[cell+offset]) {
 
-				GameScene.add(Blob.seed(cell+offset, 5, Fire.class));
+				GameScene.add(Blob.seed(cell+offset, 5+level()*2, Fire.class));
 
 			}
-		}
+		}}
 	}
 	
 	@Override

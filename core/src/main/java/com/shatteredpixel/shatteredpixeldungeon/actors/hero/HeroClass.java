@@ -56,10 +56,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.TechTree;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.Science.PotionLevel;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -105,7 +107,7 @@ public enum HeroClass {
 		//口粮
 		new Food().quantity(5).identify().collect();
 
-		//new RingLevel().quantity(1).identify().collect();
+		new ScrollOfMagicMapping().quantity(1000).identify().collect();
 
 		new Sword().quantity(1).identify().collect();
 
@@ -147,7 +149,7 @@ public enum HeroClass {
 
 		new ScrollOfUpgrade().quantity(10).identify().collect();
 
-		//new RingOfElements().quantity(1).identify().collect();
+		new PotionOfLiquidFlame().quantity(100).identify().collect();
 
 		Item i = new ClothArmor().identify();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor) i;
@@ -271,11 +273,11 @@ public enum HeroClass {
 		new VelvetPouch().quantity(1).collect();
 
 		CloakOfShadows cloak = new CloakOfShadows();
-		/*
-		(hero.belongings.artifact1 = cloak).identify();
-		hero.belongings.artifact1.activate(hero);
 
-		 */
+		(hero.belongings.artifact = cloak).identify();
+		hero.belongings.artifact.activate(hero);
+
+
 
 		ThrowingKnife knives = new ThrowingKnife();
 		knives.quantity(3).collect();

@@ -546,32 +546,50 @@ public class Potion extends Item {
 	}
 
 
+
+
+
 	public static int ABBM = 0;
 
 	@Override
-	public int level(){
-		int level = 100;
-		PotionLevel a = Dungeon.hero.belongings.getItem(PotionLevel.class);
+	public int level() {
 
-		if(a==null){
-			if(Dungeon.shopOnLevel()){
-			for (Heap heap: Dungeon.level.heaps.valueList()){
+		PotionLevel areass = Dungeon.hero.belongings.getItem(PotionLevel.class);
+		if(Dungeon.hero!=null){
 
-				if(heap.type == Heap.Type.FOR_SALE){
-					for(Item i : heap.items){
-						if(i instanceof PotionLevel){
-							level = i.level();
+
+
+
+		if (areass != null) {
+			level = areass.level;
+		} else {
+			areass.level = 0;
+		}
+
+
+		if (areass == null) {
+			if (Dungeon.shopOnLevel()) {
+				for (Heap heap : Dungeon.level.heaps.valueList()) {
+
+					if (heap.type == Heap.Type.FOR_SALE) {
+						for (Item i : heap.items) {
+							if (i instanceof PotionLevel) {
+								level = i.level();
+							}
 						}
 					}
-				}}}
+				}
+			}
+		}}
+
+		if (Dungeon.shopOnLevel()) {
+			return level;
 		}
 
-		if(Dungeon.shopOnLevel()) {
-		return level;
-		}
-
-		if (a != null) {
-			level = a.level();
+		if (areass != null) {
+			level = areass.level();
+		} else {
+			level = 0;
 		}
 
 		return level;

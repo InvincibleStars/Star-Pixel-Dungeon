@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.A;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -34,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
@@ -46,6 +48,7 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
+import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Button;
@@ -144,6 +147,9 @@ public class StatusPane extends Component {
 		add(shieldedHP);
 
 		hp = new Image( Assets.Interfaces.HP_BAR );
+		//icon.hardlight(1f, 0.8f, 0f);
+
+
 		add( hp );
 
 		hpText = new BitmapText(PixelScene.pixelFont);
@@ -256,6 +262,7 @@ public class StatusPane extends Component {
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
 
 
+	private float time;
 
 	@Override
 	public void update() {
@@ -267,6 +274,15 @@ public class StatusPane extends Component {
 		int max = Dungeon.hero.HT;
 		int mm = cal.get(Calendar.MINUTE);
 		int HH = cal.get(Calendar.HOUR);
+
+		Visual visual = new Visual(0,0,0,0);
+		visual.am = 0.01f + 0.01f*Math.max(0f, (float)Math.sin( time += Game.elapsed ));
+		time += Game.elapsed / 0.05f;;
+		float r = 0.93f+0.57f*Math.max(0f, (float)Math.sin( time));
+		float g = 0.53f+0.57f*Math.max(0f, (float)Math.sin( time - 10/Math.PI/5 ));
+		float b = 0.03f+0.57f*Math.max(0f, (float)Math.sin( time + 4/Math.PI/2 ));
+		hp.color( r,g,b );
+
 
 
 
@@ -308,8 +324,29 @@ public class StatusPane extends Component {
 		}
 
 		hp.scale.x = Math.max( 0, (health-shield)/(float)max);
+		//111
+//		if(Dungeon.hero.HP*3<=Dungeon.hero.HT*2) {
+//			hp.hardlight(1f, 1f, 1f);
+//		}else if(Dungeon.hero.HP*4<=Dungeon.hero.HT*3) {
+//			hp.hardlight(1f, 0f, 0f);
+//		}else{
+//			hp.hardlight(0f, 1f, 0f);
+//		}
+
+//		if(Dungeon.hero.HP*2<=Dungeon.hero.HT) {
+//			hp.hardlight(1f, 0f, 0f);
+//		}else{
+//			hp.hardlight(0f, 1f, 0f);
+//		}
+
+		hp.color( r,g,b );
+
+
+
+
 		shieldedHP.scale.x = health/(float)max;
 		rawShielding.scale.x = shield/(float)max;
+
 
 		if (shield <= 0){
 			hpText.text(health + "/" + max);
@@ -520,4 +557,6 @@ public class StatusPane extends Component {
 			GameScene.show( new WndGame() );
 		}
 	}
+
+
 }

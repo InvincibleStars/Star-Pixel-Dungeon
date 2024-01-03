@@ -169,7 +169,7 @@ public class Item implements Bundlable {
 			if (hero.belongings.backpack.contains(this) || isEquipped(hero)) {
 				doThrow(hero);
 			}
-			//doThrow(hero);
+			doThrow(hero);
 		}
 	}
 	
