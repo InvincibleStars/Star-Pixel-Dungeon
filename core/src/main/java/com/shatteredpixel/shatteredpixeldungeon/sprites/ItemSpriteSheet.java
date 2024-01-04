@@ -1035,7 +1035,7 @@ public class ItemSpriteSheet {
 
 	static {
 		for (int i = UPDATE; i < UPDATE + 11; i++)
-			assignItemRect(i, 16, 16);
+			assignItemRect(i, 12, 14);
 	}
 
 

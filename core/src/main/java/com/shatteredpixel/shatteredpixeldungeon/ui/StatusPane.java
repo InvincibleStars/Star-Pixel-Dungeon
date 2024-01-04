@@ -254,7 +254,11 @@ public class StatusPane extends Component {
 		PixelScene.align(version);
 
 		//定义文本的范围（使用到了版本的位置，因此要排在他后面）
-		info.setPos(version.x-20, version.y+10);
+//		info.setPos(version.x-20, version.y+10);
+
+		//基于相对数字定位则更加能全面显示 JDSALing 批注 2024.1.4 1:40
+		info.setPos(width - info.width(),version.y+10);
+
 
 
 	}
