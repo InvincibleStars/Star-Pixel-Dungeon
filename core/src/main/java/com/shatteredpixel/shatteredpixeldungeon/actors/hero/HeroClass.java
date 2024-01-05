@@ -107,14 +107,14 @@ public enum HeroClass {
 		//口粮
 		new Food().quantity(5).identify().collect();
 
-		new ScrollOfMagicMapping().quantity(1000).identify().collect();
-
-		new Sword().quantity(1).identify().collect();
-
-		new WarHammer().quantity(1).identify().collect();
-
+//		new ScrollOfMagicMapping().quantity(1000).identify().collect();
+//
+//		new Sword().quantity(1).identify().collect();
+//
+//		new WarHammer().quantity(1).identify().collect();
+//
 		new PotionLevel().quantity(1).identify().collect();
-
+//
 		new TechTree().quantity(1).identify().collect();
 
 		/*

@@ -545,12 +545,6 @@ public class Potion extends Item {
 		}
 	}
 
-
-
-
-
-	public static int ABBM = 0;
-
 	@Override
 	public int level() {
 

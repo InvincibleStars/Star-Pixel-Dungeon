@@ -39,7 +39,7 @@ public class PotionOfHaste extends Potion {
 		identify();
 		
 		GLog.w( Messages.get(this, "energetic") );
-		Buff.prolong( hero, Haste.class, Haste.DURATION);
+		Buff.prolong( hero, Haste.class, Haste.DURATION+(8*level));
 	}
 	
 	@Override

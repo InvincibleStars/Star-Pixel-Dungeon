@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.connection;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.FangXingRoom;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -50,6 +51,7 @@ public abstract class ConnectionRoom extends Room {
 	static {
 		rooms.add(TunnelRoom.class);
 		rooms.add(BridgeRoom.class);
+
 		
 		rooms.add(PerimeterRoom.class);
 		rooms.add(WalkwayRoom.class);

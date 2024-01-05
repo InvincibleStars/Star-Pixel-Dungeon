@@ -112,8 +112,7 @@ public class Burning extends Buff implements Hero.Doom {
 						for (Item i : hero.belongings.backpack.items) {
 							if (!i.unique && (i instanceof Scroll || i instanceof MysteryMeat || i instanceof FrozenCarpaccio)) {
 								//浓度增加
-								BurnVest.burnadd += 5f;
-								burnable.add(i);
+								BurnVest.burnadd +=.01f;								burnable.add(i);
 							}
 						}
 					}
@@ -124,27 +123,25 @@ public class Burning extends Buff implements Hero.Doom {
 						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio){
 							ChargrilledMeat steak = new ChargrilledMeat();
 							//浓度增加
-							BurnVest.burnadd += 5000000f;
+							BurnVest.burnadd +=.01f;
 							if (!steak.collect( hero.belongings.backpack )) {
 								Dungeon.level.drop( steak, hero.pos ).sprite.drop();
 								//浓度增加
-								BurnVest.burnadd += 5000000f;
+								BurnVest.burnadd += .01f;
 							}
 						}
 						Heap.burnFX( hero.pos );
 						//浓度增加
-						BurnVest.burnadd += 5f;
-					}
+						BurnVest.burnadd +=.01f;					}
 					//浓度增加
-					BurnVest.burnadd += 5f;
-				}
+					BurnVest.burnadd +=.01f;				}
 				//浓度增加
-				BurnVest.burnadd *= 5000000f;
+				BurnVest.burnadd +=.01f;
 				
 			} else {
 				target.damage( damage, this );
 				//浓度增加
-				BurnVest.burnadd += 5f;
+				BurnVest.burnadd += .01f;
 			}
 
 			if (target instanceof Thief && ((Thief) target).item != null) {
@@ -155,26 +152,26 @@ public class Burning extends Buff implements Hero.Doom {
 					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
 					((Thief)target).item = null;
 					//浓度增加
-					BurnVest.burnadd += 5f;
+					BurnVest.burnadd += .01f;
 				} else if (item instanceof MysteryMeat) {
 					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
 					((Thief)target).item = new ChargrilledMeat();
 					//浓度增加
-					BurnVest.burnadd += 5f;
+					BurnVest.burnadd +=.01f;
 				}
 
 			}
 
 		} else {
 			//浓度增加
-			BurnVest.burnadd += 5f;
+			BurnVest.burnadd += .01f;
 			detach();
 		}
 		
 		if (Dungeon.level.flamable[target.pos] && Blob.volumeAt(target.pos, Fire.class) == 0) {
 			GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
 			//浓度增加
-			BurnVest.burnadd += 5f;
+			BurnVest.burnadd += .01f;
 		}
 		
 		spend( TICK );

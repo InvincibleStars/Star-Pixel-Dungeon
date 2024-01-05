@@ -37,19 +37,12 @@ public class PotionOfExperience extends Potion {
 		bones = true;
 	}
 
-	public float dsjk=0;
-
-	public float update(){
-		dsjk = (float)(ABBM*1.2);
-		return dsjk;
-	}
-	
 	@Override
 	public void apply( Hero hero ) {
 		identify();
-		hero.earnExp( (int) (hero.maxExp()*dsjk), getClass() );
-		if(ABBM>=3){
-			Buff.prolong(hero, Bless.class, BuffWait.T10+(ABBM-3)*5);
+		hero.earnExp( (int) (hero.maxExp()*(level*1.2)), getClass() );
+		if(level>=3){
+			Buff.prolong(hero, Bless.class, BuffWait.T10+(level-3)*5);
 		}
 	}
 	

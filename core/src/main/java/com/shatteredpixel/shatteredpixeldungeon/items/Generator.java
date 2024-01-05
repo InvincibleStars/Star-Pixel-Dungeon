@@ -147,6 +147,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tie
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Eleove;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Iron_Leave;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.IronSuper;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.KnifeTurn;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.Thorn;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.FishingSpear;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ForceCube;
@@ -345,7 +348,7 @@ public class Generator {
 					Dagger.class,
 					MagesStaff.class,
 					Knuckle.class,
-					Scalpel.class,
+					Scalpel.class
 			};//三目运算法，检测到?前成立执行?:，负责执行:后内容
 			WEP_T1.probs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 1, 1, 1, 0, 1, 1 }:new float[]{ 1, 1, 1, 0, 1, 1 };
 			
@@ -358,7 +361,7 @@ public class Generator {
 					CutOff.class,
 					Eleove.class,
 					Iron_Leave.class,
-					KnifeAoe.class,
+					KnifeAoe.class
 			};
 			WEP_T2.probs = new float[]{ 3, 3, 3, 3, 3, 3 ,3 ,3 ,3 };
 			
@@ -368,9 +371,12 @@ public class Generator {
 					Scimitar.class,
 					RoundShield.class,
 					Sai.class,
-					Whip.class
+					Whip.class,
+					IronSuper.class,
+					KnifeTurn.class,
+					Thorn.class
 			};
-			WEP_T3.probs = new float[]{ 5, 5, 5, 5, 5, 5 };
+			WEP_T3.probs = new float[]{ 5, 5, 5, 5, 5, 5, 5, 5, 5 };
 			
 			WEP_T4.classes = new Class<?>[]{
 					Longsword.class,

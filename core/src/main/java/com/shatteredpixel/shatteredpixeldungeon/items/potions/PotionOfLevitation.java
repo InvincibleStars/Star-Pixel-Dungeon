@@ -51,13 +51,13 @@ public class PotionOfLevitation extends Potion {
 			Sample.INSTANCE.play( Assets.Sounds.GAS );
 		}
 
-		GameScene.add( Blob.seed( cell, 1000, ConfusionGas.class ) );
+		GameScene.add( Blob.seed( cell, 1000+200*level, ConfusionGas.class ) );
 	}
 	
 	@Override
 	public void apply( Hero hero ) {
 		identify();
-		Buff.affect( hero, Levitation.class, Levitation.DURATION );
+		Buff.affect( hero, Levitation.class, Levitation.DURATION + 6*level );
 		GLog.i( Messages.get(this, "float") );
 	}
 	

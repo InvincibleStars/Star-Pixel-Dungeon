@@ -46,11 +46,11 @@ public class PotionOfFrost extends Potion {
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 		}
 
-		if(ABBM>=3){
+		if(level>=3){
 			for (int offset : PathFinder.NEIGHBOURS25){
 				if (!Dungeon.level.solid[cell+offset]) {
 
-					GameScene.add(Blob.seed(cell + offset, 10+(ABBM*4), Freezing.class));
+					GameScene.add(Blob.seed(cell + offset, 10+(level*4), Freezing.class));
 
 				}
 			}
@@ -60,7 +60,7 @@ public class PotionOfFrost extends Potion {
 		for (int offset : PathFinder.NEIGHBOURS9){
 			if (!Dungeon.level.solid[cell+offset]) {
 				
-				GameScene.add(Blob.seed(cell + offset, 10+(ABBM*4), Freezing.class));
+				GameScene.add(Blob.seed(cell + offset, 10+(level*4), Freezing.class));
 				
 			}
 		}

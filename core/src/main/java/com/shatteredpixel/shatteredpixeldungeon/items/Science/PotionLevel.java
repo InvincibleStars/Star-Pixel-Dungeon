@@ -38,34 +38,33 @@ public class PotionLevel extends Science {
     {
         image = ItemSpriteSheet.UPDATE6;
     }
+/*
+    @Override //升级设定
+    public boolean isUpgradable() {
 
-//    @Override //升级设定
-//    public boolean isUpgradable() {
-//        boolean pasty = false;
-//        boolean ration = false;
-//
-//        Sword a = Dungeon.hero.belongings.getItem(Sword.class);
-//        WarHammer b = Dungeon.hero.belongings.getItem(WarHammer.class);
-//        Hero hero = new Hero();
-//
-//        if(a!=null&&b!=null){
-//        //for (Heap heap: Dungeon.level.heaps.valueList()) {
-//            for (Item ac: Dungeon.hero.belongings) {
-//            for (Item i :hero.belongings ) {
-//                if (i instanceof Sword) {
-//                    pasty = true;
-//                }
-//                if (i instanceof WarHammer) {
-//                    ration = true;
-//                }
-//            }
-//        }
-//        }if(pasty && ration){
-//            return true;
-//        }else {
-//            return false;
-//        }
-//    }
+        Sword sword = Dungeon.hero.belongings.getItem(Sword.class);
+        WarHammer warhammer = Dungeon.hero.belongings.getItem(WarHammer.class);
+
+
+
+        if(sword!=null && warhammer!=null){
+
+            if(sword.level>=3 && warhammer.level>=3){
+                return true;
+            }else{
+                return false;
+            }
+
+
+        }else {
+            return false;
+        }
+
+
+
+    }
+
+ */
 
     public boolean isUpgradable() {
         return true;

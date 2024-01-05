@@ -55,6 +55,7 @@ public class Star_v0_1_X_Changes {
 				"总而言之，这个地牢还是开始更新了，尽管玩法可能会与之前大相径庭\n" +
 				"我会尽量在我的能力范围内做一些改动，尽管这可能会导致与常规地牢的玩法大相径庭\n"+
 				"地牢数据可能会极端不均衡，非常抱歉\n"+
+				"PS:所有的更新内容基本都会写在这一页，越往下的代表越新的内容\n"+
 				""));
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "楼层",
@@ -77,41 +78,44 @@ public class Star_v0_1_X_Changes {
 						"_-_ 投掷武器在第一次升级的时候会错误地变成+2，不过数据不变\n"+
 						"_-_ 武器/投掷武器升级会获得附魔，不过存在附魔时无法覆盖"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AGATE, null), "戒指",
-				"_-_ 加入了可以嬗变成其他戒指的“原初戒指”，角色初始携带\n" +
-				"_-_ 戒指的升级收益得到了调整"));
-
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AGATE, null), "戒指",
-				"_-_ 加入了可以嬗变成其他戒指的“原初戒指”，角色初始携带\n" +
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AGATE, null), "戒指改动",
+				"_-_ 暂时移除了财富戒指\n" +
 						"_-_ 戒指的升级收益得到了调整"));
 
 	}
 	
 	public static void add_v0_1_0_Changes( ArrayList<ChangeInfo> changeInfos ){
 		
-		ChangeInfo changes = new ChangeInfo("新内容", false, "");
+		ChangeInfo changes = new ChangeInfo("新内容/即将到来", false, "");
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_NONE, null), "戒指",
+				"_-_ 加入了可以嬗变成其他戒指的“原初戒指”，角色初始携带\n" +
+						"_-_ 戒指的升级收益得到了调整"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_NONE, null), "原初戒指",
 				"_-_ 初始携带的物品，可以通过嬗变转换成其他戒指"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_STONE, null), "强化晶体",
-				"_-_ 足够的数量可以在炼金釜\n"));
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_STONE, null), "结晶力量",
+				"_-_ 具有独特用途和合成素材的结晶将加入游戏\n"));
 
-		//changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.AMMO, null), "枪械/子弹",
-		//		"_-_ 枪械作为地牢中强大的远程武器，本身需要子弹来装填，你可以在投掷武器房间内找到子弹，也可以在商店购买弹药"));
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_STONE, null), "尘埃“落定”",
+				"_-_ 具有更多效用的尘埃将逐步加入\n"));
+
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.AMMO, null), "枪械/子弹",
+				"_-_ 枪械作为地牢中强大的远程武器，本身需要子弹来装填，你可以在投掷武器房间内找到子弹，也可以在商店购买弹药"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_DUST, null), "合成",
 				"_-_ 现在一些武器可以被拆解成为强化晶体了"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.UPDATE6, null), "科技树强化",
-				"_-_ 更多的新武器\n"+
-				"_-_ 更多的投掷武器"));
-
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER, null), "武器",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER, null), "新武器",
 				"_-_ 更多的新武器\n"+
 						"_-_ 更多的投掷武器"));
+
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.UPDATE6, null), "科技树",
+				"_-_ 从现在开始，各项可消耗品均可以被指定的科技树所升级\n"+
+						"_-_ 升级通常情况下可以显著提高其消耗品的效用，但前提是你肯投入足量的升级"));
 
 	}
 	
