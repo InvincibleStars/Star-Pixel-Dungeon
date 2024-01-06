@@ -45,7 +45,6 @@ public class WndStory extends Window {
 	
 	public static final int ID_SAND1		= 0;
 	public static final int ID_SAND2		= 1;
-	/*
 	public static final int ID_SAND3		= 3;
 	public static final int ID_SAND4		= 4;
 	public static final int ID_SAND5		= 5;
@@ -59,7 +58,7 @@ public class WndStory extends Window {
 	public static final int ID_CITY     	= 13;
 	public static final int ID_HALLS		= 14;
 
-	 */
+
 
 
 

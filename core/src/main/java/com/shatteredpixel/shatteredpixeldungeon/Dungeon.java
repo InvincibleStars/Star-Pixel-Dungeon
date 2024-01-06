@@ -60,6 +60,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level0;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level1;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel.SandAreaBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -254,8 +255,10 @@ public class Dungeon {
 				level = new Level0(); //初始楼层
 				break;
 			case 1: case 2: case 3: case 4: //沙暴大地
-			case 5:
 				level = new SandAreaLevel();
+				break;
+			case 5:
+				level = new SandAreaBossLevel();
 				break;
 			case 6: case 7: case 8: case 9: //化石森林
 			case 10:

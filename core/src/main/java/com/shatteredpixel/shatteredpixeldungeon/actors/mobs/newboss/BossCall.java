@@ -37,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.AbstractClass.Invisi
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WraithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -45,7 +46,7 @@ import com.watabou.utils.Reflection;
 public class BossCall extends InvisibleHP {
 
 	{
-		spriteClass = GhostSprite.class;
+		spriteClass = WraithSprite.class;
 
 		HP = HT = 1;
 		properties.add(Property.NOHP);
@@ -86,7 +87,7 @@ public class BossCall extends InvisibleHP {
 		for(Mob boss:level.mobs){
 			if(boss instanceof Level1Boss){
 				if(boss.HP<=5){
-					boss.die(true);
+					boss.HP-=boss.HP;
 					boss.BOSSCOUNT=0;
 				} else {
 					boss.HP-=5;

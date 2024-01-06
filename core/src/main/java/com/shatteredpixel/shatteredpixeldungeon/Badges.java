@@ -359,12 +359,12 @@ public class Badges {
 
 		Nemesis asdf = Dungeon.hero.belongings.getItem(Nemesis.class);
 
-		if(asdf!=null) {
-			if (asdf.level == 3) {
-				badge = Badge.NEMESIS_LEVEL;
-				local.add(badge);
-			}
-		}
+//		if(asdf!=null) {
+//			if (asdf.level == 3) {
+//				badge = Badge.NEMESIS_LEVEL;
+//				local.add(badge);
+//			}
+//		}
 		displayBadge( badge );
 	}
 

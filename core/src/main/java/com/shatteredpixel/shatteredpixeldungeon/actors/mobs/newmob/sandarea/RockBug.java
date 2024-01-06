@@ -32,7 +32,7 @@ public class RockBug extends Mob {
 	{
 		spriteClass = RockBugSprite.class;
 
-		HP = HT = 12 + Random.Int(4);
+		HP = HT = 15 + Random.Int(4);
 		EXP = 1;
 		maxLvl = 3;
 		loot = Generator.Category.ARMOR;

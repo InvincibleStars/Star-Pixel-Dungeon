@@ -43,7 +43,7 @@ public class BlackWorm extends Mob {
 	{
 		spriteClass = BlackWormSprite.class;
 		
-		HP = HT =  10 + Random.Int(6);
+		HP = HT =  12 + Random.Int(6);
 
 		EXP = 2;
 		
@@ -67,7 +67,7 @@ public class BlackWorm extends Mob {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 5 ); }
+	public int damageRoll() { return Random.NormalIntRange( 1, 3 ); }
 
 	@Override
 	public int drRoll() {

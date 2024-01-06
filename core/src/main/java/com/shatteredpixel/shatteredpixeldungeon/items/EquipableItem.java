@@ -68,9 +68,9 @@ public abstract class EquipableItem extends Item {
 		}
 	}
 
-
-	//@Override
+	@Override
 	public void execute( Hero hero, String action ) {
+
 		super.execute( hero, action );
 
 		if (action.equals( AC_EQUIP )) {
@@ -79,11 +79,11 @@ public abstract class EquipableItem extends Item {
 			int slot = Dungeon.quickslot.getSlot( this );
 			doEquip(hero);
 			if (slot != -1) {
-				Dungeon.quickslot.setSlot(slot, this);
+				Dungeon.quickslot.setSlot( slot, this );
 				updateQuickslot();
 			}
-		} else if (action.equals(AC_UNEQUIP)) {
-			doUnequip(hero, true);
+		} else if (action.equals( AC_UNEQUIP )) {
+			doUnequip( hero, true );
 		}
 	}
 

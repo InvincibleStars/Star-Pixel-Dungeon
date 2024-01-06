@@ -222,9 +222,6 @@ public enum Icons {
 			icon.frame( icon.texture.uvRect( 64, 48, 80, 64 ) );
 			break;
 
-		case STAR:
-			icon.frame( icon.texture.uvRect( 80, 48, 96, 64 ) );
-			break;
 
 
 		
@@ -299,6 +296,8 @@ public enum Icons {
 			return get( ROGUE );
 		case HUNTRESS:
 			return get( HUNTRESS );
+			case STAR:
+			return get( WARRIOR );
 		default:
 			return null;
 		}

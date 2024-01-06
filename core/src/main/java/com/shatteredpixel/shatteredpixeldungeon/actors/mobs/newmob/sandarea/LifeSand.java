@@ -34,7 +34,7 @@ public class LifeSand extends Mob {
 	{
 		spriteClass = LifeSandSprite.class;
 
-		HP = HT = 20 + Random.Int(5);
+		HP = HT = 35 + Random.Int(5);
 		
 		EXP = 4;
 		maxLvl = 5;
@@ -50,7 +50,7 @@ public class LifeSand extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(1, 3);
+		return Random.NormalIntRange(4, 7);
 	}
 
 	@Override

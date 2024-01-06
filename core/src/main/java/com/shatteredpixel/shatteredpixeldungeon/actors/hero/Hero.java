@@ -253,32 +253,13 @@ public class Hero extends Char {
 		visibleEnemies = new ArrayList<>();
 
 
-		HP = HT= 10000;
+		HP = HT= 30;
 
 	}
 	
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 
-		float healthBoost = 1;
-		float multiplier = RingOfMight.HTMultiplier(this);
-		//职业HP,HT
-		switch (Dungeon.hero.heroClass) {
-			case WARRIOR:
-				HP=HT = 30 + 7*(lvl-1) + HTBoost;
-				break;
-			case MAGE:
-				HP=HT = 23 + 4*(lvl-1) + HTBoost;
-				break;
-			case ROGUE:
-				HP=HT = 25 + 5*(lvl-1) + HTBoost;
-				break;
-			case HUNTRESS:
-				HP=HT = 23 + 4*(lvl-1) + HTBoost;
-				break;
-			default:
-				HP=HT = 200 + 5 * (lvl - 1) + HTBoost;
-		}
 		HP = HT = 30 + 8 * (lvl-1);
 		if (boostHP){
 			HP += Math.max(HT - curHT, 0);
@@ -467,7 +448,6 @@ public class Hero extends Char {
 			if (!b.revivePersists) b.detach();
 		}
 		Buff.affect( this, Regeneration.class );
-		//Buff.affect( this, BiologicalActivity.class );
 		Buff.affect( this, Hunger.class);
 		Buff.affect( this, BurnVest.class);
 	}

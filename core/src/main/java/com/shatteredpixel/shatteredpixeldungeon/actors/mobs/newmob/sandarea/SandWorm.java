@@ -33,9 +33,9 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 12 + Random.Int(5);
+		HP = HT = 16 + Random.Int(5);
 		defenseSkill = 0;
-		EXP = 1;
+		EXP = 2;
 		maxLvl = 3;
 		loot = Generator.Category.SEED;
 		lootChance = 0.15f;
@@ -81,7 +81,7 @@ public class SandWorm extends Mob {
 	protected boolean getFurther(int target) { return true; }
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 6); }
+	public int damageRoll() { return Random.NormalIntRange(2, 7); }
 
 	@Override
 	public int drRoll() {

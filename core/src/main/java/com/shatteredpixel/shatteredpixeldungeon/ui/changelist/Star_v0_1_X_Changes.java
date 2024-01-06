@@ -51,7 +51,7 @@ public class Star_v0_1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.STAR), "作者",
+		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "作者",
 				"总而言之，这个地牢还是开始更新了，尽管玩法可能会与之前大相径庭\n" +
 				"我会尽量在我的能力范围内做一些改动，尽管这可能会导致与常规地牢的玩法大相径庭\n"+
 				"地牢数据可能会极端不均衡，非常抱歉\n"+

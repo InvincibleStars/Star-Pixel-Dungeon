@@ -191,7 +191,7 @@ public abstract class Level implements Bundlable {
 	public Feeling feeling = Feeling.NONE;
 
 	public int entrance;
-	public int entrance2;
+
 	public int exit;
 
 	//when a boss level has become locked.
@@ -389,7 +389,6 @@ public abstract class Level implements Bundlable {
 		mapped	= bundle.getBooleanArray( MAPPED );
 
 		entrance	= bundle.getInt( ENTRANCE );
-		entrance2	= bundle.getInt( ENTRANCE );
 		exit		= bundle.getInt( EXIT );
 
 		locked      = bundle.getBoolean( LOCKED );
@@ -467,7 +466,6 @@ public abstract class Level implements Bundlable {
 		bundle.put( VISITED, visited );
 		bundle.put( MAPPED, mapped );
 		bundle.put( ENTRANCE, entrance );
-		bundle.put( ENTRANCE2, entrance2 );
 		bundle.put( EXIT, exit );
 		bundle.put( LOCKED, locked );
 		bundle.put( HEAPS, heaps.valueList() );
@@ -1344,8 +1342,8 @@ public abstract class Level implements Bundlable {
 	//returns true if the input is a valid tile within the level
 	public boolean insideMap( int tile ){
 		//top and bottom row and beyond
-		return !((tile < width || tile >= 300) ||
-				//return !((tile < width || tile >= length - width) ||
+		//return !((tile < width || tile >= 300) ||
+		return !((tile < width || tile >= length - width) ||
 				//left and right column
 				(tile % width == 0 || tile % width == width-1));
 	}
@@ -1469,5 +1467,5 @@ public abstract class Level implements Bundlable {
 //
 //		//GLog.w(String.valueOf(hero.pos));
 //	}
-//
+
 }

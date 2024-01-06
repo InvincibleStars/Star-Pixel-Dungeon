@@ -79,7 +79,7 @@ public class Terrain {
 		flags[WALL]			= LOS_BLOCKING | SOLID;
 		flags[DOOR]			= PASSABLE | LOS_BLOCKING | FLAMABLE | SOLID;
 		flags[OPEN_DOOR]	= PASSABLE | FLAMABLE;
-		flags[ENTRANCE]		= PASSABLE/* | SOLID*/;
+		flags[ENTRANCE]		= PASSABLE | SOLID;
 		flags[EXIT]			= PASSABLE;
 		flags[EMBERS]		= PASSABLE;
 		flags[LOCKED_DOOR]	= LOS_BLOCKING | SOLID;

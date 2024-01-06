@@ -67,7 +67,7 @@ public class BurnVest extends Buff {
 
 			 */
 				if(burnadd<=1){
-				burnadd +=0.12f;
+				burnadd +=0.01f;
 				b   =  (float)(Math.round(burnadd*100))/100;
 				//GLog.n(Messages.get(this, "onstarving"));
 			}

@@ -50,7 +50,7 @@ public class SandCrab extends Mob {
 	{
 		spriteClass = CrabSprite.class;
 
-		HP = HT = 13 + Random.Int(5);
+		HP = HT = 20 + Random.Int(5);
 		viewDistance = Light.DISTANCE;
 		EyeAllow=1;
 		

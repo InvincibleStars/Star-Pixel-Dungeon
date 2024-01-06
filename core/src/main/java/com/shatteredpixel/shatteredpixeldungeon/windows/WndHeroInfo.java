@@ -76,7 +76,7 @@ public class WndHeroInfo extends WndTabbed {
 				tabIcon = new ItemSprite(ItemSpriteSheet.SPIRIT_BOW, null);
 				break;
 			case STAR:
-				tabIcon = new ItemSprite(ItemSpriteSheet.SPIRIT_BOW, null);
+				tabIcon = new ItemSprite(ItemSpriteSheet.TWO_SWORD, null);
 				break;
 		}
 
@@ -214,6 +214,12 @@ public class WndHeroInfo extends WndTabbed {
 							//new Image(Assets.Environment.TILES_SEWERS, 112, 96, 16, 16),
 							new TalentIcon(SURVIVALISTS_INTUITION)};
 					break;
+				case STAR:
+					icons = new Image[]{new ItemSprite(ItemSpriteSheet.TWO_SWORD),
+							new ItemSprite(ItemSpriteSheet.ARMOR_WARRIOR),
+							new ItemSprite(ItemSpriteSheet.BANDOLIER),
+							new TalentIcon(SURVIVALISTS_INTUITION)};
+					break;
 			}
 			for (Image im : icons) {
 				add(im);
@@ -309,6 +315,9 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case HUNTRESS:
 					message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "huntress"), 6);
+					break;
+				case STAR:
+					message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "warrior"), 6);
 					break;
 			}
 			add(message);

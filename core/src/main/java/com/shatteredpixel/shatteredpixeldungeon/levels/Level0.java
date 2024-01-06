@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotHeart2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.WoodenCross;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
@@ -159,21 +160,9 @@ public class Level0 extends Level {
     @Override
     protected void createMobs() {
 
-
-
-        WoodenCross a= new WoodenCross();
-        if ( Badges.isUnlocked(Badges.Badge.ALL_ARMOR_IDENTIFIED)) {
-        }
-//        a.pos = (this.WIDTH*13+13);
-        a.pos=310;
-        mobs.add(a);
-
-
-       // for(int c=3; c<15; c+=1){
-           // BlackWorm i= new BlackWorm();
-           // i.pos = (this.width * c +8);
-          //  mobs.add(i);
-     //   }
+//            Level1Boss i= new Level1Boss();
+//            i.pos = 330;
+//            mobs.add(i);
 
 
     }
@@ -189,11 +178,11 @@ public class Level0 extends Level {
 
     @Override
     protected void createItems() {
-        drop(new Torch(),137).type = Heap.Type.FOR_SALE;
-        if(Badges.isUnlocked(Badges.Badge.ALL_ARMOR_IDENTIFIED)){
-            drop(new Torch(), 312);
-        }
-        drop(new Torch(), 162);
+//        drop(new Torch(),137).type = Heap.Type.FOR_SALE;
+//        if(Badges.isUnlocked(Badges.Badge.ALL_ARMOR_IDENTIFIED)){
+//            drop(new Torch(), 312);
+//        }
+//        drop(new Torch(), 162);
     }
 
     @Override

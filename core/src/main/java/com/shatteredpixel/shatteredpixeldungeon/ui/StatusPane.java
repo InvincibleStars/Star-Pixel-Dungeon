@@ -276,42 +276,22 @@ public class StatusPane extends Component {
 		int health = Dungeon.hero.HP;
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.HT;
-		int mm = cal.get(Calendar.MINUTE);
-		int HH = cal.get(Calendar.HOUR);
 
-		Visual visual = new Visual(0,0,0,0);
-		visual.am = 0.01f + 0.01f*Math.max(0f, (float)Math.sin( time += Game.elapsed ));
-		time += Game.elapsed / 0.05f;;
-		float r = 0.93f+0.57f*Math.max(0f, (float)Math.sin( time));
-		float g = 0.53f+0.57f*Math.max(0f, (float)Math.sin( time - 10/Math.PI/5 ));
-		float b = 0.03f+0.57f*Math.max(0f, (float)Math.sin( time + 4/Math.PI/2 ));
-		hp.color( r,g,b );
-
-
-
-
-
-		////////////////////////
-
-		//时钟控件
-		if(Dungeon.hero.isAlive()) {
-			//实例化日期(也许？)
-			Date date = new Date();
-			//实例化cal(也许？)
-			//Calendar cal=Calendar.getInstance();
-			//定义小时和分钟
-			//int mm = cal.get(Calendar.MINUTE);
-			//int HH = cal.get(Calendar.HOUR);
-			//定义字段
-			String strDateFormat = "yyyy-MM-dd HH:mm";
-			//不清楚用途
-			SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat, Locale.getDefault());
-			//一个文本？(在前面建立了字段)
-			//timeText.text(sdf.format(date));
+//		Visual visual = new Visual(0,0,0,0);
+//		visual.am = 0.01f + 0.01f*Math.max(0f, (float)Math.sin( time += Game.elapsed ));
+//		time += Game.elapsed / 0.05f;;
+//		float r = 0.93f+0.57f*Math.max(0f, (float)Math.sin( time));
+//		float g = 0.53f+0.57f*Math.max(0f, (float)Math.sin( time - 10/Math.PI/5 ));
+//		float b = 0.03f+0.57f*Math.max(0f, (float)Math.sin( time + 4/Math.PI/2 ));
+//		hp.color( r,g,b );
+		//hp.color(a);
+		if(Dungeon.hero.HP<=0.7*Dungeon.hero.HT&&Dungeon.hero.HP>=0.3*Dungeon.hero.HT){
+			hp.color(255,255,0);
+		}else if(Dungeon.hero.HP<=0.3*Dungeon.hero.HT){
+			hp.color(120,0,0);
+		}else{
+			hp.color(0,10,0);
 		}
-
-
-
 
 
 		if (!Dungeon.hero.isAlive()) {
@@ -328,22 +308,8 @@ public class StatusPane extends Component {
 		}
 
 		hp.scale.x = Math.max( 0, (health-shield)/(float)max);
-		//111
-//		if(Dungeon.hero.HP*3<=Dungeon.hero.HT*2) {
-//			hp.hardlight(1f, 1f, 1f);
-//		}else if(Dungeon.hero.HP*4<=Dungeon.hero.HT*3) {
-//			hp.hardlight(1f, 0f, 0f);
-//		}else{
-//			hp.hardlight(0f, 1f, 0f);
-//		}
 
-//		if(Dungeon.hero.HP*2<=Dungeon.hero.HT) {
-//			hp.hardlight(1f, 0f, 0f);
-//		}else{
-//			hp.hardlight(0f, 1f, 0f);
-//		}
-
-		hp.color( r,g,b );
+		//hp.color( r,g,b );
 
 
 

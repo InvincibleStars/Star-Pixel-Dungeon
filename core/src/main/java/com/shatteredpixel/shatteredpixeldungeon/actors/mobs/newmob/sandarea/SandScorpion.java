@@ -32,7 +32,7 @@ public class SandScorpion extends Mob {
 	{
 		spriteClass = SandScorpionSprite.class;
 
-		HP = HT = 17 + Random.Int(8);
+		HP = HT = 27 + Random.Int(8);
 		EXP =3;
 		loot = Generator.Category.SEED;
 		lootChance = 0.5f;
@@ -54,7 +54,7 @@ public class SandScorpion extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 2, 7 );
+		return Random.NormalIntRange( 2, 11 );
 	}
 
 	

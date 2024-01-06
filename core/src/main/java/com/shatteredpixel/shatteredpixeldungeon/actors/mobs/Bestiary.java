@@ -55,9 +55,9 @@ public class Bestiary {
 				return new ArrayList<>(Arrays.asList());
 			case 1:
 				return new ArrayList<>(Arrays.asList(
-						SandWorm.class, SandWorm.class,SandWorm.class,
+						SandWorm.class,
 						BlackWorm.class,BlackWorm.class,
-						SandCrab.class, SandCrab.class
+						RockBug.class, RockBug.class
 						));
 			case 2:
 				return new ArrayList<>(Arrays.asList(
@@ -67,10 +67,8 @@ public class Bestiary {
 						));
 			case 3:
 				return new ArrayList<>(Arrays.asList(
-						SandWorm.class,
+						SandWorm.class,SandWorm.class,SandWorm.class,
 						RockBug.class,RockBug.class,
-						BlackWorm.class,
-						SandScorpion.class,
 						SandCrab.class));
 			case 4:
 				return new ArrayList<>(Arrays.asList(
@@ -79,7 +77,11 @@ public class Bestiary {
 						SandScorpion.class, SandScorpion.class,
 						LifeSand.class));
 			case 5:
-				return new ArrayList<>(Arrays.asList());
+				return new ArrayList<>(Arrays.asList(
+						SandWorm.class, RockBug.class,
+						SandCrab.class, SandCrab.class,
+						SandScorpion.class, SandScorpion.class,
+						LifeSand.class,LifeSand.class));
 				
 			// Prison
 			case 6:

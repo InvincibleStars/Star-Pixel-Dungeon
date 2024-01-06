@@ -46,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Sh
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.Science.Science;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
@@ -76,6 +77,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarHammer;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Knuckle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -87,7 +89,7 @@ public enum HeroClass {
 	MAGE(HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK),
 	ROGUE(HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER),
 	HUNTRESS(HeroSubClass.SNIPER, HeroSubClass.WARDEN),
-	STAR(HeroSubClass.SNIPER, HeroSubClass.WARDEN);
+	STAR;
 
 	private HeroSubClass[] subClasses;
 
@@ -100,22 +102,9 @@ public enum HeroClass {
 		Talent.initClassTalents(hero);
 		Dungeon.gold += 500; //初始金钱
 
-		//初始物品2
-		new PotionOfHealing().quantity(3).identify().collect();
-		//火把
-		new Torch().quantity(5).identify().collect();
-		//口粮
-		new Food().quantity(5).identify().collect();
+		new Science().quantity(1).identify().collect();
 
-//		new ScrollOfMagicMapping().quantity(1000).identify().collect();
-//
-//		new Sword().quantity(1).identify().collect();
-//
-//		new WarHammer().quantity(1).identify().collect();
-//
 		new PotionLevel().quantity(1).identify().collect();
-//
-		new TechTree().quantity(1).identify().collect();
 
 		/*
 		//定义一个随机武器
@@ -144,12 +133,6 @@ public enum HeroClass {
 
 		 */
 
-		//原初戒指
-		//new RingOfNone().quantity(1).identify().collect();
-
-		new ScrollOfUpgrade().quantity(10).identify().collect();
-
-		new PotionOfLiquidFlame().quantity(100).identify().collect();
 
 		Item i = new ClothArmor().identify();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor) i;
@@ -203,7 +186,6 @@ public enum HeroClass {
 			//快捷栏
 			if (Dungeon.quickslot.getItem(s) == null) {
 				Dungeon.quickslot.setSlot(s++, waterskin);
-				//Dungeon.quickslot.setSlot(s++, kingscrown);
 				break;
 			}
 		}
@@ -221,7 +203,7 @@ public enum HeroClass {
 			case HUNTRESS:
 				return Badges.Badge.MASTERY_HUNTRESS;
 			case STAR:
-				return Badges.Badge.MASTERY_HUNTRESS;
+				return Badges.Badge.MASTERY_WARRIOR;
 		}
 		return null;
 	}
@@ -311,18 +293,13 @@ public enum HeroClass {
 
 	private static void initStar(Hero hero) {
 
-		(hero.belongings.weapon = new Gloves()).identify();
-		SpiritBow bow = new SpiritBow();
-		bow.identify().collect();
+		(hero.belongings.weapon = new Knuckle()).identify();
+		//SpiritBow bow = new SpiritBow();
+		//bow.identify().collect();
 		new VelvetPouch().quantity(1).collect();
 
-		Dungeon.quickslot.setSlot(0, bow);
+		//Dungeon.quickslot.setSlot(0, bow);
 
-		new PotionOfMindVision().identify();
-		new ScrollOfUpgrade().identify();
-		new ScrollOfLullaby().identify();
-
-		//hero.subClass=SNIPER;
 	}
 
 
@@ -351,8 +328,6 @@ public enum HeroClass {
 				return new ArmorAbility[]{new SmokeBomb(), new DeathMark(), new ShadowClone()};
 			case HUNTRESS:
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
-			case STAR:
-				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
 		}
 	}
 
@@ -368,7 +343,7 @@ public enum HeroClass {
 			case HUNTRESS:
 				return Assets.Sprites.HUNTRESS;
 			case STAR:
-				return Assets.Sprites.HUNTRESS;
+				return Assets.Sprites.WARRIOR;
 		}
 	}
 
@@ -384,7 +359,7 @@ public enum HeroClass {
 			case HUNTRESS:
 				return Assets.Splashes.HUNTRESS;
 			case STAR:
-				return Assets.Splashes.HUNTRESS;
+				return Assets.Splashes.WARRIOR;
 		}
 	}
 	//职业介绍
@@ -425,16 +400,18 @@ public enum HeroClass {
 				};
 			case STAR:
 				return new String[]{
-						Messages.get(HeroClass.class, "huntress_perk1"),
-						Messages.get(HeroClass.class, "huntress_perk2"),
-						Messages.get(HeroClass.class, "huntress_perk3"),
-						Messages.get(HeroClass.class, "huntress_perk4"),
-						Messages.get(HeroClass.class, "huntress_perk5"),
+						Messages.get(HeroClass.class, "star_perk1"),
+						Messages.get(HeroClass.class, "star_perk2"),
+						Messages.get(HeroClass.class, "star_perk3"),
+						Messages.get(HeroClass.class, "star_perk4"),
+						Messages.get(HeroClass.class, "star_perk5"),
 				};
 		}
 	}
 
 	public boolean isUnlocked() {
+		return true;
+		/*
 		//always unlock on debug builds
 		if (DeviceCompat.isDebug()) return true;
 
@@ -448,14 +425,14 @@ public enum HeroClass {
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_ROGUE);
 			case HUNTRESS:
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_HUNTRESS);
-			case STAR:
-				return Badges.isUnlocked(Badges.Badge.UNLOCK_HUNTRESS);
 		}
+
+		 */
 	}
 
 	public String unlockMsg() {
 		switch (this) {
-			/*
+
 			case WARRIOR:
 			default:
 				return "";
@@ -466,31 +443,5 @@ public enum HeroClass {
 			case HUNTRESS:
 				return Messages.get(HeroClass.class, "huntress_unlock");
 		}
-
-			 */
-
-			case WARRIOR:
-			default:
-				return "";
-			case MAGE:
-				return "";
-			case ROGUE:
-				return "";
-			case HUNTRESS:
-				return "";
 		}
 	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-}
