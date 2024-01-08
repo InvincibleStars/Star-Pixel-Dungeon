@@ -64,7 +64,7 @@ public class Level1Boss extends Mob {
     {
 
         //properties.add(Property.NOHP);
-        spriteClass = WraithSprite.class;
+        spriteClass = RatSprite.class;
         HT = HP = 120;
         EXP = 175;
         //BOSS词条
@@ -129,46 +129,46 @@ public class Level1Boss extends Mob {
         //背水一战
         LockedFloor lock = hero.buff(LockedFloor.class);
 
-        while (summonCooldown <= 0){
+//        while (summonCooldown <= 0){
+//
+//            Class<?extends Mob> cls = regularSummons.remove(0);
+//            Mob summon = Reflection.newInstance(cls);
+//            regularSummons.add(cls);
+//
+//            int spawnPos = -1;
+//            for (int i : PathFinder.NEIGHBOURS8){
+//                if (Actor.findChar(pos+i) == null){
+//                    if (spawnPos == -1 || Dungeon.level.trueDistance(Dungeon.hero.pos, spawnPos) > Dungeon.level.trueDistance(Dungeon.hero.pos, pos+i)){
+//                        spawnPos = pos + i;
+//                    }
+//                }
+//            }
+//
+//            if (spawnPos != -1 && this.BOSSCOUNT<=1) {
+//                summon.pos = spawnPos;
+//                GameScene.add( summon );
+//                Actor.addDelayed( new Pushing( summon, pos, summon.pos ), -1 );
+//                summon.beckon(Dungeon.hero.pos);
+//                this.BOSSCOUNT+=1;
+//
+//                summonCooldown = 5;
+//
+//            } else {
+//                break;
+//            }
+//        }
 
-            Class<?extends Mob> cls = regularSummons.remove(0);
-            Mob summon = Reflection.newInstance(cls);
-            regularSummons.add(cls);
-
-            int spawnPos = -1;
-            for (int i : PathFinder.NEIGHBOURS8){
-                if (Actor.findChar(pos+i) == null){
-                    if (spawnPos == -1 || Dungeon.level.trueDistance(Dungeon.hero.pos, spawnPos) > Dungeon.level.trueDistance(Dungeon.hero.pos, pos+i)){
-                        spawnPos = pos + i;
-                    }
-                }
-            }
-
-            if (spawnPos != -1 && this.BOSSCOUNT<=1) {
-                summon.pos = spawnPos;
-                GameScene.add( summon );
-                Actor.addDelayed( new Pushing( summon, pos, summon.pos ), -1 );
-                summon.beckon(Dungeon.hero.pos);
-                this.BOSSCOUNT+=1;
-
-                summonCooldown = 5;
-
-            } else {
-                break;
-            }
-        }
-
-        //格挡攻击
-        if (buff(Monk.Focus.class) == null && state == HUNTING && SkillCollDown <= 0) {
-            Buff.affect(this, Monk.Focus.class);
-        }
+//        //格挡攻击
+//        if (buff(Monk.Focus.class) == null && state == HUNTING && SkillCollDown <= 0) {
+//            Buff.affect(this, Monk.Focus.class);
+//        }
 
 
 
         //未睡眠前
-        if (state != SLEEPING) {
-            Dungeon.level.seal();
-        }
+//        if (state != SLEEPING) {
+//            Dungeon.level.seal();
+//        }
         return super.act();
     }
 
@@ -176,15 +176,15 @@ public class Level1Boss extends Mob {
     @Override
     protected void spend(float time) {
 
-        if(this.HP<1){
-            super.die(true);
-        }
-
-        if(Dungeon.level.trueDistance(Dungeon.hero.pos, this.pos) >=5 ){
-            Buff.affect(this, Weakness.class, BuffWait.T3);
-        }
-
-        summonCooldown -= 1 ;
+//        if(this.HP<1){
+//            super.die(true);
+//        }
+//
+//        if(Dungeon.level.trueDistance(Dungeon.hero.pos, this.pos) >=5 ){
+//            Buff.affect(this, Weakness.class, BuffWait.T3);
+//        }
+//
+//        summonCooldown -= 1 ;
 
         super.spend(time);
     }
@@ -195,49 +195,49 @@ public class Level1Boss extends Mob {
     }
 
 
-    private static String FOCUS_COOLDOWN = "focus_cooldown";
+    //private static String FOCUS_COOLDOWN = "focus_cooldown";
 
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
-        bundle.put(FOCUS_COOLDOWN, SkillCollDown);
+        //bundle.put(FOCUS_COOLDOWN, SkillCollDown);
 
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
-        SkillCollDown = bundle.getInt(FOCUS_COOLDOWN);
+        //SkillCollDown = bundle.getInt(FOCUS_COOLDOWN);
     }
 
-    //内置技能
-    public static class Focus extends Buff {
-
-        {
-            type = buffType.POSITIVE;
-            announced = true;
-        }
-
-        @Override
-        public int icon() {
-            return BuffIndicator.MIND_VISION;
-        }
-
-        @Override
-        public void tintIcon(Image icon) {
-            icon.hardlight(0.25f, 1.5f, 1f);
-        }
-
-        @Override
-        public String toString() {
-            return Messages.get(this, "name");
-        }
-
-        @Override
-        public String desc() {
-            return Messages.get(this, "desc");
-        }
-    }
+//    //内置技能
+//    public static class Focus extends Buff {
+//
+//        {
+//            type = buffType.POSITIVE;
+//            announced = true;
+//        }
+//
+//        @Override
+//        public int icon() {
+//            return BuffIndicator.MIND_VISION;
+//        }
+//
+//        @Override
+//        public void tintIcon(Image icon) {
+//            icon.hardlight(0.25f, 1.5f, 1f);
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return Messages.get(this, "name");
+//        }
+//
+//        @Override
+//        public String desc() {
+//            return Messages.get(this, "desc");
+//        }
+//    }
 
     {
 
@@ -245,18 +245,18 @@ public class Level1Boss extends Mob {
     }
 
     //产生单位
-    private ArrayList<Class> regularSummons = new ArrayList<>();
-
-    {
-        for (int i = 0; i < 6; i++) {
-            if (i >= Statistics.spawnersAlive) {
-                regularSummons.add(Level1Boss.Call1.class);
-            } else {
-                regularSummons.add(Level1Boss.Call1.class);
-            }
-        }
-        Random.shuffle(regularSummons);
-    }
+//    private ArrayList<Class> regularSummons = new ArrayList<>();
+//
+//    {
+//        for (int i = 0; i < 6; i++) {
+//            if (i >= Statistics.spawnersAlive) {
+//                regularSummons.add(Level1Boss.Call1.class);
+//            } else {
+//                regularSummons.add(Level1Boss.Call1.class);
+//            }
+//        }
+//        Random.shuffle(regularSummons);
+//    }
 
     public static class Level1BOSSDamager extends Buff {
 

@@ -1980,10 +1980,12 @@ public class Hero extends Char {
 				Sample.INSTANCE.play( Assets.Sounds.STEP, 1, Random.Float( 0.96f, 1.05f ) );
 			}
 		}
-
+/*
 		if(Dungeon.level.water[pos]){
 			Buff.affect(hero, Speed.class, BuffWait.T10);
 		}
+
+ */
 	}
 	
 	@Override

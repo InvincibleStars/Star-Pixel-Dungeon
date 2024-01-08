@@ -154,10 +154,13 @@ public abstract class Char extends Actor {
 
 	@Override
 	protected boolean act() {
+		/*
 		if(Dungeon.level.water[pos] &&( Dungeon.depth>15 && Dungeon.depth<=20)){
 			Buff.prolong(this, Blindness.class, BuffWait.T10);
 			//hero.sprite.showStatus(CharSprite.POSITIVE, "请离开水源方块");
 		}
+
+		 */
 
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
 			fieldOfView = new boolean[Dungeon.level.length()];

@@ -56,13 +56,13 @@ public class IronSuper extends MeleeWeapon {
 	@Override
 	public int max(int lvl) {
 		return Math.round(2f * (tier * 1)) +
-				lvl * Math.round(4f + (tier * 2)) + 3;
+				lvl * Math.round(1f + (tier * 2)) + 1;
 	}
 
 	@Override
 	public int min(int lvl) {
 		return Math.round(2f * (tier * 1)) +
-				lvl * Math.round(4f + (tier * 2)) - 2;
+				lvl * Math.round(2f + (tier * 2)) - 2;
 	}
 
 	@Override
@@ -74,9 +74,7 @@ public class IronSuper extends MeleeWeapon {
 	@Override
 	public int proc(Char attacker, Char defender, int damage) {
 		switch (Random.NormalIntRange(0, 4)) {
-			case 1://燃烧效果（默认）
-				Buff.affect( defender, Burning.class );
-				break;
+
 			case 2: //死神效果
 				int dmg;
 				dmg = (new Grim()).proc(this, attacker, defender, damage);
@@ -89,7 +87,6 @@ public class IronSuper extends MeleeWeapon {
 				Buff.affect(defender, Vertigo.class, BuffWait.T6);
 				break;
 			default://空掷
-				GLog.n("什么都没有发生");
 				break;
 		}
 		return super.proc(attacker, defender, damage);

@@ -993,7 +993,7 @@ public abstract class Level implements Bundlable {
 	}
 
 	public void occupyCell( Char ch ){
-		//GLog.w(String.valueOf(Dungeon.hero.pos));
+		GLog.w(String.valueOf(Dungeon.hero.pos));
 		//GLog.w(String.valueOf(Potion.));
 		if (!ch.isImmune(Web.class) && Blob.volumeAt(ch.pos, Web.class) > 0){
 			blobs.get(Web.class).clear(ch.pos);

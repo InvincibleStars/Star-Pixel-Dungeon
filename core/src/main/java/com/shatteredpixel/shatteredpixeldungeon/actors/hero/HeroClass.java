@@ -102,7 +102,7 @@ public enum HeroClass {
 		Talent.initClassTalents(hero);
 		Dungeon.gold += 500; //初始金钱
 
-		new Science().quantity(1).identify().collect();
+		new ScrollOfMagicMapping().quantity(1).identify().collect();
 
 		new PotionLevel().quantity(1).identify().collect();
 

@@ -115,6 +115,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BattleAxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Quarterstaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Knuckle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Scalpel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Chain;
@@ -269,7 +270,7 @@ public class Generator {
 					PotionOfParalyticGas.class,
 					PotionOfPurity.class,
 					PotionOfExperience.class};
-			POTION.defaultProbs = new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1 };
+			POTION.defaultProbs = new float[]{ 0, 5, 5, 4, 4, 4, 3, 3, 2, 2, 2, 1 };
 			POTION.probs = POTION.defaultProbs.clone();
 			
 			SEED.classes = new Class<?>[]{
@@ -302,7 +303,9 @@ public class Generator {
 					ScrollOfTerror.class,
 					ScrollOfTransmutation.class
 			};
-			SCROLL.defaultProbs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 0, 0, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1 }:new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1 };
+//			SCROLL.defaultProbs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 0, 0, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1 }:new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1 };
+			SCROLL.defaultProbs = new float[]{ 1, 7, 5, 4, 4, 4, 3, 3, 3, 3, 3, 2 };
+
 			SCROLL.probs = SCROLL.defaultProbs.clone();
 			
 			STONE.classes = new Class<?>[]{
@@ -319,7 +322,7 @@ public class Generator {
 					StoneOfFear.class,
 					StoneOfAugmentation.class  //1 is sold in each shop
 			};
-			STONE.defaultProbs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0 }:new float[]{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0 };
+			STONE.defaultProbs = new float[]{ 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1 };
 			STONE.probs = STONE.defaultProbs.clone();
 
 			WAND.classes = new Class<?>[]{
@@ -336,7 +339,7 @@ public class Generator {
 					WandOfTransfusion.class,
 					WandOfCorruption.class,
 					WandOfRegrowth.class };
-			WAND.probs = new float[]{ 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3 };
+			WAND.probs = new float[]{ 4, 4, 4, 2, 3, 3, 2, 2, 4, 3, 4, 2, 2 };
 			
 			//see generator.randomWeapon
 			WEAPON.classes = new Class<?>[]{};
@@ -350,8 +353,9 @@ public class Generator {
 					Knuckle.class,
 					Scalpel.class
 			};//三目运算法，检测到?前成立执行?:，负责执行:后内容
-			WEP_T1.probs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 1, 1, 1, 0, 1, 1 }:new float[]{ 1, 1, 1, 0, 1, 1 };
-			
+			//WEP_T1.probs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 1, 1, 1, 0, 1, 1 }:new float[]{ 1, 1, 1, 0, 1, 1 };
+
+			WEP_T1.probs = new float[]{ 2, 2, 2, 0, 1, 1 };
 			WEP_T2.classes = new Class<?>[]{
 					Shortsword.class,
 					HandAxe.class,
@@ -363,8 +367,8 @@ public class Generator {
 					Iron_Leave.class,
 					KnifeAoe.class
 			};
-			WEP_T2.probs = new float[]{ 3, 3, 3, 3, 3, 3 ,3 ,3 ,3 };
-			
+			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 4, 2 ,2 ,3 ,1 };
+
 			WEP_T3.classes = new Class<?>[]{
 					Sword.class,
 					Mace.class,
@@ -376,7 +380,8 @@ public class Generator {
 					KnifeTurn.class,
 					Thorn.class
 			};
-			WEP_T3.probs = new float[]{ 5, 5, 5, 5, 5, 5, 5, 5, 5 };
+			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 3, 1, 1, 2 };
+
 			
 			WEP_T4.classes = new Class<?>[]{
 					Longsword.class,
@@ -387,6 +392,7 @@ public class Generator {
 					Crossbow.class
 			};
 			WEP_T4.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
+
 			
 			WEP_T5.classes = new Class<?>[]{
 					Greatsword.class,

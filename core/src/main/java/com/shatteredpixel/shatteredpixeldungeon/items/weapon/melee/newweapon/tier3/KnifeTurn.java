@@ -47,8 +47,9 @@ public class KnifeTurn extends MeleeWeapon {
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
-		if(Random.Int(0,3)==3)
+		if(Random.Int(0,7)==0){
 		Buff.affect(attacker, Bleeding.class).set(Math.round(damage * 0.2f));
+		}
 		return super.proc(attacker, defender, damage);
 	}
 
