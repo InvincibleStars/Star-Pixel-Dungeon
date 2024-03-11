@@ -21,8 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.NO_FOOD;
-
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
@@ -115,10 +113,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BattleAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Quarterstaff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Knuckle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier1.Scalpel;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Chain;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Knuckle;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Scalpel;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Chain;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk;
@@ -144,13 +141,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarHammer;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Whip;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.CutOff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Eleove;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.Iron_Leave;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier2.KnifeAoe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.IronSuper;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.KnifeTurn;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.Thorn;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.CutOff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Eleove;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.IronLeave;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.KnifeAoe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.IronSuper;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.KnifeTurn;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Thorn;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.FishingSpear;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ForceCube;
@@ -271,7 +268,8 @@ public class Generator {
 					PotionOfPurity.class,
 					PotionOfExperience.class};
 			POTION.defaultProbs = new float[]{ 0, 5, 5, 4, 4, 4, 3, 3, 2, 2, 2, 1 };
-			POTION.probs = POTION.defaultProbs.clone();
+			//POTION.defaultProbs = new float[]{0,0,0,0,0,0,0,0,0,0,0,0};
+					POTION.probs = POTION.defaultProbs.clone();
 			
 			SEED.classes = new Class<?>[]{
 					Rotberry.Seed.class, //quest item
@@ -364,7 +362,7 @@ public class Generator {
 					Chain.class,
 					CutOff.class,
 					Eleove.class,
-					Iron_Leave.class,
+					IronLeave.class,
 					KnifeAoe.class
 			};
 			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 4, 2 ,2 ,3 ,1 };

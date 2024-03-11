@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -52,7 +53,8 @@ public class ChaliceOfBlood extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (isEquipped( hero ) && level() < levelCap && !cursed && !hero.isInvulnerable(getClass()))
+		//if (isEquipped( hero ) && level() < levelCap && !cursed && !hero.isInvulnerable(getClass()))
+		if (level() < levelCap && !cursed && !hero.isInvulnerable(getClass()))
 			actions.add(AC_PRICK);
 		return actions;
 	}
@@ -157,7 +159,7 @@ public class ChaliceOfBlood extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		if (isEquipped (Dungeon.hero)){
+		//if (isEquipped (Dungeon.hero)){
 			desc += "\n\n";
 			if (cursed)
 				desc += Messages.get(this, "desc_cursed");
@@ -167,7 +169,7 @@ public class ChaliceOfBlood extends Artifact {
 				desc += Messages.get(this, "desc_2");
 			else
 				desc += Messages.get(this, "desc_3");
-		}
+		//}
 
 		return desc;
 	}
@@ -175,5 +177,6 @@ public class ChaliceOfBlood extends Artifact {
 	public class chaliceRegen extends ArtifactBuff {
 		//see Regeneration.class for effect
 	}
+
 
 }

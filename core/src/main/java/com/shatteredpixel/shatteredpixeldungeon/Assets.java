@@ -28,6 +28,7 @@ public class Assets {
 		public static final String FIREBALL		= "effects/fireball.png";
 		public static final String SPECKS		= "effects/specks.png";
 		public static final String SPELL_ICONS	= "effects/spell_icons.png";
+		public static final String TEXT_ICONS   = "effects/text_icons.png";
 	}
 
 	public static class Environment {
@@ -295,6 +296,7 @@ public class Assets {
 		public static final String SPIRIT_HAWK= "sprites/spirit_hawk.png";
 
 
+
 		//Sand Area
 
 		//沙虫
@@ -314,12 +316,18 @@ public class Assets {
 
 		//Tree Area
 
+		//活化植物
+		public static final String LIFE_PLANT= "sprites/newsprites/tree/lifeplant.png";
+		public static final String DEATH_PLANT= "sprites/newsprites/tree/deathplant.png";
+
 
 
 
 
 		//盒子
 		public static final String POT= "sprites/newsprites/other/pot.png";
+
+
 
 
 	}

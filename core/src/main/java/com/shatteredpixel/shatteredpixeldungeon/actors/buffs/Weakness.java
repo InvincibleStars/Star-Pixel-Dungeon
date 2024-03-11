@@ -21,8 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class Weakness extends FlavourBuff {
 
@@ -45,6 +47,7 @@ public class Weakness extends FlavourBuff {
 	
 	@Override
 	public String toString() {
+		//Buff.prolong(target, CutoffSpeed.class, BuffWait.T20);
 		return Messages.get(this, "name");
 	}
 
@@ -57,4 +60,11 @@ public class Weakness extends FlavourBuff {
 	public String desc() {
 		return Messages.get(this, "desc", dispTurns());
 	}
+/*
+	@Override
+	public void detach() {
+		Buff.prolong(target, CutoffSpeed.class, BuffWait.T20);
+		super.detach();
+	}
+ */
 }

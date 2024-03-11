@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.IceBlock;
+import com.shatteredpixel.shatteredpixeldungeon.effects.IconFloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.ShieldHalo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
@@ -181,6 +182,25 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void place( int cell ) {
 		point( worldToCamera( cell ) );
 	}
+
+
+	public void showStatusWithIcon(int color, String text, int icon, Object... args) {
+		if (this.visible) {
+			if (args.length > 0) {
+				text = Messages.format(text, args);
+			}
+			float x = destinationCenter().x;
+			float y = destinationCenter().y - (height() / 2.0f);
+			if (ch != null) {
+				IconFloatingText.show(x, y, ch.pos, text, color, icon, true);
+			} else {
+				IconFloatingText.show(x, y, -1, text, color, icon, true);
+			}
+		}
+	}
+
+
+
 	
 	public void showStatus( int color, String text, Object... args ) {
 		if (visible) {

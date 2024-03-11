@@ -256,8 +256,8 @@ public class Dungeon {
 				level = new Level0(); //初始楼层
 				break;
 			case 1: case 2: case 3: case 4: //沙暴大地
-//				level = new SandAreaLevel();
-//				break;
+				level = new SandAreaLevel();
+				break;
 			case 5:
 				level = new SandAreaBossLevel2();
 				break;

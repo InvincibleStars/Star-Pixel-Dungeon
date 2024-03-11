@@ -31,7 +31,8 @@ public class CellBlockRoom extends StandardRoom {
 
 	@Override
 	public float[] sizeCatProbs() {
-		return new float[]{0, 3, 1};
+		//return new float[]{0, 3, 1};
+		return new float[]{0, 1, 0};
 	}
 
 	@Override
@@ -46,8 +47,8 @@ public class CellBlockRoom extends StandardRoom {
 		int rows = (internal.width() - 1)/3;
 		int cols = (internal.height() - 1)/3;
 
-		if (internal.height() == 11) cols--;
-		if (internal.width() == 11) rows--;
+		if (internal.height() == 8) cols--;	//11
+		if (internal.width() == 8) rows--;		//11
 
 		int w = (internal.width() - 2 - (rows-1))/rows;
 		int h = (internal.height() - 2 - (cols-1))/cols;

@@ -326,15 +326,24 @@ public class Armor extends EquipableItem {
 		}
 	}
 	 */
-  //NEW
+
+
+	//防御
 	public int DRMax(int lvl){
-		int max = (tier * 2) * (2 + lvl) + augment.defenseFactor(lvl)+(masteryPotionBonus*4);
+		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+			return 1 + tier + lvl + augment.defenseFactor(lvl);
+		}
+
+		int max = (tier * 2) * (2 + lvl) + augment.defenseFactor(lvl);
 		if (lvl > max){
-			return ((lvl - max)+1)/2+(masteryPotionBonus*4);
+			return ((lvl - max)+1)/2;
 		} else {
 			return max;
 		}
 	}
+
+
+
 
 	//最低防御
 
@@ -345,9 +354,9 @@ public class Armor extends EquipableItem {
 	public int DRMin(int lvl){
 		int max = DRMax(lvl);
 		if (lvl >= max){
-			return (lvl - max)+(masteryPotionBonus*2);
+			return lvl - max;
 		} else {
-			return lvl+(masteryPotionBonus*2);
+			return tier + lvl;
 		}
 	}
 
@@ -584,9 +593,8 @@ public int STRReq(){
 
 	protected static int STRReq(int tier, int lvl){
 		lvl = Math.max(0, lvl);
-
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return 10+(Math.round((tier -1) * 2)) - (int)((Math.sqrt(lvl))*2);
+		return 8 +(tier*2) - (lvl*(lvl+1)/2);
 	}
 	
 	@Override

@@ -57,10 +57,9 @@ public class CrossBow extends Weapon {
 	Item AmmoItem;
 
 	{
-		image = ItemSpriteSheet.SPIRIT_BOW;
+		image = ItemSpriteSheet.GUN;
 		//默认动作：射击
 		defaultAction = AC_SHOOT;
-		usesTargeting = true;
 		unique = true;
 		bones = false;
 
@@ -82,47 +81,43 @@ public class CrossBow extends Weapon {
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
-		//调用声名，然后为其指定类型(Ammo.class)
+		//防止装弹时产生瞄准标记
+		usesTargeting = false;
+		//指定弹药
 		this.AmmoItem = hero.belongings.getItem(Ammo.class);
-		//执行动作，进入判定轮
+		//动作
 		if (action.equals(AC_SHOOT)) {
-			//判断两个条件是否都成立
+			//检查子弹
 			if (bowammo < 1 && AmmoItem != null) {
-				//点击的按钮是
+				//装弹
 				action.equals(AC_LOAD);
-				//发送信息
+				//锁定操作并执行特效
+				hero.busy();
 				GLog.p(Messages.get(this, "nobowammo"));
-				/*hero.busy();*/
 				hero.sprite.operate(hero.pos);
-				//装填花费一个回合
 				hero.spend(1f);
-				//在头顶显示logo
-				SpellSprite.show(hero, SpellSprite.ANKH);
-				//播放声音
+				SpellSprite.show(hero, SpellSprite.CHARGE);
 				Sample.INSTANCE.play(Assets.Sounds.ATK_SPIRITBOW);
-				//设置弹药数量为1
+				//装弹并移除一个弹药
 				bowammo = 1;
-				//删除弹药
 				AmmoItem.detach(hero.belongings.backpack);
 				return;
+				//有子弹
 			} else if (bowammo == 1) {
+				usesTargeting = true;
 				curUser = hero;
 				curItem = this;
 				GameScene.selectCell(shooter);
 				return;
-			} else if (bowammo > 1) {
+				//子弹超出范围
+			} else if (bowammo > 1||bowammo < 0) {
 				bowammo = 1;
 				GLog.p(Messages.get(this, "addbowammo"));
 				curUser = hero;
 				curItem = this;
 				return;
-			} else if (bowammo < 0) {
-				bowammo = 1;
-				GLog.p(Messages.get(this, "addbowammo"));
-				curUser = hero;
-				curItem = this;
-				return;
-			} else {
+			}else {
+				//没子弹了
 				GLog.w(Messages.get(this, "lessammo"));
 				return;
 			}
@@ -142,17 +137,8 @@ public class CrossBow extends Weapon {
 				@Override
 				protected boolean act() {
 
-					//if (Random.Int(12) < ((Hero)attacker).pointsInTalent(Talent.NATURES_WRATH)){
-					//	Plant plant = (Plant) Reflection.newInstance(Random.element(harmfulPlants));
-					//	plant.pos = defender.pos;
-					//	plant.activate( defender.isAlive() ? defender : null );
-					//}
-
 					if (!defender.isAlive()) {
 						NaturesPower.naturesPowerTracker tracker = attacker.buff(NaturesPower.naturesPowerTracker.class);
-						//		if (tracker != null){
-						//			tracker.extend(((Hero) attacker).pointsInTalent(Talent.WILD_MOMENTUM));
-						//		}
 					}
 
 					Actor.remove(this);
@@ -210,17 +196,17 @@ public class CrossBow extends Weapon {
 
 	@Override
 	public int STRReq(int lvl) {
-		return 0;
+		return 10;
 	}
 
 	@Override
 	public int min(int lvl) {
-		return 50;
+		return 5+(lvl*3);
 	}
 
 	@Override
 	public int max(int lvl) {
-		return 80;
+		return 15+(lvl*8);
 	}
 
 
@@ -233,8 +219,8 @@ public class CrossBow extends Weapon {
 
 	@Override
 	public int damageRoll(Char owner) {
-		int MAX = 80;
-		int MIN = 50;
+		int MAX = max();
+		int MIN = min();
 		int damage = Random.Int(MIN, MAX);
 
 		if (owner instanceof Hero) {
@@ -294,13 +280,9 @@ public class CrossBow extends Weapon {
 
 	@Override //等级
 	public int level() {
-		return 0;
+		return level;
 	}
 
-	@Override //无法被升级
-	public boolean isUpgradable() {
-		return false;
-	}
 	//抛射物图像
 	public SpiritAmmo knockArrow() {
 		return new SpiritAmmo();
@@ -495,5 +477,10 @@ public class CrossBow extends Weapon {
 	@Override //物品价值（参与价值和售价运算）
 	public int value() {
 		return 150;
+	}
+
+
+	public boolean isUpgradable() {
+		return true;
 	}
 }

@@ -130,12 +130,16 @@ public class LloydsBeacon extends Artifact {
 
 			curUser = hero;
 			int chargesToUse = Dungeon.depth > 20 ? 2 : 1;
-
+/*
 			if (!isEquipped( hero )) {
 				GLog.i( Messages.get(Artifact.class, "need_to_equip") );
 				QuickSlotButton.cancel();
 
-			} else if (charge < chargesToUse) {
+			} else
+
+ */
+
+				if (charge < chargesToUse) {
 				GLog.i( Messages.get(this, "no_charge") );
 				QuickSlotButton.cancel();
 

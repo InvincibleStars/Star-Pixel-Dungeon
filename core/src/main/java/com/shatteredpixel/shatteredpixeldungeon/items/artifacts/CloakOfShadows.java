@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -42,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -68,12 +70,22 @@ public class CloakOfShadows extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK))
-				&& !cursed && (charge > 0 || activeBuff != null)) {
+		if (!cursed && (charge > 0 || activeBuff != null)) {
 			actions.add(AC_STEALTH);
 		}
 		return actions;
 	}
+
+	/*
+	@Override
+	public ArrayList<String> actions( Hero hero ) {
+		ArrayList<String> actions = super.actions( hero );
+		if ((isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_CLOAK)) && !cursed && (charge > 0 || activeBuff != null)) {
+			actions.add(AC_STEALTH);
+		}
+		return actions;
+	}
+	 */
 
 	@Override
 	public void execute( Hero hero, String action ) {
@@ -83,8 +95,8 @@ public class CloakOfShadows extends Artifact {
 		if (action.equals( AC_STEALTH )) {
 
 			if (activeBuff == null){
-				if (!isEquipped(hero) && !hero.hasTalent(Talent.LIGHT_CLOAK)) GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-				else if (cursed)       GLog.i( Messages.get(this, "cursed") );
+				//if (!isEquipped(hero) && !hero.hasTalent(Talent.LIGHT_CLOAK)) GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+				if (cursed)       GLog.i( Messages.get(this, "cursed") );
 				else if (charge <= 0)  GLog.i( Messages.get(this, "no_charge") );
 				else {
 					hero.spend( 1f );
@@ -114,7 +126,7 @@ public class CloakOfShadows extends Artifact {
 			activeBuff.attachTo(ch);
 		}
 	}
-
+/*
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
@@ -132,14 +144,27 @@ public class CloakOfShadows extends Artifact {
 			return false;
 	}
 
+ */
+
+
+	@Override //拾取动作
+	public boolean doPickUp(Hero hero, int pos) {
+		if (super.doPickUp(hero, pos)){
+			activate(hero);
+			return true;
+		}
+		return false;
+	}
+
+
+
+
 	@Override
 	public boolean collect( Bag container ) {
 		if (super.collect(container)){
-			if (container.owner instanceof Hero
-					&& passiveBuff == null
-					&& ((Hero) container.owner).hasTalent(Talent.LIGHT_CLOAK)){
+			//if (container.owner instanceof Hero && passiveBuff == null && ((Hero) container.owner).hasTalent(Talent.LIGHT_CLOAK)){
 				activate((Hero) container.owner);
-			}
+			//}
 			return true;
 		} else{
 			return false;
@@ -229,6 +254,7 @@ public class CloakOfShadows extends Artifact {
 					if (!isEquipped(Dungeon.hero)){
 						chargeToGain *= 0.5f*Dungeon.hero.pointsInTalent(Talent.LIGHT_CLOAK)/3f;
 					}
+					chargeToGain=12f;
 					partialCharge += chargeToGain;
 				}
 

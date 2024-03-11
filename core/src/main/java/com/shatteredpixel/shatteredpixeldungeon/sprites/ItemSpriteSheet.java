@@ -901,40 +901,67 @@ public class ItemSpriteSheet {
 	}
 
 	//新物品
-	//子弹）
+	//子弹
 	private static final int AMMOS = xy(1, 32);
 	//子弹
 	public static final int AMMO = AMMOS + 0;
 	//子弹（投射物）
 	public static final int AMMO_MINI = AMMOS + 1;
+	//子弹盒
+	public static final int AMMO_BOX= AMMOS + 2;
+	//枪械
+	public static final int GUN= AMMOS + 3;
 	//贴图截取
 	static {
 		assignItemRect(AMMO, 6, 7);
 		assignItemRect(AMMO_MINI, 2, 2);
+		assignItemRect(AMMO_BOX, 9, 13);
+		assignItemRect(GUN, 12, 14);
 	}
 
-	//彩红石
-	private static final int COLOR_STONE = xy(1, 33);
-	//翡翠晶体
-	public static final int GREEN_STONE = COLOR_STONE + 0;
-	//黄昏晶体
-	public static final int RED_STONE = COLOR_STONE + 1;
-	//幽蓝晶体
-	public static final int BLUE_STONE = COLOR_STONE + 2;
-	//晶体高度（统一）
+	//彩色碎晶
+	private static final int GEM = xy(1, 33);
+	public static final int YINGCUI_GEM = GEM + 0;
+	public static final int LIUHUO_GEM = GEM + 1;
+	public static final int CANGLAN_GEM = GEM + 2;
+	public static final int HANCAI_GEM = GEM + 3;
+	public static final int WUXIA_GEM = GEM + 4;
+	public static final int LUORI_GEM = GEM + 5;
 	static {
-		for (int i = COLOR_STONE; i < COLOR_STONE + 16; i++)
+		for (int i = GEM; i < GEM + 16; i++)
 			assignItemRect(i, 6, 8);
 	}
+
+	//碎晶结晶
+	private static final int CRYSTALLIZE = xy(9, 33);
+	public static final int YINGCUI_CRYSTALLIZE = CRYSTALLIZE + 0;
+	public static final int LIUHUO_CRYSTALLIZE = CRYSTALLIZE + 1;
+	public static final int CANGLAN_CRYSTALLIZE = CRYSTALLIZE + 2;
+	public static final int HANCAI_CRYSTALLIZE = CRYSTALLIZE + 3;
+	public static final int WUXIA_CRYSTALLIZE = CRYSTALLIZE + 4;
+	public static final int LUORI_CRYSTALLIZE = GEM + 5;
+	static {
+		for (int i = CRYSTALLIZE; i < CRYSTALLIZE + 16; i++)
+			assignItemRect(i, 6, 8);
+	}
+
+
+
 	//星尘
-	private static final int COLOR_DUST = xy(1, 34);
-	//复苏之尘
-	public static final int GREEN_DUST = COLOR_DUST + 0;
-	//静谧之尘
-	public static final int BLUE_DUST = COLOR_DUST + 1;
+	private static final int STAR_DUST = xy(1, 34);
+	public static final int CANGCUI_DUST = STAR_DUST + 0;
+	public static final int LIUHUO_DUST = STAR_DUST + 1;
+
+	public static final int CANGLAN_DUST = STAR_DUST + 1;
+
+	public static final int HANCAI_DUST = STAR_DUST + 1;
+
+	public static final int WUXIA_DUST = STAR_DUST + 1;
+
+	public static final int LUORI_DUST = STAR_DUST + 1;
 
 	static {
-		for (int i = COLOR_DUST; i < COLOR_DUST + 16; i++)
+		for (int i = STAR_DUST; i < STAR_DUST + 16; i++)
 			assignItemRect(i, 9, 9);
 	}
 	//新武器-T1

@@ -27,6 +27,7 @@ import com.watabou.noosa.TextureFilm;
 
 public class MimicSprite extends MobSprite {
 
+
 	private Animation hiding;
 
 	{
@@ -35,6 +36,9 @@ public class MimicSprite extends MobSprite {
 		shadowWidth         = 1f;
 		shadowOffset        = -0.4f;
 	}
+
+	private Animation noarmor;
+
 
 	protected int texOffset(){
 		return 0;
@@ -47,7 +51,14 @@ public class MimicSprite extends MobSprite {
 
 		texture( Assets.Sprites.MIMIC );
 
+
+
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+
+		//第二形态移动的贴图
+		noarmor = new Animation( 8, true );
+		noarmor.frames( frames, 0+c, 0+c, 0+c, 0+c, 0+c, 1+c);
+
 
 		hiding = new Animation( 1, true );
 		hiding.frames( frames, 0+c, 0+c, 0+c, 0+c, 0+c, 1+c);

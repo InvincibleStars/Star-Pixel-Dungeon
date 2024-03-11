@@ -26,6 +26,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StormCloud;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
@@ -81,10 +82,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.DeathMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
+import com.shatteredpixel.shatteredpixeldungeon.effects.IconFloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -103,6 +107,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Shoc
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GrimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -126,6 +131,7 @@ public abstract class Char extends Actor {
 
 	public int HT;
 	public int HP = HT;
+	public float ATTACKPOWER=1.0f;
 	public int BOSSCOUNT = 0;
 
 	protected float baseSpeed	= 1;
@@ -549,7 +555,8 @@ public abstract class Char extends Actor {
 	}
 
 	public float speed() {
-		float speed = (baseSpeed-0.5f)+Random.Float(0.3f,0.8f);
+		//float speed = (baseSpeed-0.5f)+Random.Float(0.3f,0.8f);
+		float speed =1f;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
@@ -701,6 +708,119 @@ public abstract class Char extends Actor {
 		} else if (HP == 0 && buff(DeathMark.DeathMarkTracker.class) != null){
 			DeathMark.processFearTheReaper(this);
 		}
+
+
+
+		if (sprite != null) {
+
+			int icon = IconFloatingText.PHYS_DMG;
+			//无来源物理伤害暂时不显示
+			//if (NO_ARMOR_PHYSICAL_SOURCES.contains(src.getClass())) {
+			//	icon = IconFloatingText.PHYS_DMG_NO_BLOCK;
+			//}
+			if (AntiMagic.RESISTS.contains(src.getClass())) {
+				icon = IconFloatingText.MAGIC_DMG;
+			}
+
+			if (src instanceof Pickaxe) {
+				icon = IconFloatingText.PICK_DMG;
+			}
+
+			if (src == Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.SNIPER && !Dungeon.level.adjacent(Dungeon.hero.pos, this.pos) && (Dungeon.hero.belongings.weapon() instanceof MissileWeapon)) {
+				icon = IconFloatingText.PHYS_DMG_NO_BLOCK;
+			}
+
+			if (src instanceof Hunger) {
+				icon = IconFloatingText.HUNGER;
+			}
+
+			if (src instanceof Burning) {
+				icon = IconFloatingText.BURNING;
+			}
+
+			if ((src instanceof Chill) || (src instanceof Frost)) {
+				icon = IconFloatingText.FROST;
+			}
+
+			if ((src instanceof GeyserTrap) || (src instanceof StormCloud)) {
+				icon = IconFloatingText.WATER;
+			}
+
+			if (src instanceof Burning) {
+				icon = IconFloatingText.BURNING;
+			}
+
+			if (src instanceof Electricity) {
+				icon = IconFloatingText.SHOCKING;
+			}
+
+			if (src instanceof Bleeding) {
+				icon = IconFloatingText.BLEEDING;
+			}
+
+			if (src instanceof ToxicGas) {
+				icon = IconFloatingText.TOXIC;
+			}
+
+			if (src instanceof Corrosion) {
+				icon = IconFloatingText.CORROSION;
+			}
+
+			if (src instanceof Poison) {
+				icon = IconFloatingText.POISON;
+			}
+
+			if (src instanceof Ooze) {
+				icon = IconFloatingText.OOZE;
+			}
+
+			if (src instanceof Corruption) {
+				icon = IconFloatingText.CORRUPTION;
+			}
+			if (src instanceof Viscosity.DeferedDamage) {
+				icon = IconFloatingText.DEFERRED;
+			}
+			/*
+			if (src instanceof AscensionChallenge) {
+				icon = IconFloatingText.AMULET;
+			}
+
+			if (src instanceof ScaryDamageBuff) {
+				icon = IconFloatingText.HEARTDEMON_DMG;
+
+				if (src instanceof CrivusFruits.DiedBlobs) {
+					icon = IconFloatingText.REDGAS;
+				}
+
+				if (src instanceof HalomethaneBurning) {
+					icon = IconFloatingText.HALO;
+				}
+
+				if (src instanceof FrostBurning) {
+					icon = IconFloatingText.ICEFIRE;
+				}
+
+				if(src instanceof ScaryBuff){
+					icon = IconFloatingText.HEARTDEMON;
+				}
+			 */
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 
 	public void destroy() {
@@ -855,9 +975,9 @@ public abstract class Char extends Actor {
 
 	//travelling may be false when a character is moving instantaneously, such as via teleportation
 	public void move( int step, boolean travelling ) {
-		if(Dungeon.level.water[pos]){
+		//if(Dungeon.level.water[pos]){
 			//Buff.prolong(this, Blindness.class, BuffWait.T3);
-		}
+		//}
 
 		if (travelling && Dungeon.level.adjacent( step, pos ) && buff( Vertigo.class ) != null) {
 			sprite.interruptMotion();

@@ -78,6 +78,7 @@ public class Pot extends NPC {
 	public void die( Object cause ) {
 		super.die(cause);
 			switch (depth) {
+
 				case 1:
 					if(Random.Float()>=chance_one) {
 						level.drop(Generator.randomUsingDefaults(Generator.Category.SCROLL), pos).sprite.drop();

@@ -40,6 +40,7 @@ public class MysteryMeat extends Food {
 		image = ItemSpriteSheet.MEAT;
 		energy = Hunger.HUNGRY/2f;
 	}
+
 	
 	@Override
 	protected void satisfy(Hero hero) {

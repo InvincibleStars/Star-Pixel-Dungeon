@@ -61,8 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gem.UpdateStone;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.CanglanGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
@@ -253,7 +252,7 @@ public abstract class Level implements Bundlable {
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
 			}
 			if (Dungeon.updNeeded()) {
-				addItemToSpawn( new UpdateStone() );
+				addItemToSpawn( new CanglanGem() );
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
 			}
 			if (Dungeon.asNeeded()) {
@@ -993,7 +992,9 @@ public abstract class Level implements Bundlable {
 	}
 
 	public void occupyCell( Char ch ){
-		GLog.w(String.valueOf(Dungeon.hero.pos));
+		//输出点
+		//GLog.w(String.valueOf(Dungeon.hero.pos));
+		//GLog.w(String.valueOf(Dungeon.level.width));
 		//GLog.w(String.valueOf(Potion.));
 		if (!ch.isImmune(Web.class) && Blob.volumeAt(ch.pos, Web.class) > 0){
 			blobs.get(Web.class).clear(ch.pos);
@@ -1460,6 +1461,47 @@ public abstract class Level implements Bundlable {
 				return "";
 		}
 	}
+
+
+	//献祭之火
+
+	public int mobCount(){
+		float count = 0;
+		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
+			if (mob.alignment == Char.Alignment.ENEMY && !mob.properties().contains(Char.Property.MINIBOSS)) {
+				count += mob.spawningWeight();
+			}
+		}
+		return Math.round(count);
+	}
+
+	public boolean spawnMob(int disLimit){
+		PathFinder.buildDistanceMap(Dungeon.hero.pos, BArray.or(passable, avoid, null));
+
+		Mob mob = createMob();
+		mob.state = mob.WANDERING;
+		int tries = 30;
+		do {
+			mob.pos = randomRespawnCell(mob);
+			tries--;
+		} while ((mob.pos == -1 || PathFinder.distance[mob.pos] < disLimit) && tries > 0);
+
+		if (Dungeon.hero.isAlive() && mob.pos != -1 && PathFinder.distance[mob.pos] >= disLimit) {
+			GameScene.add( mob );
+			if (!mob.buffs(ChampionEnemy.class).isEmpty()){
+				GLog.w(Messages.get(ChampionEnemy.class, "warn"));
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+
+
+
+
 
 //	@Override
 //	public void occupyCell(Char ch) {

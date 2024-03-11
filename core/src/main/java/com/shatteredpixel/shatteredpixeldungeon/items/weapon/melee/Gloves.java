@@ -31,7 +31,7 @@ public class Gloves extends MeleeWeapon {
 		image = ItemSpriteSheet.GLOVES;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.3f;
-		cursed=true;
+		//cursed=true;
 
 		tier = 1;
 		DLY = 0.5f; //2x speed

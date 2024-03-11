@@ -47,36 +47,14 @@ public class MeleeWeapon extends Weapon {
 
 	public int tier;
 
-
-	//伤害计算
+	//伤害
+	@Override
+	public int min(int lvl) { return tier + lvl + masteryPotionBonus; }
 
 	@Override
-	public int min(int lvl) {
-		return tier +						//基础
-				lvl +						//成长
-				(masteryPotionBonus*2);		//附加
-	}
+	public int max(int lvl) { return 3*(tier+1) + lvl * (tier+1) + (masteryPotionBonus*2); }
 
-	@Override
-	public int max(int lvl) {
-		return  5*(tier+1) +				//基础
-				lvl*(tier+1) +				//成长
-				(masteryPotionBonus*2);   	//附加
-	}
-
-
-	//伤害保存
-
-	public int damin(int lvl) {
-		return min();
-	}
-
-	public int damax(int lvl) {
-		return max();
-	}
-
-	//力量需求
-
+	//力量
 	public int STRReq(int lvl){
 		return STRReq(tier, lvl);
 	}
@@ -185,11 +163,3 @@ public class MeleeWeapon extends Weapon {
 	}
 
 }
-
-
-
-
-
-
-
-

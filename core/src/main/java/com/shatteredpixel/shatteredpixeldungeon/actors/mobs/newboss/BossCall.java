@@ -47,55 +47,34 @@ public class BossCall extends InvisibleHP {
 
 	{
 		spriteClass = WraithSprite.class;
-
 		HP = HT = 1;
 		properties.add(Property.NOHP);
-		attackskill = 50;
-		defenseSkill = 0;
-		baseSpeed = 1f;
-		flying = true;
+		attackskill = 50;defenseSkill = 0;
+		baseSpeed = 1f;flying = true;
 
 	}
 
 	@Override
 	public boolean act() {
-				if (Dungeon.level.distance(this.pos, hero.pos) >= 5) {
-					alignment = ALLY2;
-
-				} else {
-					alignment = ENEMY;
-
-		}
-		return super.act();
-	}
-
-	
+				if (Dungeon.level.distance(this.pos, hero.pos) >= 5) {alignment = ALLY2;}
+				else {alignment = ENEMY;
+				}return super.act();}
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 0, 0 );
 	}
-
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange(0, 0);
 	}
-
 	public int RE = 80;
 	@Override
 	public void die ( Object cause ) {
-		super.die(cause);
-		for(Mob boss:level.mobs){
-			if(boss instanceof Level1Boss){
-				if(boss.HP<=5){
-					boss.HP-=boss.HP;
-					boss.BOSSCOUNT=0;
-				} else {
-					boss.HP-=5;
-					boss.BOSSCOUNT=0;
-					}
-				}
-			}
-		}
-	}
+		super.die(cause);for(Mob boss:level.mobs){
+							if(boss instanceof Level1Boss){if(boss.HP<=5){boss.HP-=boss.HP;
+								if(boss.BOSSCOUNT<=1){boss.BOSSCOUNT=0;}
+								else{boss.BOSSCOUNT-=1;}}
+							else{if(boss.BOSSCOUNT<=1){boss.BOSSCOUNT=0;}
+								else{boss.BOSSCOUNT-=1;}}}}}}
 
 

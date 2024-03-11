@@ -28,7 +28,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Enchanting;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
@@ -40,22 +39,19 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Friendly;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Polarized;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Sacrificial;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocking;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Bloody;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Chilling;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Corrupting;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Elastic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projecting;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.newweapon.tier3.Thorn;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Thorn;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -80,6 +76,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public enum Augment {
 		SPEED   (0.7f, 0.6667f),
 		DAMAGE  (1.5f, 1.6667f),
+		
+		UPDATE	(7f,1f),
+		DEF	(7f,1f),
 		NONE	(1.0f, 1.0000f);
 
 		private float damageFactor;
@@ -227,15 +226,12 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		return req;
 	}
-
+	//力量
 	public abstract int STRReq(int lvl);
 
-//力量需求
 	protected static int STRReq(int tier, int lvl){
 		lvl = Math.max(0, lvl);
-
-		//strength req decreases at +1,+3,+6,+10,etc.
-		return 8+(tier * 2) - lvl;
+		return 8 +(tier*2) - (lvl*(lvl+1)/2);
 	}
 
 	@Override
@@ -355,10 +351,11 @@ abstract public class Weapon extends KindOfWeapon {
 
 		//RARE
 		private static final Class<?>[] common = new Class<?>[]{
-				Blazing.class, Chilling.class, Kinetic.class,
-				Shocking.class, Kinetic.class, Shocking.class,
-				Chilling.class,
-				Kinetic.class
+//				Blazing.class, Chilling.class, Kinetic.class,
+//				Shocking.class, Kinetic.class, Shocking.class,
+//				Chilling.class,
+//				Kinetic.class
+				Bloody.class
 		};
 
 		private static final Class<?>[] uncommon = new Class<?>[]{
@@ -372,10 +369,10 @@ abstract public class Weapon extends KindOfWeapon {
 				Annoying.class};
 		
 		private static final float[] typeChances = new float[]{
-				100, //12.5% each
-				0, //6.67% each
-				0  //3.33% each
-				//5 4 1
+				//50, //12.5% each
+				//40, //6.67% each
+				//10  //3.33% each
+				100
 		};
 		
 		private static final Class<?>[] curses = new Class<?>[]{
@@ -443,6 +440,8 @@ abstract public class Weapon extends KindOfWeapon {
 					return randomUncommon( toIgnore );
 				case 2:
 					return randomRare( toIgnore );
+				case 3:
+					return randomAnnoying( toIgnore );
 			}
 		}
 		
@@ -483,6 +482,17 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		@SuppressWarnings("unchecked")
 		public static Enchantment randomRare( Class<? extends Enchantment> ... toIgnore ) {
+			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(rare));
+			enchants.removeAll(Arrays.asList(toIgnore));
+			if (enchants.isEmpty()) {
+				return random(null);
+			} else {
+				return (Enchantment) Reflection.newInstance(Random.element(enchants));
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		public static Enchantment randomAnnoying( Class<? extends Enchantment> ... toIgnore ) {
 			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(rare));
 			enchants.removeAll(Arrays.asList(toIgnore));
 			if (enchants.isEmpty()) {

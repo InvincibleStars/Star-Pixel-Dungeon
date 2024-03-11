@@ -21,15 +21,15 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.BlackWorm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandScorpion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.RockBug;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.e.RockBug2;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.LifeSand;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandCrab;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.SandWorm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.sandarea.e.SandWorm2;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.Gnoll;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.BlackWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandScorpion;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.RockBug;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.LifeSand;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandCrab;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.RockBug2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.SandWorm2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -52,36 +52,37 @@ public class Bestiary {
 			
 			// 沙暴大地
 			case 0: default:
-				return new ArrayList<>(Arrays.asList());
+
 			case 1:
+				//2x黑晶虫，1x沙虫
 				return new ArrayList<>(Arrays.asList(
-						SandWorm.class,
 						BlackWorm.class,BlackWorm.class,
-						RockBug.class, RockBug.class
+						SandWorm.class
 						));
 			case 2:
+				//2x黑晶虫，2x沙虫，1x甲虫
 				return new ArrayList<>(Arrays.asList(
+						BlackWorm.class,BlackWorm.class,
 						SandWorm.class, SandWorm.class,
-						BlackWorm.class,
-						RockBug.class,RockBug.class
+						RockBug.class
 						));
 			case 3:
+				//2x黑晶虫，1x沙虫，1x甲虫，1x激光蟹，1x流沙
 				return new ArrayList<>(Arrays.asList(
-						SandWorm.class,SandWorm.class,SandWorm.class,
+						SandWorm.class,
+						BlackWorm.class,
 						RockBug.class,RockBug.class,
+						LifeSand.class,
 						SandCrab.class));
 			case 4:
+				//1x甲虫，1x沙虫，1x激光蟹，1x蝎子
 				return new ArrayList<>(Arrays.asList(
-						SandWorm.class, RockBug.class,
-						SandCrab.class, SandCrab.class,
-						SandScorpion.class, SandScorpion.class,
-						LifeSand.class));
+						SandWorm.class,
+						RockBug.class,
+						SandCrab.class,
+						SandScorpion.class));
 			case 5:
-				return new ArrayList<>(Arrays.asList(
-						SandWorm.class, RockBug.class,
-						SandCrab.class, SandCrab.class,
-						SandScorpion.class, SandScorpion.class,
-						LifeSand.class,LifeSand.class));
+				return new ArrayList<>(Arrays.asList());
 				
 			// Prison
 			case 6:

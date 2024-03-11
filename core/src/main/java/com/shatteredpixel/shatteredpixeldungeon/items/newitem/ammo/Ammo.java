@@ -23,15 +23,20 @@ package com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -87,7 +92,34 @@ public class Ammo extends Item {
 	//defaultaction
 
 
+	public static class AmmoBox extends Ammo {
+
+		{
+			image = ItemSpriteSheet.AMMO_BOX;
+			stackable = false;
+		}
+
+		@Override
+		public int value() {
+			return super.value();
+		}
+
+		@Override
+		public boolean doPickUp(Hero hero, int pos) {
+			Ammo ammo = new Ammo();
+			new AmmoBox();
+			//随机掉落10-20颗弹药的弹药盒
+			ammo.quantity(Random.Int(10,20));
+			if (ammo.doPickUp(hero, pos)) {	return true; }
+			return false;
+		}
+
+	}
 
 
+	@Override
+	public int value() {
+		return 20;
+	}
 
 }

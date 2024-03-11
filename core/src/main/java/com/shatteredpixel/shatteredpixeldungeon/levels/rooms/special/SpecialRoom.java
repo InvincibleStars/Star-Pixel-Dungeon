@@ -142,7 +142,8 @@ public abstract class SpecialRoom extends Room {
 	public static SpecialRoom createRoom(){
 		if (Dungeon.depth == pitNeededDepth){
 			pitNeededDepth = -1;
-			
+
+
 			floorSpecials.remove( ArmoryRoom.class );
 			floorSpecials.remove( CryptRoom.class );
 			floorSpecials.remove( LibraryRoom.class );
@@ -151,7 +152,9 @@ public abstract class SpecialRoom extends Room {
 			floorSpecials.remove( TreasuryRoom.class );
 			floorSpecials.remove( VaultRoom.class );
 			floorSpecials.remove( WeakFloorRoom.class );
-			
+
+
+
 			return new PitRoom();
 			
 		} else if (floorSpecials.contains(LaboratoryRoom.class)) {

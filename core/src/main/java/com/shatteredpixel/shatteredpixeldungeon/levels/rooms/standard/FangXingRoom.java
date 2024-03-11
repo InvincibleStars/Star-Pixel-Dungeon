@@ -57,8 +57,10 @@ public class FangXingRoom extends StandardRoom {
 			Painter.fill( level, this, 0, Terrain.WALL );
 			Painter.fill(level, this, 1, Terrain.GRASS);
 			Painter.fill(level, this, 2, Terrain.CHASM);
-
-			Painter.fill(level, this, 3, Terrain.CHASM);
+			Painter.fill(level, this, 2, Terrain.CHASM);
+			Painter.fill(level, this, 4, Terrain.WALL);
+			Painter.fill(level, this, 5, Terrain.EMPTY);
+			Painter.fill(level, this, 7, Terrain.CHASM);
 		}
 		if ((width() > 16 && width () <=20)) {
 			Painter.fill( level, this, 0, Terrain.WALL );
@@ -67,6 +69,7 @@ public class FangXingRoom extends StandardRoom {
 			Painter.fill(level, this, 3, Terrain.CHASM);
 			Painter.fill(level, this, 4, Terrain.WALL);
 			Painter.fill(level, this, 5, Terrain.EMPTY);
+			Painter.fill(level, this, 7, Terrain.CHASM);
 		}
 		if (width() > 20 ) {
 			Painter.fill( level, this, 0, Terrain.WALL );

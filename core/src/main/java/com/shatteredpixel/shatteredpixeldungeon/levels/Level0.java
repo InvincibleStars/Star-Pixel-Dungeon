@@ -1,16 +1,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotHeart2;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newmob.treearea.WoodenCross;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
-import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -160,9 +156,9 @@ public class Level0 extends Level {
     @Override
     protected void createMobs() {
 
-//            Level1Boss i= new Level1Boss();
-//            i.pos = 330;
-//            mobs.add(i);
+            Gnoll i= new Gnoll();
+            i.pos = 330;
+            mobs.add(i);
 
 
     }
@@ -178,9 +174,9 @@ public class Level0 extends Level {
 
     @Override
     protected void createItems() {
-//        drop(new Torch(),137).type = Heap.Type.FOR_SALE;
+       // drop(new Ammo.AmmoBox(),29);
 //        if(Badges.isUnlocked(Badges.Badge.ALL_ARMOR_IDENTIFIED)){
-//            drop(new Torch(), 312);
+//            drop(new Torch(), 29);
 //        }
 //        drop(new Torch(), 162);
     }

@@ -44,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
+import com.shatteredpixel.shatteredpixeldungeon.effects.IconFloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Ripple;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
@@ -418,18 +419,10 @@ public class GameScene extends PixelScene {
 					break;
 					//沙漠
 				case 1:
-					WndStory.showChapter( WndStory.ID_SAND1 );
+					WndStory.showChapter( WndStory.ID_SAND );
 					break;
-				case 2:
-					WndStory.showChapter( WndStory.ID_SAND2 );
+				case 5: WndStory.showChapter( WndStory.ID_SAND_BOSS );
 					break;
-				case 3:
-					WndStory.showChapter( WndStory.ID_SAND3 );
-					break;
-				case 4:
-					WndStory.showChapter( WndStory.ID_SAND4 );
-					break;
-				case 5: WndStory.showChapter( WndStory.ID_SAND5 );break;
 				}
 				if (Dungeon.hero.isAlive() && Dungeon.depth>=2) {
 					Badges.validateNoKilling();
@@ -930,6 +923,12 @@ public class GameScene extends PixelScene {
 			scene.addCustomTile(t);
 		}
 	}
+
+	public static IconFloatingText iconstatus(){
+		return scene!=null ? (IconFloatingText)scene.statuses.recycle(IconFloatingText.class) : null;
+	}
+
+
 	
 	public static void effect( Visual effect ) {
 		if (scene != null) scene.effects.add( effect );

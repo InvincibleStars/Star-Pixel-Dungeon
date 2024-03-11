@@ -43,16 +43,9 @@ public class WndStory extends Window {
 	private static final float bgG	= 0.73f;
 	private static final float bgB	= 0.62f;
 	
-	public static final int ID_SAND1		= 0;
-	public static final int ID_SAND2		= 1;
-	public static final int ID_SAND3		= 3;
-	public static final int ID_SAND4		= 4;
-	public static final int ID_SAND5		= 5;
-	public static final int ID_TREE1		= 6;
-	public static final int ID_TREE2		= 7;
-	public static final int ID_TREE3		= 8;
-	public static final int ID_TREE4		= 9;
-	public static final int ID_TREE5		= 10;
+	public static final int ID_SAND		= 0;
+	public static final int ID_SAND_BOSS		= 1;
+	public static final int ID_TREE			= 2;
 	public static final int ID_PRISON		= 11;
 	public static final int ID_CAVES		= 12;
 	public static final int ID_CITY     	= 13;
@@ -70,22 +63,9 @@ public class WndStory extends Window {
 	static {
 		CHAPTERS.put( ID_ERROR, "error" );
 		CHAPTERS.put( ID_LEVEL_0, "level0" );
-		CHAPTERS.put( ID_SAND1, "sand1" );
-		/*CHAPTERS.put( ID_SAND2, "sand2" );
-		CHAPTERS.put( ID_SAND3, "sand3" );
-		CHAPTERS.put( ID_SAND4, "sand4" );
-		CHAPTERS.put( ID_SAND5, "sand5" );
-		CHAPTERS.put( ID_TREE1, "tree1" );
-		CHAPTERS.put( ID_TREE2, "tree2" );
-		CHAPTERS.put( ID_TREE3, "tree3" );
-		CHAPTERS.put( ID_TREE4, "tree4" );
-		CHAPTERS.put( ID_TREE5, "tree5" );
-		CHAPTERS.put( ID_PRISON, "prison1" );
-		CHAPTERS.put( ID_CAVES, "caves1" );
-		CHAPTERS.put( ID_CITY, "city1" );
-		CHAPTERS.put( ID_HALLS, "halls1" );
-		
-		 */
+		CHAPTERS.put( ID_SAND, "sand" );
+		CHAPTERS.put( ID_SAND_BOSS, "sandboss" );
+
 	}
 
 	private IconTitle ttl;

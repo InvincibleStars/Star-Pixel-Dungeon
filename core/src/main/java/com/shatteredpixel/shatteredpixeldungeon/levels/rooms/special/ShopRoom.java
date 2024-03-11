@@ -46,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -162,6 +163,10 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add( new ClothArmor().identify() );
 			itemsToSpawn.add( new CrossBow().identify() );
 			itemsToSpawn.add( new Torch() );
+			itemsToSpawn.add( new Ammo.AmmoBox() );
+			if(Random.Float()<=0.3f){
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+			}
 				break;
 
 		case 6:
@@ -170,6 +175,13 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add( new LeatherArmor().identify() );
 			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
 			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
+			itemsToSpawn.add( new Ammo.AmmoBox() );
+			if(Random.Float()<=0.3f){
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+			}
+			if(Random.Float()<=0.3f){
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+			}
 			break;
 			
 		case 11:
@@ -178,6 +190,13 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add( new MailArmor().identify() );
 			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
 			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
+			itemsToSpawn.add( new Ammo.AmmoBox() );
+			if(Random.Float()<=0.3f){
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+			}
+			if(Random.Float()<=0.3f){
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+			}
 			break;
 			
 		case 16:
@@ -186,6 +205,13 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add( new ScaleArmor().identify() );
 			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
 			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
+			itemsToSpawn.add( new Ammo.AmmoBox() );
+			if(Random.Float()<=0.3f){
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+			}
+			if(Random.Float()<=0.3f){
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+			}
 			break;
 
 		case 20: case 21:
@@ -197,6 +223,13 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add( new Torch() );
 				itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
 				itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+				if(Random.Float()<=0.3f){
+					itemsToSpawn.add( new Ammo.AmmoBox() );
+				}
+				if(Random.Float()<=0.3f){
+					itemsToSpawn.add( new Ammo.AmmoBox() );
+				}
 			break;
 		}
 		w.enchant(null);

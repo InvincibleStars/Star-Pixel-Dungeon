@@ -75,6 +75,10 @@ public class StarWar extends Item {
         return false;
     }
 
+    public boolean doThrow(){
+        return false;
+    }
+
     @Override //升级设定
     public boolean isUpgradable() {
         return false;

@@ -72,6 +72,7 @@ public class StewedMeat extends Food {
 			cost = 2;
 			
 			output = StewedMeat.class;
+
 			outQuantity = 3;
 		}
 	}

@@ -372,10 +372,12 @@ public class Potion extends Item {
 		return isKnown() ? desc() : Messages.get(this, "unknown_desc");
 	}
 	
+
 	@Override
 	public boolean isIdentified() {
 		return isKnown();
 	}
+
 	
 	@Override
 	public boolean isUpgradable() {
@@ -589,5 +591,6 @@ public class Potion extends Item {
 
 		return level;
 	}
+
 
 }

@@ -67,9 +67,11 @@ public class SandalsOfNature extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (isEquipped( hero ) && level() < 3 && !cursed)
+		//if (isEquipped( hero ) && level() < 3 && !cursed)
+		if (level() < 3 && !cursed)
 			actions.add(AC_FEED);
-		if (isEquipped( hero ) && charge > 0)
+		//if (isEquipped( hero ) && charge > 0)
+		if (charge > 0)
 			actions.add(AC_ROOT);
 		return actions;
 	}
@@ -84,8 +86,9 @@ public class SandalsOfNature extends Artifact {
 
 		} else if (action.equals(AC_ROOT) && level() > 0){
 
-			if (!isEquipped( hero )) GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			else if (charge == 0)    GLog.i( Messages.get(this, "no_charge") );
+			//if (!isEquipped( hero )) GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+			//else
+			if (charge == 0)    GLog.i( Messages.get(this, "no_charge") );
 			else {
 				Buff.prolong(hero, Roots.class, Roots.DURATION);
 				Buff.affect(hero, Earthroot.Armor.class).level(charge);
@@ -118,7 +121,7 @@ public class SandalsOfNature extends Artifact {
 	public String desc() {
 		String desc = Messages.get(this, "desc_" + (level()+1));
 
-		if ( isEquipped ( Dungeon.hero ) ){
+		//if ( isEquipped ( Dungeon.hero ) ){
 			desc += "\n\n";
 
 			if (!cursed)
@@ -128,7 +131,7 @@ public class SandalsOfNature extends Artifact {
 
 			if (level() > 0)
 				desc += "\n\n" + Messages.get(this, "desc_ability");
-		}
+		//}
 
 		if (!seeds.isEmpty()){
 			desc += "\n\n" + Messages.get(this, "desc_seeds", seeds.size());

@@ -165,7 +165,7 @@ public abstract class RegularLevel extends Level {
 	protected abstract Painter painter();
 	
 	protected int nTraps() {
-		return Random.NormalIntRange( 5, 8 + (Dungeon.depth/3) );
+		return Random.NormalIntRange( 3 + Dungeon.depth % 5 , 6 + (Dungeon.depth/3) );
 	}
 	
 	protected Class<?>[] trapClasses(){
@@ -178,11 +178,12 @@ public abstract class RegularLevel extends Level {
 	
 	@Override
 	public int nMobs() {
+		//生成数量
 		if (Dungeon.depth <= 1) return 0;
-
-		int mobs = 3 + Dungeon.depth % 5 + Random.Int(3);
+		//%为取余，即楼层/5后的余数
+		int mobs = 10 + Dungeon.depth % 5 + Random.Int(3);
 		if (feeling == Feeling.LARGE){
-			mobs = (int)Math.ceil(mobs * 1.33f);
+			mobs = (int)Math.ceil(mobs * 1.20f);	//由4/3变成120%
 		}
 		return mobs;
 	}
@@ -259,7 +260,7 @@ public abstract class RegularLevel extends Level {
 
 		while (true) {
 
-			if (++count > 30) {
+			if (++count > 300) {
 				return -1;
 			}
 

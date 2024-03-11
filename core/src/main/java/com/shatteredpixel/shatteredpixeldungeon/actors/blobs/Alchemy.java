@@ -67,4 +67,18 @@ public class Alchemy extends Blob {
 		emitter.start( Speck.factory( Speck.BUBBLE ), 0.33f, 0 );
 	}
 
+	public static int alchPos;
+
+	//1 volume is kept in reserve
+
+	//@Override
+	public int getEnergy() {
+		return Math.max(0, cur[alchPos] - 1);
+	}
+
+	//@Override
+	public void spendEnergy(int reduction) {
+		cur[alchPos] = Math.max(1, cur[alchPos] - reduction);
+	}
+
 }

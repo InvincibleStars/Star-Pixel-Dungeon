@@ -42,20 +42,19 @@ public class HandAxe extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1f;
 
-		tier = 1;
-		ACC = 1.32f; //32% boost to accuracy
+		tier = 2;
+		ACC = 1.30f; //32% boost to accuracy
 	}
 
 	@Override
 	public int max(int lvl) {
-		return 4 * (tier + 1) +    //12 base, down from 15
-				lvl * (tier + 1);   //scaling unchanged
+		return 3 * tier + lvl * (tier+1) + masteryPotionBonus*2 +4;
 	}
 
 	//attackBuff
 	public int proc(Char attacker, Char defender, int damage) {
 			if (defender instanceof Mob && ((Mob) defender).surprisedBy(hero)) {
-				Buff.affect(defender, Bleeding.class).set(Math.round(damage * 588.2f));
+				Buff.affect(defender, Bleeding.class).set(Math.round(damage * 0.5f));
 				damage = 0;
 			}
 		return super.proc(attacker, defender, damage);

@@ -97,16 +97,16 @@ public class Star_v0_1_X_Changes {
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_NONE, null), "原初戒指",
 				"_-_ 初始携带的物品，可以通过嬗变转换成其他戒指"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_STONE, null), "结晶力量",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.YINGCUI_GEM, null), "结晶力量",
 				"_-_ 具有独特用途和合成素材的结晶将加入游戏\n"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_STONE, null), "尘埃“落定”",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.YINGCUI_CRYSTALLIZE, null), "尘埃“落定”",
 				"_-_ 具有更多效用的尘埃将逐步加入\n"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.AMMO, null), "枪械/子弹",
 				"_-_ 枪械作为地牢中强大的远程武器，本身需要子弹来装填，你可以在投掷武器房间内找到子弹，也可以在商店购买弹药"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_DUST, null), "合成",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WUXIA_DUST, null), "合成",
 				"_-_ 现在一些武器可以被拆解成为强化晶体了"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER, null), "新武器",

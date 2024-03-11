@@ -39,10 +39,13 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Speed;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -68,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
@@ -223,6 +227,7 @@ public class Hero extends Char {
 	public int exp = 0;
 
 	public int HTBoost = 0;
+	public int HTStart = 0;
 
 
 	public static final int NONE_HT = 20;
@@ -253,16 +258,16 @@ public class Hero extends Char {
 		visibleEnemies = new ArrayList<>();
 
 
-		HP = HT= 30;
+		HP = HT= 20;
 
 	}
 	
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 
-		HP = HT = 30 + 8 * (lvl-1);
+		HP = HT = HTStart + ( HTBoost *  lvl );
 		if (boostHP){
-			HP += Math.max(HT - curHT, 0);
+			HP += Math.max(HT - curHT + HTBoost, 0);
 		}
 		HP = Math.min(HP, HT);
 	}
@@ -725,13 +730,20 @@ public class Hero extends Char {
 	@Override
 	public boolean act() {
 
+		//在这里设置特定区域的限制条件
+		/*
+					在第四区域中若玩家不穿皮甲则会受到持续性的寒冷效果
 		if(Dungeon.level.water[pos] &&( Dungeon.depth>15 && Dungeon.depth<=20)){
-			Buff.prolong(this, Blindness.class, BuffWait.T3);
-			//hero.sprite.showStatus(CharSprite.POSITIVE, "请离开水源方块");
+
+			if(!(hero.belongings.armor instanceof ClothArmor)){Buff.affect(hero, Barkskin2.class).set(8);}
 		}
+		*/
+
 
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
+
+		//Buff.prolong(hero, Weakness.class, BuffWait.T20);
 
 
 		if (buff(Endure.EndureTracker.class) != null){
