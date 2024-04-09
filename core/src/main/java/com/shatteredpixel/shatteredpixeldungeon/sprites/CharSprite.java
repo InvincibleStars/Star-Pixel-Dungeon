@@ -36,6 +36,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TorchHalo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.AnkhParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.KillBustParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.ShtoffBuffParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -47,6 +49,7 @@ import com.watabou.glwrap.Matrix;
 import com.watabou.glwrap.Vertexbuffer;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.audio.Sample;
@@ -84,7 +87,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, CUTOFFBUFF, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS
+		BURNING, CUTOFFBUFF,ANKHBUFF, KILLBUST, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS
 	}
 	private int stunStates = 0;
 	
@@ -101,6 +104,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	
 	protected Emitter burning;
 	protected Emitter cutoffbuff;
+	protected Emitter ankhbuff;
+	protected Emitter killbust;
 	protected Emitter chilled;
 	protected Emitter marked;
 	protected Emitter levitation;
@@ -184,6 +189,26 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 
+	public void showStatus(int color, String text, Object... args) {
+		//TODO 实验性功能 ICONTYPE
+		showStatusWithIcon(color, text, IconFloatingText.NO_ICON, args);
+		/*
+		if (visible) {
+			if (args.length > 0) {
+				text = Messages.format( text, args );
+			}
+			float x = destinationCenter().x;
+			float y = destinationCenter().y - height()/2f;
+			if (ch != null) {
+				FloatingText.show( x, y, ch.pos, text, color );
+			} else {
+				FloatingText.show( x, y, text, color );
+			}
+			}
+		 */
+
+	}
+
 	public void showStatusWithIcon(int color, String text, int icon, Object... args) {
 		if (this.visible) {
 			if (args.length > 0) {
@@ -195,24 +220,6 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				IconFloatingText.show(x, y, ch.pos, text, color, icon, true);
 			} else {
 				IconFloatingText.show(x, y, -1, text, color, icon, true);
-			}
-		}
-	}
-
-
-
-	
-	public void showStatus( int color, String text, Object... args ) {
-		if (visible) {
-			if (args.length > 0) {
-				text = Messages.format( text, args );
-			}
-			float x = destinationCenter().x;
-			float y = destinationCenter().y - height()/2f;
-			if (ch != null) {
-				FloatingText.show( x, y, ch.pos, text, color );
-			} else {
-				FloatingText.show( x, y, text, color );
 			}
 		}
 	}
@@ -383,6 +390,20 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					Sample.INSTANCE.play( Assets.Sounds.BURNING );
 				}
 				break;
+			case ANKHBUFF:
+				ankhbuff = emitter();
+				ankhbuff.pour(AnkhParticle.ANKHREGEN, 0.06f );//0.06
+				if (visible) {
+					Sample.INSTANCE.play( Assets.Sounds.BURNING );
+				}
+				break;
+			case KILLBUST:
+				killbust = emitter();
+				killbust.pour(KillBustParticle.RED, 0.06f );//0.06
+				if (visible) {
+					Sample.INSTANCE.play( Assets.Sounds.BURNING );
+				}
+				break;
 			case LEVITATING:
 				levitation = emitter();
 				levitation.pour( Speck.factory( Speck.JET ), 0.02f );
@@ -439,10 +460,23 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					burning = null;
 				}
 				break;
+				//新特效
 			case CUTOFFBUFF:
 				if (cutoffbuff != null) {
 					cutoffbuff.on = false;
 					cutoffbuff = null;
+				}
+				break;
+			case ANKHBUFF:
+				if (ankhbuff != null) {
+					ankhbuff.on = false;
+					ankhbuff = null;
+				}
+				break;
+			case KILLBUST:
+				if (killbust != null) {
+					killbust.on = false;
+					killbust = null;
 				}
 				break;
 			case LEVITATING:
@@ -550,6 +584,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		}
 		if (cutoffbuff != null) {
 			cutoffbuff.visible = visible;
+		}
+		if (ankhbuff != null) {
+			ankhbuff.visible = visible;
+		}
+		if (killbust != null) {
+			killbust.visible = visible;
 		}
 		if (levitation != null) {
 			levitation.visible = visible;

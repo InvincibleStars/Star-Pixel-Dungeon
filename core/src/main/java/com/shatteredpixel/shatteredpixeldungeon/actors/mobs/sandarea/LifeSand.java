@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.LifeSandSprite;
 import com.watabou.utils.Random;
 
@@ -40,17 +41,20 @@ public class LifeSand extends Mob {
 		maxLvl = 5;
 
 
-		defenseSkill = 2;
+		defenseSkill = 4;
+
+		loot = Generator.Category.WEAPON;
+		lootChance = 0.25f;
 	}
 
 	@Override
 	public int attackSkill( Char target ) {
-		return 10;
+		return 12;
 	}
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(1, 6);
+		return Random.NormalIntRange(1, 8);
 	}
 
 	@Override

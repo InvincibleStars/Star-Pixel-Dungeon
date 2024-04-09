@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
@@ -27,17 +27,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StenchGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FetidRatSprite;
 import com.watabou.utils.Random;
 
-public class FetidRat extends Acidic.Rat {
+public class FetidRat extends Rat {
 
 	{
 		spriteClass = FetidRatSprite.class;
 
-		HP = HT = 20;
-		defenseSkill = 5;
+		HP = HT = 20+Random.Int(2);
 
 		EXP = 4;
 
@@ -48,13 +48,18 @@ public class FetidRat extends Acidic.Rat {
 	}
 
 	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange( 1, 12 );
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 12;
 	}
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(0, 3);
 	}
 
 	@Override
@@ -70,7 +75,7 @@ public class FetidRat extends Acidic.Rat {
 	@Override
 	public int defenseProc( Char enemy, int damage ) {
 
-		GameScene.add(Blob.seed(pos, 20, StenchGas.class));
+		GameScene.add(Blob.seed(pos, 15, StenchGas.class));
 
 		return super.defenseProc(enemy, damage);
 	}

@@ -550,42 +550,15 @@ public class Potion extends Item {
 	@Override
 	public int level() {
 
-		PotionLevel areass = Dungeon.hero.belongings.getItem(PotionLevel.class);
+		//科技树不会被售卖
 
-		if (areass != null) {
-			level = areass.level;
+		PotionLevel pl = Dungeon.hero.belongings.getItem(PotionLevel.class);
+
+		if (pl != null) {
+			level = pl.level();
 		}
 
-//		if (areass != null) {
-//			level = areass.level;
-		//问题在于不应该else
-//		} else {
-//			areass.level = 0;
-//		}
-
-
-		if (areass == null) {
-			if (Dungeon.shopOnLevel()) {
-				for (Heap heap : Dungeon.level.heaps.valueList()) {
-
-					if (heap.type == Heap.Type.FOR_SALE) {
-						for (Item i : heap.items) {
-							if (i instanceof PotionLevel) {
-								level = i.level();
-							}
-						}
-					}
-				}
-			}
-		}
-
-		if (Dungeon.shopOnLevel()) {
-			return level;
-		}
-
-		if (areass != null) {
-			level = areass.level();
-		} else {
+		if (pl == null) {
 			level = 0;
 		}
 

@@ -50,21 +50,7 @@ public class Bloody extends Weapon.Enchantment {
 		float procChance = (level+1f)/(level+3f) * procChanceMultiplier(attacker);
 		if (Random.Float() < procChance) {
 
-			/*
-			if (defender.buff(Burning.class) != null){
-				Buff.affect(defender, Burning.class).reignite(defender, 8f);
-				int burnDamage = Random.NormalIntRange( 1, 3 + Dungeon.depth/4 );
-				defender.damage( Math.round(burnDamage * 0.67f), this );
-			} else {
-				Buff.affect(defender, Burning.class).reignite(defender, 8f);
-			}
-			
-			defender.sprite.emitter().burst( FlameParticle.FACTORY, level + 1 );
-
-			 */
-
 			if (defender.buff(Bleeding.class)!=null) {
-				//Buff.affect(defender, Bleeding.class).set(3f);
 				Buff.affect(defender, Weakness.class, 5f);
 			}else{
 				Buff.affect(defender, Bleeding.class).set(3f);
@@ -77,20 +63,7 @@ public class Bloody extends Weapon.Enchantment {
 		return damage;
 
 	}
-/*
-	public int proc(Char attacker, Char defender, int damage) {
-		if (defender.buff(Bleeding.class)!=null) {
-			Buff.affect(defender, Bleeding.class).set(2f);
-			Buff.affect(defender, Cripple.class, BuffWait.T2);
-			GLog.n( Messages.get(this, "warm") );
-		}
-		return super.proc(attacker, defender, damage);
-	}
 
- */
-
-
-	
 	@Override
 	public Glowing glowing() {
 		return ORANGE;

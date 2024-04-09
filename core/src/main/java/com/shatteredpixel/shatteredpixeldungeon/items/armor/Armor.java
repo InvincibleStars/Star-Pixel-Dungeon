@@ -289,11 +289,8 @@ public class Armor extends EquipableItem {
 		return hero.belongings.armor() == this;
 	}
 
-	//最大防御
-	public final int DRMax(){
-		return DRMax(buffedLvl());
-	}
-	/*
+	public final int DRMax(){return DRMax(buffedLvl());}
+
 	public int DRMax(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 1 + tier + lvl + augment.defenseFactor(lvl);
@@ -307,49 +304,7 @@ public class Armor extends EquipableItem {
 		}
 	}
 
-	//最低防御
-
-	public final int DRMin(){
-		return DRMin(buffedLvl());
-	}
-
-	public int DRMin(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return 0;
-		}
-
-		int max = DRMax(lvl);
-		if (lvl >= max){
-			return (lvl - max);
-		} else {
-			return lvl;
-		}
-	}
-	 */
-
-
-	//防御
-	public int DRMax(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return 1 + tier + lvl + augment.defenseFactor(lvl);
-		}
-
-		int max = (tier * 2) * (2 + lvl) + augment.defenseFactor(lvl);
-		if (lvl > max){
-			return ((lvl - max)+1)/2;
-		} else {
-			return max;
-		}
-	}
-
-
-
-
-	//最低防御
-
-	public final int DRMin(){
-		return DRMin(buffedLvl());
-	}
+	public final int DRMin(){return DRMin(buffedLvl());}
 
 	public int DRMin(int lvl){
 		int max = DRMax(lvl);
@@ -359,7 +314,6 @@ public class Armor extends EquipableItem {
 			return tier + lvl;
 		}
 	}
-
 
 	
 	public float evasionFactor( Char owner, float evasion ){
@@ -501,6 +455,7 @@ public class Armor extends EquipableItem {
 	public String info() {
 		//NEW
 		String info = desc();
+
 		info += "\n\n" + Messages.get(Armor.class, "point", masteryPotionBonus,masteryPotionBonus*2,masteryPotionBonus*4);
 		
 		if (levelKnown) {

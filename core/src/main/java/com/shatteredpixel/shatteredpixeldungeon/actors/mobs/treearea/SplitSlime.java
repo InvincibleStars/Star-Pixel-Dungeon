@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SwarmSprite;
 import com.watabou.utils.Bundle;
@@ -45,16 +46,16 @@ public class SplitSlime extends Mob {
 	{
 		spriteClass = SwarmSprite.class;
 		
-		HP = HT = 50;
-		defenseSkill = 5;
+		HP = HT = 22;
+		defenseSkill = 8;
 
-		EXP = 3;
-		maxLvl = 9;
+		EXP = 6;
+		maxLvl = 11;
 		
 		flying = true;
 
-		loot = new PotionOfHealing();
-		lootChance = 0.1667f; //by default, see rollToDropLoot()
+		loot = new Plant.Seed();
+		lootChance = 1; //by default, see rollToDropLoot()
 	}
 	
 	private static final float SPLIT_DELAY	= 1f;
@@ -78,7 +79,7 @@ public class SplitSlime extends Mob {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 4 );
+		return Random.NormalIntRange( 3, 14 );
 	}
 	
 	@Override
@@ -137,17 +138,13 @@ public class SplitSlime extends Mob {
 		}
 		return clone;
 	}
-	
-	@Override
-	public void rollToDropLoot() {
-		lootChance = 1f/(6 * (generation+1) );
-		lootChance *= (5f - Dungeon.LimitedDrops.SWARM_HP.count) / 5f;
-		super.rollToDropLoot();
-	}
+
 	
 	@Override
 	protected Item createLoot(){
-		Dungeon.LimitedDrops.SWARM_HP.count++;
+		for (int i = 0; i < Random.Int(2,8); i++) {
+			createLoot();
+		}
 		return super.createLoot();
 	}
 }

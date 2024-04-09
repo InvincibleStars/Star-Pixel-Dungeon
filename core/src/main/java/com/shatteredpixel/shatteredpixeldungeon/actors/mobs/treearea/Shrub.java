@@ -38,10 +38,10 @@ public class Shrub extends Mob {
 		HP = HT = 1;
 		defenseSkill = 0;
 
-		EXP = 2;
+		EXP = 0;
 
 		loot = Generator.Category.SEED;
-		lootChance = 0.1f;
+		lootChance = 0.2f;
 
 		state = PASSIVE;
 
@@ -50,17 +50,9 @@ public class Shrub extends Mob {
 
 	@Override
 	public int defenseProc(Char enemy, int damage) {
-		GameScene.add(Blob.seed(pos, 800, StormCloud.class));
+		GameScene.add(Blob.seed(pos, 200, StormCloud.class));
 
 		return super.defenseProc(enemy, 15);
-	}
-
-
-	{ immunities.add( ToxicGas.class ); }
-
-	@Override
-	public int attackSkill( Char target ) {
-		return 9;
 	}
 
 	//private class Waiting extends Wandering{}

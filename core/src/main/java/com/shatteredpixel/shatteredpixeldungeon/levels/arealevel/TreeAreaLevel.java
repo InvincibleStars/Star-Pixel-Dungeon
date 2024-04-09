@@ -71,14 +71,14 @@ public class TreeAreaLevel extends RegularLevel {
 	protected int standardRooms(boolean forceMax) {
 		if (forceMax) return 6;
 		//12-15
-		return 11+Random.chances(new float[]{4,3,2,1});
+		return 18+Random.chances(new float[]{4,3,2,1});
 	}
 	
 	@Override
 	protected int specialRooms(boolean forceMax) {
 		if (forceMax) return 3;
 		//2
-		return 3+Random.chances(new float[]{0, 0, 0});
+		return 3+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override

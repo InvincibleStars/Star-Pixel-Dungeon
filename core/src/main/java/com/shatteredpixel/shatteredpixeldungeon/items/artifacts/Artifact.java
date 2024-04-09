@@ -24,19 +24,13 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class Artifact extends KindofMisc {
 
@@ -48,7 +42,7 @@ public class Artifact extends KindofMisc {
 	//exp is used to count progress towards levels for some artifacts
 	protected int exp = 0;
 	//levelCap is the artifact's maximum level
-	protected int levelCap = 10;
+	protected int levelCap = 0;
 
 	//the current artifact charge
 	protected int charge = 0;
@@ -61,23 +55,8 @@ public class Artifact extends KindofMisc {
 	//used by some artifacts to keep track of duration of effects or cooldowns to use.
 	protected int cooldown = 0;
 
-	@Override //移除装备按钮
-	public ArrayList<String> actions(Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
-		actions.remove( AC_EQUIP );
-		return actions;
-	}
-
 	@Override
 	public boolean doEquip( final Hero hero ) {
-
-		if ((hero.belongings.artifact != null && hero.belongings.artifact.getClass() == this.getClass())
-				|| (hero.belongings.misc != null && hero.belongings.misc.getClass() == this.getClass())){
-			GLog.w( Messages.get(Artifact.class, "cannot_wear_two") );
-		}
-			identify();
-			return true;
-		/*
 
 		if ((hero.belongings.artifact != null && hero.belongings.artifact.getClass() == this.getClass())
 				|| (hero.belongings.misc != null && hero.belongings.misc.getClass() == this.getClass())){
@@ -100,11 +79,7 @@ public class Artifact extends KindofMisc {
 
 		}
 
-		 */
-
 	}
-
-
 
 	public void activate( Char ch ) {
 		passiveBuff = passiveBuff();
@@ -270,51 +245,4 @@ public class Artifact extends KindofMisc {
 		else                charge = bundle.getInt( CHARGE );
 		partialCharge = bundle.getFloat( PARTIALCHARGE );
 	}
-
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
-
-	public void doDrop( Hero hero ) {
-		hero.spendAndNext(TIME_TO_DROP);
-		int pos = hero.pos;
-		Dungeon.level.drop(detachAll(hero.belongings.backpack), pos).sprite.drop(pos);
-		if (passiveBuff != null) {
-			passiveBuff.detach();
-			passiveBuff = null;
-			//green
-			//GLog.n(String.valueOf(this));
-		}
-	}
-
-	@Override
-	public void doThrow( Hero hero ) {
-		GameScene.selectCell(thrower);
-	}
-
-	protected void onThrow( int cell ) {
-		Heap heap = Dungeon.level.drop( this, cell );
-		if (!heap.isEmpty()) {
-			heap.sprite.drop( cell );
-			if (passiveBuff != null) {
-				passiveBuff.detach();
-				passiveBuff = null;
-				//green
-				//GLog.n(String.valueOf(this));
-			}
-		}
-	}
-
-	public boolean doPickUp(Hero hero, int pos) {
-		if (super.doPickUp(hero, pos)){
-			activate(hero);
-			//green
-			GLog.p(String.valueOf(this));
-			return true;
-		}
-		return false;
-	}
-
-
 }

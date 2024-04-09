@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
@@ -45,11 +46,16 @@ public class BlackWorm extends Mob {
 		
 		//HP = HT =  12 + Random.Int(6);
 
-		HP = HT =  5 + Random.Int(4);
+		HP = HT =  6 + Random.Int(4) + Dungeon.depth;
 
 		EXP = 1;
+
+		defenseSkill = 3;
 		
 		maxLvl = 3;
+
+		loot = Generator.Category.GOLD;
+		lootChance = 0.25f;
 
 
 	}
@@ -65,7 +71,7 @@ public class BlackWorm extends Mob {
 
 	@Override
 	public int attackSkill( Char target ) {
-		return 10;
+		return 12;
 	}
 
 	@Override

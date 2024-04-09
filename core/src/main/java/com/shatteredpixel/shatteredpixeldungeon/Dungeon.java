@@ -255,25 +255,28 @@ public class Dungeon {
 			case 0:
 				level = new Level0(); //初始楼层
 				break;
-			case 1: case 2: case 3: case 4: //沙暴大地
-				level = new SandAreaLevel();
+			case 1: case 2: case 3: case 4: //沙地
+				level = new CavesLevel();
+				//level = new SandAreaLevel();
+				//level = new TreeAreaLevel();
+				//level=new SandAreaLevel();
 				break;
 			case 5:
 				level = new SandAreaBossLevel2();
 				break;
-			case 6: case 7: case 8: case 9: //化石森林
+			case 6: case 7: case 8: case 9: //森林
 			case 10:
 				level = new TreeAreaLevel();
 				break;
-			case 11: case 12: case 13: case 14: //破碎神殿
+			case 11: case 12: case 13: case 14: //神殿
 			case 15:
 				level = new CavesLevel();
 				break;
-			case 16: case 17: case 18: case 19: //地下隧道
+			case 16: case 17: case 18: case 19: //隧道
 			case 20:
 				level = new CityLevel();
 				break;
-			case 21: case 22: case 23: case 24: //机械要塞
+			case 21: case 22: case 23: case 24: //机械
 			case 25:
 				level = new HallsLevel();
 				break;

@@ -19,23 +19,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AnkhBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
+import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.WoodenAnkhSprite;
 
 import java.util.HashSet;
 public class WoodenCross extends Mob {
 	{
-		spriteClass = RatSprite.class;
-		HP = HT = 100;
-		maxLvl = 5;
+		spriteClass = WoodenAnkhSprite.class;
+		HP = HT = 11;
+		maxLvl = 0;
+		EXP=0;
 		properties.add(Property.IMMOVABLE);
 		state = PASSIVE;
+
+		loot = Ankh.class;
+		lootChance = 0.039f;
+
 	}
+
 
 	private static HashSet<Char> chars = new HashSet<>();
 
@@ -72,20 +92,32 @@ public class WoodenCross extends Mob {
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
 		if (heap != null) heap.explode();
-		if (target != null && target.HP!=target.HT && this.HP>=6 && Dungeon.level.trueDistance(this.pos,target.pos)<=3 ) {
+		if (target != null && target.HP!=target.HT && this.HP>1 && Dungeon.level.trueDistance(this.pos,target.pos)<=3 ) {
 			//if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[target.pos]) {
 				//Sample.INSTANCE.play(Assets.Sounds.RAY);
 				//ShatteredPixelDungeon.scene().add(new Beam.DeathRay(DungeonTilemap.tileCenterToWorld(pos), target.sprite.center()));
 			//}
+			//GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
+			Buff.prolong(target, AnkhBuff.class, BuffWait.T1);
 			target.HP+=1;
 			this.HP-=1;
 		}
 	}
+	int start = 0;
 	@Override
 	protected boolean act() {
+		if(start==0){
+			this.sprite.add(CharSprite.State.ANKHBUFF);
+			start=1;
+		}
 		alerted = false;
 		activate();
 		return super.act();
+	}
+
+	public void die ( Object cause ) {
+		super.die(cause);
+		this.sprite.remove(CharSprite.State.ANKHBUFF);
 	}
 
 	@Override

@@ -22,31 +22,50 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 
 public class Knuckle extends MeleeWeapon {
+
+	public static final String AC_REPLACE	= "ac_replace";
 
 	{
 		image = ItemSpriteSheet.KUNCKLES;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.1f;
-		//阶数
 		tier = 1;
-		//距离
 		RCH=1;
-		//精确
-		//在Hero.canSurpriseAttack里设定不能偷袭
-		ACC = 1f; //0.8x accuracy
-		//攻击速度（2倍）
+		ACC = 1f;
 		DLY=0.5f;
 
+		//切换战斗模式
+		defaultAction = AC_REPLACE;
 	}
 
+	int mode = 1;
+
 	@Override
-	public int max(int lvl) {
-		return  1+lvl +
-				6+lvl;
+	public void execute(Hero hero, String action) {
+		super.execute(hero, action);
+		//防止装弹时产生瞄准标记
+		usesTargeting = false;
+		//动作
+		if (action.equals(AC_REPLACE)) {
+			if(mode==1){
+
+			}
+
+		}
 	}
+
+
+
 
 }

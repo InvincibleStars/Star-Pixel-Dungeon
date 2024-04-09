@@ -120,62 +120,63 @@ public abstract class StandardRoom extends Room {
 	//FIXME this is a very messy way of handing variable standard rooms
 	private static ArrayList<Class<?extends StandardRoom>> rooms = new ArrayList<>();
 	static {
-		rooms.add(EmptyRoom.class);
+		rooms.add(EmptyRoom.class);				//空房间（权重锁定10）
 
 
-		rooms.add(SewerPipeRoom.class);
-		rooms.add(RingRoom.class);
-		rooms.add(CircleBasinRoom.class);
+		rooms.add(SewerPipeRoom.class);			//管道房间（中间有水）
+		rooms.add(RingRoom.class);				//巨型支撑柱房间(中间通常有一个大型的支撑柱
+		rooms.add(CircleBasinRoom.class);		//环形房间，但中间有十字木地板以及支撑柱作为支撑（小房间没有）
 
-		rooms.add(SegmentedRoom.class);
-		rooms.add(PillarsRoom.class);
-		rooms.add(CellBlockRoom.class);
+		rooms.add(SegmentedRoom.class);			//分段房间
+		rooms.add(PillarsRoom.class);			//带有支撑柱的房间（大型房间四个大的小型房间两个小的）
+		rooms.add(CellBlockRoom.class);			//监狱牢房
 
-		rooms.add(CaveRoom.class);
-		rooms.add(CavesFissureRoom.class);
-		rooms.add(CirclePitRoom.class);
+		rooms.add(CaveRoom.class);				//矿洞房间
+		rooms.add(CavesFissureRoom.class);		//矿洞-分割成三块且有木板连接的房间
+		rooms.add(CirclePitRoom.class);			//矿洞-圆形中空（规则）房间
 
-		rooms.add(HallwayRoom.class);
-		rooms.add(StatuesRoom.class);
-		rooms.add(SegmentedLibraryRoom.class);
+		rooms.add(HallwayRoom.class);			//矮人-有地毯连接出口的房间（中间有雕像）
+		rooms.add(StatuesRoom.class);			//矮人-雕像房间
+		rooms.add(SegmentedLibraryRoom.class);	//矮人-迷宫型图书馆
 
-		rooms.add(RuinsRoom.class);
-		rooms.add(ChasmRoom.class);
-		rooms.add(SkullsRoom.class);
+		rooms.add(RuinsRoom.class);				//废墟房间
+		rooms.add(ChasmRoom.class);				//充满裂隙的普通房间
+		rooms.add(SkullsRoom.class);			//5区-的头骨柱房间
 
 
-		rooms.add(PlantsRoom.class);
-		rooms.add(AquariumRoom.class);
-		rooms.add(PlatformRoom.class);
-		rooms.add(BurnedRoom.class);
-		rooms.add(FissureRoom.class);
-		rooms.add(GrassyGraveRoom.class);
-		rooms.add(StripedRoom.class);
-		rooms.add(StudyRoom.class);
-		rooms.add(SuspiciousChestRoom.class);
-		rooms.add(MinefieldRoom.class);
+		rooms.add(PlantsRoom.class);			//植物园（田字形的）
+		rooms.add(AquariumRoom.class);			//食人鱼房间
+		rooms.add(PlatformRoom.class);			//木地板房间
+		rooms.add(BurnedRoom.class);			//燃烧陷阱房间
+		rooms.add(FissureRoom.class);			//中间有裂隙的房间
+		rooms.add(GrassyGraveRoom.class);		//墓碑房间
+		rooms.add(StripedRoom.class);			//条纹/环形植被（有木地板间隔的）
+		rooms.add(StudyRoom.class);				//图书馆（中间有基座）
+		rooms.add(SuspiciousChestRoom.class);	//带基座的房间（上有宝箱
+		rooms.add(MinefieldRoom.class);			//爆炸陷阱房
 
-		rooms.add(FangXingRoom.class);
+		//rooms.add(FangXingRoom.class);			//新房间
 	}
 
 	private static float[][] chances = new float[27][];
 	static {
-		//chances[1] =  new float[]{10,  10,10,5, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  1,0,1,0,1,0,1,1,0,0,2};
-		chances[1] =  new float[]{10,  0,0,0, 0,0,3, 0,0,0, 0,0,0, 0,0,0,  1,0,1,0,1,0,1,1,0,0,2};
-		chances[2] =  new float[]{10,  10,10,5, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  1,1,1,1,1,1,1,1,1,1,2};
-		chances[4] =  chances[3] = chances[2];
-		chances[5] =  new float[]{10,  10,10,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  0,0,0,0,0,0,0,0,0,0,2};
-
-		chances[6] =  new float[]{10,  0,0,0, 10,10,5, 0,0,0, 0,0,0, 0,0,0,  1,1,1,1,1,1,1,1,1,1,2};
+		//沙地/荒漠属于干旱地区，因此不生成含水房间
+		//chances[1] =  new float[]{10,  10,10,5, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  1,0,1,0,1,0,1,1,0,0, 2};
+		//chances[1] =  new float[]{7,   0,0,0,   0,0,2, 0,0,0, 0,0,0, 1,0,0,  0,0,0,0,0,1,0,0,0,0, 1};
+		//chances[1] =  new float[]{0,  0,10,10, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  0,0,0,0,0,0,0,0,0,0, 0};
+		chances[1] =  new float[]{10,  0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  0,0,0,0,0,0,0,0,0,0};
+		chances[5] = chances[4] =  chances[3] = chances[2] = chances[1];
+		//森林整体结构破碎，因为废墟将作为主要地形生成
+		chances[6] =  new float[]{10,  1,0,2, 0,2,0, 0,0,0, 0,0,0, 9,0,0,  1,1,0,0,0,1,0,1,1,0, 0};
 		chances[10] = chances[9] = chances[8] = chances[7] = chances[6];
 
-		chances[11] = new float[]{10,  0,0,0, 0,0,0, 10,10,5, 0,0,0, 0,0,0,  1,1,1,1,1,1,1,1,1,1,2};
+		chances[11] = new float[]{10, 0,0,0, 0,0,0, 10,10,5, 0,0,0, 0,0,0,  1,1,1,1,1,1,1,1,1,1, 2};
 		chances[15] = chances[14] = chances[13] = chances[12] = chances[11];
 
-		chances[16] = new float[]{10,  0,0,0, 0,0,0, 0,0,0, 10,10,5, 0,0,0,  1,1,1,1,1,1,1,1,1,1,2};
+		chances[16] = new float[]{10, 0,0,0, 0,0,0, 0,0,0, 10,10,5, 0,0,0,  1,1,1,1,1,1,1,1,1,1, 2};
 		chances[20] = chances[19] = chances[18] = chances[17] = chances[16];
 
-		chances[21] = new float[]{10,  0,0,0, 0,0,0, 0,0,0, 0,0,0, 10,10,5,  1,1,1,1,1,1,1,1,1,1,2};
+		chances[21] = new float[]{10, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 10,10,5,  1,1,1,1,1,1,1,1,1,1, 2};
 		chances[26] = chances[25] = chances[24] = chances[23] = chances[22] = chances[21];
 	}
 	

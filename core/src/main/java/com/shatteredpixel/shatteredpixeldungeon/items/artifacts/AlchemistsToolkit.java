@@ -61,18 +61,6 @@ public class AlchemistsToolkit extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (!cursed) {
-			actions.add(AC_BREW);
-			if (level() < levelCap) {
-				actions.add(AC_ENERGIZE);
-			}
-		}
-		return actions;
-	}
-	/*
-	@Override
-	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped( hero ) && !cursed) {
 			actions.add(AC_BREW);
 			if (level() < levelCap) {
@@ -82,16 +70,14 @@ public class AlchemistsToolkit extends Artifact {
 		return actions;
 	}
 
-	 */
-
 	@Override
 	public void execute(Hero hero, String action ) {
 
 		super.execute(hero, action);
 
 		if (action.equals(AC_BREW)){
-			//if (!isEquipped(hero))              GLog.i( Messages.get(this, "need_to_equip") );
-			if (cursed)                    GLog.w( Messages.get(this, "cursed") );
+			if (!isEquipped(hero))              GLog.i( Messages.get(this, "need_to_equip") );
+			else if (cursed)                    GLog.w( Messages.get(this, "cursed") );
 			else if (warmUpDelay > 0)           GLog.w( Messages.get(this, "not_ready") );
 			else {
 				AlchemyScene.assignToolkit(this);
@@ -99,8 +85,8 @@ public class AlchemistsToolkit extends Artifact {
 			}
 			
 		} else if (action.equals(AC_ENERGIZE)){
-			//if (!isEquipped(hero))              GLog.i( Messages.get(this, "need_to_equip") );
-			if (cursed)                    GLog.w( Messages.get(this, "cursed") );
+			if (!isEquipped(hero))              GLog.i( Messages.get(this, "need_to_equip") );
+			else if (cursed)                    GLog.w( Messages.get(this, "cursed") );
 			else if (Dungeon.energy < 5)        GLog.w( Messages.get(this, "need_energy") );
 			else {
 
@@ -155,8 +141,7 @@ public class AlchemistsToolkit extends Artifact {
 
 	@Override
 	public String status() {
-		//if (isEquipped(Dungeon.hero) && warmUpDelay > 0){
-		if (warmUpDelay > 0){
+		if (isEquipped(Dungeon.hero) && warmUpDelay > 0){
 			return Messages.format( "%d%%", 100 - (int)warmUpDelay );
 		} else {
 			return super.status();
@@ -192,11 +177,11 @@ public class AlchemistsToolkit extends Artifact {
 	public String desc() {
 		String result = Messages.get(this, "desc");
 
-		//if (isEquipped(Dungeon.hero)) {
+		if (isEquipped(Dungeon.hero)) {
 			if (cursed)                 result += "\n\n" + Messages.get(this, "desc_cursed");
 			else if (warmUpDelay > 0)   result += "\n\n" + Messages.get(this, "desc_warming");
 			else                        result += "\n\n" + Messages.get(this, "desc_hint");
-		//}
+		}
 		
 		return result;
 	}

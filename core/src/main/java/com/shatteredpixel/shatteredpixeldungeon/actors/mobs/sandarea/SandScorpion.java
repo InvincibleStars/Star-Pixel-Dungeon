@@ -38,7 +38,10 @@ public class SandScorpion extends Mob {
 		lootChance = 0.5f;
 		
 		maxLvl = 6;
-		defenseSkill = 2;
+		defenseSkill = 5;
+
+		loot = Generator.Category.SCROLL;
+		lootChance = 0.25f;
 	}
 
 	//行动逻辑
@@ -49,7 +52,7 @@ public class SandScorpion extends Mob {
 
 	@Override
 	public int attackSkill( Char target ) {
-		return 10;
+		return 13;
 	}
 
 	@Override

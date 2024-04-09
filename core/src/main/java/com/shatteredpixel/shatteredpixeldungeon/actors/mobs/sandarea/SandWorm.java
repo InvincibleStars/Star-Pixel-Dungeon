@@ -33,8 +33,8 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 5 + Random.Int(4);
-		defenseSkill = 0;
+		HP = HT = 6 + Random.Int(4) + Dungeon.depth;
+		defenseSkill = 3;
 		EXP = 2;
 		maxLvl = 3;
 
@@ -43,6 +43,8 @@ public class SandWorm extends Mob {
 
 		state = WANDERING = new Waiting();
 	}
+
+
 
 	public int cooldown = 5;
 

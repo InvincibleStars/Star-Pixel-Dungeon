@@ -46,13 +46,16 @@ public class RenderedTextBlock extends Component {
 	private int color = -1;
 	
 	private int hightlightColor = Window.TITLE_COLOR;
-//RED
+//新颜色(在Windows里定义文字颜色)
 	private int redColor = Window.RED_COLOR;
+
+	private int greenColor = Window.GREEN_COLOR;
 
 
 	private boolean highlightingEnabled = true;
-//RED
+//新颜色（默认为true）
 	private boolean redEnabled = true;
+	private boolean greenEnabled = true;
 
 	public static final int LEFT_ALIGN = 1;
 	public static final int CENTER_ALIGN = 2;
@@ -119,13 +122,18 @@ public class RenderedTextBlock extends Component {
 		clear();
 		words = new ArrayList<>();
 		boolean highlighting = false;
+		//新颜色
 		boolean red = false;
+		boolean green = false;
 		for (String str : tokens){
 			
 			if (str.equals("_") && highlightingEnabled) {
 				highlighting = !highlighting;
+			//为新加的颜色添加判断【在("")里定义什么标记时调用染色】
 			} else if (str.equals("#R") && redEnabled){
 				red = !red;
+			} else if (str.equals("#G") && greenEnabled){
+				green = !green;
 			} else if (str.equals("\n")){
 				words.add(NEWLINE);
 			} else if (str.equals(" ")){
@@ -134,8 +142,11 @@ public class RenderedTextBlock extends Component {
 				RenderedText word = new RenderedText(str, size);
 				
 				if (highlighting) word.hardlight(hightlightColor);
-				//RED
+				//新颜色格式
 				if (red) word.hardlight(redColor);
+				else if (color != -1) word.hardlight(color);
+
+				if (green) word.hardlight(greenColor);
 				else if (color != -1) word.hardlight(color);
 
 
@@ -190,12 +201,26 @@ public class RenderedTextBlock extends Component {
 		}
 	}
 
-	//RED
+	//新颜色
 	public synchronized void setRed(boolean enabled){
 		setRed(enabled, Window.RED_COLOR);
 	}
 
 	public synchronized void setRed(boolean enabled, int color){
+		if (enabled != redEnabled || color != redColor) {
+			redColor = color;
+			redEnabled = enabled;
+			build();
+		}
+	}
+
+	//这是一个颜色
+
+	public synchronized void setGreen(boolean enabled){
+		setRed(enabled, Window.GREEN_COLOR);
+	}
+
+	public synchronized void setGreen(boolean enabled, int color){
 		if (enabled != redEnabled || color != redColor) {
 			redColor = color;
 			redEnabled = enabled;

@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWorm2Sprite;
 import com.watabou.utils.Random;
 
@@ -34,6 +35,9 @@ public class SandWorm2 extends SandWorm {
 	{
 		spriteClass = SandWorm2Sprite.class;
 		EXP = 2;
+
+		loot = Generator.Category.SEED;
+		lootChance = 0.25f;
 	}
 
 	@Override

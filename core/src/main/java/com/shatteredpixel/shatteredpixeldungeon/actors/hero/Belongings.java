@@ -120,12 +120,24 @@ public class Belongings implements Iterable<Item> {
 
 	public Ring ring(){
 		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
+		if (!lostInvent || (artifact != null && artifact.keptThoughLostInvent)){
+			return ring;
+		} else {
+			return null;
+		}
+	}
+
+	/*
+	public Ring ring(){
+		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
 		if (!lostInvent || (ring != null && ring.keptThoughLostInvent)){
 			return ring;
 		} else {
 			return null;
 		}
 	}
+
+	 */
 
 	// ***
 

@@ -71,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CoolVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
@@ -78,6 +79,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.En
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Kill;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
@@ -91,6 +93,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
@@ -206,7 +209,7 @@ public class Hero extends Char {
 
 
 	private int attackSkill = 10;
-	private int defenseSkill = 1;
+	private int defenseSkill = 5;
 
 	public boolean ready = false;
 	private boolean damageInterrupt = true;
@@ -227,7 +230,8 @@ public class Hero extends Char {
 	public int exp = 0;
 
 	public int HTBoost = 0;
-	public int HTStart = 0;
+	public int HTStart = 15;
+	public int HTAdd = 5;
 
 
 	public static final int NONE_HT = 20;
@@ -265,7 +269,7 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 
-		HP = HT = HTStart + ( HTBoost *  lvl );
+		HP = HT = hero.HTStart + (hero.HTAdd *  lvl) ;
 		if (boostHP){
 			HP += Math.max(HT - curHT + HTBoost, 0);
 		}
@@ -455,6 +459,7 @@ public class Hero extends Char {
 		Buff.affect( this, Regeneration.class );
 		Buff.affect( this, Hunger.class);
 		Buff.affect( this, BurnVest.class);
+		Buff.affect( this, CoolVest.class);
 	}
 	
 	public int tier() {
@@ -1367,7 +1372,18 @@ public class Hero extends Char {
 		if (rockArmor != null) {
 			damage = rockArmor.absorb(damage);
 		}
-		
+
+
+		//反制
+		if(hero.belongings.armor instanceof InvertArmor){
+			int lvl = belongings.armor().level;
+			int invert=20-lvl;
+			if(damage > invert){
+				hero.HP= Math.max(HP,HP+damage-invert);
+				damage=0;
+			}
+		}
+
 		return damage;
 	}
 	
@@ -1735,10 +1751,10 @@ public class Hero extends Char {
 				if (buff(ElixirOfMight.HTBoost.class) != null){
 					buff(ElixirOfMight.HTBoost.class).onLevelUp();
 				}
-				
+
 				updateHT( true );
-				//attackSkill++;
-				//defenseSkill++;
+				attackSkill++;
+				defenseSkill++;
 				Perks.earnPerk(this);
 
 			} else {

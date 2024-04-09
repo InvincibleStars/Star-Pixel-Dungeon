@@ -40,7 +40,7 @@ public class PotionOfExperience extends Potion {
 	@Override
 	public void apply( Hero hero ) {
 		identify();
-		hero.earnExp( (int) (hero.maxExp()*(level*1.2)), getClass() );
+		hero.earnExp( (int) (hero.maxExp()*((level+1)*1.2)), getClass() );
 		if(level>=3){
 			Buff.prolong(hero, Bless.class, BuffWait.T10+(level-3)*5);
 		}

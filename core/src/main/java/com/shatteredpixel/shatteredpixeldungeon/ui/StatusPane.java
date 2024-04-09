@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -88,6 +89,7 @@ public class StatusPane extends Component {
 	private BitmapText version;
 
 	private RenderedTextBlock info;
+
 	//private BitmapText times;
 	//时间
 	public static Calendar cal=Calendar.getInstance();
@@ -260,6 +262,7 @@ public class StatusPane extends Component {
 	@Override
 	public void update() {
 		super.update();
+
 		Calendar cal=Calendar.getInstance();
 		
 		int health = Dungeon.hero.HP;
@@ -281,6 +284,7 @@ public class StatusPane extends Component {
 		}else{
 			hp.color(0,0.45f,0);
 		}
+
 
 
 		if (!Dungeon.hero.isAlive()) {

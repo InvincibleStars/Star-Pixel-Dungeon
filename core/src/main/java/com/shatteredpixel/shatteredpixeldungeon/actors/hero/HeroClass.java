@@ -23,8 +23,11 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.NO_FOOD;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BATTLEMAGE;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BERSERKER;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.FREERUNNER;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.GLADIATOR;
 import static com.shatteredpixel.shatteredpixeldungeon.items.Generator.randomWeapon;
+import static com.shatteredpixel.shatteredpixeldungeon.items.Generator.wepTiers;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
@@ -45,6 +48,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CapeOfThorns;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.CanglanGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.HancaiGem;
@@ -60,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.TechTree;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.Science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -73,11 +81,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnc
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greataxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HandAxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Shortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Whip;
@@ -91,10 +101,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.KnifeAo
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public enum HeroClass {
 
-	WARRIOR(HeroSubClass.BERSERKER, HeroSubClass.GLADIATOR),
+	WARRIOR(BERSERKER, GLADIATOR),
 	MAGE(HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK),
 	ROGUE(HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER),
 	HUNTRESS(HeroSubClass.SNIPER, HeroSubClass.WARDEN),
@@ -110,23 +122,16 @@ public enum HeroClass {
 		hero.heroClass = this;
 		Talent.initClassTalents(hero);
 
-		Dungeon.gold += 500;
+		Item i = new ClothArmor().identify();
+		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor) i;
+
+		Dungeon.gold += 300;
+
+		if (Badges.isUnlocked(Badges.Badge.GOLD_COLLECTED_1)){Dungeon.gold += 100;}
 
 		new TechTree().quantity(1).identify().collect();
 
 		new PotionLevel().quantity(1).identify().collect();
-
-		new HandAxe().quantity(1).identify().collect();
-
-		new KnifeAoe().quantity(1).identify().collect();
-
-		new IronLeave().quantity(1).identify().collect();
-
-		new Eleove().quantity(1).identify().collect();
-
-		new Shortsword().quantity(1).identify().collect();
-
-		new ScrollOfMagicMapping().quantity(100).identify().collect();
 
 		//new 类名().quantity(1).identify().collect();
 
@@ -144,9 +149,6 @@ public enum HeroClass {
 		//给予/不鉴定去掉identify()
 		randomWeapon.identify().collect();
 		 */
-
-		Item i = new ClothArmor().identify();
-		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor) i;
 
 		//检测挑战
 		if (Dungeon.isChallenged(NO_FOOD)){
@@ -169,35 +171,35 @@ public enum HeroClass {
 				//战士拥有额外的力量
 				Dungeon.hero.STR++;
 				Dungeon.hero.HTStart=18;
-				Dungeon.hero.HTBoost=7;
+				Dungeon.hero.HTAdd=7;
 				hero.updateHT( true );
 				break;
 
 			case MAGE:
 				initMage(hero);
 				Dungeon.hero.HTStart=16;
-				Dungeon.hero.HTBoost=4;
+				Dungeon.hero.HTAdd=4;
 				hero.updateHT( true );
 				break;
 
 			case ROGUE:
 				initRogue(hero);
 				Dungeon.hero.HTStart=17;
-				Dungeon.hero.HTBoost=5;
+				Dungeon.hero.HTAdd=5;
 				hero.updateHT( true );
 				break;
 
 			case HUNTRESS:
 				initHuntress(hero);
 				Dungeon.hero.HTStart=18;
-				Dungeon.hero.HTBoost=4;
+				Dungeon.hero.HTAdd=4;
 				hero.updateHT( true );
 				break;
 
 			case STAR:
 				initStar(hero);
 				Dungeon.hero.HTStart=15;
-				Dungeon.hero.HTBoost=5;
+				Dungeon.hero.HTAdd=5;
 				hero.updateHT( true );
 				break;
 
@@ -229,8 +231,6 @@ public enum HeroClass {
 		return null;
 	}
 
-
-    //职业初始物品 战士
 	private static void initWarrior(Hero hero) {
 		(hero.belongings.weapon = new WornShortsword()).identify();
 		ThrowingStone stones = new ThrowingStone();
@@ -238,10 +238,7 @@ public enum HeroClass {
 		new PotionBandolier().quantity(1).collect();
 		Dungeon.quickslot.setSlot(0, stones);
 
-		//hero.subClass=GLADIATOR;
-
-
-
+		hero.subClass=BERSERKER;
 
 		if (hero.belongings.armor != null) {
 			hero.belongings.armor.affixSeal(new BrokenSeal());
@@ -251,7 +248,7 @@ public enum HeroClass {
 		new ScrollOfUpgrade().identify();
 		new ScrollOfRage().identify();
 	}
-	//职业初始物品 法师
+
 	private static void initMage(Hero hero) {
 		MagesStaff staff;
 
@@ -267,10 +264,9 @@ public enum HeroClass {
 		new PotionOfLiquidFlame().identify();
 		new ScrollOfEnchantment().identify();
 
-		//法师职业
 		hero.subClass=BATTLEMAGE;
 	}
-	//职业初始物品 盗贼
+
 	private static void initRogue(Hero hero) {
 		(hero.belongings.weapon = new Dagger()).identify();
 		new VelvetPouch().quantity(1).collect();
@@ -280,11 +276,8 @@ public enum HeroClass {
 		(hero.belongings.artifact = cloak).identify();
 		hero.belongings.artifact.activate(hero);
 
-
-
 		ThrowingKnife knives = new ThrowingKnife();
 		knives.quantity(3).collect();
-
 
 		Dungeon.quickslot.setSlot(0, cloak);
 		Dungeon.quickslot.setSlot(1, knives);
@@ -295,9 +288,8 @@ public enum HeroClass {
 
 		hero.subClass=FREERUNNER;
 	}
-	//职业初始物品 女猎手
-	private static void initHuntress(Hero hero) {
 
+	private static void initHuntress(Hero hero) {
 		(hero.belongings.weapon = new Gloves()).identify();
 		SpiritBow bow = new SpiritBow();
 		bow.identify().collect();
@@ -308,11 +300,13 @@ public enum HeroClass {
 		new PotionOfMindVision().identify();
 		new ScrollOfUpgrade().identify();
 		new ScrollOfLullaby().identify();
-
-		//hero.subClass=SNIPER;
 	}
 
 	private static void initStar(Hero hero) {
+		Item i = new InvertArmor().identify();
+		if (!Challenges.isItemBlocked(i)){
+			hero.belongings.armor = (InvertArmor)i;
+		}
 
 		(hero.belongings.weapon = new Knuckle()).identify();
 		//SpiritBow bow = new SpiritBow();

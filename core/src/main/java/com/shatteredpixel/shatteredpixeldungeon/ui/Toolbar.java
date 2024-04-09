@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTerrainTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
@@ -74,7 +75,7 @@ public class Toolbar extends Component {
 	
 	@Override
 	protected void createChildren() {
-		
+
 		btnQuick = new QuickslotTool[4];
 		
 		add( btnQuick[3] = new QuickslotTool(64, 0, 22, 24, 3) );
@@ -177,9 +178,21 @@ public class Toolbar extends Component {
 
 		add(pickedUp = new PickedUpItem());
 	}
-	
+
+	//被隐藏的原UI
+
 	@Override
 	protected void layout() {
+
+
+
+		//尝试新增按钮
+
+		float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
+		float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
+		final int maxHorizontalQuickslots = PixelScene.landscape() ? 9 : 3;
+
+
 
 		for(int i = 0; i <= 3; i++) {
 			if (i == 0 && !SPDSettings.flipToolbar() ||
@@ -261,6 +274,14 @@ public class Toolbar extends Component {
 		}
 
 	}
+
+
+
+
+
+
+
+
 
 	public static void updateLayout(){
 		if (instance != null) instance.layout();

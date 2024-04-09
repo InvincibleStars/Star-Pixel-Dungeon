@@ -71,13 +71,11 @@ public class HornOfPlenty extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		//if (isEquipped( hero ) && charge > 0) {
-		if (charge > 0) {
+		if (isEquipped( hero ) && charge > 0) {
 			actions.add(AC_SNACK);
 			actions.add(AC_EAT);
 		}
-		//if (isEquipped( hero ) && level() < levelCap && !cursed) {
-		if (level() < levelCap && !cursed) {
+		if (isEquipped( hero ) && level() < levelCap && !cursed) {
 			actions.add(AC_STORE);
 		}
 		return actions;
@@ -89,13 +87,9 @@ public class HornOfPlenty extends Artifact {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT) || action.equals(AC_SNACK)){
-/*
+
 			if (!isEquipped(hero)) GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			else
-
- */
-
-				if (charge == 0)  GLog.i( Messages.get(this, "no_food") );
+			else if (charge == 0)  GLog.i( Messages.get(this, "no_food") );
 			else {
 				//consume as much food as it takes to be full, to a minimum of 1
 				int satietyPerCharge = (int) (Hunger.STARVING/5f);
@@ -187,14 +181,14 @@ public class HornOfPlenty extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		//if ( isEquipped( Dungeon.hero ) ){
+		if ( isEquipped( Dungeon.hero ) ){
 			if (!cursed) {
 				if (level() < levelCap)
 					desc += "\n\n" +Messages.get(this, "desc_hint");
 			} else {
 				desc += "\n\n" +Messages.get(this, "desc_cursed");
 			}
-		//}
+		}
 
 		return desc;
 	}

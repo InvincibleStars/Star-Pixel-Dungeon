@@ -22,6 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -47,11 +49,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.RchAddBy3;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -102,7 +106,7 @@ public abstract class Mob extends Char {
 	public AiState FLEEING		= new Fleeing();
 	public AiState PASSIVE		= new Passive();
 	//默认生物动作(1/3立刻醒来，2/3睡眠)
-	public AiState state = Random.Int(0,3)==1?HUNTING:SLEEPING;
+	public AiState state = NPC.choose_num==1 ? Random.Int(0,3)==1?HUNTING:SLEEPING:HUNTING;
 
 	public static int EyeAllow = 1;
 
@@ -110,6 +114,8 @@ public abstract class Mob extends Char {
 	public Class<? extends CharSprite> spriteClass;
 	
 	protected int target = -1;
+
+	private int reward = 0;
 	
 	public int defenseSkill = 2;
 
@@ -713,6 +719,25 @@ public abstract class Mob extends Char {
 	@Override
 	public void die( Object cause ) {
 
+		reward=Random.Int(3,9);
+
+		for(int i = 1; i <= reward; i++){
+
+			if(Random.Float()>=0.8f) {
+				level.drop(Generator.randomUsingDefaults(Generator.Category.SCROLL), pos).sprite.drop();
+			}
+
+			if(Random.Float()>=0.8f) {
+				level.drop(Generator.randomUsingDefaults(Generator.Category.POTION), pos).sprite.drop();
+			}
+
+			if(Random.Float()>=0.8f) {
+				level.drop(Generator.randomUsingDefaults(Generator.Category.FOOD), pos).sprite.drop();
+			}
+
+		}
+
+
 		if (cause == Chasm.class){
 			//50% chance to round up, 50% to round down
 			if (EXP % 2 == 1) EXP += Random.Int(2);
@@ -1177,4 +1202,3 @@ public abstract class Mob extends Char {
 		heldAllies.clear();
 	}
 }
-

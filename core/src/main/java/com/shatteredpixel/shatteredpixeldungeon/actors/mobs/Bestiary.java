@@ -29,7 +29,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandCrab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.RockBug2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.SandWorm2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Albino;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.GnollThrow;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.LifePlant;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.SplitSlime;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.WoodenCross;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -50,7 +56,7 @@ public class Bestiary {
 	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ){
 		switch(depth){
 			
-			// 沙暴大地
+			// 荒漠
 			case 0: default:
 
 			case 1:
@@ -84,55 +90,54 @@ public class Bestiary {
 			case 5:
 				return new ArrayList<>(Arrays.asList());
 				
-			// Prison
+			// 林地
 			case 6:
-				//3x skeleton, 1x thief, 1x swarm
+				//1x 老鼠, 2x 活化植物, 1x 十字架
 				return new ArrayList<>(Arrays.asList(
-						Skeleton.class, Skeleton.class, Skeleton.class,
-						Thief.class,
-						Swarm.class));
+						Rat.class,
+						LifePlant.class,LifePlant.class,
+						WoodenCross.class));
 			case 7:
-				//3x skeleton, 1x thief, 1x DM-100, 1x guard
+				//1x 活化植物, 2x 老鼠, 1x 近战豺狼，1x 十字架
 				return new ArrayList<>(Arrays.asList(
-						Skeleton.class, Skeleton.class, Skeleton.class,
-						Thief.class,
-						DM100.class,
-						Guard.class));
+						LifePlant.class,
+						Rat.class,Rat.class,
+						Gnoll.class,
+						WoodenCross.class));
 			case 8:
-				//2x skeleton, 1x thief, 2x DM-100, 2x guard, 1x necromancer
+				//1x 活化植物, 1x 老鼠, 2x 近战豺狼, 1x 豺狼飞槌手, 1x 十字架 ,1x 史莱姆
 				return new ArrayList<>(Arrays.asList(
-						Skeleton.class, Skeleton.class,
-						Thief.class,
-						DM100.class, DM100.class,
-						Guard.class, Guard.class,
-						Necromancer.class));
+						LifePlant.class,
+						Rat.class,
+						Gnoll.class, Gnoll.class,
+						GnollThrow.class,
+						WoodenCross.class));
 			case 9: case 10:
-				//1x skeleton, 1x thief, 2x DM-100, 2x guard, 2x necromancer
+				//2x 豺狼, 2x 豺狼飞槌手, 1x 丛林史莱姆, 1x 十字架, 1x 蝙蝠
 				return new ArrayList<>(Arrays.asList(
-						Skeleton.class,
-						Thief.class,
-						DM100.class, DM100.class,
-						Guard.class, Guard.class,
-						Necromancer.class, Necromancer.class));
+						Gnoll.class,
+						GnollThrow.class,
+						SplitSlime.class,
+						WoodenCross.class));
 				
 			// Caves
 			case 11:
 				//3x bat, 1x brute, 1x shaman
 				return new ArrayList<>(Arrays.asList(
-						Bat.class, Bat.class, Bat.class,
+						Albino.Bat.class, Albino.Bat.class, Albino.Bat.class,
 						Brute.class,
 						Shaman.random()));
 			case 12:
 				//2x bat, 2x brute, 1x shaman, 1x spinner
 				return new ArrayList<>(Arrays.asList(
-						Bat.class, Bat.class,
+						Albino.Bat.class, Albino.Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(),
 						Spinner.class));
 			case 13:
 				//1x bat, 2x brute, 2x shaman, 2x spinner, 1x DM-200
 				return new ArrayList<>(Arrays.asList(
-						Bat.class,
+						Albino.Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(), Shaman.random(),
 						Spinner.class, Spinner.class,
@@ -140,7 +145,7 @@ public class Bestiary {
 			case 14: case 15:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
-						Bat.class,
+						Albino.Bat.class,
 						Brute.class,
 						Shaman.random(), Shaman.random(),
 						Spinner.class, Spinner.class,
@@ -217,7 +222,7 @@ public class Bestiary {
 				
 			// Prison
 			case 9:
-				if (Random.Float() < 0.025f) rotation.add(Bat.class);
+				if (Random.Float() < 0.025f) rotation.add(Albino.Bat.class);
 				return;
 				
 			// Caves

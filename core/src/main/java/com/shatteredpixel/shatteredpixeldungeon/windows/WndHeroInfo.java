@@ -215,9 +215,9 @@ public class WndHeroInfo extends WndTabbed {
 							new TalentIcon(SURVIVALISTS_INTUITION)};
 					break;
 				case STAR:
-					icons = new Image[]{new ItemSprite(ItemSpriteSheet.TWO_SWORD),
-							new ItemSprite(ItemSpriteSheet.ARMOR_WARRIOR),
-							new ItemSprite(ItemSpriteSheet.BANDOLIER),
+					icons = new Image[]{new ItemSprite(ItemSpriteSheet.RING_NONE),
+							new ItemSprite(ItemSpriteSheet.ANKH),
+							new ItemSprite(ItemSpriteSheet.ARTIFACT_CHALICE1),
 							new TalentIcon(SURVIVALISTS_INTUITION)};
 					break;
 			}

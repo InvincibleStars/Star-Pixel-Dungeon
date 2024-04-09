@@ -22,6 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CoolVest;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -30,7 +32,7 @@ import java.text.DecimalFormat;
 
 public class Chill extends FlavourBuff {
 
-	public static final float DURATION = 10f;
+	public static final float DURATION = 10f+ CoolVest.cooldmg*5;
 
 	{
 		type = buffType.NEGATIVE;
@@ -40,7 +42,11 @@ public class Chill extends FlavourBuff {
 	@Override
 	public boolean attachTo(Char target) {
 		Buff.detach( target, Burning.class );
-
+		if(CoolVest.cooladd>=199){
+			BurnVest.burnadd=0;	CoolVest.cooladd=200;
+		}else{
+			BurnVest.burnadd-=1;	CoolVest.cooladd+=1;
+		}
 		return super.attachTo(target);
 	}
 

@@ -52,7 +52,7 @@ public class WornShortsword extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  10 + lvl+(( Dungeon.hero.STR-10)/2);
+		return  8 + lvl+(( Dungeon.hero.STR-10)/2);
 	}
 
 	@Override

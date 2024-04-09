@@ -68,8 +68,7 @@ public class EtherealChains extends Artifact {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
-		//if (isEquipped(hero) && charge > 0 && !cursed)
-		if ( charge > 0 && !cursed)
+		if (isEquipped(hero) && charge > 0 && !cursed)
 			actions.add(AC_CAST);
 		return actions;
 	}
@@ -86,15 +85,12 @@ public class EtherealChains extends Artifact {
 		if (action.equals(AC_CAST)){
 
 			curUser = hero;
-/*
+
 			if (!isEquipped( hero )) {
 				GLog.i( Messages.get(Artifact.class, "need_to_equip") );
 				usesTargeting = false;
 
-			} else
-
- */
-			if (charge < 1) {
+			} else if (charge < 1) {
 				GLog.i( Messages.get(this, "no_charge") );
 				usesTargeting = false;
 
@@ -277,13 +273,13 @@ public class EtherealChains extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		//if (isEquipped( Dungeon.hero )){
+		if (isEquipped( Dungeon.hero )){
 			desc += "\n\n";
 			if (cursed)
 				desc += Messages.get(this, "desc_cursed");
 			else
 				desc += Messages.get(this, "desc_equipped");
-		//}
+		}
 		return desc;
 	}
 

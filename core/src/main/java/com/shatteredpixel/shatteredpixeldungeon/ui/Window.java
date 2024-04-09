@@ -52,6 +52,7 @@ public class Window extends Group implements Signal.Listener<KeyEvent> {
 	//NEW
 	public static final int RED_COLOR = 0xFF0000;
 	public static final int SHPX_COLOR = 0x33BB33;
+	public static final int GREEN_COLOR = 0x00FF00;
 	
 	public Window() {
 		this( 0, 0, 0, Chrome.get( Chrome.Type.WINDOW ) );

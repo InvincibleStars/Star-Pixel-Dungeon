@@ -70,8 +70,7 @@ public class TimekeepersHourglass extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		//if (isEquipped( hero ) && charge > 0 && !cursed)
-		if (charge > 0 && !cursed)
+		if (isEquipped( hero ) && charge > 0 && !cursed)
 			actions.add(AC_ACTIVATE);
 		return actions;
 	}
@@ -83,9 +82,8 @@ public class TimekeepersHourglass extends Artifact {
 
 		if (action.equals(AC_ACTIVATE)){
 
-			//if (!isEquipped( hero ))        GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			//else
-				if (activeBuff != null) {
+			if (!isEquipped( hero ))        GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+			else if (activeBuff != null) {
 				if (activeBuff instanceof timeStasis) { //do nothing
 				} else {
 					activeBuff.detach();
@@ -176,14 +174,14 @@ public class TimekeepersHourglass extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		//if (isEquipped( Dungeon.hero )){
+		if (isEquipped( Dungeon.hero )){
 			if (!cursed) {
 				if (level() < levelCap )
 					desc += "\n\n" + Messages.get(this, "desc_hint");
 
 			} else
 				desc += "\n\n" + Messages.get(this, "desc_cursed");
-		//}
+		}
 		return desc;
 	}
 

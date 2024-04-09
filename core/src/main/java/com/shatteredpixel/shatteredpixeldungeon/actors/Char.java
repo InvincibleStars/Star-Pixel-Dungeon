@@ -591,6 +591,90 @@ public abstract class Char extends Actor {
 
 	public void damage( int dmg, Object src ) {
 
+		if (sprite != null) {
+
+			int icon = IconFloatingText.PHYS_DMG;
+			//无来源物理伤害暂时不显示
+//			if (NO_ARMOR_PHYSICAL_SOURCES.contains(src.getClass())) {
+//				icon = IconFloatingText.PHYS_DMG_NO_BLOCK;
+//			}
+			if (AntiMagic.RESISTS.contains(src.getClass())) {
+				icon = IconFloatingText.MAGIC_DMG;
+			}
+			if (src instanceof Pickaxe) {
+				icon = IconFloatingText.PICK_DMG;
+			}
+			if (src == Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.SNIPER && !Dungeon.level.adjacent(Dungeon.hero.pos, this.pos) && (Dungeon.hero.belongings.weapon() instanceof MissileWeapon)) {
+				icon = IconFloatingText.PHYS_DMG_NO_BLOCK;
+			}
+			if (src instanceof Hunger) {
+				icon = IconFloatingText.HUNGER;
+			}
+			if (src instanceof Burning) {
+				icon = IconFloatingText.BURNING;
+			}
+			if ((src instanceof Chill) || (src instanceof Frost)) {
+				icon = IconFloatingText.FROST;
+			}
+			if ((src instanceof GeyserTrap) || (src instanceof StormCloud)) {
+				icon = IconFloatingText.WATER;
+			}
+			if (src instanceof Burning) {
+				icon = IconFloatingText.BURNING;
+			}
+			if (src instanceof Electricity) {
+				icon = IconFloatingText.SHOCKING;
+			}
+			if (src instanceof Bleeding) {
+				icon = IconFloatingText.BLEEDING;
+			}
+			if (src instanceof ToxicGas) {
+				icon = IconFloatingText.TOXIC;
+			}
+			if (src instanceof Corrosion) {
+				icon = IconFloatingText.CORROSION;
+			}
+			if (src instanceof Poison) {
+				icon = IconFloatingText.POISON;
+			}
+			if (src instanceof Ooze) {
+				icon = IconFloatingText.OOZE;
+			}
+			if (src instanceof Viscosity.DeferedDamage) {
+				icon = IconFloatingText.DEFERRED;
+			}
+			if (src instanceof Corruption) {
+				icon = IconFloatingText.CORRUPTION;
+			}
+
+			//换成你自己的布尔控制
+			//if(SPDSettings.ClassSkin()){
+				sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(dmg + shielding()), icon);
+			//} else {
+				//sprite.showStatus(HP > HT / 2 ?
+					//			CharSprite.WARNING :
+				//				CharSprite.NEGATIVE,
+				//		Integer.toString(dmg + shielding()));
+			//}
+
+
+
+
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
 		if (!isAlive() || dmg < 0) {
 			return;
 		}
@@ -693,13 +777,15 @@ public abstract class Char extends Actor {
 		}
 		shielded -= dmg;
 		HP -= dmg;
-
+/*
 		if (sprite != null) {
 			sprite.showStatus(HP > HT / 2 ?
 							CharSprite.WARNING :
 							CharSprite.NEGATIVE,
 					Integer.toString(dmg + shielded));
 		}
+
+ */
 
 		if (HP < 0) HP = 0;
 
@@ -711,117 +797,8 @@ public abstract class Char extends Actor {
 
 
 
-		if (sprite != null) {
 
-			int icon = IconFloatingText.PHYS_DMG;
-			//无来源物理伤害暂时不显示
-			//if (NO_ARMOR_PHYSICAL_SOURCES.contains(src.getClass())) {
-			//	icon = IconFloatingText.PHYS_DMG_NO_BLOCK;
-			//}
-			if (AntiMagic.RESISTS.contains(src.getClass())) {
-				icon = IconFloatingText.MAGIC_DMG;
-			}
-
-			if (src instanceof Pickaxe) {
-				icon = IconFloatingText.PICK_DMG;
-			}
-
-			if (src == Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.SNIPER && !Dungeon.level.adjacent(Dungeon.hero.pos, this.pos) && (Dungeon.hero.belongings.weapon() instanceof MissileWeapon)) {
-				icon = IconFloatingText.PHYS_DMG_NO_BLOCK;
-			}
-
-			if (src instanceof Hunger) {
-				icon = IconFloatingText.HUNGER;
-			}
-
-			if (src instanceof Burning) {
-				icon = IconFloatingText.BURNING;
-			}
-
-			if ((src instanceof Chill) || (src instanceof Frost)) {
-				icon = IconFloatingText.FROST;
-			}
-
-			if ((src instanceof GeyserTrap) || (src instanceof StormCloud)) {
-				icon = IconFloatingText.WATER;
-			}
-
-			if (src instanceof Burning) {
-				icon = IconFloatingText.BURNING;
-			}
-
-			if (src instanceof Electricity) {
-				icon = IconFloatingText.SHOCKING;
-			}
-
-			if (src instanceof Bleeding) {
-				icon = IconFloatingText.BLEEDING;
-			}
-
-			if (src instanceof ToxicGas) {
-				icon = IconFloatingText.TOXIC;
-			}
-
-			if (src instanceof Corrosion) {
-				icon = IconFloatingText.CORROSION;
-			}
-
-			if (src instanceof Poison) {
-				icon = IconFloatingText.POISON;
-			}
-
-			if (src instanceof Ooze) {
-				icon = IconFloatingText.OOZE;
-			}
-
-			if (src instanceof Corruption) {
-				icon = IconFloatingText.CORRUPTION;
-			}
-			if (src instanceof Viscosity.DeferedDamage) {
-				icon = IconFloatingText.DEFERRED;
-			}
-			/*
-			if (src instanceof AscensionChallenge) {
-				icon = IconFloatingText.AMULET;
-			}
-
-			if (src instanceof ScaryDamageBuff) {
-				icon = IconFloatingText.HEARTDEMON_DMG;
-
-				if (src instanceof CrivusFruits.DiedBlobs) {
-					icon = IconFloatingText.REDGAS;
-				}
-
-				if (src instanceof HalomethaneBurning) {
-					icon = IconFloatingText.HALO;
-				}
-
-				if (src instanceof FrostBurning) {
-					icon = IconFloatingText.ICEFIRE;
-				}
-
-				if(src instanceof ScaryBuff){
-					icon = IconFloatingText.HEARTDEMON;
-				}
-			 */
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	}
 
 	public void destroy() {
 		HP = 0;
@@ -844,6 +821,7 @@ public abstract class Char extends Actor {
 	}
 
 	public void die( Object src ) {
+		//this.sprite.die();
 		destroy();
 		if (src != Chasm.class) sprite.die();
 	}

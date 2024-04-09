@@ -297,7 +297,7 @@ public class Assets {
 
 
 
-		//Sand Area
+		//沙区
 
 		//沙虫
 		public static final String SAND_WORM= "sprites/newsprites/sand/sand_worm.png";
@@ -314,18 +314,21 @@ public class Assets {
 		//沙团
 		public static final String LIFE_SAND= "sprites/newsprites/sand/sand.png";
 
-		//Tree Area
+		//林地
 
 		//活化植物
 		public static final String LIFE_PLANT= "sprites/newsprites/tree/lifeplant.png";
 		public static final String DEATH_PLANT= "sprites/newsprites/tree/deathplant.png";
-
+		//十字架
+		public static final String WOOD_ANKH= "sprites/newsprites/tree/woodankh.png";
 
 
 
 
 		//盒子
 		public static final String POT= "sprites/newsprites/other/pot.png";
+		//雕像
+		public static final String BUST= "sprites/newsprites/other/bust.png";
 
 
 

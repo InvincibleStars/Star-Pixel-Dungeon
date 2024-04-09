@@ -96,11 +96,9 @@ public class UnstableSpellbook extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		//if (isEquipped( hero ) && charge > 0 && !cursed)
-		if (charge > 0 && !cursed)
+		if (isEquipped( hero ) && charge > 0 && !cursed)
 			actions.add(AC_READ);
-		//if (isEquipped( hero ) && level() < levelCap && !cursed)
-		if (level() < levelCap && !cursed)
+		if (isEquipped( hero ) && level() < levelCap && !cursed)
 			actions.add(AC_ADD);
 		return actions;
 	}
@@ -113,7 +111,7 @@ public class UnstableSpellbook extends Artifact {
 		if (action.equals( AC_READ )) {
 
 			if (hero.buff( Blindness.class ) != null) GLog.w( Messages.get(this, "blinded") );
-			//else if (!isEquipped( hero ))             GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+			else if (!isEquipped( hero ))             GLog.i( Messages.get(Artifact.class, "need_to_equip") );
 			else if (charge <= 0)                     GLog.i( Messages.get(this, "no_charge") );
 			else if (cursed)                          GLog.i( Messages.get(this, "cursed") );
 			else {
@@ -243,7 +241,7 @@ public class UnstableSpellbook extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		//if (isEquipped(Dungeon.hero)) {
+		if (isEquipped(Dungeon.hero)) {
 			if (cursed) {
 				desc += "\n\n" + Messages.get(this, "desc_cursed");
 			}
@@ -254,7 +252,7 @@ public class UnstableSpellbook extends Artifact {
 				if (scrolls.size() > 1)
 					desc += "\n" + "_" + Messages.get(scrolls.get(1), "name") + "_";
 			}
-		//}
+		}
 		
 		if (level() > 0) {
 			desc += "\n\n" + Messages.get(this, "desc_empowered");

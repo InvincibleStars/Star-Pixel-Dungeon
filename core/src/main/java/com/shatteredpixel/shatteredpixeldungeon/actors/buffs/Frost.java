@@ -23,6 +23,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CoolVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -40,7 +42,7 @@ import java.util.ArrayList;
 
 public class Frost extends FlavourBuff {
 
-	public static final float DURATION	= 10f;
+	public static final float DURATION	= 10f + CoolVest.cooldmg*5;
 
 	{
 		type = buffType.NEGATIVE;
@@ -50,6 +52,13 @@ public class Frost extends FlavourBuff {
 	@Override
 	public boolean attachTo( Char target ) {
 		Buff.detach( target, Burning.class );
+
+		Buff.detach( target, Burning.class );
+		if(CoolVest.cooladd>=199){
+			BurnVest.burnadd=0;	CoolVest.cooladd=200;
+		}else{
+			BurnVest.burnadd-=1;	CoolVest.cooladd+=1;
+		}
 
 		if (super.attachTo( target )) {
 			

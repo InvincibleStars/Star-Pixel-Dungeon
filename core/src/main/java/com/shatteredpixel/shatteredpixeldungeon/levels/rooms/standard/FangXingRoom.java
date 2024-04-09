@@ -33,15 +33,15 @@ public class FangXingRoom extends StandardRoom {
 
 
 	@Override
-	public int minWidth() { return 12; }
+	public int minWidth() { return 6; }
 	@Override
 	public int minHeight() {
-		return 12;
+		return 6;
 	}
 	@Override
-	public int maxWidth() { return 30; }
+	public int maxWidth() { return 12; }
 	@Override
-	public int maxHeight() { return 23; }
+	public int maxHeight() { return 12; }
 
 	@Override
 	public void paint(Level level) {
@@ -52,32 +52,30 @@ public class FangXingRoom extends StandardRoom {
 		if(width()<= 10 ) {
 			Painter.fill( level, this, 0, Terrain.WALL );
 			Painter.fill(level, this, 1, Terrain.GRASS);
+			Painter.fill(level, this, 2, Terrain.CHASM);
 		}
 		if((width()>10 && width()<=16)) {
 			Painter.fill( level, this, 0, Terrain.WALL );
 			Painter.fill(level, this, 1, Terrain.GRASS);
 			Painter.fill(level, this, 2, Terrain.CHASM);
-			Painter.fill(level, this, 2, Terrain.CHASM);
-			Painter.fill(level, this, 4, Terrain.WALL);
-			Painter.fill(level, this, 5, Terrain.EMPTY);
+			Painter.fill(level, this, 3, Terrain.WALL);
+			Painter.fill(level, this, 4, Terrain.EMPTY);
 			Painter.fill(level, this, 7, Terrain.CHASM);
 		}
 		if ((width() > 16 && width () <=20)) {
 			Painter.fill( level, this, 0, Terrain.WALL );
 			Painter.fill(level, this, 1, Terrain.GRASS);
 			Painter.fill(level, this, 2, Terrain.CHASM);
-			Painter.fill(level, this, 3, Terrain.CHASM);
-			Painter.fill(level, this, 4, Terrain.WALL);
-			Painter.fill(level, this, 5, Terrain.EMPTY);
+			Painter.fill(level, this, 3, Terrain.WALL);
+			Painter.fill(level, this, 4, Terrain.EMPTY);
 			Painter.fill(level, this, 7, Terrain.CHASM);
 		}
 		if (width() > 20 ) {
 			Painter.fill( level, this, 0, Terrain.WALL );
 			Painter.fill(level, this, 1, Terrain.GRASS);
 			Painter.fill(level, this, 2, Terrain.CHASM);
-			Painter.fill(level, this, 3, Terrain.CHASM);
-			Painter.fill(level, this, 4, Terrain.WALL);
-			Painter.fill(level, this, 5, Terrain.EMPTY);
+			Painter.fill(level, this, 3, Terrain.WALL);
+			Painter.fill(level, this, 4, Terrain.EMPTY);
 			Painter.fill(level, this, 7, Terrain.CHASM);
 		}
 

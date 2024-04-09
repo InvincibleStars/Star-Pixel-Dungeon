@@ -35,8 +35,8 @@ public class RockBug2 extends RockBug {
 		EXP = 2;
 		baseSpeed = 0.75f;
 		maxLvl = 4;
-		loot = Generator.Category.ARMOR;
-		lootChance = 0.22f; //by default, see rollToDropLoot()
+		loot = Generator.Category.POTION;
+		lootChance = 1f; //by default, see rollToDropLoot()
 	}
 
 	@Override

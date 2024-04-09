@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -83,6 +84,7 @@ public class Pot extends NPC {
 					if(Random.Float()>=chance_one) {
 						level.drop(Generator.randomUsingDefaults(Generator.Category.SCROLL), pos).sprite.drop();
 						Dungeon.level.drop(new EnergyCrystal(), pos).sprite.drop();
+
 					} else {
 						level.drop(Generator.randomUsingDefaults(Generator.Category.POTION), pos).sprite.drop();
 						Dungeon.level.drop(new EnergyCrystal(), pos).sprite.drop();

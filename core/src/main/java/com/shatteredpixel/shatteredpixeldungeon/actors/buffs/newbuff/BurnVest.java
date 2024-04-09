@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff;
 
+import static com.badlogic.gdx.utils.Align.left;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
@@ -35,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -42,93 +45,73 @@ import java.util.ArrayList;
 
 public class BurnVest extends Buff {
 
-	//结算间隔（每STEP回合结算一次）
-	private static final float ADDTIME	= 1f;
-	float  b   =  (float)(Math.round(burnadd*100))/100;
+	//数据
 
-	//燃烧增幅
-	public static float burnadd = 1.25f;
+	private static final float STEP	= 25f;
 
-	//字符串储存
-	private static final String BURNADD			= "burnadd";
+	public static int burnadd = 100;
 
+	public static float burndmg = (float)((Math.round(burnadd))/100)*2;
 
 	@Override
 	public boolean act() {
 		if (target.isAlive() && target instanceof Hero) {
 
 			Hero hero = (Hero) target;
-			/*
-			if (burnadd > 1) {
-				burnadd -= 0.07f;
-				b   =  (float)(Math.round(burnadd*100))/100;
-				//GLog.n(Messages.get(this, "onstarving"));
-			}else
+			if(burnadd>100){
+				BurnVest.burnadd--;
 
-			 */
-				if(burnadd<=1){
-				burnadd +=0.01f;
-				b   =  (float)(Math.round(burnadd*100))/100;
-				//GLog.n(Messages.get(this, "onstarving"));
+			}else{
+				BurnVest.burnadd++;
 			}
-			spend(ADDTIME);
+			CoolVest.cooladd=200-BurnVest.burnadd;
+
+			burndmg = (float)((Math.round(burnadd))/100)*2;
+			spend(STEP);
 		}else {
 			diactivate();
 		}
 		return true;
 	}
 
-
-
-	public void burnaddOver(float energy ){
-		burnaddOver( energy, false );
-	}
-
-	public void burnaddOver(float energy, boolean overrideLimits ) {
-		ArrayList<Item> items = new ArrayList<>();
-
-		//数据达到5时不再增长
-		// if (burnadd > 5) {
-			//burnadd = 5;
-		//}
-		BuffIndicator.refreshHero();
-	}
-
-	//图标
+	//显示相关
 	@Override
 	public int icon() {
-			return BuffIndicator.FIRE;
+			return BuffIndicator.BURNVEST;
 	}
 
-	//状态标题
 	@Override
 	public String toString() {
 	return Messages.get(this, "title");
 	}
 
-	//状态信息
 	@Override
 	public String desc() {
 		String result;
-		result = Messages.get(this, "desc")
-		+burnadd
-		+"x"
-		;
+		result = Messages.get(this, "desc", burnadd);
 		return result;
 	}
 
-	//保存
+	public String desc2() {
+		String result;
+		result = Messages.get(((float)burnadd)/100 +"x");
+		return result;
+	}
+
+	//保存到存档
+
+	private static final String BURNADD = "burnadd";
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		bundle.put( BURNADD, burnadd );
 	}
 
-	//读取
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
-		burnadd = bundle.getFloat(BURNADD);
+		burnadd = bundle.getInt(BURNADD);
 	}
 
 

@@ -68,8 +68,7 @@ public class TalismanOfForesight extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		//if (isEquipped( hero ) && !cursed) actions.add(AC_SCRY);
-		if (!cursed) actions.add(AC_SCRY);
+		if (isEquipped( hero ) && !cursed) actions.add(AC_SCRY);
 		return actions;
 	}
 
@@ -78,9 +77,8 @@ public class TalismanOfForesight extends Artifact {
 		super.execute(hero, action);
 
 		if (action.equals(AC_SCRY)){
-			//if (!isEquipped(hero))  GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			//else
-				if (charge < 5)    GLog.i( Messages.get(this, "low_charge") );
+			if (!isEquipped(hero))  GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+			else if (charge < 5)    GLog.i( Messages.get(this, "low_charge") );
 			else                    GameScene.selectCell(scry);
 		}
 	}
@@ -107,14 +105,14 @@ public class TalismanOfForesight extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		//if ( isEquipped( Dungeon.hero ) ){
+		if ( isEquipped( Dungeon.hero ) ){
 			if (!cursed) {
 				desc += "\n\n" + Messages.get(this, "desc_worn");
 
 			} else {
 				desc += "\n\n" + Messages.get(this, "desc_cursed");
 			}
-		//}
+		}
 
 		return desc;
 	}

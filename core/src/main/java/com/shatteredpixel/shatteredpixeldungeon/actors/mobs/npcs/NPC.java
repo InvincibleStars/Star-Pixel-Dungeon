@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.watabou.utils.Bundle;
 
 public abstract class NPC extends Mob {
 
@@ -36,5 +37,30 @@ public abstract class NPC extends Mob {
 	@Override
 	public void beckon( int cell ) {
 	}
+
+	//选择雕像后此处变为T(检测可选)
+	public static boolean choose = false;
+	//选择雕像后赋值（用于参与判断）
+	public static int choose_num = 0;
+
+	protected static final String TAG_CHOOSE = "choose";
+	protected static final String TAG_CHOOSE_NUM = "choose_num";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( TAG_CHOOSE, choose );
+		bundle.put( TAG_CHOOSE_NUM, choose_num );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle( bundle );
+		choose = bundle.getBoolean(TAG_CHOOSE);
+		choose_num = bundle.getInt(TAG_CHOOSE_NUM);
+	}
+
+
+
 	
 }

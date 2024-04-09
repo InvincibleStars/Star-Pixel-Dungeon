@@ -66,6 +66,7 @@ public class Ammo extends Item {
 		super.execute( hero, action );
 
 		if (action.equals( AC_LOOK )) {
+			hero.HP=1;
 			GLog.i( Messages.get(this, "ac_look") );
 		}
 	}

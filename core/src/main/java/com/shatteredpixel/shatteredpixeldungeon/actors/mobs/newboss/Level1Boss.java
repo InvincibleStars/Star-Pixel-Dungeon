@@ -19,11 +19,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.WoodenCross
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WraithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -33,13 +35,19 @@ import com.watabou.utils.Reflection;
 
 public class Level1Boss extends Mob {
     {
-        spriteClass = RatSprite.class;
-        HT = HP = 120;  EXP = 175;
+        spriteClass = WraithSprite.class;
+        HT = HP = 60;  EXP = 175;
         properties.add(Property.BOSS);
-        attackskill=100;    defenseSkill = 0;   maxLvl=7;
-        baseSpeed=0.5f;
+        defenseSkill = 5;   maxLvl=7;
+        baseSpeed=1f;
         loot = new PotionOfHealing();   lootChance = 1f;
     }
+
+    @Override
+    public int damageRoll() {
+        return Random.NormalIntRange( 1, 9 );
+    }
+
     public static int[] InvincibleNode = new int[]{125,129,157,};
     protected float SkillCollDown = 15;
     private int summonCooldown = 10;
@@ -47,16 +55,23 @@ public class Level1Boss extends Mob {
     public static int SummonCount = 0;
     public static class Call1 extends WoodenCross {
         {
-            //spriteClass = WraithSprite.class;
-            //HT = HP = 10 + (Level1Boss.SummonCount * 5);    EXP=0;
-            //state = HUNTING;
-            //attackskill = 500;  defenseSkill = 0;
+            spriteClass = WraithSprite.class;
+            HT = HP = 10 + (Level1Boss.SummonCount * 5);    EXP=0;
+            state = HUNTING;
+            attackskill = 14;  defenseSkill = 0;
         }
-       // @Override
-       // public int damageRoll() {
-           // return Random.NormalIntRange( 9, 16 );
-      //  }
+        @Override
+        public int damageRoll() {
+            return Random.NormalIntRange( 1, 6 );
+        }
     }
+
+    @Override
+    public int attackSkill( Char target ) {
+        return 14;
+    }
+
+
     @Override
     public boolean act() {
         //背水一战
@@ -81,13 +96,10 @@ public class Level1Boss extends Mob {
         if (state != SLEEPING) {Dungeon.level.seal();}return super.act();}
     @Override
     protected void spend(float time) {
-        sumca();
         if(this.HP<1){super.die(true);}
         if(Dungeon.level.trueDistance(Dungeon.hero.pos, this.pos) >=5 ){Buff.affect(this, Weakness.class, BuffWait.T3);}
         summonCooldown -= 1;
         super.spend(time);}
-    @Override
-    public int attackSkill(Char target) {return 10;}
     //寄存和读取
     private static String FOCUS_COOLDOWN = "focus_cooldown";
     @Override
@@ -110,7 +122,8 @@ public class Level1Boss extends Mob {
     @Override
     public void die(Object cause){
         super.die(cause);   Dungeon.level.unseal(); GameScene.bossSlain();
-        Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
+        //Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
+        Dungeon.level.drop( new IronKey( Dungeon.depth ), pos ).sprite.drop();
         GLog.n( Messages.get(this, "defeated") );GLog.n( Messages.get(this, "die"));
         for(int i=0;i<=Random.Int(3,10);i=i+1){level.drop(Generator.randomUsingDefaults(Generator.Category.POTION), pos).sprite.drop();}
         Badges.validateBossSlain();

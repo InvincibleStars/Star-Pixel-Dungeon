@@ -32,13 +32,13 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollThrowSprite;
 import com.watabou.utils.Random;
 
-public class GnollThrow extends Mob {
+public class GnollThrow extends Gnoll {
 	
 	{
 		spriteClass = GnollThrowSprite.class;
 		
-		HP = HT = 12;
-		defenseSkill = 4;
+		HP = HT = 15+(Random.Int(4));
+		defenseSkill = 6;
 		
 		EXP = 2;
 		maxLvl = 8;
@@ -48,11 +48,11 @@ public class GnollThrow extends Mob {
 	}
 	
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 4 ); }
+	public int damageRoll() { return Random.NormalIntRange( 1, 12 ); }
 	
 	@Override
 	public int attackSkill( Char target ) {
-		return 10;
+		return 16;
 	}
 	
 	@Override

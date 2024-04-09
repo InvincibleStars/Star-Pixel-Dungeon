@@ -53,6 +53,8 @@ public class WndOptions extends Window {
 
 		layoutBody(pos, message, options);
 	}
+
+
 	
 	public WndOptions( String title, String message, String... options ) {
 		super();

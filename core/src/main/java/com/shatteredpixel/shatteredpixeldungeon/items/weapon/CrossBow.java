@@ -101,25 +101,21 @@ public class CrossBow extends Weapon {
 				//装弹并移除一个弹药
 				bowammo = 1;
 				AmmoItem.detach(hero.belongings.backpack);
-				return;
 				//有子弹
 			} else if (bowammo == 1) {
 				usesTargeting = true;
 				curUser = hero;
 				curItem = this;
 				GameScene.selectCell(shooter);
-				return;
 				//子弹超出范围
 			} else if (bowammo > 1||bowammo < 0) {
 				bowammo = 1;
 				GLog.p(Messages.get(this, "addbowammo"));
 				curUser = hero;
 				curItem = this;
-				return;
 			}else {
 				//没子弹了
 				GLog.w(Messages.get(this, "lessammo"));
-				return;
 			}
 		}
 	}

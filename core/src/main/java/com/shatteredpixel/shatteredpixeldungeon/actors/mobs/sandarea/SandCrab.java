@@ -49,7 +49,7 @@ public class SandCrab extends Mob {
 	{
 		spriteClass = CrabSprite.class;
 
-		HP = HT = 12 + Random.Int(5);
+		HP = HT = 10 + Random.Int(5) + Dungeon.depth;
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 3;
@@ -57,10 +57,12 @@ public class SandCrab extends Mob {
 
 		baseSpeed = 1f;
 
+		defenseSkill=5;
+
 
 		HUNTING = new Hunting();
 
-		loot = Generator.Category.WAND;
+		loot = Generator.Category.ARMOR;
 		lootChance = 0.125f;
 
 		defenseSkill = 2;
@@ -68,7 +70,7 @@ public class SandCrab extends Mob {
 
 	@Override
 	public int attackSkill( Char target ) {
-		return 10;
+		return 12;
 	}
 
 	@Override
@@ -79,11 +81,13 @@ public class SandCrab extends Mob {
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(0, 3);
 	}
 	
 	private Ballistica beam;
 	private int beamTarget = -1;
+		//伤害加深
+	private int damageadd = 0;
 
 	//技能
 	private int skill = -1;
@@ -148,6 +152,8 @@ public class SandCrab extends Mob {
 			beam = new Ballistica(pos, beamTarget, Ballistica.STOP_SOLID);
 			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
 				sprite.zap( beam.collisionPos );
+				//伤害追加
+				damageadd++;
 				return false;
 			} else {
 				sprite.idle();
@@ -196,7 +202,7 @@ public class SandCrab extends Mob {
 				//挑战开启失明
 				//Buff.prolong( ch, Blindness.class, BuffWait.T5 );
 				//Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
-				ch.damage( Random.NormalIntRange( 0, skill/2 ), new SandCrab.DeathGaze() );
+				ch.damage( Random.NormalIntRange( 0, damageadd ), new SandCrab.DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
 					ch.sprite.flash();
@@ -224,6 +230,7 @@ public class SandCrab extends Mob {
 	private static final String BEAM_TARGET     = "beamTarget";
 	private static final String BEAM_COOLDOWN   = "beamCooldown";
 	private static final String BEAM_CHARGED    = "beamCharged";
+	private static final String ADD_DAMAGE    = "damageadd";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -231,6 +238,7 @@ public class SandCrab extends Mob {
 		bundle.put( BEAM_TARGET, beamTarget);
 		bundle.put( BEAM_COOLDOWN, beamCooldown );
 		bundle.put( BEAM_CHARGED, beamCharged );
+		bundle.put( ADD_DAMAGE, damageadd );
 	}
 
 	@Override
@@ -240,6 +248,7 @@ public class SandCrab extends Mob {
 			beamTarget = bundle.getInt(BEAM_TARGET);
 		beamCooldown = bundle.getInt(BEAM_COOLDOWN);
 		beamCharged = bundle.getBoolean(BEAM_CHARGED);
+		damageadd = bundle.getInt(ADD_DAMAGE);
 	}
 
 	{

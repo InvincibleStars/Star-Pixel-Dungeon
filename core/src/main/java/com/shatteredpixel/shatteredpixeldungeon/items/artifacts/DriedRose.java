@@ -110,8 +110,7 @@ public class DriedRose extends Artifact {
 			actions.remove(AC_EQUIP);
 			return actions;
 		}
-		if (charge == chargeCap && !cursed && ghostID == 0) {
-			//if (isEquipped( hero ) && charge == chargeCap && !cursed && ghostID == 0) {
+		if (isEquipped( hero ) && charge == chargeCap && !cursed && ghostID == 0) {
 			actions.add(AC_SUMMON);
 		}
 		if (ghostID != 0){
@@ -133,7 +132,7 @@ public class DriedRose extends Artifact {
 
 			if (!Ghost.Quest.completed())   GameScene.show(new WndUseItem(null, this));
 			else if (ghost != null)         GLog.i( Messages.get(this, "spawned") );
-			//else if (!isEquipped( hero ))   GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+			else if (!isEquipped( hero ))   GLog.i( Messages.get(Artifact.class, "need_to_equip") );
 			else if (charge != chargeCap)   GLog.i( Messages.get(this, "no_charge") );
 			else if (cursed)                GLog.i( Messages.get(this, "cursed") );
 			else {
@@ -210,7 +209,7 @@ public class DriedRose extends Artifact {
 		
 		String desc = super.desc();
 
-		//if (isEquipped( Dungeon.hero )){
+		if (isEquipped( Dungeon.hero )){
 			if (!cursed){
 
 				if (level() < levelCap)
@@ -219,7 +218,7 @@ public class DriedRose extends Artifact {
 			} else {
 				desc += "\n\n" + Messages.get(this, "desc_cursed");
 			}
-		//}
+		}
 
 		if (weapon != null || armor != null) {
 			desc += "\n";
@@ -552,10 +551,9 @@ public class DriedRose extends Artifact {
 		@Override
 		protected boolean act() {
 			updateRose();
-			//if (rose == null || !rose.isEquipped(Dungeon.hero)){
-//			if (rose == null){
-//				damage(1, this);
-//			}
+			if (rose == null || !rose.isEquipped(Dungeon.hero)){
+				damage(1, this);
+			}
 			
 			if (!isAlive()) {
 				return true;

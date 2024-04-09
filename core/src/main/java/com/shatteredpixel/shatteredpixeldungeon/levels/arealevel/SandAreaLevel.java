@@ -53,21 +53,20 @@ public class SandAreaLevel extends RegularLevel {
 	@Override
 	protected int standardRooms(boolean forceMax) {
 		if (forceMax) return 6;
-		//3-6
-		return 40+Random.chances(new float[]{1, 1, 1});
+		return 39+Random.chances(new float[]{1, 1, 1})+Dungeon.depth%5;
 	}
 	
 	@Override
 	protected int specialRooms(boolean forceMax) {
 		if (forceMax) return 2;
-		//1-4
-		return 0+Random.chances(new float[]{0, 0, 0});
+		//1-3
+		return 4+Random.chances(new float[]{1, 1, 0});
 	}
 	
 	@Override
 	protected Painter painter() {
 		return new SewerPainter()
-				.setWater(feeling == Feeling.WATER ? 0.05f : 0.03f, 0)
+				.setWater(feeling == Feeling.WATER ? 0.00f : 0.01f, 0)
 				.setGrass(feeling == Feeling.GRASS ? 0.12f : 0.09f, 0)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
@@ -84,22 +83,17 @@ public class SandAreaLevel extends RegularLevel {
 
 	@Override //陷阱生成
 	protected Class<?>[] trapClasses() {
-		return Dungeon.depth == 1 ?
-				new Class<?>[]{ ToxicTrap.class } :
-				new Class<?>[]{ToxicTrap.class, AlarmTrap.class,};
+		return Dungeon.depth == 1 ? new Class<?>[]{ ToxicTrap.class } : new Class<?>[]{ToxicTrap.class, AlarmTrap.class,};
 	}
 
 	@Override //生成权重
 	protected float[] trapChances() {
-		return Dungeon.depth == 1 ?
-				new float[]{7} :
-				new float[]{7, 7};
+		return Dungeon.depth == 1 ? new float[]{7} : new float[]{7, 7};
 	}
 	
 	@Override
 	protected void createItems() {
 		Ghost.Quest.spawn( this );
-		
 		super.createItems();
 	}
 	

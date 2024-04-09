@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -32,17 +33,20 @@ public class RockBug extends Mob {
 	{
 		spriteClass = RockBugSprite.class;
 
-		HP = HT = 8 + Random.Int(4);
+		HP = HT = 8 + Random.Int(4) + Dungeon.depth;
 		EXP = 2;
 		maxLvl = 3;
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.18f; //by default, see rollToDropLoot()
-		defenseSkill = 2;
+		defenseSkill = 4;
+
+		loot = Generator.Category.POTION;
+		lootChance = 0.125f;
 	}
 
 	@Override
 	public int attackSkill( Char target ) {
-		return 10;
+		return 11;
 	}
 
 

@@ -46,14 +46,14 @@ public class Gnoll extends Mob {
 		spriteClass = LifePlantSprite.class;
 
 		
-		HP = HT = 12;
-		defenseSkill = 4;
+		HP = HT = 15+(Random.Int(4));
+		defenseSkill = 7;
 		
-		EXP = 2;
-		maxLvl = 8;
+		EXP = 5;
+		maxLvl = 11;
 		
 		loot = Gold.class;
-		lootChance = 0.5f;
+		lootChance = 1f;
 	}
 
 	public boolean armor = true;
@@ -102,12 +102,12 @@ public class Gnoll extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( (int)(ATTACKPOWER*6), (int)(ATTACKPOWER*6) );
+		return Random.NormalIntRange( 2, (int)(ATTACKPOWER*6) );
 	}
 	
 	@Override
 	public int attackSkill( Char target ) {
-		return 10;
+		return 16;
 	}
 	
 	@Override

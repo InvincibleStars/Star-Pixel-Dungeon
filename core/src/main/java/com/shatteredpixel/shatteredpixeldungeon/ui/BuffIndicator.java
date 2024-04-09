@@ -100,12 +100,18 @@ public class BuffIndicator extends Component {
 	public static final int MOMENTUM    = 51;
 	public static final int ANKH        = 52;
 	public static final int NOINV       = 53;
+
 	public static final int CUTOFF_BUFF       = 54;
-	public static final int BALEVEL1         = 47;
-	public static final int BALEVEL2         = 47;
-	public static final int BALEVEL3         = 47;
-	public static final int BALEVEL4         = 47;
-	public static final int BALEVEL5         = 47;
+	public static final int BALEVEL1         = 55;
+
+	public static final int BURNVEST         = 56;
+	public static final int COOLVEST         = 57;
+
+	public static final int BALEVEL         = 5;
+	public static final int BALEVEL2         = 5;
+	public static final int BALEVEL3         = 5;
+	public static final int BALEVEL4         = 5;
+	public static final int BALEVEL5         = 5;
 
 	public static final int SIZE    = 7;
 	
