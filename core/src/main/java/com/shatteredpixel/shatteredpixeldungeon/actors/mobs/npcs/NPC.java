@@ -39,10 +39,19 @@ public abstract class NPC extends Mob {
 	}
 
 	//选择雕像后此处变为T(检测可选)
+	/*
+	1-杀戮
+	2-财富
+	3-生命
+	4-强健
+	 */
 	public static boolean choose = false;
 	//选择雕像后赋值（用于参与判断）
 	public static int choose_num = 0;
 
+
+
+	//
 	protected static final String TAG_CHOOSE = "choose";
 	protected static final String TAG_CHOOSE_NUM = "choose_num";
 

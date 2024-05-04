@@ -23,10 +23,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class CanglanGem extends Gem {
-	
+public class ColorGem extends Gem {
+
 	{
-		image = ItemSpriteSheet.CANGLAN_GEM;
+		image = ItemSpriteSheet.COLOR_GEM;
 
 	}
 

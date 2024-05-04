@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.AlbinoSprite;
@@ -36,7 +37,7 @@ public class LifePlant extends Rat {
 	{
 		spriteClass = LifePlantSprite.class;
 		
-		HP = HT = 14+Random.Int(2);
+		HP = HT = 14+Random.Int(2+(BossLoot.infection*2));
 		EXP = 4;
 		maxLvl=11;
 		
@@ -53,7 +54,7 @@ public class LifePlant extends Rat {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 11 );
+		return Random.NormalIntRange( 1, 11 + BossLoot.infection );
 	}
 
 	@Override

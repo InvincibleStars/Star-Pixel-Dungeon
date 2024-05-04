@@ -74,7 +74,7 @@ public class SandAreaBossLevel2 extends Level {
 			65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,
 			65,65,65,65,65,1,1,18,1,1,65,65,65,65,65,
 			65,65,65,65,65,1,1,1,1,1,65,65,65,65,65,
-			65,65,65,65,65,65,65,83,65,65,65,65,65,65,65,
+			65,65,65,65,65,65,1,1,1,65,65,65,65,65,65,
 			65,65,65,1,1,1,1,1,1,1,1,1,65,65,65,
 			65,65,65,1,1,1,1,1,1,1,1,1,65,65,65,
 			65,1,1,1,1,65,1,1,1,65,1,1,1,1,65,
@@ -95,10 +95,14 @@ public class SandAreaBossLevel2 extends Level {
 	private static final int WIDTH = 15;
 	private static final int HEIGHT = 17;
 	@Override
-	protected boolean build() {setSize(WIDTH, HEIGHT);	entrance = WIDTH*15+8;	exit =WIDTH*15+9 ;
+	protected boolean build() {setSize(WIDTH, HEIGHT);
+		entrance = WIDTH*15+8;
+		exit =WIDTH*15+9 ;
 		for (int map = 0; map < this.map.length; map++) this.map[map] = mapToTerrain(pre_map[map]);return true;};
 	@Override
-	public Mob createMob() {return null;}
+	public Mob createMob() {
+		return null;
+	}
 	@Override
 	protected void createMobs() {
             Level1Boss i= new Level1Boss();		i.pos = 85;		mobs.add(i);}

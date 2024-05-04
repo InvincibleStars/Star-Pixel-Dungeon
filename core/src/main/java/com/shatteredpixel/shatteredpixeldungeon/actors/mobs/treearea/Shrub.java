@@ -27,15 +27,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StormCloud;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWormSprite;
+import com.watabou.utils.Random;
 
 public class Shrub extends Mob {
 
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 1;
+		HP = HT = 1+ Random.Int(2+(BossLoot.infection*2));
 		defenseSkill = 0;
 
 		EXP = 0;

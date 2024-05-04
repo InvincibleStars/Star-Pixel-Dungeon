@@ -19,39 +19,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
-
-import static com.shatteredpixel.shatteredpixeldungeon.Badges.Badge.ALL_ITEMS_IDENTIFIED;
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.NO_FOOD;
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
-import com.shatteredpixel.shatteredpixeldungeon.items.Science.PotionLevel;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SheepSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.BustSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.WoodenAnkhSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
-public class Kill extends NPC {
+public class WealthBust extends NPC {
 
 	{
 		spriteClass = BustSprite.class;
@@ -93,24 +80,24 @@ public class Kill extends NPC {
 
 
 										   ShatteredPixelDungeon.scene().add(new WndOptions(Icons.get(Icons.WARNING),
-												   Messages.get(Kill.class, "warm"),
-												   Messages.get(Kill.class, "tip"),
-												   Messages.get(Kill.class, "yes"),
-												   Messages.get(Kill.class, "no")) {
+												   Messages.get(WealthBust.class, "warm"),
+												   Messages.get(WealthBust.class, "tip"),
+												   Messages.get(WealthBust.class, "yes"),
+												   Messages.get(WealthBust.class, "no")) {
 											   @Override
 											   protected void onSelect(int index) {
 												   //声明武器
 												   Weapon i;
 												   if (index == 0) {
 													   if(!Badges.isUnlocked(Badges.Badge.MONSTERS_SLAIN_1)){
-														   GLog.n(Messages.get(Kill.class, "empty")+"\n");
+														   GLog.n(Messages.get(WealthBust.class, "empty")+"\n");
 													   }
 
 													   if (Badges.isUnlocked(Badges.Badge.MONSTERS_SLAIN_1)) {
 														   i = (Weapon) Generator.random(Generator.Category.WEP_T2);
 														   i.identify().collect();
 														   Sample.INSTANCE.play(Assets.Sounds.ITEM);
-														   GLog.i(Messages.get(Kill.class, "weapon")+"\n");
+														   GLog.i(Messages.get(WealthBust.class, "weapon")+"\n");
 													   }
 													   if (Badges.isUnlocked(Badges.Badge.MONSTERS_SLAIN_2)) {
 														   i = (Weapon) Generator.random(Generator.Category.WEP_T3);
@@ -125,11 +112,11 @@ public class Kill extends NPC {
 														   i.identify().collect();
 													   }
 													   //给予完毕后才会锁定
-													   GLog.i(Messages.get(Kill.class, "killopen")+"\n");
-													   choose=true;
-													   choose_num=1;
+													   GLog.i(Messages.get(WealthBust.class, "killopen")+"\n");
+													   NPC.choose=true;
+													   NPC.choose_num=1;
 												   } else {
-													   GLog.i(Messages.get(Kill.class, "noselect"));
+													   GLog.i(Messages.get(WealthBust.class, "noselect"));
 
 												   }
 											   }
@@ -141,7 +128,7 @@ public class Kill extends NPC {
 			);
 
 		}else {
-			GLog.i(Messages.get(Kill.class, "complete"));
+			GLog.i(Messages.get(WealthBust.class, "complete"));
 		}
 				return true;
 	}

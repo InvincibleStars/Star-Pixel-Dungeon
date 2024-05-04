@@ -155,16 +155,13 @@ public abstract class StandardRoom extends Room {
 		rooms.add(SuspiciousChestRoom.class);	//带基座的房间（上有宝箱
 		rooms.add(MinefieldRoom.class);			//爆炸陷阱房
 
-		//rooms.add(FangXingRoom.class);			//新房间
+		rooms.add(FangXingRoom.class);			//新房间
 	}
 
 	private static float[][] chances = new float[27][];
 	static {
 		//沙地/荒漠属于干旱地区，因此不生成含水房间
-		//chances[1] =  new float[]{10,  10,10,5, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  1,0,1,0,1,0,1,1,0,0, 2};
-		//chances[1] =  new float[]{7,   0,0,0,   0,0,2, 0,0,0, 0,0,0, 1,0,0,  0,0,0,0,0,1,0,0,0,0, 1};
-		//chances[1] =  new float[]{0,  0,10,10, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  0,0,0,0,0,0,0,0,0,0, 0};
-		chances[1] =  new float[]{10,  0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  0,0,0,0,0,0,0,0,0,0};
+		chances[1] =  new float[]{7,   0,0,0,   0,0,2, 0,0,0, 0,0,0, 1,0,0,  0,0,0,0,0,1,0,0,0,0, 1};
 		chances[5] = chances[4] =  chances[3] = chances[2] = chances[1];
 		//森林整体结构破碎，因为废墟将作为主要地形生成
 		chances[6] =  new float[]{10,  1,0,2, 0,2,0, 0,0,0, 0,0,0, 9,0,0,  1,1,0,0,0,1,0,1,1,0, 0};

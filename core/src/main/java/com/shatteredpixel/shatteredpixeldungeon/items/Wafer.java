@@ -41,7 +41,7 @@ import com.watabou.noosa.audio.Sample;
 public class Wafer extends Item {
 	
 	{
-		image = ItemSpriteSheet.WUXIA_DUST;
+		image = ItemSpriteSheet.BLUE_DUST;
 		
 		stackable = true;
 		dropsDownHeap = true;

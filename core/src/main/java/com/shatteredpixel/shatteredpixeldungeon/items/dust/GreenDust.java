@@ -21,7 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.dust;
 
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class GreenDust extends Dust {
@@ -30,6 +29,7 @@ public class GreenDust extends Dust {
 		
 		stackable = true;
 		unique = true;
+		image = ItemSpriteSheet.GREEN_DUST;
 	}
 	
 	@Override

@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -88,10 +89,16 @@ public class Gold extends Item {
 		return true;
 	}
 
+	float wealthbustadd=1;
+
 	//随机生成（当前楼层数x5~当前楼层数x10+(1~10))）金币
+	//雕像开启+30%金币生成
 	@Override
 	public Item random() {
-		quantity = Random.Int( Dungeon.depth * 15 , Dungeon.depth * 30 + Random.Int(0,(Dungeon.depth)*5) );
+		if(NPC.choose_num==2){
+			wealthbustadd=1.3f;
+		}
+		quantity = (int) (Random.Int( Dungeon.depth * 15, Dungeon.depth * 30 + Random.Int(0,(Dungeon.depth)*5))*wealthbustadd);
 		return this;
 	}
 

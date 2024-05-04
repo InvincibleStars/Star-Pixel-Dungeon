@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -42,7 +43,7 @@ public class PerfectReplicator extends Mob {
 	{
 		spriteClass = AlbinoSprite.class;
 
-		HP = HT = 1;
+		HP = HT = 10+Random.Int(2+(BossLoot.infection*2));
 		EXP = 2;
 
 		loot = new MysteryMeat();
@@ -106,4 +107,3 @@ public class PerfectReplicator extends Mob {
 
 
 }
-

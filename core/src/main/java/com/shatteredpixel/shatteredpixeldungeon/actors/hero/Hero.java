@@ -23,29 +23,21 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff.affect;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger.HUNGRY;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration.REGENERATION_DELAY;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.STAR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BERSERKER;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.GLADIATOR;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
+import com.shatteredpixel.shatteredpixeldungeon.Rankings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin2;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Speed;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -71,16 +63,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CoolVest;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.HuntingMarkers;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Kill;
-import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
@@ -94,7 +84,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
@@ -107,6 +96,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
@@ -119,8 +109,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
@@ -154,8 +144,8 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.SurfaceScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Banner;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
@@ -459,7 +449,6 @@ public class Hero extends Char {
 		Buff.affect( this, Regeneration.class );
 		Buff.affect( this, Hunger.class);
 		Buff.affect( this, BurnVest.class);
-		Buff.affect( this, CoolVest.class);
 	}
 	
 	public int tier() {
@@ -735,6 +724,10 @@ public class Hero extends Char {
 	@Override
 	public boolean act() {
 
+		if (heroClass == STAR){
+			Buff.affect( this, Combo2.class);
+		}
+
 		//在这里设置特定区域的限制条件
 		/*
 					在第四区域中若玩家不穿皮甲则会受到持续性的寒冷效果
@@ -882,28 +875,29 @@ public class Hero extends Char {
 
 	//角色移动事件
 	private boolean actMove( HeroAction.Move action ) {
+
+
+
+		//检测地块
 		if(Dungeon.level.water[pos]){
-			//Buff.prolong(this, Blindness.class, BuffWait.T10);
 		}
 
-		//携带 口粮 时执行动作
-		//创建实例
-		/*
-		Food food = Dungeon.hero.belongings.getItem(Food.class);
-		//回血判断
-		if(REGENERATION_DELAY>=1){
-			//回血间隔-1
-			REGENERATION_DELAY=REGENERATION_DELAY-1;
-		}else{
-			//回血间隔不变
-			 REGENERATION_DELAY=1;
+		//检测背包装备
+		if(hero.belongings.getItem(ClothArmor.class) == null){
 		}
 
-		 */
+		//检测Buff
+		if(hero.buff(BurnVest.class) == null){
 
-		//if(hero.buff(BurnVest.class) == null){
-			//Buff.affect(hero,BurnVest.class);
-		//}
+		}
+
+		if(hero.buff(Swiftthistle.TimeBubble.class)==null){
+			//Buff.affect(hero, Swiftthistle.TimeBubble.class).attime(1000f,600f);
+		}
+
+		if(hero.buff(Swiftthistle.TimeBubble.class)!=null){
+			GLog.i("114514");
+		}
 
 
 
@@ -2029,6 +2023,8 @@ public class Hero extends Char {
 		if (hit && heroClass == WARRIOR){
 			Buff.affect( this, Combo.class ).hit( enemy );
 		}
+
+
 
 		/*
 		if (hit && subClass == HeroSubClass.GLADIATOR){

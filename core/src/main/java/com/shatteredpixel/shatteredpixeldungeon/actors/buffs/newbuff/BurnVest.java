@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff;
 import static com.badlogic.gdx.utils.Align.left;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Rankings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WellFed;
@@ -51,7 +52,11 @@ public class BurnVest extends Buff {
 
 	public static int burnadd = 100;
 
+	public static int cooladd = 100;
+
 	public static float burndmg = (float)((Math.round(burnadd))/100)*2;
+
+	public static float cooldmg = (float)((Math.round(cooladd))/100)*2;
 
 	@Override
 	public boolean act() {
@@ -60,13 +65,12 @@ public class BurnVest extends Buff {
 			Hero hero = (Hero) target;
 			if(burnadd>100){
 				BurnVest.burnadd--;
-
 			}else{
 				BurnVest.burnadd++;
 			}
-			CoolVest.cooladd=200-BurnVest.burnadd;
-
-			burndmg = (float)((Math.round(burnadd))/100)*2;
+			BurnVest.cooladd=200-BurnVest.burnadd;
+			BurnVest.burndmg = (float)((Math.round(burnadd))/100)*2;
+			BurnVest.cooldmg = (float)((Math.round(cooladd))/100)*2;
 			spend(STEP);
 		}else {
 			diactivate();
@@ -74,7 +78,7 @@ public class BurnVest extends Buff {
 		return true;
 	}
 
-	//显示相关
+	//显示
 	@Override
 	public int icon() {
 			return BuffIndicator.BURNVEST;
@@ -88,30 +92,29 @@ public class BurnVest extends Buff {
 	@Override
 	public String desc() {
 		String result;
-		result = Messages.get(this, "desc", burnadd);
+		//result = Messages.get(this, "desc", burnadd , cooladd);
+		result = Messages.get(this, "desc", burnadd , cooladd);
 		return result;
 	}
 
-	public String desc2() {
-		String result;
-		result = Messages.get(((float)burnadd)/100 +"x");
-		return result;
-	}
 
-	//保存到存档
+	//保存
 
 	private static final String BURNADD = "burnadd";
+	private static final String COOLADD = "cooladd";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		bundle.put( BURNADD, burnadd );
+		bundle.put( COOLADD, cooladd );
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		burnadd = bundle.getInt(BURNADD);
+		burnadd = bundle.getInt(COOLADD);
 	}
 
 

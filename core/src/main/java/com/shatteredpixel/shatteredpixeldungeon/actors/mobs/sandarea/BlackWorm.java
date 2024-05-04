@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
@@ -46,7 +47,7 @@ public class BlackWorm extends Mob {
 		
 		//HP = HT =  12 + Random.Int(6);
 
-		HP = HT =  6 + Random.Int(4) + Dungeon.depth;
+		HP = HT =  6 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
 
 		EXP = 1;
 
@@ -75,7 +76,7 @@ public class BlackWorm extends Mob {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 3 ); }
+	public int damageRoll() { return Random.NormalIntRange( 1, 3+BossLoot.infection ); }
 
 	@Override
 	public int drRoll() {

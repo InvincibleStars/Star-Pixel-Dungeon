@@ -45,7 +45,7 @@ public class Ammo extends Item {
 	public static final String AC_LOOK	= "ac_look";
 
 	{
-		image = ItemSpriteSheet.AMMO;
+		image = ItemSpriteSheet.BLACK_GEM;
 		
 		stackable = true;
 		unique = true;

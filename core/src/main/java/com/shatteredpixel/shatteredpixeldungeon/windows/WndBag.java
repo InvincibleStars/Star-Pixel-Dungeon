@@ -69,15 +69,15 @@ public class WndBag extends WndTabbed {
 	//25
 
 	//方格宽度
-	protected static int SLOT_WIDTH_P   = 30;
-	protected static int SLOT_WIDTH_L   = 40;//横屏
+	protected static int SLOT_WIDTH_P   = 25;
+	protected static int SLOT_WIDTH_L   = 35;//横屏
 	//方格高度
-	protected static int SLOT_HEIGHT_P	= 30;
-	protected static int SLOT_HEIGHT_L	= 40;//横屏
+	protected static int SLOT_HEIGHT_P	= 25;
+	protected static int SLOT_HEIGHT_L	= 25;//横屏
 	//方框边距
 	protected static final int SLOT_MARGIN	= 1;//1
 	//标题高度
-	protected static final int TITLE_HEIGHT	= 14;//14
+	protected static final int TITLE_HEIGHT	= 13;//14
 	
 	private ItemSelector selector;
 
@@ -322,7 +322,7 @@ public class WndBag extends WndTabbed {
 	
 	@Override
 	protected int tabHeight() {
-		return 27;
+		return 22;
 	} //20
 	
 	private Image icon( Bag bag ) {
@@ -352,7 +352,9 @@ public class WndBag extends WndTabbed {
 		}
 		
 	}
-	
+
+
+	//占位符-药剂
 	public static class Placeholder extends Item {
 
 		public Placeholder(int image ) {

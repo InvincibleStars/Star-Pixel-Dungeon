@@ -44,6 +44,7 @@ public class WornShortsword extends MeleeWeapon {
 
 		tier = 1;
 		//enchant();
+
 		
 		bones = false;
 	}

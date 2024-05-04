@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollThrowSprite;
@@ -37,7 +38,7 @@ public class GnollThrow extends Gnoll {
 	{
 		spriteClass = GnollThrowSprite.class;
 		
-		HP = HT = 15+(Random.Int(4));
+		HP = HT = 15+Random.Int(2+(BossLoot.infection*2));
 		defenseSkill = 6;
 		
 		EXP = 2;
@@ -48,7 +49,7 @@ public class GnollThrow extends Gnoll {
 	}
 	
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 12 ); }
+	public int damageRoll() { return Random.NormalIntRange( 1, 12+ BossLoot.infection  ); }
 	
 	@Override
 	public int attackSkill( Char target ) {

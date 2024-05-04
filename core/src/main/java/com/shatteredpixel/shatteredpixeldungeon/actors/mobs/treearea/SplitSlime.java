@@ -31,7 +31,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -46,7 +48,7 @@ public class SplitSlime extends Mob {
 	{
 		spriteClass = SwarmSprite.class;
 		
-		HP = HT = 22;
+		HP = HT = 22+Random.Int(2+(BossLoot.infection*2));
 		defenseSkill = 8;
 
 		EXP = 6;
@@ -54,7 +56,7 @@ public class SplitSlime extends Mob {
 		
 		flying = true;
 
-		loot = new Plant.Seed();
+		loot = Generator.Category.SEED;
 		lootChance = 1; //by default, see rollToDropLoot()
 	}
 	
@@ -79,7 +81,7 @@ public class SplitSlime extends Mob {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 3, 14 );
+		return Random.NormalIntRange( 3, 14+ BossLoot.infection  );
 	}
 	
 	@Override
@@ -139,12 +141,14 @@ public class SplitSlime extends Mob {
 		return clone;
 	}
 
-	
+	/*
 	@Override
 	protected Item createLoot(){
-		for (int i = 0; i < Random.Int(2,8); i++) {
-			createLoot();
+		for (int i = 0; i < Random.Int(2,8000); i++) {
+			super.createLoot();
 		}
 		return super.createLoot();
 	}
+
+	 */
 }

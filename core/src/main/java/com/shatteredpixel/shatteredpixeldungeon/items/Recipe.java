@@ -24,7 +24,8 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.YingcuiGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
@@ -180,7 +181,7 @@ public abstract class Recipe {
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
 		new ArcaneResin.Recipe(),
-		new YingcuiGem.Recipe(),
+		new GreenGem.Recipe(),
 		new Alchemize.Recipe(),
 		new StewedMeat.oneMeat()
 	};
@@ -213,13 +214,14 @@ public abstract class Recipe {
 		new WildEnergy.Recipe(),
 		new TelekineticGrab.Recipe(),
 		new SummonElemental.Recipe(),
-		new StewedMeat.twoMeat()
+		new StewedMeat.twoMeat(),
+		new Dust.GemToDust(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new StewedMeat.threeMeat(),
-		new YingcuiGem.Scroll(),
+		new GreenGem.Scroll(),
 		new MeatPie.Recipe()
 	};
 	
@@ -274,5 +276,3 @@ public abstract class Recipe {
 		}
 	}
 }
-
-

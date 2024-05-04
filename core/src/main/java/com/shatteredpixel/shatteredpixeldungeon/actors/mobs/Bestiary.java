@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.RockBug2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.SandWorm2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Albino;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Bat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.GnollThrow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.LifePlant;
@@ -118,26 +119,27 @@ public class Bestiary {
 						Gnoll.class,
 						GnollThrow.class,
 						SplitSlime.class,
-						WoodenCross.class));
+						WoodenCross.class,
+                        Bat.class));
 				
 			// Caves
 			case 11:
 				//3x bat, 1x brute, 1x shaman
 				return new ArrayList<>(Arrays.asList(
-						Albino.Bat.class, Albino.Bat.class, Albino.Bat.class,
+						Bat.class, Bat.class, Bat.class,
 						Brute.class,
 						Shaman.random()));
 			case 12:
 				//2x bat, 2x brute, 1x shaman, 1x spinner
 				return new ArrayList<>(Arrays.asList(
-						Albino.Bat.class, Albino.Bat.class,
+						Bat.class, Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(),
 						Spinner.class));
 			case 13:
 				//1x bat, 2x brute, 2x shaman, 2x spinner, 1x DM-200
 				return new ArrayList<>(Arrays.asList(
-						Albino.Bat.class,
+						Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(), Shaman.random(),
 						Spinner.class, Spinner.class,
@@ -145,7 +147,7 @@ public class Bestiary {
 			case 14: case 15:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
-						Albino.Bat.class,
+						Bat.class,
 						Brute.class,
 						Shaman.random(), Shaman.random(),
 						Spinner.class, Spinner.class,
@@ -222,7 +224,7 @@ public class Bestiary {
 				
 			// Prison
 			case 9:
-				if (Random.Float() < 0.025f) rotation.add(Albino.Bat.class);
+				if (Random.Float() < 0.025f) rotation.add(Bat.class);
 				return;
 				
 			// Caves

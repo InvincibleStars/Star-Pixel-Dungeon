@@ -29,10 +29,10 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
 
-public class YingcuiGem extends Gem {
+public class GreenGem extends Gem {
 	
 	{
-		image = ItemSpriteSheet.YINGCUI_GEM;
+		image = ItemSpriteSheet.GREEN_GEM;
 
 	}
 
@@ -46,7 +46,7 @@ public class YingcuiGem extends Gem {
 	public static class Scroll extends Recipe.SimpleRecipe {
 		{
 			//消耗3个晶体和4费用合成一张升级卷轴
-			inputs = new Class[]{YingcuiGem.class};
+			inputs = new Class[]{GreenGem.class};
 			inQuantity = new int[]{3};
 
 			cost = 4;
@@ -115,7 +115,7 @@ public class YingcuiGem extends Gem {
 		public Item sampleOutput(ArrayList<Item> ingredients) {
 			Weapon w = (Weapon)ingredients.get(0);
 			int level = w.level();
-			return new YingcuiGem().quantity(level+1);
+			return new GreenGem().quantity(level+1);
 		}
 	}
 

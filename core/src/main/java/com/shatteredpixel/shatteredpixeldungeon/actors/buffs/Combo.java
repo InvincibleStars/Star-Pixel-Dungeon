@@ -55,7 +55,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 
 	//private int count = 0;
 	public int count = 0;
-	private float comboTime = 0f;
+	private float comboTime = 500f;
 	private float initialComboTime = 5f;
 
 	@Override
@@ -114,6 +114,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 	@Override
 	public void detach() {
 		super.detach();
+		//
 		ActionIndicator.clearAction(this);
 	}
 

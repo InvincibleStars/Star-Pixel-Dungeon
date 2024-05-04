@@ -23,10 +23,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class LuoriGem extends Gem {
+public class BlueGem extends Gem {
 	
 	{
-		image = ItemSpriteSheet.LUORI_GEM;
+		image = ItemSpriteSheet.BLUE_GEM;
 
 	}
 

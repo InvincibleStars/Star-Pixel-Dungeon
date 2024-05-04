@@ -56,9 +56,12 @@ public class BossCall extends InvisibleHP {
 
 	@Override
 	public boolean act() {
-				if (Dungeon.level.distance(this.pos, hero.pos) >= 5) {alignment = ALLY2;}
-				else {alignment = ENEMY;
-				}return super.act();}
+				if (Dungeon.level.distance(this.pos, hero.pos) >= 5) {
+					alignment = ALLY2;
+				}else{
+					alignment = ENEMY;
+				}
+				return super.act();}
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 0, 0 );
@@ -70,11 +73,22 @@ public class BossCall extends InvisibleHP {
 	public int RE = 80;
 	@Override
 	public void die ( Object cause ) {
-		super.die(cause);for(Mob boss:level.mobs){
-							if(boss instanceof Level1Boss){if(boss.HP<=5){boss.HP-=boss.HP;
-								if(boss.BOSSCOUNT<=1){boss.BOSSCOUNT=0;}
-								else{boss.BOSSCOUNT-=1;}}
-							else{if(boss.BOSSCOUNT<=1){boss.BOSSCOUNT=0;}
-								else{boss.BOSSCOUNT-=1;}}}}}}
-
-
+		super.die(cause);
+		for(Mob boss:level.mobs){
+			if(boss instanceof Level1Boss){if(boss.HP<=5){
+				boss.HP=Math.min(boss.HP,boss.HP-5);
+				if(boss.BOSSCOUNT<=1){
+					boss.BOSSCOUNT=0;
+				}else{
+					boss.BOSSCOUNT-=1;
+				}
+			}else{
+				if(boss.BOSSCOUNT<=1){
+					boss.BOSSCOUNT=0;
+				}else{
+					boss.BOSSCOUNT-=1;
+				}
+			}}
+		}
+	}
+}

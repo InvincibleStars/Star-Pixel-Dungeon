@@ -19,7 +19,7 @@ allprojects {
         appPackageName = 'com.star.dungeon'
 
         appVersionCode = 588
-        appVersionName = '0.1.x-8'
+        appVersionName = '0.1.x-11'
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 

@@ -4,11 +4,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Kill;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.WoodenCross;
-import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
-import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -42,7 +40,8 @@ public class Level0 extends Level {
             case 20:
                 return Terrain.EMPTY_WELL;
             case 65:
-                return Terrain.WALL;
+                //return Terrain.WALL;
+                return Terrain.ALCHEMY;
             case 81:
                 return Terrain.DOOR;
             case 82:
@@ -94,7 +93,7 @@ public class Level0 extends Level {
             65,65,65,65,65,65,65,65,101,65,5,5,5,5,5,65,5,5,5,5,5,65,1,1,1,1,101,101,65,5,5,5,5,5,65,65,65,1,1,1,1,1,1,1,65,
             65,65,65,65,65,65,65,101,101,65,5,5,21,5,5,81,5,5,100,5,5,65,1,1,1,1,1,1,65,5,5,5,5,5,5,5,65,65,1,1,1,1,1,1,65,
             65,65,65,65,65,1,1,1,1,65,5,5,5,5,5,65,5,5,5,5,5,65,1,1,1,1,1,1,81,5,5,5,5,5,5,5,5,65,65,1,1,1,1,1,65,
-            65,65,65,65,1,1,1,1,1,65,5,5,5,5,5,65,5,5,5,5,5,65,1,1,97,1,1,1,65,5,5,5,5,5,5,5,5,5,65,1,1,1,1,1,65,
+            65,65,65,65,1,1,1,1,1,65,5,5,5,5,5,65,5,5,5,5,5,65,1,1,97,1,1,1,65,5,5,5,5,5,5,5,5,5,65,65,1,1,1,1,65,
             65,65,65,101,1,1,1,1,1,65,65,65,65,65,65,65,65,65,81,65,65,65,65,1,1,1,1,65,65,5,5,5,5,5,5,5,5,5,5,65,1,1,1,1,65,
             65,65,101,101,1,1,1,1,1,65,1,1,1,1,1,65,101,101,1,1,1,1,1,1,1,1,1,1,65,5,5,5,5,5,5,5,5,5,5,65,1,1,1,1,65,
             65,65,65,65,65,1,1,1,1,65,1,98,1,98,1,65,101,1,1,1,1,1,1,1,1,1,1,1,65,65,5,5,5,5,5,5,5,5,5,65,65,1,1,1,65,
@@ -172,7 +171,8 @@ public class Level0 extends Level {
     @Override
     protected void createMobs() {
 
-            Kill i= new Kill();
+            //KillBust i= new KillBust();
+        KillBust i = new KillBust();
             i.pos = 518;
             mobs.add(i);
 

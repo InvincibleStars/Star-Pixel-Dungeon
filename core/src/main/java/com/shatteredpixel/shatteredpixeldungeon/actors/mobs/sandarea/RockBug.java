@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBugSprite;
 import com.watabou.utils.Random;
 
@@ -33,7 +34,7 @@ public class RockBug extends Mob {
 	{
 		spriteClass = RockBugSprite.class;
 
-		HP = HT = 8 + Random.Int(4) + Dungeon.depth;
+		HP = HT = 8 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
 		EXP = 2;
 		maxLvl = 3;
 		loot = Generator.Category.ARMOR;
@@ -52,7 +53,7 @@ public class RockBug extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 4 );
+		return Random.NormalIntRange( 1, 4 +BossLoot.infection);
 	}
 
 	

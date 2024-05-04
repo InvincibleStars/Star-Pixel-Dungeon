@@ -106,7 +106,8 @@ public abstract class Mob extends Char {
 	public AiState FLEEING		= new Fleeing();
 	public AiState PASSIVE		= new Passive();
 	//默认生物动作(1/3立刻醒来，2/3睡眠)
-	public AiState state = NPC.choose_num==1 ? Random.Int(0,3)==1?HUNTING:SLEEPING:HUNTING;
+	//public AiState state = NPC.choose_num==1 ? Random.Int(0,3)==1?HUNTING:SLEEPING:HUNTING;
+	public AiState state =(NPC.choose_num==1)?HUNTING:(Random.Int(0,3)==1?HUNTING:SLEEPING);
 
 	public static int EyeAllow = 1;
 
@@ -719,20 +720,10 @@ public abstract class Mob extends Char {
 	@Override
 	public void die( Object cause ) {
 
-		reward=Random.Int(3,9);
-
+		reward=Random.Int(0,2);
 		for(int i = 1; i <= reward; i++){
+			if(Random.Float()<0.2f){
 
-			if(Random.Float()>=0.8f) {
-				level.drop(Generator.randomUsingDefaults(Generator.Category.SCROLL), pos).sprite.drop();
-			}
-
-			if(Random.Float()>=0.8f) {
-				level.drop(Generator.randomUsingDefaults(Generator.Category.POTION), pos).sprite.drop();
-			}
-
-			if(Random.Float()>=0.8f) {
-				level.drop(Generator.randomUsingDefaults(Generator.Category.FOOD), pos).sprite.drop();
 			}
 
 		}

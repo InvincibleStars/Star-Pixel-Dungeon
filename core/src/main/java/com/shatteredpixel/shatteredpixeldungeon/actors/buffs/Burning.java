@@ -27,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CoolVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -98,7 +97,7 @@ public class Burning extends Buff implements Hero.Doom {
 
 			if(BurnVest.burnadd<200){
 				BurnVest.burnadd++;
-				CoolVest.cooladd--;
+				BurnVest.cooladd--;
 			}
 
 			if (target instanceof Hero) {

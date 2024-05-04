@@ -21,13 +21,17 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.Science;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarHammer;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
@@ -36,38 +40,16 @@ public class PotionLevel extends Science {
 
 
     {
-        image = ItemSpriteSheet.UPDATE6;
+        image = ItemSpriteSheet.POTION_HOLDER;
     }
-/*
-    @Override //升级设定
+
+
     public boolean isUpgradable() {
-
-        Sword sword = Dungeon.hero.belongings.getItem(Sword.class);
-        WarHammer warhammer = Dungeon.hero.belongings.getItem(WarHammer.class);
-
-
-
-        if(sword!=null && warhammer!=null){
-
-            if(sword.level>=3 && warhammer.level>=3){
-                return true;
-            }else{
-                return false;
-            }
-
-
-        }else {
+        if(hero.belongings.getItem(ClothArmor.class) == null&&hero.belongings.getItem(WornShortsword.class) == null){
             return false;
+        }else {
+            return true;
         }
-
-
-
-    }
-
- */
-
-    public boolean isUpgradable() {
-        return true;
     }
 
     @Override

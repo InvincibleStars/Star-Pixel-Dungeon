@@ -29,14 +29,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.CanglanGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.YingcuiGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -174,8 +176,10 @@ public class QuickRecipe extends Component {
 		height = 16;
 		width = 0;
 
-		int padding = inputs.size() == 1 ? 8 : 0;
+		//int padding = inputs.size() == 1 ? 8 : 0;
+		int padding = 0;
 
+		//书页宽度
 		for (ItemSlot item : inputs){
 			item.setRect(x + width + padding, y, 16, 16);
 			width += 16 + padding;
@@ -354,9 +358,9 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe( new ArcaneResin.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
 						new ArcaneResin()));
-				result.add(new QuickRecipe( new YingcuiGem.Recipe(),
+				result.add(new QuickRecipe( new GreenGem.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
-						new CanglanGem()));
+						new BlueGem()));
 				return result;
 			case 7:
 				result.add(new QuickRecipe(new AlchemicalCatalyst.Recipe(), new ArrayList<>(Arrays.asList(new Potion.PlaceHolder(), new Plant.Seed.PlaceHolder())), new AlchemicalCatalyst()));
@@ -381,6 +385,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new ElixirOfToxicEssence.Recipe()));
 				result.add(new QuickRecipe(new ElixirOfArcaneArmor.Recipe()));
 				return result;
+
 			case 9:
 				result.add(new QuickRecipe(new TelekineticGrab.Recipe()));
 				result.add(new QuickRecipe(new PhaseShift.Recipe()));
@@ -396,7 +401,25 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new MagicalInfusion.Recipe()));
 				result.add(new QuickRecipe(new CurseInfusion.Recipe()));
 				result.add(new QuickRecipe(new Recycle.Recipe()));
+
 				return result;
+
+/*
+			case 10:
+				result.add(new QuickRecipe( new Dust.GemToDust(), new ArrayList<>(Arrays.asList(new Dust.DustHolder().quantity(3))), new WndBag.Placeholder(ItemSpriteSheet.DUST_HOLDER){
+					@Override
+					public String name() {
+						return Messages.get(Dust.GemToDust.class, "name");
+					}
+
+					@Override
+					public String info() {
+						return "";
+					}
+				}));
+				return result;
+
+ */
 		}
 	}
 	

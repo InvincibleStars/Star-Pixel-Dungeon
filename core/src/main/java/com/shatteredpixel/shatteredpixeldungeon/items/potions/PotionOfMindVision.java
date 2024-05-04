@@ -23,10 +23,15 @@ package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class PotionOfMindVision extends Potion {
@@ -40,12 +45,14 @@ public class PotionOfMindVision extends Potion {
 		identify();
 		Buff.affect( hero, MindVision.class, MindVision.DURATION+5*level );
 		Dungeon.observe();
-		
+		BuffIndicator.refreshHero();
 		if (Dungeon.level.mobs.size() > 0) {
 			GLog.i( Messages.get(this, "see_mobs") );
 		} else {
 			GLog.i( Messages.get(this, "see_none") );
 		}
+
+
 	}
 	
 	@Override

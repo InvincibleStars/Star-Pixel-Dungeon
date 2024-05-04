@@ -319,6 +319,8 @@ public class Assets {
 		//活化植物
 		public static final String LIFE_PLANT= "sprites/newsprites/tree/lifeplant.png";
 		public static final String DEATH_PLANT= "sprites/newsprites/tree/deathplant.png";
+
+		public static final String ANGRY_VINE= "sprites/newsprites/tree/angryvine.png";
 		//十字架
 		public static final String WOOD_ANKH= "sprites/newsprites/tree/woodankh.png";
 

@@ -30,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Kill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -177,19 +176,21 @@ public abstract class RegularLevel extends Level {
 	protected float[] trapChances() {
 		return new float[]{1};
 	}
+
+	public int killmobadd=1;
 	
 	@Override
 	public int nMobs() {
-		int add =1;
+
 		if(NPC.choose_num==1){
-			add=2;
+			killmobadd=2;
 		}
 		//生成数量
 		if (Dungeon.depth <= 1) return 0;
 		//%为取余，即楼层/5后的余数
-		int mobs = (10 + Dungeon.depth % 5 + Random.Int(3))*add;
+		int mobs = ((10 + Dungeon.depth % 5 + Random.Int(3))*killmobadd);
 		if (feeling == Feeling.LARGE){
-			mobs = ((int)Math.ceil(mobs * 1.20f))*add;	//由4/3变成120%
+			mobs = ((int)Math.ceil(mobs * 1.20f * killmobadd));	//由4/3变成120%
 		}
 		return mobs;
 	}

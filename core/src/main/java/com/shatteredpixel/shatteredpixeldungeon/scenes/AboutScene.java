@@ -68,12 +68,25 @@ public class AboutScene extends PixelScene {
 		CreditsBlock data = new CreditsBlock(true, STAR_COLOR,
 				"About\n  关于",
 				Icons.NEWS.get(),
-				"Star Pixel Dungeon \n-Developed by : Invincible Star\n\n星辰地牢\n开发者：不败星辰\n\nShattered Pixel Dungeon\n-Developed by : Evan Debenham\n\n破碎地牢\n开发者:Evan Debenham\n\nPixel Dungeon\n-Developed by Watabou\nInspired by Brian Walker's brogue\n\n像素地牢\n开发者：Watabou\n灵感来源：Brian Walker's brogue",
+				"Star Pixel Dungeon \n-Developed by : Invincible Star\n\n星辰地牢\n开发者：不败星辰" +
+						"\n\nShattered Pixel Dungeon\n-Developed by : Evan Debenham\n\n破碎地牢\n开发者:Evan Debenham" +
+						"\n\nPixel Dungeon\n-Developed by Watabou\nInspired by Brian Walker's brogue\n\n像素地牢\n开发者：Watabou" +
+						"\n灵感来源：Brian Walker's brogue",
 				"加入星辰地牢开发群",
 				"https://jq.qq.com/?_wv=1027&k=YbmCeqy6");
+		CreditsBlock data2 = new CreditsBlock(true, STAR_COLOR,
+				"Github项目地址",
+				null,
+				"点击即可前往星辰地牢的项目地址！",
+				"项目地址",
+				"https://jq.qq.com/?_wv=1027&k=YbmCeqy6");
 
-		data.setRect((w - fullWidth)/2f - 6, 10, 120, 0);
+		//使用w/2f-width/2来表示居中文本
+		data.setRect(w/2f-60, 10, 120, h/2);
+		//使用上方的数据作为y并设置间隔
+		data2.setRect(w/2f-60, data.height()+20, 120, h/2);
 		content.add(data);
+		content.add(data2);
 
 		content.setSize( fullWidth, 0/*data.bottom()+10*/ );
 

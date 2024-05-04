@@ -28,7 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class A1145 extends MeleeWeapon {
+public class SurgingWaves extends MeleeWeapon {
 	
 	{
 		image = ItemSpriteSheet.LONGSWORD;

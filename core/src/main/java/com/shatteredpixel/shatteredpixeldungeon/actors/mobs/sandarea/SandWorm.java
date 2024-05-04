@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWormSprite;
 import com.watabou.utils.Random;
 
@@ -33,7 +34,7 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 6 + Random.Int(4) + Dungeon.depth;
+		HP = HT = 6 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
 		defenseSkill = 3;
 		EXP = 2;
 		maxLvl = 3;
@@ -74,7 +75,7 @@ public class SandWorm extends Mob {
 	protected boolean getFurther(int target) { return true; }
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 6); }
+	public int damageRoll() { return Random.NormalIntRange(2, 6+BossLoot.infection); }
 
 	@Override
 	public int drRoll() {

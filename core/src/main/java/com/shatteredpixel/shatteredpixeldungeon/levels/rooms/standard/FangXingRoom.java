@@ -33,15 +33,15 @@ public class FangXingRoom extends StandardRoom {
 
 
 	@Override
-	public int minWidth() { return 6; }
+	public int minWidth() { return 10; }
 	@Override
 	public int minHeight() {
-		return 6;
+		return 10;
 	}
 	@Override
-	public int maxWidth() { return 12; }
+	public int maxWidth() { return 19; }
 	@Override
-	public int maxHeight() { return 12; }
+	public int maxHeight() { return 19; }
 
 	@Override
 	public void paint(Level level) {

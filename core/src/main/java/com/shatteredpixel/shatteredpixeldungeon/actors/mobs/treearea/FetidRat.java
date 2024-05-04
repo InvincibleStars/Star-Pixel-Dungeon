@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FetidRatSprite;
 import com.watabou.utils.Random;
@@ -37,7 +38,7 @@ public class FetidRat extends Rat {
 	{
 		spriteClass = FetidRatSprite.class;
 
-		HP = HT = 20+Random.Int(2);
+		HP = HT = 20+Random.Int(2+(BossLoot.infection*2));
 
 		EXP = 4;
 
@@ -49,7 +50,7 @@ public class FetidRat extends Rat {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 12 );
+		return Random.NormalIntRange( 1, 12+ BossLoot.infection  );
 	}
 
 	@Override

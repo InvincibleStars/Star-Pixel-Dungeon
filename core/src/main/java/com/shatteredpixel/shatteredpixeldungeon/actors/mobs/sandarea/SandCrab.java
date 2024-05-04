@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -49,7 +50,7 @@ public class SandCrab extends Mob {
 	{
 		spriteClass = CrabSprite.class;
 
-		HP = HT = 10 + Random.Int(5) + Dungeon.depth;
+		HP = HT = 10 + Random.Int(5+(BossLoot.infection*2)) + Dungeon.depth;
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 3;
@@ -75,7 +76,7 @@ public class SandCrab extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 2 , 6 );
+		return Random.NormalIntRange( 2 , 6+BossLoot.infection );
 	}
 
 	

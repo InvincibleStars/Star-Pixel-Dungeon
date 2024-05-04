@@ -77,15 +77,18 @@ abstract public class Weapon extends KindOfWeapon {
 	public Class<? extends CharSprite> spriteClass;
 
 	public enum Augment {
-		SPEED   (0.7f, 0.6667f),
-		DAMAGE  (1.5f, 1.6667f),
-		
-		UPDATE	(7f,1f),
-		DEF	(7f,1f),
-		NONE	(1.0f, 1.0000f);
+		SPEED  		(0.70f,0.6667f),
+		SPEEDI		(1.00f,0.85f),
+
+		DAMAGE 		(1.50f,1.6667f),
+		DAMAGEI		(1.15f,1.0f),
+		NONE		(1.00f,1.0f);
 
 		private float damageFactor;
 		private float delayFactor;
+
+		private float AccuracyFactor;
+		private int reachFactor;
 
 		Augment(float dmg, float dly){
 			damageFactor = dmg;

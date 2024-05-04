@@ -26,15 +26,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -64,7 +67,7 @@ public enum Rankings {
 		load();
 		
 		Record rec = new Record();
-		
+
 		rec.cause = cause;
 		rec.win		= win;
 		rec.heroClass	= Dungeon.hero.heroClass;
@@ -76,6 +79,7 @@ public enum Rankings {
 		INSTANCE.saveGameData(rec);
 
 		rec.gameID = UUID.randomUUID().toString();
+
 		
 		records.add( rec );
 		
@@ -206,6 +210,8 @@ public enum Rankings {
 		bundle.put( TOTAL, totalNumber );
 		bundle.put( WON, wonNumber );
 
+
+
 		try {
 			FileUtils.bundleToFile( RANKINGS_FILE, bundle);
 		} catch (IOException e) {
@@ -235,6 +241,7 @@ public enum Rankings {
 				totalNumber = records.size();
 			}
 
+
 			wonNumber = bundle.getInt( WON );
 			if (wonNumber == 0) {
 				for (Record rec : records) {
@@ -243,6 +250,7 @@ public enum Rankings {
 					}
 				}
 			}
+
 
 		} catch (IOException e) {
 		}

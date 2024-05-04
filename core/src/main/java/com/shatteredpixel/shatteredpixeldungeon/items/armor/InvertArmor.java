@@ -23,8 +23,11 @@ package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class InvertArmor extends Armor {
 
@@ -32,6 +35,16 @@ public class InvertArmor extends Armor {
 		image = ItemSpriteSheet.ARMOR_INVERT;
 
 		bones = false;
+	}
+
+	@Override //按钮设定（存在调用）
+	public ArrayList<String> actions(Hero hero ) {
+		ArrayList<String> actions = super.actions( hero );
+		actions.remove(AC_DETACH);
+		actions.remove(AC_DROP);
+		actions.remove(AC_THROW);
+		actions.remove(AC_UNEQUIP);
+		return actions;
 	}
 
 	public InvertArmor() {

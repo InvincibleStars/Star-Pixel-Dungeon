@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.LifeSandSprite;
 import com.watabou.utils.Random;
 
@@ -35,7 +36,7 @@ public class LifeSand extends Mob {
 	{
 		spriteClass = LifeSandSprite.class;
 
-		HP = HT = 10 + Random.Int(4);
+		HP = HT = 10 + Random.Int(4+(BossLoot.infection*2));
 		
 		EXP = 4;
 		maxLvl = 5;
@@ -54,7 +55,7 @@ public class LifeSand extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(1, 8);
+		return Random.NormalIntRange(1, 8+BossLoot.infection);
 	}
 
 	@Override

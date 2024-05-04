@@ -26,15 +26,18 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM100Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.AngryVineSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.LifePlantSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -43,10 +46,10 @@ public class Gnoll extends Mob {
 	
 	{
 
-		spriteClass = LifePlantSprite.class;
+		spriteClass = AngryVineSprite.class;
 
 		
-		HP = HT = 15+(Random.Int(4));
+		HP = HT = 15+Random.Int(2+(BossLoot.infection*2));
 		defenseSkill = 7;
 		
 		EXP = 5;
@@ -63,15 +66,6 @@ public class Gnoll extends Mob {
 		return super.act();
 
 	}
-
-//	public void activate(){
-//		if(armor==false){
-//			((MimicSprite)sprite).activate();
-//
-//		}
-//	}
-
-	//protected float AttackPower = 1;
 
 	//检测AttackPower
 	@Override
@@ -95,6 +89,10 @@ public class Gnoll extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		damage = super.attackProc( enemy, damage );
 		ATTACKPOWER=1f;
+		if (Random.Int(4) == 0) {
+			Buff.affect(enemy, Cripple.class, Random.Float(1f,4f) );
+			HP = Math.min(HT, HP + 1);
+		}
 		return damage;
 	}
 
@@ -102,7 +100,7 @@ public class Gnoll extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 2, (int)(ATTACKPOWER*6) );
+		return Random.NormalIntRange( 2, (int)(ATTACKPOWER*6+ BossLoot.infection ) );
 	}
 	
 	@Override

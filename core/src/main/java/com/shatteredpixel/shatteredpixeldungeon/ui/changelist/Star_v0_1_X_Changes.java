@@ -86,7 +86,7 @@ public class Star_v0_1_X_Changes {
 	
 	public static void add_v0_1_0_Changes( ArrayList<ChangeInfo> changeInfos ){
 		
-		ChangeInfo changes = new ChangeInfo("新内容/即将到来", false, "");
+		ChangeInfo changes = new ChangeInfo("新内容", false, "");
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
@@ -97,23 +97,24 @@ public class Star_v0_1_X_Changes {
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_NONE, null), "原初戒指",
 				"_-_ 初始携带的物品，可以通过嬗变转换成其他戒指"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.YINGCUI_GEM, null), "结晶力量",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_GEM, null), "结晶力量",
 				"_-_ 具有独特用途和合成素材的结晶将加入游戏\n"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.YINGCUI_CRYSTALLIZE, null), "尘埃“落定”",
-				"_-_ 具有更多效用的尘埃将逐步加入\n"));
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_DUST, null), "星尘系统",
+				"_-_ 星尘是一种蕴含了某种特定能量的粉尘\n" +
+						"星尘通常具有强大的效用性，尽管你并不能直观地感受到"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.AMMO, null), "枪械/子弹",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.BLACK_GEM, null), "枪械/子弹",
 				"_-_ 枪械作为地牢中强大的远程武器，本身需要子弹来装填，你可以在投掷武器房间内找到子弹，也可以在商店购买弹药"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WUXIA_DUST, null), "合成",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WHITE_GEM, null), "强化晶体",
 				"_-_ 现在一些武器可以被拆解成为强化晶体了"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER, null), "新武器",
 				"_-_ 更多的新武器\n"+
 						"_-_ 更多的投掷武器"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.UPDATE6, null), "科技树",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_HOLDER, null), "科技树",
 				"_-_ 从现在开始，各项可消耗品均可以被指定的科技树所升级\n"+
 						"_-_ 升级通常情况下可以显著提高其消耗品的效用，但前提是你肯投入足量的升级"));
 

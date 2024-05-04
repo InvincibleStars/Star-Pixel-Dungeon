@@ -61,7 +61,7 @@ public enum Document {
 	}
 
 	public boolean isPageFound( int pageIdx ){
-		return isPageFound( pagesStates.keySet().toArray(new String[0])[pageIdx] );
+		return isPageFound( pagesStates.keySet().toArray(new String[0])[pageIdx]);
 	}
 
 	public boolean readPage( String page ) {
@@ -164,6 +164,12 @@ public enum Document {
 		ALCHEMY_GUIDE.pagesStates.put("Catalysts",            debug ? READ : NOT_FOUND);
 		ALCHEMY_GUIDE.pagesStates.put("Brews_Elixirs",        debug ? READ : NOT_FOUND);
 		ALCHEMY_GUIDE.pagesStates.put("Spells",               debug ? READ : NOT_FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("Gem",               debug ? READ : NOT_FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("Dust",               debug ? READ : NOT_FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("Paper2",               debug ? READ : NOT_FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("Paper3",               debug ? READ : NOT_FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("Paper4",               debug ? READ : NOT_FOUND);
+
 	}
 	
 	private static final String DOCUMENTS = "documents";
