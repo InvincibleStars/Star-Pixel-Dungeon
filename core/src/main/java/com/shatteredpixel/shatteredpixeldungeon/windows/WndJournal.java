@@ -60,7 +60,7 @@ public class WndJournal extends WndTabbed {
 	public static final int WIDTH_L     = 200;
 	public static final int HEIGHT_L    = 130;
 	
-	private static final int ITEM_HEIGHT	= 18;
+	private static final int ITEM_HEIGHT	= 16;
 	
 	private GuideTab guideTab;
 	private AlchemyTab alchemyTab;
@@ -388,7 +388,7 @@ public class WndJournal extends WndTabbed {
 				}
 			} else {
 
-				int buttonPerRow = 6;
+				int buttonPerRow = 7;
 				float buttonWidth = width() / buttonPerRow;
 				float y = 0;
 				float x = 0;

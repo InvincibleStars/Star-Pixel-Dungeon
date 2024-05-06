@@ -53,7 +53,7 @@ public class Eleove extends MeleeWeapon {
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
-		Buff.prolong(attacker, Recharging.class, BuffWait.T2);
+		Buff.prolong(attacker, Recharging.class, BuffWait.T4);
 		return super.proc(attacker, defender, damage);
 	}
 

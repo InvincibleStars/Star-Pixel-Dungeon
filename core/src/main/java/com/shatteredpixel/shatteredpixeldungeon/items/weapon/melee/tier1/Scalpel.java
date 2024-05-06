@@ -35,16 +35,16 @@ public class Scalpel extends MeleeWeapon {
 		image = ItemSpriteSheet.SCALPEL;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.1f;
-		//阶数
 		tier = 1;
-		//距离
 		RCH=1;
-		//精确
-		//在Hero.canSurpriseAttack里设定不能偷袭
-		ACC = 0.75f; //0.8x accuracy
-		//攻击速度（2倍）
-		DLY=0.3f;
+		ACC = 0.75f;
+		DLY=0.5f;
 	}
+
+	@Override
+	public int max(int lvl) { return 2*(tier+1) + lvl + (masteryPotionBonus*2); }
+
+
 
 
 	@Override

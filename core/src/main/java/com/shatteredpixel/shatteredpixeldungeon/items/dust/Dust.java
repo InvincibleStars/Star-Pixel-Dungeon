@@ -100,17 +100,21 @@ public class Dust extends Item {
 					gems.add((Class<? extends Gem>) i.getClass());
 				}
 			}
-			Dust result;
+			Dust result = null;
 
-			if ( (gems.size() == 1 && Random.Int(4) == 0)
-					|| (gems.size() == 2 && Random.Int(2) == 0)) {
+			if ( (gems.size() == 1 && Random.Int(2) == 0) || (gems.size() == 2) ){
+
 				result = (Dust) Generator.randomUsingDefaults( Generator.Category.DUST );
+
 			} else {
 				result = Reflection.newInstance(types.get(Random.element(ingredients).getClass()));
+
 			}
+
 			if (gems.size() == 1){
 				result.identify();
 			}
+
 			return result;
 		}
 

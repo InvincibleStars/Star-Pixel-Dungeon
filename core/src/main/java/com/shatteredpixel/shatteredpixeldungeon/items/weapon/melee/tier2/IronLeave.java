@@ -44,7 +44,7 @@ public class IronLeave extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  2*(tier+1) + lvl * tier + masteryPotionBonus*2 + 2;   	//附加
+		return  2*(tier+1) + lvl * tier + masteryPotionBonus*2 + 2;
 	}
 
 	@Override

@@ -31,45 +31,14 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class SurgingWaves extends MeleeWeapon {
 	
 	{
-		image = ItemSpriteSheet.LONGSWORD;
+		image = ItemSpriteSheet.BLUE_GEMWEAPON;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1f;
 
-		tier = 1;
-	}
+		tier = 3;
+		RCH = 3;
+		ACC=1.25f;
 
-	@Override
-	public int image() {
-		if(this.level() >8){
-			image = ItemSpriteSheet.LONGSWORD;
-			RCH+=2;
-		}else if(this.level() >7){
-			image = ItemSpriteSheet.SAI;
-		}
-
-
-		else{
-			image = ItemSpriteSheet.LONGSWORD;
-		}
-		return super.level();
-	}
-
-	@Override
-	public int proc(Char attacker, Char defender, int damage ) {
-		if(this.level() >8) {
-			Buff.affect( defender, Burning.class ).reignite( defender );
-		}
-		return super.proc(attacker, defender, damage);
-	}
-
-
-	@Override
-	public String statsInfo(){
-		if(this.level() >4){
-			return "yes";
-		}else{
-			return "null";
-		}
 	}
 
 

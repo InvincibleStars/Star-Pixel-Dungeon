@@ -48,7 +48,7 @@ public class CutOff extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  3 * (tier+1) + lvl * (tier + 1) + masteryPotionBonus*2;   	//附加
+		return  3 * (tier+1) + lvl * (tier + 1) + masteryPotionBonus*2 -2;   	//附加
 	}
 
 

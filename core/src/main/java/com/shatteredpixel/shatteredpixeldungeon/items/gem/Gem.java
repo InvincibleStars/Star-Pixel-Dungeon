@@ -58,21 +58,5 @@ public class Gem extends Item {
 		return true;
 	}
 
-	public static class PlaceHolder extends Gem {
-
-		{
-			image = ItemSpriteSheet.RED_GEM;
-		}
-
-		@Override
-		public boolean isSimilar(Item item) {
-			return item instanceof Gem;
-		}
-
-		@Override
-		public String info() {
-			return "";
-		}
-	}
 
 }

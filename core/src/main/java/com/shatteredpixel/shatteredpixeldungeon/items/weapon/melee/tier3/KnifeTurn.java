@@ -32,7 +32,7 @@ import com.watabou.utils.Random;
 public class KnifeTurn extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.SAI;
+		image = ItemSpriteSheet.TWO_KNIFE;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.3f;
 
@@ -42,13 +42,18 @@ public class KnifeTurn extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round((2.5f*(tier+1)) + lvl*Math.round(0.5f*(tier+1)))/3;  //+2 per level, down from +4
+		return  Math.round((3.5f*(tier+1)) + lvl*Math.round(0.5f*(tier+1)))/3+4;
 	}
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
 		if(Random.Int(0,7)==0){
-		Buff.affect(attacker, Bleeding.class).set(Math.round(damage * 0.2f));
+			if(Random.Int(0,2)==0){
+				Buff.affect(attacker, Bleeding.class).set(Math.round(damage * 0.2f));
+			}else{
+				Buff.affect(defender, Bleeding.class).set(Math.round(damage * 0.2f));
+			}
+
 		}
 		return super.proc(attacker, defender, damage);
 	}

@@ -70,9 +70,9 @@ import java.util.ArrayList;
 public class AlchemyScene extends PixelScene {
 
 	//max of 3 inputs, and 3 potential recipe outputs
-	private static final InputButton[] inputs = new InputButton[3];
-	private static final CombineButton[] combines = new CombineButton[3];
-	private static final OutputSlot[] outputs = new OutputSlot[3];
+	private static final InputButton[] inputs = new InputButton[4];
+	private static final CombineButton[] combines = new CombineButton[4];
+	private static final OutputSlot[] outputs = new OutputSlot[4];
 	
 	private Emitter smokeEmitter;
 	private Emitter bubbleEmitter;
@@ -155,7 +155,7 @@ public class AlchemyScene extends PixelScene {
 		NinePatch inputBG = Chrome.get(Chrome.Type.TOAST_TR);
 		inputBG.x = left + 6;
 		inputBG.y = pos;
-		inputBG.size(BTN_SIZE+8, 3*BTN_SIZE + 4 + 8);
+		inputBG.size(BTN_SIZE+8, 4*BTN_SIZE + 4 + 8);
 		add(inputBG);
 
 		pos += 4;

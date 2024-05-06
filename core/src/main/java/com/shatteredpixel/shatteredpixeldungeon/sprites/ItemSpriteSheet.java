@@ -87,7 +87,7 @@ public class ItemSpriteSheet {
 		assignItemRect(OTHER_HOLDER, 13, 13);
 	}
 	//-------------------------------------------------------------------------------------
-	private static final int UNCOLLECTIBLE = xy(1, 2);
+	private static final int UNCOLLECTIBLE = xy(1, 3);
 	public static final int GOLD = UNCOLLECTIBLE + 0;
 	public static final int ENERGY = UNCOLLECTIBLE + 1;
 
@@ -118,7 +118,7 @@ public class ItemSpriteSheet {
 		assignItemRect(TENGU_SHOCKER, 10, 10);
 	}
 	//-------------------------------------------------------------------------------------
-	private static final int CONTAINERS = xy(1, 3);   //16 slots
+	private static final int CONTAINERS = xy(1, 4);   //16 slots
 	public static final int BONES = CONTAINERS + 0;
 	public static final int REMAINS = CONTAINERS + 1;
 	public static final int TOMB = CONTAINERS + 2;
@@ -139,7 +139,7 @@ public class ItemSpriteSheet {
 		assignItemRect(EBONY_CHEST, 16, 14);
 	}
 	//-------------------------------------------------------------------------------------
-	private static final int MISC_CONSUMABLE = xy(1, 4);   //16 slots
+	private static final int MISC_CONSUMABLE = xy(1, 5);   //16 slots
 	public static final int ANKH = MISC_CONSUMABLE + 0;
 	public static final int STYLUS = MISC_CONSUMABLE + 1;
 	public static final int SEAL = MISC_CONSUMABLE + 2;
@@ -178,7 +178,7 @@ public class ItemSpriteSheet {
 		assignItemRect(KIT, 16, 15);
 	}
 	//炸弹-------------------------------------------------------------------------------------
-	private static final int BOMBS = xy(1, 5);   //16 slots
+	private static final int BOMBS = xy(1, 6);   //16 slots
 	public static final int BOMB = BOMBS + 0;
 	public static final int DBL_BOMB = BOMBS + 1;
 	public static final int FIRE_BOMB = BOMBS + 2;
@@ -215,6 +215,7 @@ public class ItemSpriteSheet {
 	public static final int SCALPEL = WEP_TIER1 + 4;
 	public static final int KUNCKLES = WEP_TIER1 + 5;
 	public static final int STICK = WEP_TIER1 + 6;
+	public static final int GREENDAGGER = WEP_TIER1 + 7;
 
 	static {
 		assignItemRect(WORN_SHORTSWORD, 13, 13);
@@ -224,6 +225,7 @@ public class ItemSpriteSheet {
 		assignItemRect(SCALPEL, 11, 12);
 		assignItemRect(KUNCKLES, 13, 9);
 		assignItemRect(STICK, 15, 14);
+		assignItemRect(GREENDAGGER, 11, 12);
 	}
 	//二阶武器-------------------------------------------------------------------------------------
 	private static final int WEP_TIER2 = xy(1, 8);
@@ -236,6 +238,8 @@ public class ItemSpriteSheet {
 	public static final int CUTOFF   = WEP_TIER2 +6;
 	public static final int CHAIN   = WEP_TIER2 +7;
 	public static final int ELEOVE   = WEP_TIER2 +8;
+	public static final int GEMGLOVE   = WEP_TIER2 +9;
+	public static final int BOOK   = WEP_TIER2 +10;
 
 	static {
 		assignItemRect(SHORTSWORD, 13, 13);
@@ -247,6 +251,8 @@ public class ItemSpriteSheet {
 		assignItemRect(CUTOFF,   13, 13);
 		assignItemRect(CHAIN,   15, 16);
 		assignItemRect(ELEOVE,   13, 15);
+		assignItemRect(GEMGLOVE,   13, 15);
+		assignItemRect(BOOK,   13, 16);
 	}
 	//三阶武器-------------------------------------------------------------------------------------
 	private static final int WEP_TIER3 = xy(1, 9);
@@ -260,8 +266,9 @@ public class ItemSpriteSheet {
 	public static final int  SICKLE  = WEP_TIER3 + 7;
 	public static final int  TWO_SWORD  =WEP_TIER3 + 8;
 	public static final int  KNIFE_TURN  = WEP_TIER3 + 9;
-	public static final int  NEMESIS  =WEP_TIER3 + 10;
-	public static final int  TWO_KNIFE  = WEP_TIER3 + 11;
+	public static final int  TWO_KNIFE  = WEP_TIER3 + 10;
+	public static final int DEADBOOK   = WEP_TIER3+11;
+	public static final int BLUE_GEMWEAPON   = WEP_TIER3+12;
 
 	static {
 		assignItemRect(SWORD, 14, 14);
@@ -274,8 +281,9 @@ public class ItemSpriteSheet {
 		assignItemRect(SICKLE,   14, 12);
 		assignItemRect(TWO_SWORD,   14, 14);
 		assignItemRect(KNIFE_TURN,   16, 16);
-		assignItemRect(NEMESIS,   15, 15);
 		assignItemRect(TWO_KNIFE,   16, 16);
+		assignItemRect(DEADBOOK,   13, 16);
+		assignItemRect(BLUE_GEMWEAPON,   14, 14);
 	}
 	//四阶武器-------------------------------------------------------------------------------------
 	private static final int WEP_TIER4 = xy(1, 10);
@@ -288,6 +296,8 @@ public class ItemSpriteSheet {
 	public static final int  STAB_SWORD  = WEP_TIER4 + 6;
 	public static final int  FIRE_GLOVE  = WEP_TIER4 + 7;
 	public static final int  THORN  = WEP_TIER4 + 8;
+	public static final int  NEMESIS  =WEP_TIER4 + 9;
+	public static final int  FIRESWORD  = 10;
 
 	static {
 		assignItemRect(LONGSWORD, 15, 15);
@@ -299,6 +309,8 @@ public class ItemSpriteSheet {
 		assignItemRect(STAB_SWORD,   15, 15);
 		assignItemRect(FIRE_GLOVE,   13, 15);
 		assignItemRect(THORN,   14, 16);
+		assignItemRect(NEMESIS,   15, 15);
+		assignItemRect(FIRESWORD, 14, 14);
 	}
 //五阶武器-------------------------------------------------------------------------------------
 
@@ -1062,7 +1074,6 @@ public class ItemSpriteSheet {
 			assignIconRect(POTION_CLEANSE, 7, 7);
 			assignIconRect(POTION_DIVINE, 7, 7);
 		}
-		//16 free slots
 	}
 //物品角标栏-------------------------------------------------------------------------------------
 }

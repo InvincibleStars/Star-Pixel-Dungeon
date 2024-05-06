@@ -36,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.AlchemyGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
@@ -71,6 +72,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
@@ -355,10 +357,12 @@ public class QuickRecipe extends Component {
 						new LiquidMetal()));
 				result.add(null);
 				result.add(null);
-				result.add(new QuickRecipe( new ArcaneResin.Recipe(),
+				result.add(
+						new QuickRecipe( new ArcaneResin.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
 						new ArcaneResin()));
-				result.add(new QuickRecipe( new GreenGem.Recipe(),
+				result.add(
+						new QuickRecipe( new AlchemyGem.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
 						new BlueGem()));
 				return result;
@@ -401,6 +405,12 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new MagicalInfusion.Recipe()));
 				result.add(new QuickRecipe(new CurseInfusion.Recipe()));
 				result.add(new QuickRecipe(new Recycle.Recipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.BlueRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.RedRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.GreenRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.GemGloveRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.EleoveRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.FireGloveRecipe()));
 
 				return result;
 

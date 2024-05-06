@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
@@ -43,12 +42,23 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.SandBossLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.BlueDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.ColorDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.GreenDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.RedDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WhiteDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.YellowDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.ColorGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.RedGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WhiteGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.YellowGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
@@ -115,43 +125,38 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BattleAxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.AssassinsBlade;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.BattleAxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Knuckle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Scalpel;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Chain;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gauntlet;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Glaive;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greataxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatshield;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HandAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Longsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Mace;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Crossbow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Dagger;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Dirk;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Flail;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.Gauntlet;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.Glaive;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Gloves;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.Greataxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.Greatshield;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.Greatsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.HandAxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Longsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Mace;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RunicBlade;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Scimitar;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Shortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Spear;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarHammer;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Whip;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.CutOff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Eleove;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.RoundShield;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.RunicBlade;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Sai;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Scimitar;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Shortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Spear;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Sword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.WarHammer;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Whip;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.IronLeave;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.KnifeAoe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.IronSuper;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.KnifeTurn;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Thorn;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.KnifeAoe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Thorn;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.FishingSpear;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ForceCube;
@@ -180,7 +185,6 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
@@ -294,6 +298,27 @@ public class Generator {
 					Starflower.Seed.class};
 			SEED.defaultProbs = new float[]{ 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2 };
 			SEED.probs = SEED.defaultProbs.clone();
+
+			GEM.classes = new Class<?>[]{
+					GreenGem.class,
+					RedGem.class,
+					BlueGem.class,
+					YellowGem.class,
+					ColorGem.class,
+					WhiteGem.class};
+			GEM.defaultProbs = new float[]{ 1,1,1,1,0,0 };
+
+			DUST.classes = new Class<?>[]{
+					GreenDust.class,
+					RedDust.class,
+					BlueDust.class,
+					YellowDust.class,
+					ColorDust.class,
+					WhiteDust.class};
+			DUST.defaultProbs = new float[]{ 1,1,1,1,0,0 };
+
+
+
 			
 			SCROLL.classes = new Class<?>[]{
 					ScrollOfUpgrade.class, //3 drop every chapter, see Dungeon.souNeeded()
@@ -367,13 +392,10 @@ public class Generator {
 					HandAxe.class,
 					Spear.class,
 					Dirk.class,
-					Chain.class,
-					CutOff.class,
-					Eleove.class,
 					IronLeave.class,
 					KnifeAoe.class
 			};
-			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 4, 2 ,2 ,3 ,1 };
+			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 3 ,2 };
 
 			WEP_T3.classes = new Class<?>[]{
 					Sword.class,
@@ -382,11 +404,9 @@ public class Generator {
 					RoundShield.class,
 					Sai.class,
 					Whip.class,
-					IronSuper.class,
-					KnifeTurn.class,
 					Thorn.class
 			};
-			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 3, 1, 1, 2 };
+			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 3, 2 };
 
 			
 			WEP_T4.classes = new Class<?>[]{

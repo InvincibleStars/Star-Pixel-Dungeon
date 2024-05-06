@@ -52,17 +52,15 @@ public class Chain extends MeleeWeapon {
 	public int max(int lvl) {
 		return  4*(tier+1) + 2 +			//基础
 				lvl*(tier+1) +				//成长
-				(masteryPotionBonus*2);   	//附加
+				(masteryPotionBonus*2)+3;   	//附加
 	}
-
-
 
 
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
 		if (Random.Int(4) == 0) {
-			Buff.affect(attacker, Bleeding.class).set(Math.round(damage * 0.2f));
+			Buff.affect(defender, Bleeding.class).set(Math.round(damage * 0.2f));
 		}
 		else if(Random.Int(4) == 1) {
 			Buff.prolong(attacker, Cripple.class, BuffWait.T5);

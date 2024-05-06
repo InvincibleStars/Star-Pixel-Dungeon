@@ -59,7 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.TechTree;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.Science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.ColorGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.RedGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WhiteGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -72,16 +72,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Dagger;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Gloves;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Knuckle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.newplants.CrystalFlower;
-import com.shatteredpixel.shatteredpixeldungeon.plants.newplants.MentholThicket;
 
 public enum HeroClass {
 
@@ -112,7 +111,12 @@ public enum HeroClass {
 
 		new PotionLevel().quantity(1).identify().collect();
 
-		new CrystalFlower.Seed().quantity(7).identify().collect();
+
+
+
+
+
+
 
 
 		//new 类名().quantity(1).identify().collect();
@@ -441,4 +445,8 @@ public enum HeroClass {
 				return Messages.get(HeroClass.class, "huntress_unlock");
 		}
 		}
+
+
+
+
 	}
