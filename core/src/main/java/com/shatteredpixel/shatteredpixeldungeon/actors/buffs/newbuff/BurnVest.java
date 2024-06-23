@@ -21,26 +21,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff;
 
-import static com.badlogic.gdx.utils.Align.left;
-
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Rankings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WellFed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
-import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 //public class ThisActive extends Buff implements Hero.Doom {
 
@@ -48,15 +33,11 @@ public class BurnVest extends Buff {
 
 	//数据
 
-	private static final float STEP	= 25f;
-
+	private static final float STEP	= 75f;
 	public static int burnadd = 100;
-
 	public static int cooladd = 100;
-
-	public static float burndmg = (float)((Math.round(burnadd))/100)*2;
-
-	public static float cooldmg = (float)((Math.round(cooladd))/100)*2;
+	public static float burndmg = (float)((((Math.round(burnadd))/100)*2)-1);
+	public static float cooldmg = (float)((((Math.round(cooladd))/100)*2)-1);
 
 	@Override
 	public boolean act() {
@@ -89,7 +70,7 @@ public class BurnVest extends Buff {
 	return Messages.get(this, "title");
 	}
 
-	@Override
+	//@Override
 	public String desc() {
 		String result;
 		//result = Messages.get(this, "desc", burnadd , cooladd);

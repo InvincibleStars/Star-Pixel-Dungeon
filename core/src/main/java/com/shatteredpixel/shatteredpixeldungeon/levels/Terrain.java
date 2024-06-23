@@ -43,6 +43,8 @@ public class Terrain {
 	public static final int HIGH_GRASS		= 15;
 	public static final int FURROWED_GRASS	= 30;
 
+	public static final int DEADEMPTY	=32;
+
 	public static final int SECRET_DOOR	    = 16;
 	public static final int SECRET_TRAP     = 17;
 	public static final int TRAP            = 18;
@@ -74,6 +76,7 @@ public class Terrain {
 		flags[CHASM]		= AVOID	| PIT;
 		flags[EMPTY]		= PASSABLE;
 		flags[GRASS]		= PASSABLE | FLAMABLE;
+		flags[DEADEMPTY]	= PASSABLE;
 		flags[EMPTY_WELL]	= PASSABLE;
 		flags[WATER]		= PASSABLE | LIQUID;
 		flags[WALL]			= LOS_BLOCKING | SOLID;

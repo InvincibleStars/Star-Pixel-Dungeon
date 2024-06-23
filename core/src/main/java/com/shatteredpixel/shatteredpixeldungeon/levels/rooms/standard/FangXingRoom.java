@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -31,95 +32,26 @@ import com.watabou.utils.Random;
 
 public class FangXingRoom extends StandardRoom {
 
-
 	@Override
-	public int minWidth() { return 10; }
+	public int minWidth() { return 5; }
 	@Override
 	public int minHeight() {
-		return 10;
+		return 5;
 	}
 	@Override
-	public int maxWidth() { return 19; }
+	public int maxWidth() { return 12; }
 	@Override
-	public int maxHeight() { return 19; }
+	public int maxHeight() {
+		return 12;
+	}
 
 	@Override
 	public void paint(Level level) {
 
-
-		//适应模块：房间的一些填充会随着房间的大小而改变
-
-		if(width()<= 10 ) {
-			Painter.fill( level, this, 0, Terrain.WALL );
-			Painter.fill(level, this, 1, Terrain.GRASS);
-			Painter.fill(level, this, 2, Terrain.CHASM);
-		}
-		if((width()>10 && width()<=16)) {
-			Painter.fill( level, this, 0, Terrain.WALL );
-			Painter.fill(level, this, 1, Terrain.GRASS);
-			Painter.fill(level, this, 2, Terrain.CHASM);
-			Painter.fill(level, this, 3, Terrain.WALL);
-			Painter.fill(level, this, 4, Terrain.EMPTY);
-			Painter.fill(level, this, 7, Terrain.CHASM);
-		}
-		if ((width() > 16 && width () <=20)) {
-			Painter.fill( level, this, 0, Terrain.WALL );
-			Painter.fill(level, this, 1, Terrain.GRASS);
-			Painter.fill(level, this, 2, Terrain.CHASM);
-			Painter.fill(level, this, 3, Terrain.WALL);
-			Painter.fill(level, this, 4, Terrain.EMPTY);
-			Painter.fill(level, this, 7, Terrain.CHASM);
-		}
-		if (width() > 20 ) {
-			Painter.fill( level, this, 0, Terrain.WALL );
-			Painter.fill(level, this, 1, Terrain.GRASS);
-			Painter.fill(level, this, 2, Terrain.CHASM);
-			Painter.fill(level, this, 3, Terrain.WALL);
-			Painter.fill(level, this, 4, Terrain.EMPTY);
-			Painter.fill(level, this, 7, Terrain.CHASM);
-		}
-
-		//Painter.fill(level, this, 2, (Random.Int(2)==1 ?Terrain.EMPTY :Terrain.GRASS));
-
-
-
-		/*
-		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1, Terrain.EMPTY_DECO );
-		Painter.fill( level, this, 2, Terrain.CHASM );
-		Painter.fill( level, this, 3, Terrain.CHASM );
-		Painter.fill( level, this, 4, Terrain.WALL);
-		Painter.fill( level, this, 5, Terrain.EMPTY_DECO);
-		Painter.fill( level, this, 7, Terrain.CHASM);
-
-		 */
-
-		//中心高度/宽度
-		int centerX = left + width() / 2;
-		int centerY = top + height() / 2;
-
-		//锚定点
-		int seedX = left + width() - 3;
-		int seedY =	top + height() - 3;
-
-
-		//下
-		Painter.set(level, centerX, seedY - 2, Terrain. EMPTY_DECO);
-
-		//上
-		Painter.set(level, centerX, top + 4, Terrain. EMPTY_DECO);
-
-		//右
-		Painter.set(level, seedX-2, centerY, Terrain. EMPTY_DECO);
-
-		//左
-		Painter.set(level, left + 4, centerY, Terrain. EMPTY_DECO);
-
-
-
+		Painter.fill( level, this, 0, Terrain.WALL );
+		Painter.fill( level, this, 1, Terrain.EMPTY );
 
 		for (Door door : connected.values()) {
-			//Painter.drawInside(level, this, door, 2, Terrain.EMPTY_SP);
 			door.set(Door.Type.REGULAR);
 		}
 	}

@@ -80,8 +80,8 @@ public class CavesLevel extends RegularLevel {
 	@Override
 	protected Painter painter() {
 		return new CavesPainter()
-				.setWater(feeling == Feeling.WATER ? 0.85f : 0.30f, 6)
-				.setGrass(feeling == Feeling.GRASS ? 0.65f : 0.15f, 3)
+				.setWater(feeling == Feeling.WATER ? 0.30f : 0.20f, 1)
+				.setGrass(feeling == Feeling.GRASS ? 0.16f : 0.15f, 1)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
 	

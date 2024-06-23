@@ -44,6 +44,7 @@ public class PathFinder {
 	public static int[] NEIGHBOURS8;
 	public static int[] NEIGHBOURS9;
 	public static int[] NEIGHBOURS25;
+	public static int[] NEIGHBOURS24;
 	public static int[] RANDOM9;
 
 	//similar to their equivalent neighbour arrays, but the order is clockwise.
@@ -71,6 +72,9 @@ public class PathFinder {
 		NEIGHBOURS9 = new int[]{-width-1, -width, -width+1, -1, 0, +1, +width-1, +width, +width+1};
 
 		NEIGHBOURS25 = new int[]{-2*width-2, -2*width-1, -2*width, -2*width+1, -2*width+2, -width-2,  -width-1,  -width,  -width+1,  -width+2, -2,        -1,        0,       +1,        +2, width-2,   width-1,   width,   width+1,   width+2, 2*width-2,  2*width-1,  2*width,  2*width+1,  2*width+2};
+
+		NEIGHBOURS24 = new int[]{-2*width-2, -2*width-1, -2*width, -2*width+1, -2*width+2, -width-2,  -width-1,  -width,  -width+1,  -width+2, -2,        -1,		+1,       +2,		width-2,   width-1,   width,   width+1,   width+2, 2*width-2,  2*width-1,  2*width,  2*width+1,  2*width+2};
+
 
 		RANDOM9 = new int[]{-width-width-(Random.Int(1,3)), -width, -width+width-(Random.Int(1,3)), -width-(Random.Int(1,3)), 0, +width-(Random.Int(1,3)), +width-(Random.Int(1,3)), +width, +width+width-(Random.Int(1,3))};
 

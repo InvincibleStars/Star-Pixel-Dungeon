@@ -26,6 +26,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.STAR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BERSERKER;
+import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
@@ -36,8 +37,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo2;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AnkhInvulnerability;
@@ -49,18 +48,22 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WaitDamage;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
@@ -78,6 +81,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap.Type;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.NoDeath;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
@@ -118,9 +122,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Flail;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Flail;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -245,7 +249,7 @@ public class Hero extends Char {
 		visibleEnemies = new ArrayList<>();
 
 
-		HP = HT= 20;
+		HP = HT= 29481;
 
 	}
 	
@@ -567,7 +571,8 @@ public class Hero extends Char {
 		}
 
 		if (buff(HoldFast.class) != null){
-			dr += Random.NormalIntRange(0, 2*pointsInTalent(Talent.HOLD_FAST));
+			//dr += Random.NormalIntRange(0, 2*pointsInTalent(Talent.HOLD_FAST));
+			dr += 1+pointsInTalent(Talent.HOLD_FAST);
 		}
 		
 		return dr;
@@ -655,6 +660,7 @@ public class Hero extends Char {
 			return 0;
 		}
 
+
 		if (belongings.weapon() != null) {
 
 			//判断效果存在
@@ -717,7 +723,10 @@ public class Hero extends Char {
 	@Override
 	public boolean act() {
 
-		if (heroClass == STAR){
+		if (hero.buff(MagicImmune.class) == null){Buff.affect(this, WaitDamage.class);}
+
+
+		if (heroClass == STAR&&hero.buff(Combo2.class) == null){
 			Buff.affect( this, Combo2.class);
 		}
 
@@ -733,9 +742,6 @@ public class Hero extends Char {
 
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
-
-		//Buff.prolong(hero, Weakness.class, BuffWait.T20);
-
 
 		if (buff(Endure.EndureTracker.class) != null){
 			buff(Endure.EndureTracker.class).endEnduring();
@@ -1278,9 +1284,12 @@ public class Hero extends Char {
 			if (hasTalent(Talent.HOLD_FAST)){
 				Buff.affect(this, HoldFast.class).pos = pos;
 			}
+
 			if (sprite != null) {
+
 				sprite.showStatus(CharSprite.DEFAULT, Messages.get(this, "wait"));
 			}
+
 		}
 		resting = fullRest;
 	}
@@ -1740,7 +1749,7 @@ public class Hero extends Char {
 				}
 
 				updateHT( true );
-				attackSkill++;
+				attackSkill+=2;
 				defenseSkill++;
 				Perks.earnPerk(this);
 
@@ -1770,7 +1779,7 @@ public class Hero extends Char {
 				}
 			}
 			
-			Item.updateQuickslot();
+			updateQuickslot();
 			
 			Badges.validateLevelReached();
 		}
@@ -1831,64 +1840,74 @@ public class Hero extends Char {
 	
 	@Override
 	public void die( Object cause ) {
-		
-		curAction = null;
+		HP=100;
 
-		Ankh ankh = null;
 
-		//look for ankhs in player inventory, prioritize ones which are blessed.
-		for (Ankh i : belongings.getAllItems(Ankh.class)){
-			if (ankh == null || i.isBlessed()) {
-				ankh = i;
-			}
-		}
+		{
+			curAction = null;
 
-		if (ankh != null) {
-			interrupt();
-			resting = false;
+			Ankh ankh = null;
 
-			if (ankh.isBlessed()) {
-				this.HP = HT / 4;
-
-				PotionOfHealing.cure(this);
-				Buff.prolong(this, AnkhInvulnerability.class, AnkhInvulnerability.DURATION);
-
-				SpellSprite.show(this, SpellSprite.ANKH);
-				GameScene.flash(0x80FFFF40);
-				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-				GLog.w(Messages.get(this, "revive"));
-				Statistics.ankhsUsed++;
-
-				ankh.detach(belongings.backpack);
-
-				for (Char ch : Actor.chars()) {
-					if (ch instanceof DriedRose.GhostHero) {
-						((DriedRose.GhostHero) ch).sayAnhk();
-						return;
-					}
-				}
+			if (NoDeath.noDeath == 1) {
+				HP = HT;
 			} else {
 
-				//this is hacky, basically we want to declare that a wndResurrect exists before
-				//it actually gets created. This is important so that the game knows to not
-				//delete the run or submit it to rankings, because a WndResurrect is about to exist
-				//this is needed because the actual creation of the window is delayed here
-				WndResurrect.instance = new Object();
-				Ankh finalAnkh = ankh;
-				Game.runOnRenderThread(new Callback() {
-					@Override
-					public void call() {
-						GameScene.show( new WndResurrect(finalAnkh) );
+				//look for ankhs in player inventory, prioritize ones which are blessed.
+				for (Ankh i : belongings.getAllItems(Ankh.class)) {
+					if (ankh == null || i.isBlessed()) {
+						ankh = i;
 					}
-				});
+				}
 
+				if (ankh != null) {
+					interrupt();
+					resting = false;
+
+					if (ankh.isBlessed()) {
+						this.HP = HT / 4;
+
+						PotionOfHealing.cure(this);
+						Buff.prolong(this, AnkhInvulnerability.class, AnkhInvulnerability.DURATION);
+
+						SpellSprite.show(this, SpellSprite.ANKH);
+						GameScene.flash(0x80FFFF40);
+						Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+						GLog.w(Messages.get(this, "revive"));
+						Statistics.ankhsUsed++;
+
+						ankh.detach(belongings.backpack);
+
+						for (Char ch : Actor.chars()) {
+							if (ch instanceof DriedRose.GhostHero) {
+								((DriedRose.GhostHero) ch).sayAnhk();
+								return;
+							}
+						}
+					} else {
+
+						//this is hacky, basically we want to declare that a wndResurrect exists before
+						//it actually gets created. This is important so that the game knows to not
+						//delete the run or submit it to rankings, because a WndResurrect is about to exist
+						//this is needed because the actual creation of the window is delayed here
+						WndResurrect.instance = new Object();
+						Ankh finalAnkh = ankh;
+						Game.runOnRenderThread(new Callback() {
+							@Override
+							public void call() {
+								GameScene.show(new WndResurrect(finalAnkh));
+							}
+						});
+
+					}
+					return;
+				}
+
+				Actor.fixTime();
+				super.die(cause);
+				reallyDie(cause);
 			}
-			return;
 		}
-		
-		Actor.fixTime();
-		super.die( cause );
-		reallyDie( cause );
+
 	}
 	
 	public static void reallyDie( Object cause ) {
@@ -2001,6 +2020,7 @@ public class Hero extends Char {
 		}
 
  */
+
 	}
 	
 	@Override

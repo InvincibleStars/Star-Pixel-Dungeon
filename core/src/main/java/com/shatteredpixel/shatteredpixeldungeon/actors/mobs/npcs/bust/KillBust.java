@@ -57,6 +57,7 @@ public class KillBust extends NPC {
 	int start = 0;
 	@Override
 	protected boolean act() {
+
 		if(start==0){
 			this.sprite.add(CharSprite.State.KILLBUST);
 			start=1;

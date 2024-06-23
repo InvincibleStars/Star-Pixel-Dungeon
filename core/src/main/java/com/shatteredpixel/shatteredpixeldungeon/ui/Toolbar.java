@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -76,12 +77,12 @@ public class Toolbar extends Component {
 	@Override
 	protected void createChildren() {
 
-		btnQuick = new QuickslotTool[4];
-		
-		add( btnQuick[3] = new QuickslotTool(64, 0, 22, 24, 3) );
-		add( btnQuick[2] = new QuickslotTool(64, 0, 22, 24, 2) );
-		add( btnQuick[1] = new QuickslotTool(64, 0, 22, 24, 1) );
-		add( btnQuick[0] = new QuickslotTool(64, 0, 22, 24, 0) );
+		//改为根据QuickSlot的SIZE(长度)来自动新增按钮
+		btnQuick = new QuickslotTool[QuickSlot.SIZE];
+		for(int i = 0;i < btnQuick.length ; i++){
+			add( btnQuick[i] = new QuickslotTool(64, 0, 19, 24, i) );
+		}
+
 		
 		add(btnWait = new Tool(24, 0, 20, 26) {
 			@Override
@@ -194,38 +195,35 @@ public class Toolbar extends Component {
 
 
 
-		for(int i = 0; i <= 3; i++) {
-			if (i == 0 && !SPDSettings.flipToolbar() ||
-				i == 3 && SPDSettings.flipToolbar()){
-				btnQuick[i].border(0, 2);
-				btnQuick[i].frame(106, 0, 19, 24);
-			} else if (i == 0 && SPDSettings.flipToolbar() ||
-					i == 3 && !SPDSettings.flipToolbar()){
-				btnQuick[i].border(2, 1);
-				btnQuick[i].frame(86, 0, 20, 24);
-			} else {
-				btnQuick[i].border(0, 1);
-				btnQuick[i].frame(88, 0, 18, 24);
-			}
+		//快捷栏宽度
+		for(int i = 0; i < QuickSlot.SIZE; i++) {
+			btnQuick[i].border(0, 1);
+			btnQuick[i].frame(64, 0, 20, 24);
 		}
 
 		float right = width;
+		int a = btnQuick.length;
 		switch(Mode.valueOf(SPDSettings.toolbarMode())){
+
 			case SPLIT:
 				btnWait.setPos(x, y);
 				btnSearch.setPos(btnWait.right(), y);
 
 				btnInventory.setPos(right - btnInventory.width(), y);
 
-				btnQuick[0].setPos(btnInventory.left() - btnQuick[0].width(), y+2);
-				btnQuick[1].setPos(btnQuick[0].left() - btnQuick[1].width(), y+2);
-				btnQuick[2].setPos(btnQuick[1].left() - btnQuick[2].width(), y+2);
-				btnQuick[3].setPos(btnQuick[2].left() - btnQuick[3].width(), y+2);
+				for (int i=0;i<QuickSlot.SIZE;i++){
+					int ymove = i/4;
+					if(i%4==0){
+						btnQuick[i].setPos(btnInventory.left() - btnQuick[i].width(), y+2 - ymove*24);
+					}else{
+						btnQuick[i].setPos((btnQuick[i%4-1].left()) - btnQuick[i].width(), y+2 - ymove*24);
+					}
+				}
 				
 				//center the quickslots if they
-				if (btnQuick[3].left() < btnSearch.right()){
-					float diff = Math.round(btnSearch.right() - btnQuick[3].left())/2;
-					for( int i = 0; i < 4; i++){
+				if (btnQuick[QuickSlot.SIZE-1].left() < btnSearch.right()){
+					float diff = Math.round(btnSearch.right() - btnQuick[QuickSlot.SIZE-1].left())/2;
+					for( int i = 0; i < 400; i++){
 						btnQuick[i].setPos( btnQuick[i].left()+diff, btnQuick[i].top() );
 					}
 				}
@@ -234,25 +232,36 @@ public class Toolbar extends Component {
 
 			//center = group but.. well.. centered, so all we need to do is pre-emptively set the right side further in.
 			case CENTER:
+				btnWait.setPos(right - btnWait.width(), y);
+				btnSearch.setPos(btnWait.left() - btnSearch.width(), y);
+				btnInventory.setPos(btnSearch.left() - btnInventory.width(), y);
+				/*
 				float toolbarWidth = btnWait.width() + btnSearch.width() + btnInventory.width();
 				for(Button slot : btnQuick){
 					if (slot.visible) toolbarWidth += slot.width();
 				}
 				right = (width + toolbarWidth)/2;
 
+				 */
+
 			case GROUP:
 				btnWait.setPos(right - btnWait.width(), y);
 				btnSearch.setPos(btnWait.left() - btnSearch.width(), y);
 				btnInventory.setPos(btnSearch.left() - btnInventory.width(), y);
 
-				btnQuick[0].setPos(btnInventory.left() - btnQuick[0].width(), y+2);
-				btnQuick[1].setPos(btnQuick[0].left() - btnQuick[1].width(), y+2);
-				btnQuick[2].setPos(btnQuick[1].left() - btnQuick[2].width(), y+2);
-				btnQuick[3].setPos(btnQuick[2].left() - btnQuick[3].width(), y+2);
+
+				for (int i=0;i<QuickSlot.SIZE;i++){
+					int ymove = i/4;
+					if(i%4==0){
+						btnQuick[i].setPos(btnInventory.left() - btnQuick[i].width(), y+2 - ymove*24);
+					}else{
+						btnQuick[i].setPos((btnQuick[i%4-1].left()) - btnQuick[i].width(), y+2 - ymove*24);
+					}
+				}
 				
-				if (btnQuick[3].left() < 0){
-					float diff = -Math.round(btnQuick[3].left())/2;
-					for( int i = 0; i < 4; i++){
+				if (btnQuick[QuickSlot.SIZE-1].left() < 0){
+					float diff = -Math.round(btnQuick[QuickSlot.SIZE-1].left())/2;
+					for( int i = 0; i < 700; i++){
 						btnQuick[i].setPos( btnQuick[i].left()+diff, btnQuick[i].top() );
 					}
 				}
@@ -267,21 +276,14 @@ public class Toolbar extends Component {
 			btnSearch.setPos( (right - btnSearch.right()), y);
 			btnInventory.setPos( (right - btnInventory.right()), y);
 
-			for(int i = 0; i <= 3; i++) {
+
+			for(int i = 0; i <= QuickSlot.SIZE-1; i++) {
 				btnQuick[i].setPos( right - btnQuick[i].right(), y+2);
 			}
 
 		}
 
 	}
-
-
-
-
-
-
-
-
 
 	public static void updateLayout(){
 		if (instance != null) instance.layout();

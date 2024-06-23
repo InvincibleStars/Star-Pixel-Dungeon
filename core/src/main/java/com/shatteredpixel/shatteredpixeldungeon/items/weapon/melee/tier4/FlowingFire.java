@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
-public class LiuHuo extends MeleeWeapon {
+public class FlowingFire extends MeleeWeapon {
 	
 	{
 		image = ItemSpriteSheet.FIRESWORD;

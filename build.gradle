@@ -1,7 +1,7 @@
 buildscript {
     repositories {
-        //google()
-        //mavenCentral()
+        google()
+        mavenCentral()
         maven{ url 'https://maven.aliyun.com/repository/google' }
         maven{ url 'https://maven.aliyun.com/repository/jcenter'}
     }
@@ -19,7 +19,7 @@ allprojects {
         appPackageName = 'com.star.dungeon'
 
         appVersionCode = 588
-        appVersionName = '0.1.x-11'
+        appVersionName = '0.2.x-1'
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 
@@ -33,8 +33,8 @@ allprojects {
     version = appVersionName
 
     repositories {
-       //google()
-        //mavenCentral()
+        google()
+        mavenCentral()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
         maven { url 'https://jitpack.io' }
 

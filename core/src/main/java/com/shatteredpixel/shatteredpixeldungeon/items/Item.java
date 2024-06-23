@@ -32,7 +32,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
@@ -43,6 +42,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
@@ -99,6 +99,10 @@ public class Item implements Bundlable {
 	public static final Comparator<Item> itemComparator = new Comparator<Item>() {
 		@Override
 		public int compare( Item lhs, Item rhs ) {
+
+			//
+			//
+
 			return Generator.Category.order( lhs ) - Generator.Category.order( rhs );
 		}
 	};
@@ -499,6 +503,8 @@ public class Item implements Bundlable {
 	public static void updateQuickslot() {
 		QuickSlotButton.refresh();
 	}
+
+
 
 	private static final String QUANTITY		= "quantity";
 	private static final String LEVEL			= "level";

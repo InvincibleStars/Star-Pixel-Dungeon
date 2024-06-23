@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.moment.Moment;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -336,6 +337,18 @@ public class Belongings implements Iterable<Item> {
 		int count = 0;
 
 		for (Wand.Charger charger : owner.buffs(Wand.Charger.class)){
+			charger.gainCharge(charge);
+			count++;
+		}
+
+		return count;
+	}
+
+	public int charge2( float charge ) {
+
+		int count = 0;
+
+		for (Moment.Charger charger : owner.buffs(Moment.Charger.class)){
 			charger.gainCharge(charge);
 			count++;
 		}

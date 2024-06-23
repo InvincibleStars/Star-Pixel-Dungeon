@@ -4,9 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -40,8 +38,8 @@ public class Level0 extends Level {
             case 20:
                 return Terrain.EMPTY_WELL;
             case 65:
-                //return Terrain.WALL;
-                return Terrain.ALCHEMY;
+                return Terrain.WALL;
+                //return Terrain.ALCHEMY;
             case 81:
                 return Terrain.DOOR;
             case 82:
@@ -135,7 +133,7 @@ public class Level0 extends Level {
     //地块贴图
     @Override
     public String tilesTex() {
-        return Assets.Environment.TILES_SEWERS;
+        return Assets.Environment.TILES_SAND;
     }
     //水体贴图
     @Override
@@ -171,28 +169,9 @@ public class Level0 extends Level {
     @Override
     protected void createMobs() {
 
-            //KillBust i= new KillBust();
         KillBust i = new KillBust();
             i.pos = 518;
             mobs.add(i);
-
-            /*
-
-        Kill i2= new Kill();
-        i2.pos = 522;
-        mobs.add(i2);
-
-        Kill i3= new Kill();
-        i3.pos = 698;
-        mobs.add(i3);
-
-        Kill i4= new Kill();
-        i4.pos = 702;
-        mobs.add(i4);
-
-             */
-
-
     }
 
     public Actor addRespawner() {

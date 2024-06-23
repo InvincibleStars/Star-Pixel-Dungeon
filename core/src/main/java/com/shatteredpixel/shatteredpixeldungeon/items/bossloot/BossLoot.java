@@ -23,9 +23,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.bossloot;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -39,10 +36,10 @@ public class BossLoot extends Item {
 
 	public static int infection=0;
 
-	@Override
+	@Override	//不能被扔出或丢弃
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.remove(AC_DROP);
+		//actions.remove(AC_DROP);
 		actions.remove(AC_THROW);
 		return actions;
 	}

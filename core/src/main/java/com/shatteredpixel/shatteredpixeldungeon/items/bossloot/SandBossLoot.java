@@ -21,32 +21,15 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.bossloot;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.Game;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class SandBossLoot extends BossLoot {
 	
@@ -54,13 +37,6 @@ public class SandBossLoot extends BossLoot {
 		image = ItemSpriteSheet.BLOB;
 	}
 
-	@Override //按钮设定（存在调用）
-	public ArrayList<String> actions(Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
-		actions.remove( AC_DROP );
-		actions.remove( AC_THROW );
-		return actions;
-	}
 
 	int a =0;
 
@@ -84,7 +60,7 @@ public class SandBossLoot extends BossLoot {
 			return false;
 		}else{
 			super.doPickUp(hero, pos);
-			BossLoot.infection+=2;
+			BossLoot.infection-=2;
 			GLog.i(Messages.get(SandBossLoot.class, "loot"));
 			return true;
 		}

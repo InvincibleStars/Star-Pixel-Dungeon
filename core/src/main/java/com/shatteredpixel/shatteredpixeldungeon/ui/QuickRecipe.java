@@ -28,7 +28,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.AlchemyDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
@@ -39,7 +41,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.AlchemyGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -72,7 +73,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
@@ -131,14 +131,15 @@ public class QuickRecipe extends Component {
 			}
 			
 			if (quantity < in.quantity()) {
-				curr.sprite.alpha(0.3f);
+				curr.sprite.alpha(0.5f);
 				hasInputs = false;
 			}
 			curr.showExtraInfo(false);
 			add(curr);
 			this.inputs.add(curr);
 		}
-		
+
+		//能量水晶消耗染色
 		if (cost > 0) {
 			arrow = new arrow(Icons.get(Icons.ARROW), cost);
 			arrow.hardlightText(0x44CCFF);
@@ -151,7 +152,7 @@ public class QuickRecipe extends Component {
 				arrow.enable(false);
 			}
 		} else {
-			arrow.icon.color(0, 0, 0);
+			arrow.icon.color(1, 0, 0);
 			arrow.enable(false);
 		}
 		add(arrow);
@@ -225,6 +226,7 @@ public class QuickRecipe extends Component {
 			text.measure();
 			add(text);
 		}
+
 		
 		@Override
 		protected void layout() {
@@ -282,6 +284,18 @@ public class QuickRecipe extends Component {
 						return "";
 					}
 				}));
+				result.add(new QuickRecipe( new Dust.GemToDust(), new ArrayList<>(Arrays.asList(new Gem.GemHolder().quantity(2))), new WndBag.Placeholder(ItemSpriteSheet.DUST_HOLDER){
+					@Override
+					public String name() {
+						return Messages.get(Dust.DustHolder.class, "name");
+					}
+
+					@Override
+					public String info() {
+						return "";
+					}
+				}));
+
 				return result;
 			case 1:
 				Recipe r = new Scroll.ScrollToStone();
@@ -362,7 +376,7 @@ public class QuickRecipe extends Component {
 						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
 						new ArcaneResin()));
 				result.add(
-						new QuickRecipe( new AlchemyGem.Recipe(),
+						new QuickRecipe( new AlchemyGem.GemtoScroll(),
 						new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
 						new BlueGem()));
 				return result;
@@ -405,31 +419,57 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new MagicalInfusion.Recipe()));
 				result.add(new QuickRecipe(new CurseInfusion.Recipe()));
 				result.add(new QuickRecipe(new Recycle.Recipe()));
+
+				return result;
+
+
+				//炼金武器
+			case 10:
+				result.add(null);
 				result.add(new QuickRecipe(new AlchemyWeapon.BlueRecipe()));
 				result.add(new QuickRecipe(new AlchemyWeapon.RedRecipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new AlchemyWeapon.GreenRecipe()));
 				result.add(new QuickRecipe(new AlchemyWeapon.GemGloveRecipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new AlchemyWeapon.EleoveRecipe()));
 				result.add(new QuickRecipe(new AlchemyWeapon.FireGloveRecipe()));
 
+				result.add(new QuickRecipe(new AlchemyGem.BlueGemtoPotion()));
+				result.add(new QuickRecipe(new AlchemyGem.BlueGemtoScroll()));
+				result.add(new QuickRecipe(new AlchemyGem.RedGemtoPotion()));
+				result.add(new QuickRecipe(new AlchemyGem.RedGemtoScroll()));
+				result.add(new QuickRecipe(new AlchemyGem.GreenGemtoPotion()));
+				result.add(new QuickRecipe(new AlchemyGem.GreenGemtoScroll()));
+
+				result.add(new QuickRecipe(new AlchemyDust.BlueDusttoPotion()));
+				result.add(new QuickRecipe(new AlchemyDust.BlueDusttoScroll()));
+				result.add(new QuickRecipe(new AlchemyDust.RedDusttoPotion()));
+				result.add(new QuickRecipe(new AlchemyDust.RedDusttoScroll()));
+				result.add(new QuickRecipe(new AlchemyDust.GreenDusttoPotion()));
+				result.add(new QuickRecipe(new AlchemyDust.GreenDusttoScroll()));
+
+
+
+
+
+				result.add(null);
 				return result;
 
-/*
-			case 10:
-				result.add(new QuickRecipe( new Dust.GemToDust(), new ArrayList<>(Arrays.asList(new Dust.DustHolder().quantity(3))), new WndBag.Placeholder(ItemSpriteSheet.DUST_HOLDER){
-					@Override
-					public String name() {
-						return Messages.get(Dust.GemToDust.class, "name");
-					}
+				//聚合物品
+			case 11:
+				result.add(null);
 
-					@Override
-					public String info() {
-						return "";
-					}
-				}));
+				return result;
+				//消耗品概述
+			case 12:
+				result.add(null);
 				return result;
 
- */
+			case 13:
+				result.add(null);
+				return result;
+
 		}
 	}
 	

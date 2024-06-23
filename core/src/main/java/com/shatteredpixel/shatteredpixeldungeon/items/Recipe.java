@@ -24,13 +24,14 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.AlchemyGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.AlchemyDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.AlchemyGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -63,7 +64,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.watabou.utils.Reflection;
@@ -183,9 +183,13 @@ public abstract class Recipe {
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
 		new ArcaneResin.Recipe(),
-		new AlchemyGem.Recipe(),
 		new Alchemize.Recipe(),
-		new StewedMeat.oneMeat()
+		new StewedMeat.oneMeat(),
+		new AlchemyWeapon.acxc1(),
+		new AlchemyGem.GemtoPotion(),
+		new AlchemyGem.GemtoScroll(),
+		new AlchemyDust.DusttoExoticPotion(),
+		new AlchemyDust.DusttoExoticScroll()
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -217,19 +221,19 @@ public abstract class Recipe {
 		new TelekineticGrab.Recipe(),
 		new SummonElemental.Recipe(),
 		new StewedMeat.twoMeat(),
-			new Dust.GemToDust(),
+		new Dust.GemToDust(),
 
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new StewedMeat.threeMeat(),
-		new AlchemyGem.Scroll(),
+		new AlchemyGem.YellowGemToUpdateScroll(),
 		new MeatPie.Recipe(),
 	};
 
 	private static Recipe[] fourIngredientRecipes = new Recipe[]{
-			new AlchemyWeapon.EleoveRecipe(),
+			//new AlchemyWeapon.EleoveRecipe(),
 	};
 
 	

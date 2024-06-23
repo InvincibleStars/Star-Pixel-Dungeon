@@ -22,49 +22,34 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
-import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndCombo;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndCombo2;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.PathFinder;
 
 public class Combo2 extends Buff implements ActionIndicator.Action {
 
 	private int count = 0;
-	//public int count = 0;
-	private float comboTime = 500f;
-	private float initialComboTime = 5f;
+	public static final float TICK	= 1f;
 
 	public int getComboCount(){
 		return count;
 	}
 
+
+
 	@Override
 	public Image getIcon() {
 		Image icon;
-		icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.TWO_SWORD; }});
+		icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.AMULET; }});
 		return icon;
 	}
 
@@ -77,12 +62,33 @@ public class Combo2 extends Buff implements ActionIndicator.Action {
 	@Override
 	public boolean act() {
 		ActionIndicator.setAction( this );
-		comboTime-=TICK;
+		count++;
 		spend(TICK);
-		if (comboTime >=900) {
-			detach();
-		}
 		return true;
+	}
+
+	public static class RiposteTracker extends Buff{
+		{ actPriority = VFX_PRIO;}
+
+		public Char enemy;
+
+		@Override
+		public boolean act() {
+			if (target.buff(Combo2.class) != null) {
+				target.sprite.attack(enemy.pos, new Callback() {
+					@Override
+					public void call() {
+						target.buff(Combo2.class).doAttack(enemy);
+						next();
+					}
+				});
+				detach();
+				return false;
+			} else {
+				detach();
+				return true;
+			}
+		}
 	}
 
 	@Override
@@ -90,17 +96,17 @@ public class Combo2 extends Buff implements ActionIndicator.Action {
 		GameScene.show(new WndCombo2(this));
 	}
 
-	public enum ComboMove {
-		CLOBBER(2, 0xFF00FF00),
-		SLAM   (4, 0xFFCCFF00),
-		PARRY  (6, 0xFFFFFF00),
-		CRUSH  (8, 0xFFFFCC00),
-		FURY   (10, 0xFFFF0000);
+	public enum StarSkill {
+		SKILL1	(2, 0xFF00FF00),
+		SKILL2  (4, 0xFFCCFF00),
+		SKILL3  (6, 0xFFFFFF00),
+		SKILL4  (8, 0xFFFFCC00),
+		SKILL5  (10, 0xFFFF0000);
 
-		public int comboReq, tintColor;
+		public int useNeed, tintColor;
 
-		ComboMove(int comboReq, int tintColor){
-			this.comboReq = comboReq;
+		StarSkill(int useNeed, int tintColor){
+			this.useNeed = useNeed;
 			this.tintColor = tintColor;
 		}
 
@@ -108,11 +114,45 @@ public class Combo2 extends Buff implements ActionIndicator.Action {
 			switch (this){
 				default:
 					return Messages.get(this, name()+"_desc");
-				case SLAM:
+				case SKILL1:
 					return Messages.get(this, name()+"_desc", count*20);
-				case CRUSH:
+				case SKILL2:
+					return Messages.get(this, name()+"_desc", count*25);
+				case SKILL3:
 					return Messages.get(this, name()+"_desc", count*25);
 			}
+		}
+	}
+
+	private static StarSkill skilluesd;
+
+	private void doAttack(final Char enemy) {
+
+		AttackIndicator.target(enemy);
+		Invisibility.dispel();
+
+		//Post-attack behaviour
+		switch(skilluesd){
+			case SKILL1:
+				count--;
+					target.HP=Math.max(target.HP+5,target.HT);
+					Sample.INSTANCE.play(Assets.Sounds.BURNING);
+				break;
+
+			case SKILL2:
+				count-=2;
+					Buff.affect(enemy,Blindness.class,15f);
+					Sample.INSTANCE.play(Assets.Sounds.DEBUFF);
+				break;
+
+			case SKILL3:
+					count--;
+					Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
+				break;
+
+			default:
+				detach();
+				break;
 		}
 	}
 }

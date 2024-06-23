@@ -375,10 +375,10 @@ abstract public class Weapon extends KindOfWeapon {
 				Annoying.class};
 		
 		private static final float[] typeChances = new float[]{
-				//50, //12.5% each
-				//40, //6.67% each
-				//10  //3.33% each
-				100
+				50, //12.5% each
+				40, //6.67% each
+				10  //3.33% each
+
 		};
 		
 		private static final Class<?>[] curses = new Class<?>[]{

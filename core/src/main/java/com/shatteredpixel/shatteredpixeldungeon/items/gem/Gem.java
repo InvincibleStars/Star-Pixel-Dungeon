@@ -21,21 +21,17 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
-
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class Gem extends Item {
-	
+
 	{
 		stackable = true;
 		unique = true;
 	}
+
 	@Override
 	public String info() {
 		String info = desc();
@@ -43,20 +39,34 @@ public class Gem extends Item {
 		return info;
 	}
 
-	//不会被爆炸摧毁
 	public boolean unique() {
 		return false;
 	}
-	//不能被升级
+
 	@Override
 	public boolean isUpgradable() {
 		return false;
 	}
-	//始终是被鉴定的
+
 	@Override
 	public boolean isIdentified() {
 		return true;
 	}
 
+	public static class GemHolder extends Gem {
 
+		{
+			image = ItemSpriteSheet.WHITE_GEM;
+		}
+
+		@Override
+		public boolean isSimilar(Item item) {
+			return item instanceof Gem;
+		}
+
+		@Override
+		public String info() {
+			return "";
+		}
+	}
 }

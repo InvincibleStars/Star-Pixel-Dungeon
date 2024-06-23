@@ -22,8 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
-
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -32,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -45,6 +42,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.RchAddBy3;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -55,7 +53,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -107,7 +104,7 @@ public abstract class Mob extends Char {
 	public AiState PASSIVE		= new Passive();
 	//默认生物动作(1/3立刻醒来，2/3睡眠)
 	//public AiState state = NPC.choose_num==1 ? Random.Int(0,3)==1?HUNTING:SLEEPING:HUNTING;
-	public AiState state =(NPC.choose_num==1)?HUNTING:(Random.Int(0,3)==1?HUNTING:SLEEPING);
+	public AiState state =(NPC.choose_num==1)?WANDERING:(Random.Int(0,3)==1?WANDERING:SLEEPING);
 
 	public static int EyeAllow = 1;
 

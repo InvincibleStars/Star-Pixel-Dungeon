@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.watabou.noosa.Game;
@@ -203,6 +202,20 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_SOUND_FX		= "soundfx";
 	public static final String KEY_SFX_VOL      = "sfx_vol";
 	public static final String KEY_IGNORE_SILENT= "ignore_silent";
+	public static final String KEY_SLOT= "key_slot";
+
+	public static void kuaijielanNum( int value ){
+		System.out.println(QuickSlot.SIZE);
+		put( KEY_SLOT, value);
+		QuickSlot.SIZE=value;
+
+	}
+
+	public static int kuaijielanNum(){
+		return getInt( KEY_SLOT, 8, 4, 20 );
+	}
+
+
 
 	public static void music( boolean value ) {
 		Music.INSTANCE.enable( value );

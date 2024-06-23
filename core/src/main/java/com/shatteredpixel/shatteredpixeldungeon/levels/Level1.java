@@ -71,7 +71,7 @@ public class Level1 extends Level {
     //地块贴图
     @Override
     public String tilesTex() {
-        return Assets.Environment.TILES_SEWERS;
+        return Assets.Environment.TILES_SAND;
     }
     //水体贴图
     @Override

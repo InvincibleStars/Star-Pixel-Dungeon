@@ -21,8 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.tiles;
 
-import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.FURROWED_GRASS;
-
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.watabou.utils.Random;
 import com.watabou.utils.SparseArray;
@@ -68,6 +66,7 @@ public class DungeonTileSheet {
 	public static final int WELL            = GROUND +18;
 	public static final int EMPTY_WELL      = GROUND +19;
 	public static final int PEDESTAL        = GROUND +20;
+	public static final int DEADEMPTY        = GROUND +21;
 
 
 
@@ -121,6 +120,9 @@ public class DungeonTileSheet {
 		//floor
 		chasmStitcheable.put( Terrain.EMPTY,        CHASM_FLOOR );
 		chasmStitcheable.put( Terrain.GRASS,        CHASM_FLOOR );
+		chasmStitcheable.put( Terrain.DEADEMPTY,        CHASM_FLOOR );
+
+
 		chasmStitcheable.put( Terrain.EMBERS,       CHASM_FLOOR );
 		chasmStitcheable.put( Terrain.EMPTY_WELL,   CHASM_FLOOR );
 		chasmStitcheable.put( Terrain.HIGH_GRASS,   CHASM_FLOOR );
@@ -207,10 +209,10 @@ public class DungeonTileSheet {
 	public static final int RAISED_WALL_DECO_ALT        = RAISED_WALLS+20;
 	public static final int RAISED_WALL_BOOKSHELF_ALT   = RAISED_WALLS+28;
 
-	//we use an array instead of a collection because the small element count
 	// makes array traversal much faster than something like HashSet.contains.
 
-	//These tiles count as wall for the purposes of wall stitching
+	//These tiles count as wall for the purposes of wall stitching//we use an array instead of a collection because the small element count
+
 	private static int[] wallStitcheable = new int[]{
 			Terrain.WALL, Terrain.WALL_DECO, Terrain.SECRET_DOOR,
 			Terrain.LOCKED_EXIT, Terrain.UNLOCKED_EXIT, Terrain.BOOKSHELF, NULL_TILE
@@ -354,12 +356,15 @@ public class DungeonTileSheet {
 	public static SparseArray<Integer> directVisuals = new SparseArray<>();
 	static {
 		directVisuals.put(Terrain.EMPTY,            FLOOR);
+		directVisuals.put(Terrain.DEADEMPTY,        DEADEMPTY);
 		directVisuals.put(Terrain.GRASS,            GRASS);
 		directVisuals.put(Terrain.EMPTY_WELL,       EMPTY_WELL);
 		directVisuals.put(Terrain.ENTRANCE,         ENTRANCE);
 		directVisuals.put(Terrain.EXIT,             EXIT);
 		directVisuals.put(Terrain.EMBERS,           EMBERS);
 		directVisuals.put(Terrain.PEDESTAL,         PEDESTAL);
+
+		directVisuals.put(Terrain.EMPTY_SP,         FLOOR_SP);
 		directVisuals.put(Terrain.EMPTY_SP,         FLOOR_SP);
 
 		directVisuals.put(Terrain.SECRET_TRAP,      directVisuals.get(Terrain.EMPTY));
@@ -416,7 +421,9 @@ public class DungeonTileSheet {
 	public static SparseArray<Integer> commonAltVisuals = new SparseArray<>();
 	static {
 		commonAltVisuals.put(FLOOR,                 FLOOR_ALT_1);
+		commonAltVisuals.put(DEADEMPTY,                 DEADEMPTY);
 		commonAltVisuals.put(GRASS,                 GRASS_ALT);
+
 		commonAltVisuals.put(FLAT_WALL,             FLAT_WALL_ALT);
 		commonAltVisuals.put(EMBERS,                EMBERS_ALT);
 		commonAltVisuals.put(FLAT_WALL_DECO,        FLAT_WALL_DECO_ALT);
@@ -441,6 +448,7 @@ public class DungeonTileSheet {
 	public static SparseArray<Integer> rareAltVisuals = new SparseArray<>();
 	static {
 		rareAltVisuals.put(FLOOR,               FLOOR_ALT_2);
+		rareAltVisuals.put(DEADEMPTY,               DEADEMPTY);
 	}
 
 	public static int getVisualWithAlts(int visual, int pos){

@@ -21,7 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
-import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -57,10 +56,8 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level0;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Level1;
-import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel.SandAreaBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel.SandAreaBossLevel2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel.TreeAreaBossLevel2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
@@ -268,17 +265,19 @@ public class Dungeon {
 			case 10:
 				level = new TreeAreaBossLevel2();
 				break;
-			case 11: case 12: case 13: case 14: //神殿
+			case 11: case 12: case 13: case 14:
 			case 15:
 				level = new CavesLevel();
 				break;
-			case 16: case 17: case 18: case 19: //隧道
+			case 16: case 17: case 18: case 19:
 			case 20:
 				level = new CityLevel();
 				break;
-			case 21: case 22: case 23: case 24: //机械
-			case 25:
+			case 21: case 22: case 23: case 24:
 				level = new HallsLevel();
+				break;
+			case 25:
+				level = new LastLevel();
 				break;
 			case 26:case 27: case 28: case 29: //
 				level = new LastLevel();
@@ -289,9 +288,9 @@ public class Dungeon {
 
 
 			default:
-				//level = new DeadEndLevel();
-				//Statistics.deepestFloor--;
-				level = new SandAreaLevel();
+				level = new DeadEndLevel();
+				Statistics.deepestFloor--;
+				//level = new SandAreaLevel();
 				break;
 		}
 
@@ -418,7 +417,7 @@ public class Dungeon {
 		if (isChallenged(Challenges.NO_SCROLLS)){
 			souLeftThisSet = Math.round(2.0f - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 2.0f));
 		} else {
-			souLeftThisSet = 2 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 2);
+			souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
 		}
 		if (souLeftThisSet <= 0) return false;
 
@@ -430,7 +429,7 @@ public class Dungeon {
 	//生成强化结晶，每个区域生成2个
 	public static boolean updNeeded() {
 		int souLeftThisSet;
-			souLeftThisSet = 2 - (LimitedDrops.UPDATE_STONE.count - (depth / 5) * 2);
+			souLeftThisSet = 1 - (LimitedDrops.UPDATE_STONE.count - (depth / 5) * 1);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);

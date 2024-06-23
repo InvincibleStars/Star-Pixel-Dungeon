@@ -35,10 +35,19 @@ public class QuickSlot {
 	 * Slots contain objects which are also in a player's inventory. The one exception to this is when quantity is 0,
 	 * which can happen for a stackable item that has been 'used up', these are refered to a placeholders.
 	 */
-
 	//note that the current max size is coded at 4, due to UI constraints, but it could be much much bigger with no issue.
-	public static int SIZE = 4;
+	public static int SIZE = SPDSettings.kuaijielanNum();
+
 	private Item[] slots = new Item[SIZE];
+
+	public synchronized void slot(int value){
+		SIZE=value;
+	}
+
+	public synchronized int getSIZE(int value){
+		return SIZE;
+	}
+
 
 
 	//direct array interaction methods, everything should build from these methods.
@@ -46,6 +55,8 @@ public class QuickSlot {
 		clearItem(item); //we don't want to allow the same item in multiple slots.
 		slots[slot] = item;
 	}
+
+
 
 	public void clearSlot(int slot){
 		slots[slot] = null;
@@ -106,9 +117,10 @@ public class QuickSlot {
 	public Item randomNonePlaceholder(){
 
 		ArrayList<Item> result = new ArrayList<>();
-		for (int i = 0; i < SIZE; i ++)
-		if (getItem(i) != null && !isPlaceholder(i))
+		for (int i = 0; i < SIZE; i ++) {
+			if (getItem(i) != null && !isPlaceholder(i))
 				result.add(getItem(i));
+		}
 
 		return Random.element(result);
 	}

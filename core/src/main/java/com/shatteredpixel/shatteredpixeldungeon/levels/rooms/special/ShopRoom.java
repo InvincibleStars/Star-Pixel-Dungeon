@@ -30,8 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MerchantsBeacon;
-import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
@@ -157,7 +155,7 @@ public class ShopRoom extends SpecialRoom {
 
 		MeleeWeapon w;
 		switch (Dungeon.depth) {
-		case 1: default:
+		default:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
 			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
 			itemsToSpawn.add( new ClothArmor().identify() );

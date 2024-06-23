@@ -297,7 +297,7 @@ public class ItemSpriteSheet {
 	public static final int  FIRE_GLOVE  = WEP_TIER4 + 7;
 	public static final int  THORN  = WEP_TIER4 + 8;
 	public static final int  NEMESIS  =WEP_TIER4 + 9;
-	public static final int  FIRESWORD  = 10;
+	public static final int  FIRESWORD  = WEP_TIER4 + 10;
 
 	static {
 		assignItemRect(LONGSWORD, 15, 15);
@@ -638,23 +638,22 @@ public class ItemSpriteSheet {
 		assignItemRect(LIQUID_METAL, 8, 15);
 	}
 	//合剂-------------------------------------------------------------------------------------
-	private static final int EXOTIC_POTIONS = xy(1, 28);
-	public static final int EXOTIC_CRIMSON = EXOTIC_POTIONS + 0;
-	public static final int EXOTIC_AMBER = EXOTIC_POTIONS + 1;
-	public static final int EXOTIC_GOLDEN = EXOTIC_POTIONS + 2;
-	public static final int EXOTIC_JADE = EXOTIC_POTIONS + 3;
-	public static final int EXOTIC_TURQUOISE = EXOTIC_POTIONS + 4;
-	public static final int EXOTIC_AZURE = EXOTIC_POTIONS + 5;
-	public static final int EXOTIC_INDIGO = EXOTIC_POTIONS + 6;
-	public static final int EXOTIC_MAGENTA = EXOTIC_POTIONS + 7;
-	public static final int EXOTIC_BISTRE = EXOTIC_POTIONS + 8;
-	public static final int EXOTIC_CHARCOAL = EXOTIC_POTIONS + 9;
-	public static final int EXOTIC_SILVER = EXOTIC_POTIONS + 10;
-	public static final int EXOTIC_IVORY = EXOTIC_POTIONS + 11;
-
+	private static final int EXOTIC_POTIONS =                               xy(1, 0);  //16 slots
+	public static final int EXOTIC_CRIMSON  = EXOTIC_POTIONS+0;
+	public static final int EXOTIC_AMBER    = EXOTIC_POTIONS+1;
+	public static final int EXOTIC_GOLDEN   = EXOTIC_POTIONS+2;
+	public static final int EXOTIC_JADE     = EXOTIC_POTIONS+3;
+	public static final int EXOTIC_TURQUOISE= EXOTIC_POTIONS+4;
+	public static final int EXOTIC_AZURE    = EXOTIC_POTIONS+5;
+	public static final int EXOTIC_INDIGO   = EXOTIC_POTIONS+6;
+	public static final int EXOTIC_MAGENTA  = EXOTIC_POTIONS+7;
+	public static final int EXOTIC_BISTRE   = EXOTIC_POTIONS+8;
+	public static final int EXOTIC_CHARCOAL = EXOTIC_POTIONS+9;
+	public static final int EXOTIC_SILVER   = EXOTIC_POTIONS+10;
+	public static final int EXOTIC_IVORY    = EXOTIC_POTIONS+11;
 	static {
-		for (int i = EXOTIC_POTIONS; i < EXOTIC_POTIONS + 16; i++)
-			assignItemRect(i, 16, 15);
+		for (int i = EXOTIC_POTIONS; i < EXOTIC_POTIONS+16; i++)
+			assignItemRect(i, 12, 13);
 	}
 	//圆瓶-------------------------------------------------------------------------------------
 	private static final int ROUNDPOTION = xy(1, 29);
@@ -803,6 +802,7 @@ public class ItemSpriteSheet {
 		for (int i = GEM; i < GEM + 16; i++)
 			assignItemRect(i, 6, 8);
 	}
+
 	//星尘-------------------------------------------------------------------------------------
 	private static final int STAR_DUST = xy(1, 37);
 	public static final int RED_DUST = STAR_DUST + 0;
@@ -896,16 +896,23 @@ public class ItemSpriteSheet {
 	public static final int GUN= OTHER + 2;
 	public static final int SEETING1= OTHER + 3;
 	public static final int COLOR= OTHER + 4;
+	public static final int LOCK = OTHER + 5;
 	static {
 		assignItemRect(AMMO_MINI, 2, 2);
 		assignItemRect(AMMO_BOX, 9, 13);
 		assignItemRect(GUN, 12, 14);
 		assignItemRect(SEETING1,   13, 13);
 		assignItemRect(COLOR,   12, 11);
+		assignItemRect(LOCK,   10, 11);
 	}
 //植物魔法-------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------
+private static final int OTHER1 = xy(1, 44);
+	public static final int BURN_GEM_MAKER = OTHER1 + 1;
+	static {
+		assignItemRect(BURN_GEM_MAKER, 12, 10);
+	}
 
 //物品角标栏-------------------------------------------------------------------------------------
 	public static class Icons {

@@ -44,17 +44,16 @@ public abstract class StandardRoom extends Room {
 		
 		SizeCategory(int min, int max, int val) {
 
-			if(Dungeon.depth<=10 && Dungeon.depth>=5){
-				minDim = min*3;
-				maxDim = max*3;
-				roomValue = val*3;
-			}else
-
-			{
+			if(Dungeon.depth>5&&Dungeon.depth<10) {
+				minDim = min*2;
+				maxDim = max*2;
+				roomValue = val*2;
+			}else{
 				minDim = min;
 				maxDim = max;
 				roomValue = val;
 			}
+
 
 		}
 		
@@ -155,25 +154,26 @@ public abstract class StandardRoom extends Room {
 		rooms.add(SuspiciousChestRoom.class);	//带基座的房间（上有宝箱
 		rooms.add(MinefieldRoom.class);			//爆炸陷阱房
 
-		rooms.add(FangXingRoom.class);			//新房间
+		rooms.add(HollowRoom.class);			//外圈空心房间
+
 	}
 
 	private static float[][] chances = new float[27][];
 	static {
 		//沙地/荒漠属于干旱地区，因此不生成含水房间
-		chances[1] =  new float[]{7,   0,0,0,   0,0,2, 0,0,0, 0,0,0, 1,0,0,  0,0,0,0,0,1,0,0,0,0, 1};
+		chances[1] =  new float[]{5,   0,0,0,   0,0,2, 0,0,0, 0,0,0, 1,0,0,  0,0,0,0,0,1,0,0,1,0, 3};
 		chances[5] = chances[4] =  chances[3] = chances[2] = chances[1];
 		//森林整体结构破碎，因为废墟将作为主要地形生成
-		chances[6] =  new float[]{10,  1,0,2, 0,2,0, 0,0,0, 0,0,0, 9,0,0,  1,1,0,0,0,1,0,1,1,0, 0};
+		chances[6] =  new float[]{10,  1,0,2, 0,2,0, 0,0,0, 0,0,0, 9,0,0,  1,1,0,0,0,0,0,1,1,0, 0};
 		chances[10] = chances[9] = chances[8] = chances[7] = chances[6];
-
-		chances[11] = new float[]{10, 0,0,0, 0,0,0, 10,10,5, 0,0,0, 0,0,0,  1,1,1,1,1,1,1,1,1,1, 2};
+		//神殿由于信徒们的维护因此总是干干净净的，几乎没有杂草和积水
+		chances[11] = new float[]{10, 0,0,0, 0,0,0, 10,10,5, 0,0,0, 0,0,0,  1,1,1,1,1,1,1,1,1,1, 0};
 		chances[15] = chances[14] = chances[13] = chances[12] = chances[11];
-
-		chances[16] = new float[]{10, 0,0,0, 0,0,0, 0,0,0, 10,10,5, 0,0,0,  1,1,1,1,1,1,1,1,1,1, 2};
+		//
+		chances[16] = new float[]{10, 0,0,0, 0,0,0, 0,0,0, 10,10,5, 0,0,0,  1,1,1,1,1,1,1,1,1,1, 0};
 		chances[20] = chances[19] = chances[18] = chances[17] = chances[16];
 
-		chances[21] = new float[]{10, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 10,10,5,  1,1,1,1,1,1,1,1,1,1, 2};
+		chances[21] = new float[]{10, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 10,10,5,  1,1,1,1,1,1,1,1,1,1, 0};
 		chances[26] = chances[25] = chances[24] = chances[23] = chances[22] = chances[21];
 	}
 	

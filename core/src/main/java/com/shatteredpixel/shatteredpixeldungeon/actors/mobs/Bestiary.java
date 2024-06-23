@@ -22,17 +22,15 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.BlackWorm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandScorpion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.RockBug;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.LifeSand;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.RockBug;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandCrab;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandScorpion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.RockBug2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.SandWorm2;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Albino;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Bat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.GnollThrow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.LifePlant;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.SplitSlime;
@@ -106,18 +104,18 @@ public class Bestiary {
 						Gnoll.class,
 						WoodenCross.class));
 			case 8:
-				//1x 活化植物, 1x 老鼠, 2x 近战豺狼, 1x 豺狼飞槌手, 1x 十字架 ,1x 史莱姆
+				//1x 活化植物, 1x 老鼠, 2x 近战豺狼, 1x 豺狼飞槌手, 1x 十字架
 				return new ArrayList<>(Arrays.asList(
 						LifePlant.class,
 						Rat.class,
 						Gnoll.class, Gnoll.class,
-						GnollThrow.class,
+						//GnollThrow.class,
 						WoodenCross.class));
 			case 9: case 10:
 				//2x 豺狼, 2x 豺狼飞槌手, 1x 丛林史莱姆, 1x 十字架, 1x 蝙蝠
 				return new ArrayList<>(Arrays.asList(
 						Gnoll.class,
-						GnollThrow.class,
+						//GnollThrow.class,
 						SplitSlime.class,
 						WoodenCross.class,
                         Bat.class));

@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -70,6 +72,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.HeavyBoomerang;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
+import com.shatteredpixel.shatteredpixeldungeon.levels.features.DeadEmpty;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -81,7 +84,6 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
-import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
@@ -141,33 +143,27 @@ public abstract class Level implements Bundlable {
 
 	private int lesshp() {
 		int lesshp = 0;
-		if (Dungeon.hero.HP <= (Dungeon.hero.HT) / 4) {
+		if (hero.HP <= (hero.HT) / 5) {
 			//重度失血通常会使得我们的视野变得模糊
-			lesshp = 1;
+			lesshp = 2;
+		}else if (hero.HP <= (hero.HT) / 8) {
+			lesshp = 3;
+
 		}
 		return lesshp;
 	}
 
 	private int fullhp() {
 		int fullhp = 0;
-		if (Dungeon.hero.HP >= ((Dungeon.hero.HT) * 4) / 5) {
+		if (hero.HP >= ((hero.HT) * 4) / 5) {
 			//健康将获得更大的视野
 			fullhp = 1;
 		}
 		return fullhp;
 	}
 
-	private int timenight() {
-		int timenight = 0;
-		if (StatusPane.hh >= 5 && Dungeon.depth == 1) {
-			//只有零层真正暴露在地面上，因此受到“夜晚”的影响
-			timenight = 1;
-		}
-		return timenight;
-	}
-
-	//视野计算为：8 - 挑战视野 - 低生命视野惩罚 - 夜间视野限制 + 健康额外视野
-	public int viewShort = 8 - foundview() - lesshp() - timenight() + fullhp(); //8
+	//视野计算为：8 - 挑战视野 - 低生命视野惩罚 + 健康额外视野
+	public int viewShort = 8 - foundview() - lesshp() + fullhp();
 
 	//上者起到暂存作用
 	public int viewDistance = viewShort;
@@ -526,15 +522,15 @@ public abstract class Level implements Bundlable {
 	public void seal(){
 		if (!locked) {
 			locked = true;
-			Buff.affect(Dungeon.hero, LockedFloor.class);
+			Buff.affect(hero, LockedFloor.class);
 		}
 	}
 
 	public void unseal(){
 		if (locked) {
 			locked = false;
-			if (Dungeon.hero.buff(LockedFloor.class) != null){
-				Dungeon.hero.buff(LockedFloor.class).detach();
+			if (hero.buff(LockedFloor.class) != null){
+				hero.buff(LockedFloor.class).detach();
 			}
 		}
 	}
@@ -549,7 +545,7 @@ public abstract class Level implements Bundlable {
 				items.addAll(b.getStuckItems());
 			}
 		}
-		for (HeavyBoomerang.CircleBack b : Dungeon.hero.buffs(HeavyBoomerang.CircleBack.class)){
+		for (HeavyBoomerang.CircleBack b : hero.buffs(HeavyBoomerang.CircleBack.class)){
 			if (b.activeDepth() == Dungeon.depth) items.add(b.cancel());
 		}
 		return items;
@@ -620,15 +616,15 @@ public abstract class Level implements Bundlable {
 			//刷新判断
 			if (count < Dungeon.level.nMobs()) {
 
-				PathFinder.buildDistanceMap(Dungeon.hero.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
+				PathFinder.buildDistanceMap(hero.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
 
 				Mob mob = Dungeon.level.createMob();
 				mob.state = mob.WANDERING;
 				mob.pos = Dungeon.level.randomRespawnCell( mob );
-				if (Dungeon.hero.isAlive() && mob.pos != -1 && PathFinder.distance[mob.pos] >= 12) {
+				if (hero.isAlive() && mob.pos != -1 && PathFinder.distance[mob.pos] >= 12) {
 					GameScene.add( mob );
 					if (Statistics.amuletObtained) {
-						mob.beckon( Dungeon.hero.pos );
+						mob.beckon( hero.pos );
 					}
 					if (!mob.buffs(ChampionEnemy.class).isEmpty()){
 						GLog.w(Messages.get(ChampionEnemy.class, "warn"));
@@ -764,7 +760,7 @@ public abstract class Level implements Bundlable {
 	public void destroy( int pos ) {
 		//if raw tile type is flammable or empty
 		int terr = map[pos];
-		if (terr == Terrain.EMPTY || terr == Terrain.EMPTY_DECO
+		if (terr == Terrain.EMPTY || terr == Terrain.EMPTY_DECO || terr == Terrain.DEADEMPTY
 				|| (Terrain.flags[map[pos]] & Terrain.FLAMABLE) != 0) {
 			set(pos, Terrain.EMBERS);
 		}
@@ -965,6 +961,7 @@ public abstract class Level implements Bundlable {
 
 		int terr = map[cell];
 		if (terr == Terrain.EMPTY || terr == Terrain.GRASS ||
+				terr == Terrain.DEADEMPTY ||
 				terr == Terrain.EMBERS || terr == Terrain.EMPTY_SP ||
 				terr == Terrain.HIGH_GRASS || terr == Terrain.FURROWED_GRASS
 				|| terr == Terrain.EMPTY_DECO){
@@ -1004,23 +1001,23 @@ public abstract class Level implements Bundlable {
 		if (!ch.flying){
 
 			if ( (map[ch.pos] == Terrain.GRASS || map[ch.pos] == Terrain.EMBERS)
-					&& ch == Dungeon.hero && Dungeon.hero.hasTalent(Talent.REJUVENATING_STEPS)
+					&& ch == hero && hero.hasTalent(Talent.REJUVENATING_STEPS)
 					&& ch.buff(Talent.RejuvenatingStepsCooldown.class) == null){
 
-				if (Dungeon.hero.buff(LockedFloor.class) != null && !Dungeon.hero.buff(LockedFloor.class).regenOn()){
+				if (hero.buff(LockedFloor.class) != null && !hero.buff(LockedFloor.class).regenOn()){
 					set(ch.pos, Terrain.FURROWED_GRASS);
 				} else if (ch.buff(Talent.RejuvenatingStepsFurrow.class) != null && ch.buff(Talent.RejuvenatingStepsFurrow.class).count() >= 200) {
 					set(ch.pos, Terrain.FURROWED_GRASS);
 				} else {
 					set(ch.pos, Terrain.HIGH_GRASS);
-					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 3 - Dungeon.hero.pointsInTalent(Talent.REJUVENATING_STEPS));
+					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 3 - hero.pointsInTalent(Talent.REJUVENATING_STEPS));
 				}
 				GameScene.updateMap(ch.pos);
-				Buff.affect(ch, Talent.RejuvenatingStepsCooldown.class, 15f - 5f*Dungeon.hero.pointsInTalent(Talent.REJUVENATING_STEPS));
+				Buff.affect(ch, Talent.RejuvenatingStepsCooldown.class, 15f - 5f* hero.pointsInTalent(Talent.REJUVENATING_STEPS));
 			}
 
 			if (pit[ch.pos]){
-				if (ch == Dungeon.hero) {
+				if (ch == hero) {
 					Chasm.heroFall(ch.pos);
 				} else if (ch instanceof Mob) {
 					Chasm.mobFall( (Mob)ch );
@@ -1066,6 +1063,10 @@ public abstract class Level implements Bundlable {
 				HighGrass.trample( this, cell);
 				break;
 
+			case Terrain.DEADEMPTY:
+				DeadEmpty.trample( this, cell);
+				break;
+
 
 			case Terrain.WELL:
 				WellWater.affectCell( cell );
@@ -1079,10 +1080,10 @@ public abstract class Level implements Bundlable {
 		if (trap != null) {
 
 			TimekeepersHourglass.timeFreeze timeFreeze =
-					Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class);
+					hero.buff(TimekeepersHourglass.timeFreeze.class);
 
 			Swiftthistle.TimeBubble bubble =
-					Dungeon.hero.buff(Swiftthistle.TimeBubble.class);
+					hero.buff(Swiftthistle.TimeBubble.class);
 
 			if (bubble != null){
 
@@ -1102,8 +1103,8 @@ public abstract class Level implements Bundlable {
 
 			} else {
 
-				if (Dungeon.hero.pos == cell) {
-					Dungeon.hero.interrupt();
+				if (hero.pos == cell) {
+					hero.interrupt();
 				}
 
 				trap.trigger();
@@ -1175,7 +1176,7 @@ public abstract class Level implements Bundlable {
 
 		int sense = 1;
 		//Currently only the hero can get mind vision
-		if (c.isAlive() && c == Dungeon.hero) {
+		if (c.isAlive() && c == hero) {
 			for (Buff b : c.buffs( MindVision.class )) {
 				sense = Math.max( ((MindVision)b).distance, sense );
 			}
@@ -1211,8 +1212,8 @@ public abstract class Level implements Bundlable {
 			}
 		}
 
-		if (c instanceof SpiritHawk.HawkAlly && Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE) >= 3){
-			int range = 1+(Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE)-2);
+		if (c instanceof SpiritHawk.HawkAlly && hero.pointsInTalent(Talent.EAGLE_EYE) >= 3){
+			int range = 1+(hero.pointsInTalent(Talent.EAGLE_EYE)-2);
 			for (Mob mob : mobs) {
 				int p = mob.pos;
 				if (!fieldOfView[p] && distance(c.pos, p) <= range) {
@@ -1224,7 +1225,7 @@ public abstract class Level implements Bundlable {
 		}
 
 		//Currently only the hero can get mind vision or awareness
-		if (c.isAlive() && c == Dungeon.hero) {
+		if (c.isAlive() && c == hero) {
 
 			if (heroMindFov == null || heroMindFov.length != length()){
 				heroMindFov = new boolean[length];
@@ -1232,7 +1233,7 @@ public abstract class Level implements Bundlable {
 				BArray.setFalse(heroMindFov);
 			}
 
-			Dungeon.hero.mindVisionEnemies.clear();
+			hero.mindVisionEnemies.clear();
 			if (c.buff( MindVision.class ) != null) {
 				for (Mob mob : mobs) {
 					for (int i : PathFinder.NEIGHBOURS9) {
@@ -1252,7 +1253,7 @@ public abstract class Level implements Bundlable {
 				}
 			}
 //NEW
-			Dungeon.hero.burningEnemies.clear();
+			hero.burningEnemies.clear();
 			if (c.buff( Burning.class ) != null) {
 				for (Mob mob : mobs) {
 					for (int i : PathFinder.NEIGHBOURS9) {
@@ -1302,7 +1303,7 @@ public abstract class Level implements Bundlable {
 			//set mind vision chars
 			for (Mob mob : mobs) {
 				if (heroMindFov[mob.pos] && !fieldOfView[mob.pos]){
-					Dungeon.hero.mindVisionEnemies.add(mob);
+					hero.mindVisionEnemies.add(mob);
 				}
 			}
 
@@ -1310,7 +1311,7 @@ public abstract class Level implements Bundlable {
 
 		}
 
-		if (c == Dungeon.hero) {
+		if (c == hero) {
 			for (Heap heap : heaps.valueList())
 				if (!heap.seen && fieldOfView[heap.pos])
 					heap.seen = true;
@@ -1362,6 +1363,7 @@ public abstract class Level implements Bundlable {
 			case Terrain.CHASM:
 				return Messages.get(Level.class, "chasm_name");
 			case Terrain.EMPTY:
+			case Terrain.DEADEMPTY:
 			case Terrain.EMPTY_SP:
 			case Terrain.EMPTY_DECO:
 			case Terrain.SECRET_TRAP:
@@ -1461,11 +1463,6 @@ public abstract class Level implements Bundlable {
 		}
 	}
 
-//	@Override
-//	public void occupyCell(Char ch) {
-//		super.occupyCell(ch);
-//
-//		//GLog.w(String.valueOf(hero.pos));
-//	}
+
 
 }

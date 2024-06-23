@@ -37,8 +37,8 @@ public class Assets {
 		public static final String VISUAL_GRID	= "environment/visual_grid.png";
 		public static final String WALL_BLOCKING= "environment/wall_blocking.png";
 
-		public static final String TILES_SEWERS	= "environment/tiles_sewers.png";
-		public static final String TILES_PRISON	= "environment/tiles_prison.png";
+		public static final String TILES_SAND	= "environment/tiles_sand.png";
+		public static final String TILES_TREE	= "environment/tiles_tree.png";
 		public static final String TILES_CAVES	= "environment/tiles_caves.png";
 		public static final String TILES_CITY	= "environment/tiles_city.png";
 		public static final String TILES_HALLS	= "environment/tiles_halls.png";
@@ -81,6 +81,12 @@ public class Assets {
 		public static final String TOOLBAR	= "interfaces/toolbar.png";
 		public static final String SHADOW   = "interfaces/shadow.png";
 		public static final String BOSSHP   = "interfaces/boss_hp.png";
+		public static final String DARK_BAR   = "interfaces/dark_bar.png";
+		public static final String WAIT_BAR   = "interfaces/wait_bar.png";
+		public static final String FIRE_BAR   = "interfaces/fire_bar.png";
+		public static final String COLD_BAR   = "interfaces/cold_bar.png";
+		public static final String WARM_BAR   = "interfaces/warm_bar.png";
+
 
 		public static final String SURFACE	= "interfaces/surface.png";
 

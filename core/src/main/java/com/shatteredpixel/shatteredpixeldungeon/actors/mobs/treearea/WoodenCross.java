@@ -19,30 +19,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
+
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AnkhBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.WoodenAnkhSprite;
 
 import java.util.HashSet;
+
 public class WoodenCross extends Mob {
 	{
 		spriteClass = WoodenAnkhSprite.class;
@@ -107,9 +105,17 @@ public class WoodenCross extends Mob {
 	int start = 0;
 	@Override
 	protected boolean act() {
+		state = PASSIVE;
 		if(start==0){
 			this.sprite.add(CharSprite.State.ANKHBUFF);
 			start=1;
+		}
+		for(int a =0;a<1;a++){
+			int c = com.watabou.utils.Random.Int(level.width(),level.height()* (level.width()-1));
+			if (level.map[c] == Terrain.EMPTY) {
+				Painter.set(level, c, Terrain.DEADEMPTY);
+				GameScene.updateMap(c);
+			}
 		}
 		alerted = false;
 		activate();

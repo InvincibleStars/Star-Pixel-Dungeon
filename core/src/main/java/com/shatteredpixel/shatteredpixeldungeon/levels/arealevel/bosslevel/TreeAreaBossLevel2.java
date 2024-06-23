@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Goo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.watabou.utils.Random;
@@ -122,7 +121,7 @@ public class TreeAreaBossLevel2 extends Level {
 			65,65,65,65,65,65,1,1,1,1,1,1,1,65,65,65,65,65,65,
 			65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65};
 	@Override
-	public String tilesTex() {return Assets.Environment.TILES_PRISON;}
+	public String tilesTex() {return Assets.Environment.TILES_TREE;}
 	@Override
 	public String waterTex() {return Assets.Environment.WATER_PRISON;}
 	private static final int WIDTH = 19;

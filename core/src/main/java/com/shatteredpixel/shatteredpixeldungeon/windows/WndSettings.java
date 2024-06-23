@@ -21,8 +21,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import static com.watabou.noosa.Game.scene;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
+import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
@@ -58,6 +61,8 @@ public class WndSettings extends WndTabbed {
 
 	private static final int SLIDER_HEIGHT	= 24;
 	private static final int BTN_HEIGHT	    = 18;
+	private static final int SLIDER_HEIGHT2	= 20;
+	private static final int BTN_HEIGHT2	    = 14;
 	private static final float GAP          = 2;
 
 	private DisplayTab  display;
@@ -249,7 +254,7 @@ public class WndSettings extends WndTabbed {
 						super.onClick();
 						if (checked()) {
 							checked(!checked());
-							ShatteredPixelDungeon.scene().add(new WndOptions(Icons.get(Icons.DISPLAY),
+							scene().add(new WndOptions(Icons.get(Icons.DISPLAY),
 									Messages.get(DisplayTab.class, "saver"),
 									Messages.get(DisplayTab.class, "saver_desc"),
 									Messages.get(DisplayTab.class, "okay"),
@@ -478,7 +483,7 @@ public class WndSettings extends WndTabbed {
 					@Override
 					protected void onClick() {
 						super.onClick();
-						ShatteredPixelDungeon.scene().addToFront(new WndKeyBindings());
+						scene().addToFront(new WndKeyBindings());
 					}
 				};
 
@@ -634,11 +639,15 @@ public class WndSettings extends WndTabbed {
 		ColorBlock sep1;
 		OptionSlider optMusic;
 		CheckBox chkMusicMute;
+		RedButton warmingtip;
 		ColorBlock sep2;
 		OptionSlider optSFX;
 		CheckBox chkMuteSFX;
 		ColorBlock sep3;
 		CheckBox chkIgnoreSilent;
+
+		OptionSlider quickNum;
+
 
 		@Override
 		protected void createChildren() {
@@ -667,6 +676,39 @@ public class WndSettings extends WndTabbed {
 			};
 			chkMusicMute.checked(!SPDSettings.music());
 			add(chkMusicMute);
+
+/////////////////////////////
+			quickNum = new OptionSlider(Messages.get(this, "slotnum"), "4", "20", 4, 20) {
+				@Override
+				protected void onChange() {
+					SPDSettings.kuaijielanNum(getSelectedValue());
+					QuickSlot.SIZE=SPDSettings.kuaijielanNum();
+
+				}
+			};
+			quickNum.setSelectedValue(SPDSettings.kuaijielanNum());
+			QuickSlot.SIZE=SPDSettings.kuaijielanNum();
+			if (scene() instanceof GameScene) {
+				//add(quickNum);
+			}else {
+				add(quickNum);
+			}
+
+			warmingtip = new RedButton(Messages.get(this, "warming")){
+				@Override
+				protected void onClick() {
+					//textColor(TITLE_COLOR);
+					SPDSettings.toolbarMode(Toolbar.Mode.SPLIT.name());
+					Toolbar.updateLayout();
+				}
+			};
+			warmingtip.textColor(RED_COLOR);
+			if (scene() instanceof GameScene) {
+				add(warmingtip);
+			}else {
+			}
+
+
 
 			sep2 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep2);
@@ -717,6 +759,7 @@ public class WndSettings extends WndTabbed {
 				chkIgnoreSilent.checked(SPDSettings.ignoreSilentMode());
 				add(chkIgnoreSilent);
 			}
+
 		}
 
 		@Override
@@ -726,24 +769,30 @@ public class WndSettings extends WndTabbed {
 			sep1.y = title.bottom() + 2*GAP;
 
 			if (width > 200) {
-				optMusic.setRect(0, sep1.y + 1 + GAP, width/2-1, SLIDER_HEIGHT);
-				chkMusicMute.setRect(0, optMusic.bottom() + GAP, width/2-1, BTN_HEIGHT);
+				optMusic.setRect(0, sep1.y + 1 + GAP, width/2-1, SLIDER_HEIGHT2);
+				chkMusicMute.setRect(0, optMusic.bottom() + GAP, width/2-1, BTN_HEIGHT2);
 
 				sep2.size(width, 1);
 				sep2.y = sep1.y; //just have them overlap
 
-				optSFX.setRect(optMusic.right()+2, sep2.y + 1 + GAP, width/2-1, SLIDER_HEIGHT);
-				chkMuteSFX.setRect(chkMusicMute.right()+2, optSFX.bottom() + GAP, width/2-1, BTN_HEIGHT);
+				optSFX.setRect(optMusic.right()+2, sep2.y + 1 + GAP, width/2-1, SLIDER_HEIGHT2);
+				chkMuteSFX.setRect(chkMusicMute.right()+2, optSFX.bottom() + GAP, width/2-1, BTN_HEIGHT2);
+
+				quickNum.setRect(0, chkMuteSFX.bottom() + GAP,width-1, SLIDER_HEIGHT2);
+				warmingtip.setRect(0, chkMuteSFX.bottom() + GAP,width-1, SLIDER_HEIGHT2);
 
 			} else {
-				optMusic.setRect(0, sep1.y + 1 + GAP, width, SLIDER_HEIGHT);
-				chkMusicMute.setRect(0, optMusic.bottom() + GAP, width, BTN_HEIGHT);
+				optMusic.setRect(0, sep1.y + 1 + GAP, width, SLIDER_HEIGHT2);
+				chkMusicMute.setRect(left(), optMusic.bottom() + GAP, width, BTN_HEIGHT2);
 
 				sep2.size(width, 1);
 				sep2.y = chkMusicMute.bottom() + GAP;
 
-				optSFX.setRect(0, sep2.y + 1 + GAP, width, SLIDER_HEIGHT);
-				chkMuteSFX.setRect(0, optSFX.bottom() + GAP, width, BTN_HEIGHT);
+				optSFX.setRect(0, sep2.y + 1 + GAP, width, SLIDER_HEIGHT2);
+				chkMuteSFX.setRect(0, optSFX.bottom() + GAP, width, BTN_HEIGHT2);
+
+				quickNum.setRect(0,chkMuteSFX.bottom() + GAP,width-1, SLIDER_HEIGHT+4);
+				warmingtip.setRect(0,chkMuteSFX.bottom() + GAP,width-1, SLIDER_HEIGHT+4);
 			}
 
 			height = chkMuteSFX.bottom();
@@ -932,7 +981,7 @@ public class WndSettings extends WndTabbed {
 						credits.add(text);
 
 						credits.resize(w, (int) text.bottom() + 2);
-						ShatteredPixelDungeon.scene().addToFront(credits);
+						scene().addToFront(credits);
 					}
 				};
 				add(btnCredits);

@@ -69,14 +69,14 @@ public class TreeAreaLevel extends RegularLevel {
 
 	@Override
 	protected int standardRooms(boolean forceMax) {
-		if (forceMax) return 6;
+		if (forceMax) return 18;
 		//12-15
-		return 18+Random.chances(new float[]{4,3,2,1});
+		return 14+Random.chances(new float[]{4,3,2,1});
 	}
 	
 	@Override
 	protected int specialRooms(boolean forceMax) {
-		if (forceMax) return 3;
+		if (forceMax) return 7;
 		//2
 		return 3+Random.chances(new float[]{1, 1, 1});
 	}
@@ -91,7 +91,7 @@ public class TreeAreaLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_PRISON;
+		return Assets.Environment.TILES_TREE;
 	}
 	
 	@Override

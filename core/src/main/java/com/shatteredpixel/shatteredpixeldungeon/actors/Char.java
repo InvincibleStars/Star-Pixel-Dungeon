@@ -35,9 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
@@ -73,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WaitDamage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
@@ -94,7 +93,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetributio
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
@@ -539,14 +537,20 @@ public abstract class Char extends Actor {
 			damage += buff.count/3;
 		}
 
-
-
-
-
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			damage *= buff.meleeDamageFactor();
 			buff.onAttackProc( enemy );
 		}
+
+		for (WaitDamage buff : buffs(WaitDamage.class)){
+			if (buff.waittime!=0) {
+				damage *=(1+(0.2*buff.waittime));
+				buff.waittime=-1;
+			}
+			damage *=1;
+		}
+
+
 		return damage;
 	}
 
@@ -656,9 +660,6 @@ public abstract class Char extends Actor {
 				//				CharSprite.NEGATIVE,
 				//		Integer.toString(dmg + shielding()));
 			//}
-
-
-
 
 
 		}
@@ -846,7 +847,7 @@ public abstract class Char extends Actor {
 			timeScale *= buff( Chill.class ).speedFactor();
 		}
 		if (buff( Speed.class ) != null) {
-			timeScale *= 2.0f;
+			timeScale *= 20000.0f;
 		}
 
 		super.spend( time / timeScale );

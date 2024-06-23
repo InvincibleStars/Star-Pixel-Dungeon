@@ -22,41 +22,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Bones;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
-import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
-import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.builders.Builder;
-import com.shatteredpixel.shatteredpixeldungeon.levels.builders.FigureEightBuilder;
-import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
-import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.RatKingRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.GooBossRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.SewerBossEntranceRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.SewerBossExitRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.watabou.noosa.Group;
-import com.watabou.noosa.tweeners.AlphaTweener;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.Point;
-import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class SandAreaBossLevel2 extends Level {
 	{
@@ -89,7 +60,7 @@ public class SandAreaBossLevel2 extends Level {
 			65,65,65,65,65,1,1,17,1,1,65,65,65,65,65,
 			65,65,65,65,65,65,65,65,65,65,65,65,65,65,65};
 	@Override
-	public String tilesTex() {return Assets.Environment.TILES_SEWERS;}
+	public String tilesTex() {return Assets.Environment.TILES_SAND;}
 	@Override
 	public String waterTex() {return Assets.Environment.WATER_SEWERS;}
 	private static final int WIDTH = 15;

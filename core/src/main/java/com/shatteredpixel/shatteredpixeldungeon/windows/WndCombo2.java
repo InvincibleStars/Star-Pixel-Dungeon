@@ -21,8 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo2;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -47,7 +45,7 @@ public class WndCombo2 extends Window {
 		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
 
 		float pos = MARGIN;
-		RenderedTextBlock title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(this, "title")), 9);
+		RenderedTextBlock title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(Combo2.class, "name")), 9);
 		title.hardlight(TITLE_COLOR);
 		title.setPos((width-title.width())/2, pos);
 		title.maxWidth(width - MARGIN * 2);
@@ -57,13 +55,13 @@ public class WndCombo2 extends Window {
 
 		Image icon;
 
-		icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.ARMOR_INVERT; }});
+		icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.AMULET; }});
 
 
-		for (Combo.ComboMove move : Combo.ComboMove.values()) {
+		for (Combo2.StarSkill skill : Combo2.StarSkill.values()) {
 			Image ic = new Image(icon);
 
-			RedButton moveBtn = new RedButton(move.desc(combo2.getComboCount()), 6){
+			RedButton moveBtn = new RedButton(skill.desc(combo2.getComboCount()), 8){
 				@Override
 				protected void onClick() {
 					super.onClick();

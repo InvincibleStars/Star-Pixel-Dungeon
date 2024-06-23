@@ -53,7 +53,7 @@ public class SandAreaLevel extends RegularLevel {
 	@Override
 	protected int standardRooms(boolean forceMax) {
 		if (forceMax) return 6;
-		return 6+Random.chances(new float[]{1, 1, 1})+Dungeon.depth%5;
+		return 5+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override
@@ -66,14 +66,14 @@ public class SandAreaLevel extends RegularLevel {
 	@Override
 	protected Painter painter() {
 		return new SewerPainter()
-				.setWater(feeling == Feeling.WATER ? 0.00f : 0.01f, 0)
-				.setGrass(feeling == Feeling.GRASS ? 0.12f : 0.09f, 0)
+				.setWater(feeling == Feeling.WATER ? 0.01f : 0.02f, 0)
+				.setGrass(feeling == Feeling.GRASS ? 0.02f : 0.09f, 0)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
 	
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_SEWERS;
+		return Assets.Environment.TILES_SAND;
 	}
 	
 	@Override

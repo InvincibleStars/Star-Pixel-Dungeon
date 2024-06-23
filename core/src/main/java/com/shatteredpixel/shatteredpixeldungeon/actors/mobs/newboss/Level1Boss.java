@@ -1,10 +1,5 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
-
-import java.util.ArrayList;
-//import java.util.Random;
-
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -12,19 +7,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.WoodenCross;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.SandBossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WraithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -32,6 +23,8 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
+
+import java.util.ArrayList;
 
 public class Level1Boss extends Mob {
     {
@@ -160,13 +153,11 @@ public class Level1Boss extends Mob {
         super.die(cause);
         Dungeon.level.unseal();
         GameScene.bossSlain();
-        //Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
+//        Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
+        Dungeon.level.drop( new SandBossLoot(), pos ).sprite.drop();
         Dungeon.level.drop( new IronKey( Dungeon.depth ), pos ).sprite.drop();
         GLog.n( Messages.get(this, "defeated") );
         GLog.n( Messages.get(this, "die"));
-        for(int i=0;i<=Random.Int(3,10);i=i+1){
-            level.drop(Generator.randomUsingDefaults(Generator.Category.POTION), pos).sprite.drop();
-        }
         Badges.validateBossSlain();
     }
     @Override
