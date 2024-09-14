@@ -2,11 +2,11 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
@@ -20,11 +20,11 @@ public class Rat extends Mob {
 
         HP = HT = 17+Random.Int(2+(BossLoot.infection*2));
         defenseSkill = 6;
-        EXP = 3;
+        EXP = 4;
         maxLvl = 11;
 
-        loot = Generator.Category.POTION;
-        lootChance = 0.25f;
+       // loot = Generator.Category.POTION;
+        lootChance = 0.125f;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Rat extends Mob {
 
     @Override
     public int drRoll() {
-        return Random.NormalIntRange(0, 3);
+        return Random.NormalIntRange(0, 4);
     }
 
 
@@ -77,5 +77,18 @@ public class Rat extends Mob {
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
         if (bundle.contains(RAT_ALLY)) alignment = Alignment.ALLY;
+    }
+
+    @Override
+    protected Item createLoot() {
+        Item loot;
+        float a = Random.Float();
+        if(a<=(1f * ((6f - Dungeon.LimitedDrops.RAT_LOOT.count) / 6f))){
+            loot = Generator.randomUsingDefaults(Generator.Category.POTION);
+            Dungeon.LimitedDrops.RAT_LOOT.count++;
+        } else {
+            loot = new MobLoot().quantity(Random.Int(1,6));
+        }
+        return loot;
     }
 }

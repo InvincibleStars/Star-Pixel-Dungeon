@@ -47,12 +47,19 @@ public class MeleeWeapon extends Weapon {
 
 	public int tier;
 
-	//伤害
 	@Override
-	public int min(int lvl) { return tier + lvl + masteryPotionBonus; }
+	public int min(int lvl) {
+		return  tier +  //base
+				lvl +
+				masteryPotionBonus;    //level scaling
+	}
 
 	@Override
-	public int max(int lvl) { return 3*(tier+1) + lvl * (tier+1) + (masteryPotionBonus*2); }
+	public int max(int lvl) {
+		return  5*(tier+1) +    //base
+				lvl*(tier+1) +
+				masteryPotionBonus*2;   //level scaling
+	}
 
 	//力量
 	public int STRReq(int lvl){

@@ -392,11 +392,7 @@ public class CrossBow extends Weapon {
 
 				throwSound();
 
-				((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).
-						reset(user.sprite,
-								cell,
-								this,
-								new Callback() {
+				((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).reset(user.sprite, cell, this, new Callback() {
 									@Override
 									public void call() {
 										if (enemy.isAlive()) {

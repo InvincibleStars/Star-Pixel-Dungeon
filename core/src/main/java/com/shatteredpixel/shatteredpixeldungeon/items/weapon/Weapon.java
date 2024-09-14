@@ -237,8 +237,9 @@ abstract public class Weapon extends KindOfWeapon {
 
 	protected static int STRReq(int tier, int lvl){
 		lvl = Math.max(0, lvl);
-		return 8 +(tier*2) - (lvl*(lvl+1)/2);
+		return (8 + tier * 2) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2;
 	}
+
 
 	@Override
 	public int level() {
@@ -301,7 +302,7 @@ abstract public class Weapon extends KindOfWeapon {
 		//+0: 75% (3/4)
 		//+1: 25% (4/20)
 		int n = 0;
-		if (Random.Float() >= 0.75f) {
+		if (Random.Float() <= 0.35f) {
 			n++;
 		}
 		level(n);
@@ -309,10 +310,10 @@ abstract public class Weapon extends KindOfWeapon {
 		//30% chance to be cursed
 		//10% chance to be enchanted
 		float effectRoll = Random.Float();
-		if (effectRoll < 0.3f) {
+		if (effectRoll < 0.2f) {
 			enchant(Enchantment.randomCurse());
 			cursed = true;
-		} else if (effectRoll >= 0.9f){
+		} else if (effectRoll >= 0.85f){
 			enchant();
 		}
 

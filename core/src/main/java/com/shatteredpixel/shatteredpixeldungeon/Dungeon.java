@@ -84,7 +84,26 @@ public class Dungeon {
 
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
+	//生成次数有限的项目的枚举，记录生成的数量
+	//它们都可以是各自独立的数字，但这允许迭代，更适合捆绑/初始化。
 	public static enum LimitedDrops {
+		//自定义全生物特指表
+		SANDWORM_LOOT,
+		BLACKWORM_LOOT,
+		ROCKBUG_LOOT,
+		SANDSCORPION_LOOT,
+		SANDCRAB_LOOT,
+		LIFESAND_LOOT,
+
+
+		RAT_LOOT,
+		RATTAN_LOOT,
+		BLEEDRATTAN_LOOT,
+		WOODENCROSS_LOOT,
+
+
+
+
 		//limited world drops
 		STRENGTH_POTIONS,
 		UPGRADE_SCROLLS,
@@ -97,6 +116,8 @@ public class Dungeon {
 		SWARM_HP,
 		NECRO_HP,
 		BAT_HP,
+
+		BAT2_LOOT,
 		WARLOCK_HP,
 		//Demon spawners are already limited in their spawnrate, no need to limit their health drops
 		//alchemy
@@ -326,7 +347,7 @@ public class Dungeon {
 	}
 
 	public static boolean shopOnLevel() {
-		return depth == 1 || depth == 6 || depth == 11 || depth == 16|| depth == 21|| depth == 26;
+		return depth == 0 || depth == 6 || depth == 11 || depth == 16|| depth == 21|| depth == 26;
 	}
 
 	public static boolean bossLevel() {
@@ -417,9 +438,11 @@ public class Dungeon {
 		if (isChallenged(Challenges.NO_SCROLLS)){
 			souLeftThisSet = Math.round(2.0f - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 2.0f));
 		} else {
-			souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
+			souLeftThisSet = Math.round ( 3.0f - ( LimitedDrops.UPGRADE_SCROLLS.count - ( depth / 5 ) * 3.0f ) );
 		}
-		if (souLeftThisSet <= 0) return false;
+		if (souLeftThisSet <= 0){
+			return false;
+		}
 
 		int floorThisSet = (depth % 5);
 		//chance is floors left / scrolls left

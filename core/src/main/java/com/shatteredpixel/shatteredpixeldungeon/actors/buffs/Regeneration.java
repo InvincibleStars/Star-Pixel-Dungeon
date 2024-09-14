@@ -22,15 +22,11 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.STAR;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.utils.Random;
 
 public class Regeneration extends Buff {
@@ -82,8 +78,6 @@ public class Regeneration extends Buff {
 			if(target.buffs(Adrenaline.class)==null) {
 				delay = Random.Float(REGENERATION_DELAY);
 			}
-
-
 
 			if (regenBuff != null) {
 				if (regenBuff.isCursed()) {

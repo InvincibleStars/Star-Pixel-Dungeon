@@ -426,14 +426,14 @@ public abstract class Wand extends Item {
 		//+1: 50%
 		//+2: 50%
 		int n = 1;
-		if (Random.Float() >= 0.5f) {
+		if (Random.Float() <= 0.35f) {
 			n++;
 		}
 		level(n);
 		curCharges += n;
 		
 		//30% chance to be cursed
-		if (Random.Float() < 0.3f) {
+		if (Random.Float() < 0.2f) {
 			cursed = true;
 		}
 

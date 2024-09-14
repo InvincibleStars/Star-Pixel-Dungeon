@@ -21,11 +21,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.depth;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
-import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -44,15 +45,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
-import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.CrossBow;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -64,55 +62,38 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ShopRoom extends SpecialRoom {
-
 	private ArrayList<Item> itemsToSpawn;
-	
 	@Override
 	public int minWidth() {
 		return Math.max(7, (int)(Math.sqrt(itemCount())+3));
 	}
-	
 	@Override
 	public int minHeight() {
 		return Math.max(7, (int)(Math.sqrt(itemCount())+3));
 	}
-
 	public int itemCount(){
 		if (itemsToSpawn == null) itemsToSpawn = generateItems();
 		return itemsToSpawn.size();
 	}
-	
 	public void paint( Level level ) {
-		
 		Painter.fill( level, this, Terrain.WALL );
 		Painter.fill( level, this, 1, Terrain.EMPTY_SP );
-
 		placeShopkeeper( level );
-
 		placeItems( level );
-		
 		for (Door door : connected.values()) {
 			door.set( Door.Type.REGULAR );
 		}
-
 	}
-
 	protected void placeShopkeeper( Level level ) {
-
 		int pos = level.pointToCell(center());
-
 		Mob shopkeeper = new Shopkeeper();
 		shopkeeper.pos = pos;
 		level.mobs.add( shopkeeper );
-
 	}
-
 	protected void placeItems( Level level ){
-
 		if (itemsToSpawn == null){
 			itemsToSpawn = generateItems();
 		}
-
 		Point itemPlacement = new Point(entrance());
 		if (itemPlacement.y == top){
 			itemPlacement.y++;
@@ -123,9 +104,7 @@ public class ShopRoom extends SpecialRoom {
 		} else {
 			itemPlacement.x--;
 		}
-
 		for (Item item : itemsToSpawn) {
-
 			if (itemPlacement.x == left+1 && itemPlacement.y != top+1){
 				itemPlacement.y--;
 			} else if (itemPlacement.y == top+1 && itemPlacement.x != right-1){
@@ -135,158 +114,25 @@ public class ShopRoom extends SpecialRoom {
 			} else {
 				itemPlacement.x--;
 			}
-
 			int cell = level.pointToCell(itemPlacement);
-
 			if (level.heaps.get( cell ) != null) {
 				do {
 					cell = level.pointToCell(random());
 				} while (level.heaps.get( cell ) != null || level.findMob( cell ) != null);
 			}
-
 			level.drop( item, cell ).type = Heap.Type.FOR_SALE;
 		}
-
 	}
-	
 	protected static ArrayList<Item> generateItems() {
-
 		ArrayList<Item> itemsToSpawn = new ArrayList<>();
-
-		MeleeWeapon w;
-		switch (Dungeon.depth) {
-		default:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
-			itemsToSpawn.add( new ClothArmor().identify() );
-			itemsToSpawn.add( new CrossBow().identify() );
-			itemsToSpawn.add( new Torch() );
-			itemsToSpawn.add( new Ammo.AmmoBox() );
-			if(Random.Float()<=0.3f){
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-			}
-				break;
-
-		case 6:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
-			itemsToSpawn.add( new LeatherArmor().identify() );
-			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
-			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
-			itemsToSpawn.add( new Ammo.AmmoBox() );
-			if(Random.Float()<=0.3f){
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-			}
-			if(Random.Float()<=0.3f){
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-			}
-			break;
-			
-		case 11:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[2]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[2]).quantity(2).identify() );
-			itemsToSpawn.add( new MailArmor().identify() );
-			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
-			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
-			itemsToSpawn.add( new Ammo.AmmoBox() );
-			if(Random.Float()<=0.3f){
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-			}
-			if(Random.Float()<=0.3f){
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-			}
-			break;
-			
-		case 16:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[3]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[3]).quantity(2).identify() );
-			itemsToSpawn.add( new ScaleArmor().identify() );
-			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
-			itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
-			itemsToSpawn.add( new Ammo.AmmoBox() );
-			if(Random.Float()<=0.3f){
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-			}
-			if(Random.Float()<=0.3f){
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-			}
-			break;
-
-		case 20: case 21:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[4]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[4]).quantity(2).identify() );
-			itemsToSpawn.add( new PlateArmor().identify() );
-			itemsToSpawn.add( new Torch() );
-			itemsToSpawn.add( new Torch() );
-			itemsToSpawn.add( new Torch() );
-				itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) );
-				itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.RING ) );
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-				if(Random.Float()<=0.3f){
-					itemsToSpawn.add( new Ammo.AmmoBox() );
-				}
-				if(Random.Float()<=0.3f){
-					itemsToSpawn.add( new Ammo.AmmoBox() );
-				}
-			break;
-		}
+		/*
 		w.enchant(null);
 		w.cursed = false;
 		w.level(0);
 		w.identify();
 		itemsToSpawn.add(w);
-		
-		itemsToSpawn.add( TippedDart.randomTipped(2) );
-
-		itemsToSpawn.add( new Alchemize().quantity(Random.IntRange(3, 4)));
-
-		itemsToSpawn.add(ChooseBag(Dungeon.hero.belongings));
-
-
-		itemsToSpawn.add( new PotionOfHealing() );
-
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.WAND ) );
-
-		itemsToSpawn.add( new ScrollOfIdentify() );
-		itemsToSpawn.add( new ScrollOfRemoveCurse() );
-		itemsToSpawn.add( new ScrollOfMagicMapping() );
-
-		//生成6件物品（药水或者卷轴）
-
-		for (int i=0; i < 2; i++)
-			itemsToSpawn.add( Random.Int(2) == 0 ?
-					Generator.randomUsingDefaults( Generator.Category.POTION ) :
-					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-
-		for (int i=0; i < 2; i++)
-			itemsToSpawn.add( Random.Int(2) == 0 ?
-					Generator.randomUsingDefaults( Generator.Category.POTION ) :
-					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-
-		for (int i=0; i < 2; i++)
-			itemsToSpawn.add( Random.Int(2) == 0 ?
-					Generator.randomUsingDefaults( Generator.Category.POTION ) :
-					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-
-		for (int i=0; i < 2; i++)
-			itemsToSpawn.add( Random.Int(2) == 0 ?
-					Generator.randomUsingDefaults( Generator.Category.POTION ) :
-					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-
-		for (int i=0; i < 2; i++)
-			itemsToSpawn.add( Random.Int(2) == 0 ?
-					Generator.randomUsingDefaults( Generator.Category.POTION ) :
-					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-
-		for (int i=0; i < 2; i++)
-			itemsToSpawn.add( Random.Int(2) == 0 ?
-					Generator.randomUsingDefaults( Generator.Category.POTION ) :
-					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-
-
-		itemsToSpawn.add( new SmallRation() );
-		itemsToSpawn.add( new SmallRation() );
-		
+		*/
+		/*
 		switch (Random.Int(4)){
 			case 0:
 				itemsToSpawn.add( new Bomb() );
@@ -299,16 +145,70 @@ public class ShopRoom extends SpecialRoom {
 				itemsToSpawn.add( new Honeypot() );
 				break;
 		}
+				itemsToSpawn.add( new Ankh() );
 
-		itemsToSpawn.add( new Ankh() );
+ */
+		/*
+		MeleeWeapon w;
+			w = (MeleeWeapon) Generator.random(Generator.wepTiers[depth/5]);
+			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
+			itemsToSpawn.add( new ClothArmor().identify() );
+
+			itemsToSpawn.add( new CrossBow().identify() );
+			itemsToSpawn.add( new Ammo.AmmoBox() );
+			if(Random.Float()<=0.3f){
+				itemsToSpawn.add( new Ammo.AmmoBox() );
+			}
+
+*/
+
+		switch (depth) {
+		default:
+			itemsToSpawn.add( new ClothArmor().identify() );
+
+				break;
+		case 6:
+			itemsToSpawn.add( new LeatherArmor().identify() );
+			break;
+		case 11:
+			itemsToSpawn.add( new MailArmor().identify() );
+			break;
+		case 16:
+			itemsToSpawn.add( new ScaleArmor().identify() );
+			break;
+		case 20: case 21:
+			itemsToSpawn.add( new PlateArmor().identify() );
+			break;
+		}
+
+		itemsToSpawn.add( new Torch() );
+		itemsToSpawn.add( Generator.random(Generator.wepTiers[Math.round(depth/5)+1]).identify());
+		itemsToSpawn.add( Generator.random(Generator.misTiers[Math.round(depth/5)+1]).quantity(2).identify() );
+		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.WAND ) );
+		itemsToSpawn.add( TippedDart.randomTipped(2) );
+		itemsToSpawn.add( new Alchemize().quantity(2));
+		itemsToSpawn.add(ChooseBag(Dungeon.hero.belongings));
+		itemsToSpawn.add( new PotionOfHealing() );
+		Generator.randomUsingDefaults( Generator.Category.POTION );
+		Generator.randomUsingDefaults( Generator.Category.POTION );
+		Generator.randomUsingDefaults( Generator.Category.POTION );
+		itemsToSpawn.add( new ScrollOfIdentify() );
+		itemsToSpawn.add( new ScrollOfRemoveCurse() );
+		itemsToSpawn.add( new ScrollOfMagicMapping() );
+		Generator.randomUsingDefaults( Generator.Category.SCROLL );
+		itemsToSpawn.add( new SmallRation() );
+		itemsToSpawn.add( new SmallRation() );
+		itemsToSpawn.add( new SmallRation() );
+		itemsToSpawn.add( new Bomb() );
+		itemsToSpawn.add( new Bomb() );
+		itemsToSpawn.add( new Honeypot() );
 		itemsToSpawn.add( new StoneOfAugmentation() );
-
 		TimekeepersHourglass hourglass = Dungeon.hero.belongings.getItem(TimekeepersHourglass.class);
 		if (hourglass != null && hourglass.isIdentified() && !hourglass.cursed){
 			int bags = 0;
 			//creates the given float percent of the remaining bags to be dropped.
 			//this way players who get the hourglass late can still max it, usually.
-			switch (Dungeon.depth) {
+			switch (depth) {
 				case 6:
 					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.20f ); break;
 				case 11:
@@ -318,7 +218,6 @@ public class ShopRoom extends SpecialRoom {
 				case 20: case 21:
 					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.80f ); break;
 			}
-
 			for(int i = 1; i <= bags; i++){
 				itemsToSpawn.add( new TimekeepersHourglass.sandBag());
 				hourglass.sandBags ++;
@@ -345,30 +244,23 @@ public class ShopRoom extends SpecialRoom {
 		rare.cursedKnown = true;
 		itemsToSpawn.add( rare );
 		*/
-
 		//hard limit is 63 items + 1 shopkeeper, as shops can't be bigger than 8x8=64 internally
 		if (itemsToSpawn.size() > 63)
 			throw new RuntimeException("Shop attempted to carry more than 63 items!");
-
 		//use a new generator here to prevent items in shop stock affecting levelgen RNG (e.g. sandbags)
 		Random.pushGenerator(Random.Long());
-			Random.shuffle(itemsToSpawn);
+		Random.shuffle(itemsToSpawn);
 		Random.popGenerator();
-
 		return itemsToSpawn;
 	}
-
 	protected static Bag ChooseBag(Belongings pack){
-
 		//generate a hashmap of all valid bags.
 		HashMap<Bag, Integer> bags = new HashMap<>();
 		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new VelvetPouch(), 1);
 		if (!Dungeon.LimitedDrops.SCROLL_HOLDER.dropped()) bags.put(new ScrollHolder(), 0);
 		if (!Dungeon.LimitedDrops.POTION_BANDOLIER.dropped()) bags.put(new PotionBandolier(), 0);
 		if (!Dungeon.LimitedDrops.MAGICAL_HOLSTER.dropped()) bags.put(new MagicalHolster(), 0);
-
 		if (bags.isEmpty()) return null;
-
 		//count up items in the main bag
 		for (Item item : pack.backpack.items) {
 			for (Bag bag : bags.keySet()){
@@ -377,7 +269,6 @@ public class ShopRoom extends SpecialRoom {
 				}
 			}
 		}
-
 		//find which bag will result in most inventory savings, drop that.
 		Bag bestBag = null;
 		for (Bag bag : bags.keySet()){
@@ -387,7 +278,6 @@ public class ShopRoom extends SpecialRoom {
 				bestBag = bag;
 			}
 		}
-
 		if (bestBag instanceof VelvetPouch){
 			Dungeon.LimitedDrops.VELVET_POUCH.drop();
 		} else if (bestBag instanceof ScrollHolder){
@@ -397,9 +287,6 @@ public class ShopRoom extends SpecialRoom {
 		} else if (bestBag instanceof MagicalHolster){
 			Dungeon.LimitedDrops.MAGICAL_HOLSTER.drop();
 		}
-
 		return bestBag;
-
 	}
-
 }

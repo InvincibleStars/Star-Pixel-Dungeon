@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.ROGUE;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.STAR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BERSERKER;
@@ -184,7 +185,7 @@ public class Hero extends Char {
 	private static final float HUNGER_FOR_SEARCH	= 6f;
 	private static final float START_HUNGER	= 450f;
 	
-	public HeroClass heroClass = HeroClass.ROGUE;
+	public HeroClass heroClass = ROGUE;
 	public HeroSubClass subClass = HeroSubClass.NONE;
 	public ArmorAbility armorAbility = null;
 	public ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
@@ -195,7 +196,7 @@ public class Hero extends Char {
 
 
 
-	private int attackSkill = 10;
+	private int attackSkill = 12;
 	private int defenseSkill = 5;
 
 	public boolean ready = false;
@@ -217,8 +218,56 @@ public class Hero extends Char {
 	public int exp = 0;
 
 	public int HTBoost = 0;
-	public int HTStart = 15;
-	public int HTAdd = 5;
+	public int HTStart = ABC();
+	public int HTAdd = ABC2();
+
+	public int ABC(){
+		int ayyttuu = 0;
+		switch (heroClass) {
+			case WARRIOR:
+				ayyttuu=18;
+				break;
+
+			case MAGE:
+				break;
+
+			case ROGUE:
+				break;
+
+			case HUNTRESS:
+				break;
+
+			case STAR:
+				break;
+
+		}
+
+		return ayyttuu;
+	}
+
+	public int ABC2(){
+		int ayyttuu2 = 0;
+		switch (heroClass) {
+			case WARRIOR:
+				ayyttuu2=7;
+				break;
+
+			case MAGE:
+				break;
+
+			case ROGUE:
+				break;
+
+			case HUNTRESS:
+				break;
+
+			case STAR:
+				break;
+
+		}
+
+		return ayyttuu2;
+	}
 
 
 	public static final int NONE_HT = 20;
@@ -249,16 +298,16 @@ public class Hero extends Char {
 		visibleEnemies = new ArrayList<>();
 
 
-		HP = HT= 29481;
+		HP = HT= 1;
 
 	}
 	
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 
-		HP = HT = hero.HTStart + (hero.HTAdd *  lvl) ;
+		HT =HTBoost+ hero.HTStart + (hero.HTAdd *  lvl * hero.pointsInTalent(Talent.UPDATE_HT));
 		if (boostHP){
-			HP += Math.max(HT - curHT + HTBoost, 0);
+			HP += Math.max(HT - curHT , 0);
 		}
 		HP = Math.min(HP, HT);
 	}
@@ -722,7 +771,8 @@ public class Hero extends Char {
 	
 	@Override
 	public boolean act() {
-
+		HT = hero.HTStart + (hero.HTAdd *  lvl)+ HTBoost+Dungeon.hero.pointsInTalent(Talent.UPDATE_HT)*5;;
+		updateHT(true);
 		if (hero.buff(MagicImmune.class) == null){Buff.affect(this, WaitDamage.class);}
 
 
@@ -1748,6 +1798,7 @@ public class Hero extends Char {
 					buff(ElixirOfMight.HTBoost.class).onLevelUp();
 				}
 
+				HT+=Dungeon.hero.pointsInTalent(Talent.UPDATE_HT)*5;
 				updateHT( true );
 				attackSkill+=2;
 				defenseSkill++;
@@ -2133,7 +2184,7 @@ public class Hero extends Char {
 		boolean smthFound = false;
 
 		boolean circular = pointsInTalent(Talent.WIDE_SEARCH) == 1;
-		int distance = heroClass == HeroClass.ROGUE ? 2 : 1;
+		int distance = heroClass == ROGUE ? 2 : 1;
 		if (hasTalent(Talent.WIDE_SEARCH)) distance++;
 
 		

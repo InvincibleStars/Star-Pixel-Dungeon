@@ -22,9 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.arealevel;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -46,11 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.SummoningTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TeleportationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ToxicTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.Group;
-import com.watabou.noosa.Halo;
-import com.watabou.noosa.particles.Emitter;
-import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -69,16 +63,16 @@ public class TreeAreaLevel extends RegularLevel {
 
 	@Override
 	protected int standardRooms(boolean forceMax) {
-		if (forceMax) return 18;
+		if (forceMax) return 6;
 		//12-15
-		return 14+Random.chances(new float[]{4,3,2,1});
+		return 8+Random.chances(new float[]{4,3,2,1});
 	}
 	
 	@Override
 	protected int specialRooms(boolean forceMax) {
 		if (forceMax) return 7;
 		//2
-		return 3+Random.chances(new float[]{1, 1, 1});
+		return 0+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override
@@ -147,11 +141,12 @@ public class TreeAreaLevel extends RegularLevel {
 	public static void addPrisonVisuals(Level level, Group group){
 		for (int i=0; i < level.length(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
-				group.add( new Torch( i ) );
+				//group.add( new Torch( i ) );
 			}
 		}
 	}
-	
+
+	/*
 	public static class Torch extends Emitter {
 		
 		private int pos;
@@ -176,4 +171,6 @@ public class TreeAreaLevel extends RegularLevel {
 			}
 		}
 	}
+
+	 */
 }

@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EntranceRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.ExitRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.FangXingRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BlazingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BurningTrap;
@@ -84,6 +85,17 @@ public abstract class RegularLevel extends Level {
 		
 		ArrayList<Room> initRooms = initRooms();
 		Random.shuffle(initRooms);
+
+		if(feeling == feeling.CHASM&&Dungeon.depth>10&&Dungeon.depth<16){
+			Room FangXingRoom = new FangXingRoom();
+			initRooms.add(FangXingRoom);
+		}
+
+		if(feeling == feeling.CHASM&&Dungeon.depth>10&&Dungeon.depth<16){
+			Room FangXingRoom = new FangXingRoom();
+			initRooms.add(FangXingRoom);
+		}
+
 		
 		do {
 			for (Room r : initRooms){
@@ -116,8 +128,10 @@ public abstract class RegularLevel extends Level {
 			initRooms.add(s);
 		}
 		//固定生成
-		if (Dungeon.shopOnLevel())
+		if (Dungeon.shopOnLevel()) {
 			initRooms.add(new ShopRoom());
+			//initRooms.add(new ShopRoom2());
+		}
 
 		//force max special rooms and add one more for large levels
 		int specials = specialRooms(feeling == Feeling.LARGE);
@@ -167,7 +181,7 @@ public abstract class RegularLevel extends Level {
 	protected abstract Painter painter();
 	
 	protected int nTraps() {
-		return Random.NormalIntRange( 3 + Dungeon.depth % 5 , 6 + (Dungeon.depth/3) );
+		return Random.NormalIntRange( 3 , 6 + (Dungeon.depth/3) );
 	}
 	
 	protected Class<?>[] trapClasses(){
@@ -322,10 +336,10 @@ public abstract class RegularLevel extends Level {
 		//自定义物品数量
 		// drops 3/4/5 items 60%/30%/10% of the time
 		//int nItems = 9 + Random.chances(new float[]{6, 3, 1});
-		int nItems = 9 + Dungeon.depth/5 + Random.chances(new float[]{6, 3, 3, 3, 1, 1, 1, 1, 1});
+		int nItems = 9 + Dungeon.depth/5 + Random.chances(new float[]{3, 5, 2});
 //
 		if (feeling == Feeling.LARGE){
-			nItems += 8;
+			nItems += 4;
 			//2
 		}
 		
@@ -435,8 +449,10 @@ public abstract class RegularLevel extends Level {
 				int tries = 100;
 				do {
 					cell = randomDropCell(SpecialRoom.class);
-				} while (tries-- > 0 && (room(cell) instanceof SecretRoom || room(cell) instanceof ShopRoom));
-				if (!(room(cell) instanceof SecretRoom || room(cell) instanceof ShopRoom) && cell != -1) {
+				//} while (tries-- > 0 && (room(cell) instanceof SecretRoom || room(cell) instanceof ShopRoom));
+				} while (tries-- > 0 && ( room(cell) instanceof ShopRoom));
+					if (!(room(cell) instanceof ShopRoom)) {
+						//if (!(room(cell) instanceof SecretRoom || room(cell) instanceof ShopRoom) && cell != -1) {
 					if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
 						map[cell] = Terrain.GRASS;
 						losBlocking[cell] = false;

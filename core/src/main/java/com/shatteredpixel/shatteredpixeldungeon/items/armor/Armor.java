@@ -58,7 +58,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Stone;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Swiftness;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Thorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
@@ -289,14 +288,16 @@ public class Armor extends EquipableItem {
 		return hero.belongings.armor() == this;
 	}
 
-	public final int DRMax(){return DRMax(buffedLvl());}
+	public final int DRMax(){
+		return DRMax(buffedLvl());
+	}
 
 	public int DRMax(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return 1 + tier + lvl + augment.defenseFactor(lvl);
+			return 2 + tier + lvl + augment.defenseFactor(lvl);
 		}
 
-		int max = (tier * 2) * (2 + lvl) + augment.defenseFactor(lvl);
+		int max = 1 + tier * (2 + lvl) + augment.defenseFactor(lvl);
 		if (lvl > max){
 			return ((lvl - max)+1)/2;
 		} else {
@@ -304,18 +305,23 @@ public class Armor extends EquipableItem {
 		}
 	}
 
-	public final int DRMin(){return DRMin(buffedLvl());}
+	public final int DRMin(){
+		return DRMin(buffedLvl());
+	}
 
 	public int DRMin(int lvl){
+		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+			return 0;
+		}
+
 		int max = DRMax(lvl);
 		if (lvl >= max){
-			return lvl - max;
+			return (lvl - max);
 		} else {
-			return tier + lvl;
+			return lvl;
 		}
 	}
 
-	
 	public float evasionFactor( Char owner, float evasion ){
 		
 		if (hasGlyph(Stone.class, owner) && !((Stone)glyph).testingEvasion()){
@@ -515,7 +521,7 @@ public class Armor extends EquipableItem {
 		//+0: 70%
 		//+1: 25%
 		int n = 0;
-		if (Random.Float() >= 0.75f) {
+		if (Random.Float() <= 0.35f) {
 			n++;
 		}
 		level(n);
@@ -523,10 +529,10 @@ public class Armor extends EquipableItem {
 		//30% 诅咒
 		//25% 附魔
 		float effectRoll = Random.Float();
-		if (effectRoll < 0.3f) {
+		if (effectRoll < 0.2f) {
 			inscribe(Glyph.randomCurse());
 			cursed = true;
-		} else if (effectRoll >= 0.75f){
+		} else if (effectRoll >= 0.85f){
 			inscribe();
 		}
 

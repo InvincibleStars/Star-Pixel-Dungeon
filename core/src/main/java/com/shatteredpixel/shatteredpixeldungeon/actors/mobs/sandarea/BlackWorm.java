@@ -25,6 +25,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
 import com.watabou.utils.Random;
@@ -37,7 +39,7 @@ public class BlackWorm extends Mob {
 		
 		//HP = HT =  12 + Random.Int(6);
 
-		HP = HT =  6 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
+		HP = HT =  8 + Random.Int(4+(BossLoot.infection*2));
 
 		EXP = 1;
 
@@ -46,14 +48,14 @@ public class BlackWorm extends Mob {
 		maxLvl = 3;
 
 		//loot = Generator.Category.GOLD;
-		loot = Generator.Category.POTION;
-		lootChance = 0.25f;
+		//loot = Generator.Category.POTION;
+		lootChance = 0.001f;
 
 
 	}
 
 	public boolean act() {
-		baseSpeed = Random.Float(1f,1.25f);
+		baseSpeed = Random.Float(1f,1.25f+(BossLoot.infection/2));
 		return super.act();
 	}
 
@@ -74,6 +76,19 @@ public class BlackWorm extends Mob {
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange( 0, 2);
+	}
+
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		float a = Random.Float();
+		if(a<=(1f * ((5f - Dungeon.LimitedDrops.BLACKWORM_LOOT.count) / 5f))){
+			loot = Generator.random(Generator.Category.SEED);
+			Dungeon.LimitedDrops.BLACKWORM_LOOT.count++;
+		} else {
+			loot = new MobLoot();
+		}
+		return loot;
 	}
 
 		//Camera.main.shake( 1, 3f );

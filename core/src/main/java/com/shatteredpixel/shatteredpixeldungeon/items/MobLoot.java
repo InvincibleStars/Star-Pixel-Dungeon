@@ -19,37 +19,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2;
+package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class IronLeave extends MeleeWeapon {
-
+public class MobLoot extends Item {
+	
 	{
-		image = ItemSpriteSheet.IROM_LEAVE;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
+		image = ItemSpriteSheet.SANDBAG;
+		stackable = true;
 
-		tier = 2;
+	}
 
+	public boolean unique() {
+		return false;
 	}
 
 	@Override
-	public int min(int lvl) {
-		return max()-5;
+	public boolean isUpgradable() {
+		return false;
 	}
 
 	@Override
-	public int max(int lvl) {
-		return  2*(tier+1) + lvl * tier + masteryPotionBonus*2 + 2;
+	public boolean isIdentified() {
+		return true;
 	}
 
+	//物品的价值
 	@Override
-	public int defenseFactor( Char owner ) {
-		return 2;	//2 extra defence
+	public int value() {
+		return quantity*20;
 	}
+
 
 }

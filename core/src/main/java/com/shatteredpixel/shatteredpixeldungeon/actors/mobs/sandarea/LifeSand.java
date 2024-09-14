@@ -21,12 +21,15 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.LifeSandSprite;
 import com.watabou.utils.Random;
@@ -36,7 +39,7 @@ public class LifeSand extends Mob {
 	{
 		spriteClass = LifeSandSprite.class;
 
-		HP = HT = 10 + Random.Int(4+(BossLoot.infection*2));
+		HP = HT = 16 + Random.Int(4+(BossLoot.infection*2));
 		
 		EXP = 4;
 		maxLvl = 5;
@@ -44,7 +47,7 @@ public class LifeSand extends Mob {
 
 		defenseSkill = 4;
 
-		loot = Generator.Category.WEAPON;
+		//loot = Generator.Category.WEAPON;
 		lootChance = 0.25f;
 	}
 
@@ -71,6 +74,19 @@ public class LifeSand extends Mob {
 		}
 
 		return damage;
+	}
+
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		float a = Random.Float();
+		if(a<=(0.4f * ((1f - Dungeon.LimitedDrops.LIFESAND_LOOT.count) / 1f))){
+			loot = Generator.random(Generator.Category.RING);
+			Dungeon.LimitedDrops.LIFESAND_LOOT.count++;
+		} else {
+			loot = new MobLoot().quantity(Random.Int(1,4));
+		}
+		return loot;
 	}
 
 }

@@ -222,7 +222,6 @@ public abstract class Recipe {
 		new SummonElemental.Recipe(),
 		new StewedMeat.twoMeat(),
 		new Dust.GemToDust(),
-
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
@@ -230,6 +229,8 @@ public abstract class Recipe {
 		new StewedMeat.threeMeat(),
 		new AlchemyGem.YellowGemToUpdateScroll(),
 		new MeatPie.Recipe(),
+		new AlchemyWeapon.ChainRecipe(),
+		new AlchemyWeapon.DeadBookRecipe(),
 	};
 
 	private static Recipe[] fourIngredientRecipes = new Recipe[]{

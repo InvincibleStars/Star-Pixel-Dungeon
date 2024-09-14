@@ -17,10 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
-
- *
  */
-
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
@@ -56,8 +53,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -77,14 +74,12 @@ import java.util.LinkedHashMap;
 
 public enum Talent {
 
-	//天赋[天赋名字(天赋图标位置,天赋最大等级，未设置最大等级的取 Line:193)]
-
 	//Warrior T1
-	HEARTY_MEAL(0,4), ARMSMASTERS_INTUITION(1), TEST_SUBJECT(2), IRON_WILL(3,4),
+	HEARTY_MEAL(0), ARMSMASTERS_INTUITION(1), TEST_SUBJECT(2), IRON_WILL(3),
 	//Warrior T2
-	IRON_STOMACH(4), RESTORED_WILLPOWER(5,3), RUNIC_TRANSFERENCE(6), LETHAL_MOMENTUM(7), IMPROVISED_PROJECTILES(8,4),
+	IRON_STOMACH(4), RESTORED_WILLPOWER(5), RUNIC_TRANSFERENCE(6), LETHAL_MOMENTUM(7), IMPROVISED_PROJECTILES(8),
 	//Warrior T3
-	HOLD_FAST(9, 4), STRONGMAN(10, 4),
+	HOLD_FAST(9, 3), STRONGMAN(10, 3),
 	//Berserker T3
 	ENDLESS_RAGE(11, 3), BERSERKING_STAMINA(12, 3), ENRAGED_CATALYST(13, 3),
 	//Gladiator T3
@@ -97,13 +92,13 @@ public enum Talent {
 	SUSTAINED_RETRIBUTION(23, 4), SHRUG_IT_OFF(24, 4), EVEN_THE_ODDS(25, 4),
 
 	//Mage T1
-	EMPOWERING_MEAL(32), SCHOLARS_INTUITION(33), TESTED_HYPOTHESIS(34,4), BACKUP_BARRIER(35,4),
+	EMPOWERING_MEAL(32), SCHOLARS_INTUITION(33), TESTED_HYPOTHESIS(34), BACKUP_BARRIER(35),
 	//Mage T2
-	ENERGIZING_MEAL(36,4), ENERGIZING_UPGRADE(37), WAND_PRESERVATION(38,4), ARCANE_VISION(39), SHIELD_BATTERY(40,4),
+	ENERGIZING_MEAL(36), ENERGIZING_UPGRADE(37), WAND_PRESERVATION(38), ARCANE_VISION(39), SHIELD_BATTERY(40),
 	//Mage T3
 	EMPOWERING_SCROLLS(41, 3), ALLY_WARP(42, 3),
 	//Battlemage T3
-	EMPOWERED_STRIKE(43, 4), MYSTICAL_CHARGE(44, 4), EXCESS_CHARGE(45, 3),
+	EMPOWERED_STRIKE(43, 3), MYSTICAL_CHARGE(44, 3), EXCESS_CHARGE(45, 3),
 	//Warlock T3
 	SOUL_EATER(46, 3), SOUL_SIPHON(47, 3), NECROMANCERS_MINIONS(48, 3),
 	//Elemental Blast T4
@@ -116,9 +111,9 @@ public enum Talent {
 	//Rogue T1
 	CACHED_RATIONS(64), THIEFS_INTUITION(65), SUCKER_PUNCH(66), PROTECTIVE_SHADOWS(67),
 	//Rogue T2
-	MYSTICAL_MEAL(68), MYSTICAL_UPGRADE(69), WIDE_SEARCH(70, 2), SILENT_STEPS(71), ROGUES_FORESIGHT(72),
+	MYSTICAL_MEAL(68), MYSTICAL_UPGRADE(69), WIDE_SEARCH(70), SILENT_STEPS(71), ROGUES_FORESIGHT(72),
 	//Rogue T3
-	ENHANCED_RINGS(73, 4), LIGHT_CLOAK(74, 4),
+	ENHANCED_RINGS(73, 3), LIGHT_CLOAK(74, 3),
 	//Assassin T3
 	ENHANCED_LETHALITY(75, 3), ASSASSINS_REACH(76, 3), BOUNTY_HUNTER(77, 3),
 	//Freerunner T3
@@ -133,13 +128,13 @@ public enum Talent {
 	//Huntress T1
 	NATURES_BOUNTY(96), SURVIVALISTS_INTUITION(97), FOLLOWUP_STRIKE(98), NATURES_AID(99),
 	//Huntress T2
-	INVIGORATING_MEAL(100,4), RESTORED_NATURE(101), REJUVENATING_STEPS(102), HEIGHTENED_SENSES(103), DURABLE_PROJECTILES(104,4),
+	INVIGORATING_MEAL(100), RESTORED_NATURE(101), REJUVENATING_STEPS(102), HEIGHTENED_SENSES(103), DURABLE_PROJECTILES(104),
 	//Huntress T3
-	POINT_BLANK(105, 4), SEER_SHOT(106, 4),
+	POINT_BLANK(105, 3), SEER_SHOT(106, 3),
 	//Sniper T3
-	FARSIGHT(107, 4), SHARED_ENCHANTMENT(108, 3), SHARED_UPGRADES(109, 4),
+	FARSIGHT(107, 3), SHARED_ENCHANTMENT(108, 3), SHARED_UPGRADES(109, 3),
 	//Warden T3
-	DURABLE_TIPS(110, 4), BARKSKIN(111, 3), SHIELDING_DEW(112, 4),
+	DURABLE_TIPS(110, 3), BARKSKIN(111, 3), SHIELDING_DEW(112, 3),
 	//Spectral Blades T4
 	FAN_OF_BLADES(113, 4), PROJECTING_BLADES(114, 4), SPIRIT_BLADES(115, 4),
 	//Natures Power T4
@@ -150,7 +145,45 @@ public enum Talent {
 	//universal T4
 	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
 	//Ratmogrify T4
-	RATSISTANCE(124, 4), RATLOMACY(125, 4), RATFORCEMENTS(126, 4);
+	RATSISTANCE(124, 4), RATLOMACY(125, 4), RATFORCEMENTS(126, 4),
+
+
+	//仅在最后的天赋后面加";"
+	//新战士天赋(128)
+	//T1
+	WARRIOR_EAT1(128,2),ARMOR_KNOW(129,2),UPDATE_HT(130,2),STOP_ARMOR(131,2),
+	//T2
+	WARRIOR_EAT2(132,2), WARRIOR_UPDATE(133,2),BAR_ADD(135,2),HIT_DAMAGE(136,2),UPDATE_BADGE(137,2),ENCHANT_BADGE(138,2),
+	//新法师天赋(160)
+	//T1
+	MAGE_EAT1(160,2),WAND_KNOW(161,2),WAND_RECOVERY(162,2),GREAT_STAFF(163,2),
+	//T2
+	MAGE_EAT2(164,2),MAGE_UPDATE(165,2),READ_ENERGE(167,2),MAGIC_WAND(168,2),SUCK_BLEED(169,2),ATTACK_MAGE(170,2),
+	//新刺客天赋(192)
+	//T1
+	ROUGE_EAT1(192,2),RING_KNOW(193,2),USE_SPEED(194,2),SLOW_HUNGER(195,2),
+	//T2
+	SNIPER_EAT2(196,2),SNIPER_UPDATE(197,2),ATTACK_TURN(199,2),NO_SOUND(200,2),EYE_UPDATE(201,2),RAID_KILL(202,2),
+	//新女猎天赋(224)
+	//T1
+	HUNTRESS_EAT1(224,2),ALL_KNOW(225,2),DIRT_ADD(226,2),BOW_ADD(227,2),
+	//T2
+	HUNTRESS_EAT2(228,2),HUNTRESS_UPDATE(229,2),GRASS_ARMOR(231,2),ACCURATE_BOW(232,2),GROW_FOOT(233,2),GRASS_EYE(234,2),
+	//新星辰天赋(256)
+	//T1
+	STAR_EAT1(256,2),WEAPON_KNOW(257,2),FAST_REG(258,2),SLOW_BLUE(259,2),
+	//T2
+	STAR_EAT2(260,2),STAR_UPDATE(261,2),FIRE_PROTECT(263,2),COLD_PROTECT(264,2),ASSIMILATION_ELEMENT(265,2),CONVERSION_POINT(266,2),
+
+	//共用天赋
+	QUIET_ELEMENT(134,2),
+
+
+
+
+	THE_END(0,0);
+
+
 
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
@@ -184,12 +217,13 @@ public enum Talent {
 	int icon;
 	int maxPoints;
 
-	// 设置0/1/2/3/4级天赋在0/2/8/16/0/0等级时可以被学习，学习点数取决于下一个数字的数值
-	public static int[] tierLevelThresholds = new int[]{0, 2, 8, 16, 0, 0};  //天赋点数（T1-T4=6/8/0/0点）（第三层不允许被学习）
+	// tiers 1/2/3/4 start at levels 2/7/13/21
+	//每层的天赋上限
+	public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
 
 	Talent( int icon ){
-		this(icon, 4);
-	} //默认的单天赋等级/可学习次数
+		this(icon, 2);
+	}
 
 	Talent( int icon, int maxPoints ){
 		this.icon = icon;
@@ -245,11 +279,8 @@ public enum Talent {
 			if (hero.belongings.armor() != null)  hero.belongings.armor.identify();
 		}
 		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 2){
-			/*
 			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.identify();
 			if (hero.belongings.misc instanceof Ring) hero.belongings.misc.identify();
-
-			 */
 			for (Item item : Dungeon.hero.belongings){
 				if (item instanceof Ring){
 					((Ring) item).setKnown();
@@ -257,11 +288,8 @@ public enum Talent {
 			}
 		}
 		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 1){
-			/*
 			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.setKnown();
 			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
-
-			 */
 		}
 
 		if (talent == LIGHT_CLOAK && hero.pointsInTalent(LIGHT_CLOAK) == 1){
@@ -283,13 +311,12 @@ public enum Talent {
 	public static class NatureBerriesAvailable extends CounterBuff{{revivePersists = true;}};
 
 	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
-		//战士进食天赋
 		if (hero.hasTalent(HEARTY_MEAL)){
 			//3/5 HP healed, when hero is below 25% health
 			if (hero.HP <= hero.HT/4) {
 				hero.HP = Math.min(hero.HP + 1 + 2 * hero.pointsInTalent(HEARTY_MEAL), hero.HT);
 				hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1+hero.pointsInTalent(HEARTY_MEAL));
-			//2/3 HP healed, when hero is below 50% health
+				//2/3 HP healed, when hero is below 50% health
 			} else if (hero.HP <= hero.HT/2){
 				hero.HP = Math.min(hero.HP + 1 + hero.pointsInTalent(HEARTY_MEAL), hero.HT);
 				hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), hero.pointsInTalent(HEARTY_MEAL));
@@ -348,7 +375,7 @@ public enum Talent {
 		if (hero.hasTalent(RESTORED_WILLPOWER)){
 			BrokenSeal.WarriorShield shield = hero.buff(BrokenSeal.WarriorShield.class);
 			if (shield != null){
-				int shieldToGive = Math.round(shield.maxShield() * 0.3f*(hero.pointsInTalent(RESTORED_WILLPOWER)));
+				int shieldToGive = Math.round(shield.maxShield() * 0.33f*(1+hero.pointsInTalent(RESTORED_WILLPOWER)));
 				shield.supercharge(shieldToGive);
 			}
 		}
@@ -452,7 +479,7 @@ public enum Talent {
 		if (hero.hasTalent(Talent.SUCKER_PUNCH)
 				&& enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)
 				&& enemy.buff(SuckerPunchTracker.class) == null){
-			dmg += Random.IntRange(hero.pointsInTalent(Talent.SUCKER_PUNCH)+1,hero.pointsInTalent(Talent.SUCKER_PUNCH)+1);
+			dmg += Random.IntRange(hero.pointsInTalent(Talent.SUCKER_PUNCH) , 2);
 			Buff.affect(enemy, SuckerPunchTracker.class);
 		}
 
@@ -494,16 +521,16 @@ public enum Talent {
 		//tier 1
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, HEARTY_MEAL, IRON_WILL,DURABLE_TIPS);
+				Collections.addAll(tierTalents, HEARTY_MEAL, ARMSMASTERS_INTUITION, TEST_SUBJECT, IRON_WILL,UPDATE_HT);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents,  ENERGIZING_MEAL,BACKUP_BARRIER,WAND_PRESERVATION);
+				Collections.addAll(tierTalents, EMPOWERING_MEAL, SCHOLARS_INTUITION, TESTED_HYPOTHESIS, BACKUP_BARRIER);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents,  LIGHT_CLOAK, WIDE_SEARCH, DURABLE_TIPS);
+				Collections.addAll(tierTalents, CACHED_RATIONS, THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents,  SEER_SHOT,INVIGORATING_MEAL,DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents, NATURES_BOUNTY, SURVIVALISTS_INTUITION, FOLLOWUP_STRIKE, NATURES_AID);
 				break;
 		}
 		for (Talent talent : tierTalents){
@@ -517,16 +544,16 @@ public enum Talent {
 		//tier 2
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, HOLD_FAST, STRONGMAN,RESTORED_WILLPOWER,IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents, IRON_STOMACH, RESTORED_WILLPOWER, RUNIC_TRANSFERENCE, LETHAL_MOMENTUM, IMPROVISED_PROJECTILES);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, EMPOWERED_STRIKE,TESTED_HYPOTHESIS, MYSTICAL_CHARGE,SHIELD_BATTERY);
+				Collections.addAll(tierTalents, ENERGIZING_MEAL, ENERGIZING_UPGRADE, WAND_PRESERVATION, ARCANE_VISION, SHIELD_BATTERY);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, SUCKER_PUNCH,FARSIGHT,ENHANCED_RINGS,DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents, MYSTICAL_MEAL, MYSTICAL_UPGRADE, WIDE_SEARCH, SILENT_STEPS, ROGUES_FORESIGHT);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, POINT_BLANK,SHIELDING_DEW,FARSIGHT,IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents, INVIGORATING_MEAL, RESTORED_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
 				break;
 		}
 		for (Talent talent : tierTalents){

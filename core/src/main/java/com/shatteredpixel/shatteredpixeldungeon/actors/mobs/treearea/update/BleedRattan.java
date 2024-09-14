@@ -21,28 +21,27 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.update;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.LifePlant;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.AlbinoSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.DeathPlantSprite;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rattan;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.AngryVineSprite;
 import com.watabou.utils.Random;
 
-public class DeathPlant extends LifePlant {
+public class BleedRattan extends Rattan {
 
 	{
-		spriteClass = DeathPlantSprite.class;
+		spriteClass = AngryVineSprite.class;
 		
 		HP = HT = 20+Random.Int(2);
 		EXP = 4;
 
-		loot = new Plant.Seed();
-		lootChance = 0f;
+
+		lootChance = 1f;
 	}
 	
 	@Override
@@ -63,5 +62,18 @@ public class DeathPlant extends LifePlant {
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange(0, 3);
+	}
+
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		float a = Random.Float();
+		if(a<=(1f * ((6f - Dungeon.LimitedDrops.BLEEDRATTAN_LOOT.count) / 6f))){
+			loot = new PotionOfHealing();
+			Dungeon.LimitedDrops.BLEEDRATTAN_LOOT.count++;
+		} else {
+			loot = new MobLoot().quantity(Random.Int(1,8));
+		}
+		return loot;
 	}
 }

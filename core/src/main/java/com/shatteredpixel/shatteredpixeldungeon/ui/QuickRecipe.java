@@ -434,7 +434,15 @@ public class QuickRecipe extends Component {
 				result.add(null);
 				result.add(new QuickRecipe(new AlchemyWeapon.EleoveRecipe()));
 				result.add(new QuickRecipe(new AlchemyWeapon.FireGloveRecipe()));
+				result.add(null);
+				result.add(new QuickRecipe(new AlchemyWeapon.DeadBookRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.ChainRecipe()));
 
+				result.add(null);
+				return result;
+
+
+			case 11:
 				result.add(new QuickRecipe(new AlchemyGem.BlueGemtoPotion()));
 				result.add(new QuickRecipe(new AlchemyGem.BlueGemtoScroll()));
 				result.add(new QuickRecipe(new AlchemyGem.RedGemtoPotion()));
@@ -448,16 +456,6 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new AlchemyDust.RedDusttoScroll()));
 				result.add(new QuickRecipe(new AlchemyDust.GreenDusttoPotion()));
 				result.add(new QuickRecipe(new AlchemyDust.GreenDusttoScroll()));
-
-
-
-
-
-				result.add(null);
-				return result;
-
-				//聚合物品
-			case 11:
 				result.add(null);
 
 				return result;

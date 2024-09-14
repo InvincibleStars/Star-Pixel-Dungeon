@@ -24,8 +24,10 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBugSprite;
 import com.watabou.utils.Random;
 
@@ -37,11 +39,9 @@ public class RockBug extends Mob {
 		HP = HT = 8 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
 		EXP = 2;
 		maxLvl = 3;
-		loot = Generator.Category.ARMOR;
-		lootChance = 0.18f; //by default, see rollToDropLoot()
 		defenseSkill = 4;
 
-		loot = Generator.Category.POTION;
+		//loot = Generator.Category.POTION;
 		lootChance = 0.125f;
 	}
 
@@ -59,7 +59,20 @@ public class RockBug extends Mob {
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(2, 2);
+		return Random.NormalIntRange(2+BossLoot.infection, 2+BossLoot.infection);
+	}
+
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		float a = Random.Float();
+		if(a<=(0.6f * ((2f - Dungeon.LimitedDrops.ROCKBUG_LOOT.count) / 2f))){
+			loot = new PotionOfHealing();
+			Dungeon.LimitedDrops.ROCKBUG_LOOT.count++;
+		} else {
+			loot = new MobLoot().quantity(Random.Int(1,2));
+		}
+		return loot;
 	}
 
 }

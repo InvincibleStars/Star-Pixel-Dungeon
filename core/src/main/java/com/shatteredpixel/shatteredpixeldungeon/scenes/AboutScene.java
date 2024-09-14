@@ -28,7 +28,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.ColorBlock;
@@ -66,7 +65,7 @@ public class AboutScene extends PixelScene {
 
 		final int STAR_COLOR = 0x55AAFF;
 		CreditsBlock data = new CreditsBlock(true, STAR_COLOR,
-				"About\n  关于",
+				"About\n  关于/加群链接",
 				Icons.NEWS.get(),
 				"Star Pixel Dungeon \n-Developed by : Invincible Star\n\n星辰地牢\n开发者：不败星辰" +
 						"\n\nShattered Pixel Dungeon\n-Developed by : Evan Debenham\n\n破碎地牢\n开发者:Evan Debenham" +

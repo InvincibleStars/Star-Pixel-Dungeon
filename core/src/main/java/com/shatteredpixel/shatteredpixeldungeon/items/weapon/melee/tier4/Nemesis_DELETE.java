@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Nemesis extends MeleeWeapon {
+public class Nemesis_DELETE extends MeleeWeapon {
 	
 	{
 		image = ItemSpriteSheet.GOLD;

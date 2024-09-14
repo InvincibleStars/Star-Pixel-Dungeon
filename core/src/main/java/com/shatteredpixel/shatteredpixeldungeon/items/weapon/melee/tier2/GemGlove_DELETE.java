@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class GemGlove extends MeleeWeapon {
+public class GemGlove_DELETE extends MeleeWeapon {
 
 	{
 		image = ItemSpriteSheet.GEMGLOVE;

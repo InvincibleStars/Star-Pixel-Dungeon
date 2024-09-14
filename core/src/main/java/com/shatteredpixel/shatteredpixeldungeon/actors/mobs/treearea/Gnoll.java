@@ -21,35 +21,24 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM100Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.AngryVineSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.LifePlantSprite;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class Gnoll extends Mob {
 	
 	{
 
-		spriteClass = AngryVineSprite.class;
+		spriteClass = GnollSprite.class;
 
 		
-		HP = HT = 15+Random.Int(2+(BossLoot.infection*2));
+		HP = HT = 24+Random.Int(2+(BossLoot.infection*2));
 		defenseSkill = 7;
 		
 		EXP = 5;
@@ -100,7 +89,7 @@ public class Gnoll extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 2, (int)(ATTACKPOWER*6+ BossLoot.infection ) );
+		return Random.NormalIntRange( 2, (int)(ATTACKPOWER*9+ BossLoot.infection ) );
 	}
 	
 	@Override

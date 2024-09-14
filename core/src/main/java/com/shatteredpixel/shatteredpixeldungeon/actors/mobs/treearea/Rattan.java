@@ -21,22 +21,25 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.LifePlantSprite;
 import com.watabou.utils.Random;
 
-public class LifePlant extends Rat {
+public class Rattan extends Rat {
 
 	{
 		spriteClass = LifePlantSprite.class;
 		
-		HP = HT = 14+Random.Int(2+(BossLoot.infection*2));
+		HP = HT = 15+Random.Int(2+(BossLoot.infection*2));
 		EXP = 4;
 		maxLvl=11;
 		
-		loot = Generator.Category.POTION;
+		//loot = Generator.Category.POTION;
 		lootChance = 0.25f;
 		defenseSkill = 6;
 	}
@@ -49,11 +52,24 @@ public class LifePlant extends Rat {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 11 + BossLoot.infection );
+		return Random.NormalIntRange( 1, 8 + BossLoot.infection );
 	}
 
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange(0, 3);
+	}
+
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		float a = Random.Float();
+		if(a<=(1f * ((8f - Dungeon.LimitedDrops.RATTAN_LOOT.count) / 8f))){
+			loot = Generator.randomUsingDefaults(Generator.Category.SEED);
+			Dungeon.LimitedDrops.RATTAN_LOOT.count++;
+		} else {
+			loot = new MobLoot().quantity(Random.Int(2,5));
+		}
+		return loot;
 	}
 }

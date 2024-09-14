@@ -24,17 +24,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.Random;
 
 public class HandAxe extends MeleeWeapon {
 
@@ -44,12 +39,13 @@ public class HandAxe extends MeleeWeapon {
 		hitSoundPitch = 1f;
 
 		tier = 2;
-		ACC = 1.30f; //32% boost to accuracy
+		ACC = 1.32f; //32% boost to accuracy
 	}
 
 	@Override
 	public int max(int lvl) {
-		return 3 * tier + lvl * (tier+1) + masteryPotionBonus*2 - 2;
+		return  4*(tier+1) +    //12 base, down from 15
+				lvl*(tier+1);   //scaling unchanged
 	}
 
 	//attackBuff

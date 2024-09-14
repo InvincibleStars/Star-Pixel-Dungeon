@@ -29,7 +29,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AnkhBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -44,14 +43,14 @@ import java.util.HashSet;
 public class WoodenCross extends Mob {
 	{
 		spriteClass = WoodenAnkhSprite.class;
-		HP = HT = 11+ BossLoot.infection*2 ;
+		HP = HT = 14+ BossLoot.infection*2 ;
 		maxLvl = 0;
 		EXP=0;
 		properties.add(Property.IMMOVABLE);
 		state = PASSIVE;
 
-		loot = Ankh.class;
-		lootChance = 0.039f;
+		//loot = Ankh.class;
+		//lootChance = 0.039f;
 
 	}
 
@@ -98,7 +97,6 @@ public class WoodenCross extends Mob {
 			//}
 			//GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
 			Buff.prolong(target, AnkhBuff.class, BuffWait.T1);
-			target.HP+=1;
 			this.HP-=1;
 		}
 	}
@@ -112,7 +110,7 @@ public class WoodenCross extends Mob {
 		}
 		for(int a =0;a<1;a++){
 			int c = com.watabou.utils.Random.Int(level.width(),level.height()* (level.width()-1));
-			if (level.map[c] == Terrain.EMPTY) {
+			if (level.map[c] == Terrain.GRASS) {
 				Painter.set(level, c, Terrain.DEADEMPTY);
 				GameScene.updateMap(c);
 			}

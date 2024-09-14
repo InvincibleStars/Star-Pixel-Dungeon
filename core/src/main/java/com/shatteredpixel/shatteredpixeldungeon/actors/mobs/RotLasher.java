@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.VineDerived;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RotLasherSprite;
 import com.watabou.utils.Random;
@@ -36,7 +37,7 @@ public class RotLasher extends Mob {
 	{
 		spriteClass = RotLasherSprite.class;
 
-		HP = HT = 40;
+		HP = HT = 20;
 		defenseSkill = 0;
 
 		EXP = 1;
@@ -110,4 +111,10 @@ public class RotLasher extends Mob {
 	}
 
 	private class Waiting extends Mob.Wandering{}
+
+	@Override
+	public void die( Object cause ) {
+		super.die( cause );
+		VineDerived.NUM-=1;
+	}
 }

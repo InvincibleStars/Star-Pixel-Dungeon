@@ -21,18 +21,16 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -41,7 +39,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CrabSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -50,7 +47,7 @@ public class SandCrab extends Mob {
 	{
 		spriteClass = CrabSprite.class;
 
-		HP = HT = 10 + Random.Int(5+(BossLoot.infection*2)) + Dungeon.depth;
+		HP = HT = 16 + Random.Int(5+(BossLoot.infection*2)) + Dungeon.depth;
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 3;
@@ -63,8 +60,8 @@ public class SandCrab extends Mob {
 
 		HUNTING = new Hunting();
 
-		loot = Generator.Category.ARMOR;
-		lootChance = 0.125f;
+		//loot = Generator.Category.ARMOR;
+		lootChance = 0.25F;
 
 		defenseSkill = 2;
 	}
@@ -203,7 +200,7 @@ public class SandCrab extends Mob {
 				//挑战开启失明
 				//Buff.prolong( ch, Blindness.class, BuffWait.T5 );
 				//Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
-				ch.damage( Random.NormalIntRange( 0, damageadd ), new SandCrab.DeathGaze() );
+				ch.damage( Random.NormalIntRange( 3, 3+damageadd ), new SandCrab.DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
 					ch.sprite.flash();
@@ -270,5 +267,18 @@ public class SandCrab extends Mob {
 			}
 			return super.act(enemyInFOV, justAlerted);
 		}
+	}
+
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		float a = Random.Float();
+		if(a<=(0.4f * ((1f - Dungeon.LimitedDrops.SANDCRAB_LOOT.count) / 1f))){
+			loot = Generator.random(Generator.Category.WAND);
+			Dungeon.LimitedDrops.SANDCRAB_LOOT.count++;
+		} else {
+			loot = new MobLoot().quantity(Random.Int(4));
+		}
+		return loot;
 	}
 }

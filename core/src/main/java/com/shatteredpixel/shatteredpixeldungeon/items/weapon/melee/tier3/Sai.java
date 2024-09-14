@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2021 Evan Debenham
+ * Copyright (C) 2014-2022 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,14 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
-
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 public class Sai extends MeleeWeapon {
 
@@ -46,7 +41,5 @@ public class Sai extends MeleeWeapon {
 		return  Math.round(2.5f*(tier+1)) +     //10 base, down from 20
 				lvl*Math.round(0.5f*(tier+1));  //+2 per level, down from +4
 	}
-
-
 
 }
