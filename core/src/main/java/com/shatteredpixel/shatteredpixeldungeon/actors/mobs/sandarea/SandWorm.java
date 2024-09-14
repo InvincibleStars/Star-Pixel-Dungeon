@@ -25,6 +25,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWormSprite;
 import com.watabou.utils.Random;
@@ -34,13 +36,13 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 6 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
+		HP = HT = 7 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
 		defenseSkill = 3;
 		EXP = 2;
-		maxLvl = 3;
+		maxLvl = 4;
 
-		loot = Generator.Category.SEED;
-		lootChance = 0.25f;
+		//loot = new MobLoot();
+		lootChance = 0.125f;
 
 		state = WANDERING = new Waiting();
 	}
@@ -57,11 +59,9 @@ public class SandWorm extends Mob {
 
 	@Override
 	protected boolean act() {
-		if(cooldown<1){
-			HP = Math.min(HT, HP + Random.Int(4));
-			cooldown=Random.Int(9);
-		}else{
-			cooldown-=1;
+		if(BossLoot.infection>=2){
+			HP=Math.min(HP+=1,HT);
+			spend(1f);
 		}
 		return super.act();
 	}
@@ -85,4 +85,17 @@ public class SandWorm extends Mob {
 	//{ immunities.add( ToxicGas.class ); }
 
 	private class Waiting extends Wandering{}
+
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		float a = Random.Float();
+		if(a<=(1f * ((6f - Dungeon.LimitedDrops.SANDWORM_LOOT.count) / 6f))){
+			loot = Generator.random(Generator.Category.POTION);
+			Dungeon.LimitedDrops.SANDWORM_LOOT.count++;
+		} else {
+			loot = new MobLoot().quantity(Random.Int(1,2));
+		}
+		return loot;
+	}
 }

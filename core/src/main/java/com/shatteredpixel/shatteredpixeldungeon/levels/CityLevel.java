@@ -62,7 +62,7 @@ public class CityLevel extends RegularLevel {
 	protected int standardRooms(boolean forceMax) {
 		if (forceMax) return 8;
 		//4
-		return 4+Random.chances(new float[]{0, 0, 0});
+		return 7+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override

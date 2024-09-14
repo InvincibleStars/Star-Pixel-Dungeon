@@ -28,7 +28,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.Builder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.FigureEightBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -167,8 +166,8 @@ public class SandAreaBossLevel extends SandAreaLevel {
 	@Override
 	public Group addVisuals() {
 		super.addVisuals();
-		if (map[exit-1] != Terrain.WALL_DECO) visuals.add(new TreeAreaLevel.Torch(exit-1));
-		if (map[exit+1] != Terrain.WALL_DECO) visuals.add(new TreeAreaLevel.Torch(exit+1));
+		//if (map[exit-1] != Terrain.WALL_DECO) visuals.add(new TreeAreaLevel.Torch(exit-1));
+		//if (map[exit+1] != Terrain.WALL_DECO) visuals.add(new TreeAreaLevel.Torch(exit+1));
 		return visuals;
 	}
 	

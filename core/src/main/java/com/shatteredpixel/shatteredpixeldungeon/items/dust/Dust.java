@@ -21,26 +21,18 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.dust;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.ColorGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.RedGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.WhiteGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.YellowGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.RedGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WeaponGem;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.watabou.utils.Random;
-import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,13 +60,13 @@ public class Dust extends Item {
 			types.put(GreenGem.class,	GreenDust.class);
 			types.put(RedGem.class,		RedDust.class);
 			types.put(BlueGem.class,	BlueDust.class);
-			types.put(YellowGem.class,	YellowDust.class);
-			types.put(WhiteGem.class,	WhiteDust.class);
-			types.put(ColorGem.class,	ColorDust.class);
+			types.put(WeaponGem.class,	WeaponDust.class);
 		}
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
-			if (ingredients.size() != 2) {return false;}
+			if (ingredients.size() != 2) {
+				return false;
+			}
 			for (Item ingredient : ingredients){
 				if (!(ingredient instanceof Gem && types.containsKey(ingredient.getClass()))){
 					return false;
@@ -107,7 +99,8 @@ public class Dust extends Item {
 				result = (Dust) Generator.randomUsingDefaults( Generator.Category.DUST );
 
 			} else {
-				result = Reflection.newInstance(types.get(Random.element(ingredients).getClass()));
+				//result = Reflection.newInstance(types.get(Random.element(ingredients).getClass()));
+				result = (Dust) new GreenDust();
 
 			}
 

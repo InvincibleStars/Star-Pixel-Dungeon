@@ -4,7 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.temple.Scavenger;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -13,11 +13,9 @@ public class Level0 extends Level {
 
 
     {
-//        color1 = 0x534f3e;
-//        color2 = 0xb9d661;
+        color1 = 0x534f3e;
+        color2 = 0xb9d661;
 
-        color1 = 0xff0000;
-        color2 = 0x0000ff;
     }
 
     //定义地块
@@ -133,7 +131,7 @@ public class Level0 extends Level {
     //地块贴图
     @Override
     public String tilesTex() {
-        return Assets.Environment.TILES_SAND;
+        return Assets.Environment.TILES_CAVES;
     }
     //水体贴图
     @Override
@@ -168,10 +166,16 @@ public class Level0 extends Level {
 
     @Override
     protected void createMobs() {
-
-        KillBust i = new KillBust();
+/*
+        VineDerived i = new VineDerived();
             i.pos = 518;
             mobs.add(i);
+
+ */
+
+        Scavenger i = new Scavenger();
+        i.pos = 518;
+        mobs.add(i);
     }
 
     public Actor addRespawner() {

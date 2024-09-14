@@ -31,9 +31,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.Rock
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.SandWorm2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Bat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.LifePlant;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.GnollThrow;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rattan;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.SplitSlime;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.VineDerived;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.WoodenCross;
 import com.watabou.utils.Random;
 
@@ -52,11 +53,14 @@ public class Bestiary {
 	}
 	
 	//returns a rotation of standard mobs, unshuffled.
-	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ){
-		switch(depth){
-			
+	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ) {
+		switch (depth) {
+
 			// 荒漠
 			case 0: default:
+				return new ArrayList<>(Arrays.asList(
+						WoodenCross.class
+				));
 
 			case 1:
 				//2x黑晶虫，1x沙虫
@@ -93,29 +97,28 @@ public class Bestiary {
 			case 6:
 				//1x 老鼠, 2x 活化植物, 1x 十字架
 				return new ArrayList<>(Arrays.asList(
-						Rat.class,
-						LifePlant.class,LifePlant.class,
+						Rattan.class, Rattan.class,
 						WoodenCross.class));
 			case 7:
 				//1x 活化植物, 2x 老鼠, 1x 近战豺狼，1x 十字架
 				return new ArrayList<>(Arrays.asList(
-						LifePlant.class,
+						Rattan.class,
 						Rat.class,Rat.class,
-						Gnoll.class,
 						WoodenCross.class));
 			case 8:
 				//1x 活化植物, 1x 老鼠, 2x 近战豺狼, 1x 豺狼飞槌手, 1x 十字架
 				return new ArrayList<>(Arrays.asList(
-						LifePlant.class,
+						VineDerived.class,
 						Rat.class,
 						Gnoll.class, Gnoll.class,
-						//GnollThrow.class,
+						GnollThrow.class,
 						WoodenCross.class));
 			case 9: case 10:
 				//2x 豺狼, 2x 豺狼飞槌手, 1x 丛林史莱姆, 1x 十字架, 1x 蝙蝠
 				return new ArrayList<>(Arrays.asList(
+						VineDerived.class,
 						Gnoll.class,
-						//GnollThrow.class,
+						GnollThrow.class,
 						SplitSlime.class,
 						WoodenCross.class,
                         Bat.class));
@@ -204,6 +207,9 @@ public class Bestiary {
 						Succubus.class,
 						Eye.class, Eye.class,
 						Scorpio.class, Scorpio.class, Scorpio.class));
+
+
+
 		}
 		
 	}

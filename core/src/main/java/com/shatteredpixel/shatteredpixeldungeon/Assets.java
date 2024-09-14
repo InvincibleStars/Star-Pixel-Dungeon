@@ -77,6 +77,8 @@ public class Assets {
 		public static final String MENU		= "interfaces/menu_button.png";
 		public static final String HP_BAR	= "interfaces/hp_bar.png";
 		public static final String SHLD_BAR = "interfaces/shield_bar.png";
+
+		public static final String HUNGER_BAR = "interfaces/hunger_bar.png";
 		public static final String XP_BAR	= "interfaces/exp_bar.png";
 		public static final String TOOLBAR	= "interfaces/toolbar.png";
 		public static final String SHADOW   = "interfaces/shadow.png";
@@ -84,6 +86,8 @@ public class Assets {
 		public static final String DARK_BAR   = "interfaces/dark_bar.png";
 		public static final String WAIT_BAR   = "interfaces/wait_bar.png";
 		public static final String FIRE_BAR   = "interfaces/fire_bar.png";
+
+		public static final String ELE_BAR   = "interfaces/element_bar.png";
 		public static final String COLD_BAR   = "interfaces/cold_bar.png";
 		public static final String WARM_BAR   = "interfaces/warm_bar.png";
 

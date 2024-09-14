@@ -52,7 +52,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.WaterHeart;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.TechTree;
@@ -68,7 +67,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMappi
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.newexotic.FrostExotic;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Dagger;
@@ -109,11 +107,26 @@ public enum HeroClass {
 
 		new PotionLevel().quantity(1).identify().collect();
 
-		new WaterHeart().quantity(1).identify().collect();
+		new PotionOfHealing().quantity(2).identify().collect();
+		new ScrollOfMagicMapping().quantity(2).identify().collect();
 
-		new FrostExotic().quantity(30).collect();
+		//new Mace().quantity(1).identify().collect();
+
+		//new RoundShield().quantity(1).identify().collect();
+
+		//new FrostExotic().quantity(30).collect();
+
+		//Weapon randomWeapon;
+		//阶数
+		//randomWeapon = (Weapon) Generator.random(Generator.Category.WEP_T2);
+		//randomWeapon.quantity();
+		//randomWeapon.level(10);
+		//randomWeapon.identify().collect();
+
 
 		//new 类名().quantity(1).identify().collect();
+
+		//new SandBossLoot().quantity(1).identify().collect();
 
 		/*
 		//随机武器

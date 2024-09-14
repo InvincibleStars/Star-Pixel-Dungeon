@@ -26,7 +26,7 @@ public class AlchemyGem {
     //最简单的合成表
     public static class YellowGemToUpdateScroll extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{YellowGem.class};
+            inputs = new Class[]{WeaponGem.class};
             inQuantity = new int[]{3};
 
             cost = 4;

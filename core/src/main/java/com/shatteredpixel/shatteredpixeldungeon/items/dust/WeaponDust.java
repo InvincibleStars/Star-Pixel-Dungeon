@@ -19,23 +19,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2;
+package com.shatteredpixel.shatteredpixeldungeon.items.dust;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Book extends MeleeWeapon {
-
+public class WeaponDust extends Dust {
+	
 	{
-		image = ItemSpriteSheet.BOOK;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
-
-		tier = 2;
+		
+		stackable = true;
+		unique = true;
+		image = ItemSpriteSheet.YELLOW_DUST;
 	}
+	
 	@Override
-	public int max(int lvl) { return 3*(tier+1) + lvl * (tier+1) + (masteryPotionBonus*2)-2; }
-
-
+	public boolean isUpgradable() {
+		return false;
+	}
+	
+	@Override
+	public boolean isIdentified() {
+		return true;
+	}
 }

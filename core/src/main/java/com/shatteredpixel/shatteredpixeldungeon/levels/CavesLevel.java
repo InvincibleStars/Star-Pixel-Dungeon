@@ -67,7 +67,7 @@ public class CavesLevel extends RegularLevel {
 	protected int standardRooms(boolean forceMax) {
 		if (forceMax) return 7;
 		//4
-		return 18+Random.chances(new float[]{0, 0});
+		return 9+Random.chances(new float[]{0, 0});
 	}
 	
 	@Override
@@ -80,8 +80,8 @@ public class CavesLevel extends RegularLevel {
 	@Override
 	protected Painter painter() {
 		return new CavesPainter()
-				.setWater(feeling == Feeling.WATER ? 0.30f : 0.20f, 1)
-				.setGrass(feeling == Feeling.GRASS ? 0.16f : 0.15f, 1)
+				.setWater(feeling == Feeling.WATER ? 0 : 0, 1)
+				.setGrass(feeling == Feeling.GRASS ? 0 : 0, 1)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
 	

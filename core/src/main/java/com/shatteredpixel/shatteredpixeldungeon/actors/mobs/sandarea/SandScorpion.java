@@ -21,9 +21,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandScorpionSprite;
 import com.watabou.utils.Random;
@@ -33,16 +36,14 @@ public class SandScorpion extends Mob {
 	{
 		spriteClass = SandScorpionSprite.class;
 
-		HP = HT = 12 + Random.Int(5+(BossLoot.infection*2));
+		HP = HT = 15 + Random.Int(5+(BossLoot.infection*2));
 		EXP =3;
-		loot = Generator.Category.SEED;
-		lootChance = 0.5f;
 		
 		maxLvl = 6;
 		defenseSkill = 5;
 
-		loot = Generator.Category.SCROLL;
-		lootChance = 0.25f;
+		//loot = Generator.Category.SCROLL;
+		lootChance = 0.125f;
 	}
 
 	//行动逻辑
@@ -65,6 +66,19 @@ public class SandScorpion extends Mob {
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange(0, 2);
+	}
+
+	@Override
+	protected Item createLoot() {
+		Item loot;
+		float a = Random.Float();
+		if(a<=(1f * ((6f - Dungeon.LimitedDrops.SANDSCORPION_LOOT.count) / 6f))){
+			loot = Generator.random(Generator.Category.SCROLL);
+			Dungeon.LimitedDrops.SANDSCORPION_LOOT.count++;
+		} else {
+			loot = new MobLoot().quantity(Random.Int(1,4));
+		}
+		return loot;
 	}
 
 }

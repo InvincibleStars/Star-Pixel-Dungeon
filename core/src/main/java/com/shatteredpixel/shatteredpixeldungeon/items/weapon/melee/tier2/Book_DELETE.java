@@ -19,22 +19,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.gem;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class YellowGem extends Gem {
-	
+public class Book_DELETE extends MeleeWeapon {
+
 	{
-		image = ItemSpriteSheet.YELLOW_GEM;
+		image = ItemSpriteSheet.BOOK;
+		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSoundPitch = 1.1f;
 
+		tier = 2;
 	}
-
-	//物品的价值
 	@Override
-	public int value() {
-		return quantity * 80;
-	}
+	public int max(int lvl) { return 3*(tier+1) + lvl * (tier+1) + (masteryPotionBonus*2)-2; }
 
 
 }

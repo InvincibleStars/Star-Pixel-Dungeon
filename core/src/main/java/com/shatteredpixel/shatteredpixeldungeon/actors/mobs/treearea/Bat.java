@@ -1,12 +1,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.HuntingMarkers;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
@@ -66,6 +67,55 @@ public class Bat extends Mob {
 
     		return damage;
     	}
+
+
+
+    @Override
+    protected Item createLoot() {
+        Item loot;
+        float a = Random.Float();
+        if(a<=(0.2f * ((6f - Dungeon.LimitedDrops.BAT2_LOOT.count) / 6f))){
+            loot = Generator.random(Generator.Category.STONE);
+            Dungeon.LimitedDrops.BAT2_LOOT.count++;
+        } else {
+            loot = Generator.random(Generator.Category.SEED);
+        }
+        return loot;
+    }
+/*
+    protected Item createLoot() {
+        Item loot;
+        switch(Random.Int(4)){
+            case 0: case 1: default:
+                loot = new Dewdrop();
+                int ofs;
+                do {
+                    ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
+                } while (Dungeon.level.solid[pos + ofs] && !Dungeon.level.passable[pos + ofs]);
+                if (Dungeon.level.heaps.get(pos+ofs) == null) {
+                    Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos);
+                } else {
+                    Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos + ofs);
+                }
+                break;
+            case 2:
+                loot = Generator.random(Generator.Category.SEED);
+                break;
+            case 3:
+                loot = Generator.random(Generator.Category.STONE);
+                break;
+        }
+        return loot;
+    }
+ */
+
+
+
+
+
+
+
+
 
 
 

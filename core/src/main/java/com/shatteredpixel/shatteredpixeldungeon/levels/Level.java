@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.depth;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -235,6 +236,7 @@ public abstract class Level implements Bundlable {
 
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
 
+
 			if (Dungeon.isChallenged(Challenges.DARKNESS)){
 				addItemToSpawn( new Torch() );
 			}
@@ -243,7 +245,7 @@ public abstract class Level implements Bundlable {
 				addItemToSpawn( new PotionOfStrength() );
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
 			}
-			if (Dungeon.souNeeded()) {
+			if (Dungeon.souNeeded() && Dungeon.depth%5!=0) {
 				addItemToSpawn( new ScrollOfUpgrade() );
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
 			}
@@ -271,7 +273,12 @@ public abstract class Level implements Bundlable {
 				//~7.15% chance for each feeling
 				switch (Random.Int( 14 )) {
 					case 0:
-						feeling = Feeling.CHASM;
+						if(depth>=11 && depth<=15){
+							feeling = Feeling.GRASS;
+						}else {
+							feeling = Feeling.CHASM;
+						}
+
 						break;
 					case 1:
 						feeling = Feeling.WATER;

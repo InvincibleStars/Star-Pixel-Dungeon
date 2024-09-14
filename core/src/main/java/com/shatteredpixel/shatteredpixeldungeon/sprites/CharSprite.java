@@ -36,10 +36,10 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TorchHalo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.AnkhParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.KillBustParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.ShtoffBuffParticle;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -49,7 +49,6 @@ import com.watabou.glwrap.Matrix;
 import com.watabou.glwrap.Vertexbuffer;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
-import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.audio.Sample;
@@ -192,7 +191,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void showStatus(int color, String text, Object... args) {
 		//TODO 实验性功能 ICONTYPE
 		showStatusWithIcon(color, text, IconFloatingText.NO_ICON, args);
-		/*
+
 		if (visible) {
 			if (args.length > 0) {
 				text = Messages.format( text, args );
@@ -205,7 +204,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				FloatingText.show( x, y, text, color );
 			}
 			}
-		 */
+
 
 	}
 

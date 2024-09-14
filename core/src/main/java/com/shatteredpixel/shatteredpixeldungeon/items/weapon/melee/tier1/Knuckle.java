@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -43,7 +42,7 @@ public class Knuckle extends MeleeWeapon {
 	int mode = 1;
 
 	@Override
-	public int max(int lvl) { return ((int)1.5*(tier+1)) + lvl * (tier+1) + (masteryPotionBonus*2); }
+	public int max(int lvl) { return 5 + lvl * (tier+1) + (masteryPotionBonus*2); }
 
 
 }

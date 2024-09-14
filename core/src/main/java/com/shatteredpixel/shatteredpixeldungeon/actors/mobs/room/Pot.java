@@ -19,29 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.room;
 
-import static com.badlogic.gdx.utils.Align.bottom;
-import static com.badlogic.gdx.utils.Align.left;
-import static com.badlogic.gdx.utils.Align.right;
-import static com.badlogic.gdx.utils.Align.top;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.depth;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
-import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PotSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -79,7 +68,17 @@ public class Pot extends NPC {
 	public void die( Object cause ) {
 		super.die(cause);
 			switch (depth) {
-
+				default:
+					level.drop(new Gold().quantity(1), pos).sprite.drop();
+					break;
+				case 1: case 2: case 3: case 4: case 5:
+					level.drop(new EnergyCrystal().quantity(Random.Int(1,3)), pos).sprite.drop();
+					level.drop(new Gold().quantity(Random.Int(1,50)), pos).sprite.drop();
+					break;
+				case 6: case 7: case 8: case 9: case 10:
+					level.drop(Generator.randomUsingDefaults(Generator.Category.SEED), pos).sprite.drop();
+					break;
+/*
 				case 1:
 					if(Random.Float()>=chance_one) {
 						level.drop(Generator.randomUsingDefaults(Generator.Category.SCROLL), pos).sprite.drop();
@@ -96,6 +95,8 @@ public class Pot extends NPC {
 					    level.drop(Generator.randomUsingDefaults(Generator.Category.POTION), pos).sprite.drop();
 					}
 					break;
+
+ */
 		}
 
 	}}

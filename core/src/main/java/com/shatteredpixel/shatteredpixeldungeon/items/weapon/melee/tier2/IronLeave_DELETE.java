@@ -19,58 +19,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3;
-
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
-public class KnifeAoe extends MeleeWeapon {
+public class IronLeave_DELETE extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.KNIFE_TURN;
-		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 1f;
+		image = ItemSpriteSheet.IROM_LEAVE;
+		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSoundPitch = 1.1f;
 
-		tier = 3;
-		RCH=2;
+		tier = 2;
+
 	}
 
 	@Override
 	public int min(int lvl) {
-		return tier + lvl + masteryPotionBonus;
+		return max()-5;
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  2*(tier+1) + lvl * tier + masteryPotionBonus * 2 + 2;
+		return  2*(tier+1) + lvl * tier + masteryPotionBonus*2 + 2;
 	}
-
 
 	@Override
-	public int damageRoll(Char owner) {
-		return super.damageRoll(owner);
+	public int defenseFactor( Char owner ) {
+		return 2;	//2 extra defence
 	}
-
-
-	@Override
-	public int proc(Char attacker, Char defender, int damage ) {
-		Char ch;
-		int dam =Random.Int(min()/2,max()/2);
-
-		for( int i: PathFinder.NEIGHBOURS8){
-			if ((ch = Char.findChar(hero.pos +i))!= null){
-				ch.damage(dam, this);
-			}
-		}
-		return super.proc(attacker, defender, damage);
-	}
-
-
 
 }

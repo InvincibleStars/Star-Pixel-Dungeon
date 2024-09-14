@@ -531,10 +531,7 @@ public abstract class Char extends Actor {
 		}
 		//连击数会增加伤害（三点连击提高一伤害）
 		for (Combo buff : buffs(Combo.class)){
-			if (5 != 0 && buff.count % 5 == 0) {
-				damage += buff.count/2;
-			}
-			damage += buff.count/3;
+			damage += buff.count/4;
 		}
 
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
@@ -653,7 +650,7 @@ public abstract class Char extends Actor {
 
 			//换成你自己的布尔控制
 			//if(SPDSettings.ClassSkin()){
-				sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(dmg + shielding()), icon);
+				sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(dmg ), icon);
 			//} else {
 				//sprite.showStatus(HP > HT / 2 ?
 					//			CharSprite.WARNING :

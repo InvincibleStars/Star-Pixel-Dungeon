@@ -22,9 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWorm2Sprite;
@@ -44,7 +41,6 @@ public class SandWorm2 extends SandWorm {
 	public int attackProc(Char enemy, int damage) {
 		damage = super.attackProc( enemy, damage );
 		if (Random.Int(2) == 0) {
-			Buff.affect(enemy, Vulnerable.class, BuffWait.T4 );
 			HP = Math.min(HT, HP + 1);
 		}
 		return damage;

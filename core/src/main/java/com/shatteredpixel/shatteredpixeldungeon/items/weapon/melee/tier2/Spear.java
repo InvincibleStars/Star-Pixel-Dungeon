@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2021 Evan Debenham
+ * Copyright (C) 2014-2022 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,13 +33,13 @@ public class Spear extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 
 		tier = 2;
-		DLY = 1.6f; //0.67x speed
+		DLY = 1.5f; //0.67x speed
 		RCH = 2;    //extra reach
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(4.67f*(tier+1)) +    //20 base, up from 15
+		return  Math.round(6.67f*(tier+1)) +    //20 base, up from 15
 				lvl*Math.round(1.33f*(tier+1)); //+4 per level, up from +3
 	}
 

@@ -21,41 +21,56 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class KnifeTurn extends MeleeWeapon {
+public class KnifeAoe_DELETE extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.TWO_KNIFE;
+		image = ItemSpriteSheet.KNIFE_TURN;
 		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 1.3f;
+		hitSoundPitch = 1f;
 
 		tier = 3;
-		DLY = 0.3f;
+		RCH=2;
+	}
+
+	@Override
+	public int min(int lvl) {
+		return tier + lvl + masteryPotionBonus;
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round((3.5f*(tier+1)) + lvl*Math.round(0.5f*(tier+1)))/3+4;
+		return  2*(tier+1) + lvl * tier + masteryPotionBonus * 2 + 2;
 	}
+
+
+	@Override
+	public int damageRoll(Char owner) {
+		return super.damageRoll(owner);
+	}
+
 
 	@Override
 	public int proc(Char attacker, Char defender, int damage ) {
-		if(Random.Int(0,7)==0){
-			if(Random.Int(0,2)==0){
-				Buff.affect(attacker, Bleeding.class).set(Math.round(damage * 0.2f));
-			}else{
-				Buff.affect(defender, Bleeding.class).set(Math.round(damage * 0.2f));
-			}
+		Char ch;
+		int dam =Random.Int(min()/2,max()/2);
 
+		for( int i: PathFinder.NEIGHBOURS8){
+			if ((ch = Char.findChar(hero.pos +i))!= null){
+				ch.damage(dam, this);
+			}
 		}
 		return super.proc(attacker, defender, damage);
 	}
+
+
 
 }

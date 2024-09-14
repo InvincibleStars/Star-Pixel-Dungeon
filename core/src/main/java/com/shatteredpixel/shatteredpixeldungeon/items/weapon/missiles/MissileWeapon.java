@@ -222,7 +222,7 @@ abstract public class MissileWeapon extends Weapon {
 		//+0: 80%
 		//+1: 20%
 		int n = 0;
-		if (Random.Int(9) >= 8) {
+		if (Random.Float() <= 0.15f) {
 			n++;
 		}
 		level(n);
@@ -233,7 +233,7 @@ abstract public class MissileWeapon extends Weapon {
         /*if (effectRoll < 0.15f) {
             enchant(Enchantment.randomCurse());
             cursed = true;*/
-        if (effectRoll <= 0.15f){
+        if (effectRoll <= 0.08f){
             enchant();
         }
 
@@ -315,11 +315,17 @@ abstract public class MissileWeapon extends Weapon {
 		}
 		
 		usages *= RingOfSharpshooting.durabilityMultiplier( Dungeon.hero );
+
+		//天赋增加耐久
+		usages += Dungeon.hero.pointsInTalent(Talent.DIRT_ADD)*3;
 		
-		//at 100 uses, items just last forever.
-		if (usages >= 70f) return 0;
+		//无限耐久阈值
+		if (usages >= 100f){
+			return 0;
+		}
 
 		usages = Math.round(usages);
+
 		
 		//add a tiny amount to account for rounding error for calculations like 1/3
 		return (MAX_DURABILITY/usages) + 0.001f;

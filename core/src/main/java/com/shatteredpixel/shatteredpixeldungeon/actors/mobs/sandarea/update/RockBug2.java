@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.RockBug;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBug2Sprite;
 import com.watabou.utils.Random;
 
@@ -47,7 +48,7 @@ public class RockBug2 extends RockBug {
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(3, 3);
+		return Random.NormalIntRange(3+BossLoot.infection, 3+BossLoot.infection);
 	}
 
 }

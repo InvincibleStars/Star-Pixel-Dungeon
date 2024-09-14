@@ -84,11 +84,11 @@ public class WndRanking extends WndTabbed {
 		};
 
 		busy = Icons.BUSY.get();
-		busy.origin.set( busy.width / 2, busy.height / 2 );
+		busy.origin.set(15+ busy.width / 2,15+ busy.height / 2);
 		busy.angularSpeed = 720;
-		busy.x = (WIDTH - busy.width) / 2;
-		busy.y = (HEIGHT - busy.height) / 2;
-		add( busy );
+		busy.x =15+ (WIDTH - busy.width) / 2;
+		busy.y =15+ (HEIGHT - busy.height) / 2;
+		//add( busy );
 		
 		thread.start();
 	}

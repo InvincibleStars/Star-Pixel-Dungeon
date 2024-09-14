@@ -80,7 +80,7 @@ public class Toolbar extends Component {
 		//改为根据QuickSlot的SIZE(长度)来自动新增按钮
 		btnQuick = new QuickslotTool[QuickSlot.SIZE];
 		for(int i = 0;i < btnQuick.length ; i++){
-			add( btnQuick[i] = new QuickslotTool(64, 0, 19, 24, i) );
+			add( btnQuick[i] = new QuickslotTool(64, 0, 18, 24, i) );
 		}
 
 		
@@ -198,7 +198,7 @@ public class Toolbar extends Component {
 		//快捷栏宽度
 		for(int i = 0; i < QuickSlot.SIZE; i++) {
 			btnQuick[i].border(0, 1);
-			btnQuick[i].frame(64, 0, 20, 24);
+			btnQuick[i].frame(64, 0, 18, 24);
 		}
 
 		float right = width;
@@ -223,7 +223,7 @@ public class Toolbar extends Component {
 				//center the quickslots if they
 				if (btnQuick[QuickSlot.SIZE-1].left() < btnSearch.right()){
 					float diff = Math.round(btnSearch.right() - btnQuick[QuickSlot.SIZE-1].left())/2;
-					for( int i = 0; i < 400; i++){
+					for( int i = 0; i < QuickSlot.SIZE; i++){
 						btnQuick[i].setPos( btnQuick[i].left()+diff, btnQuick[i].top() );
 					}
 				}
@@ -261,7 +261,7 @@ public class Toolbar extends Component {
 				
 				if (btnQuick[QuickSlot.SIZE-1].left() < 0){
 					float diff = -Math.round(btnQuick[QuickSlot.SIZE-1].left())/2;
-					for( int i = 0; i < 700; i++){
+					for( int i = 0; i < QuickSlot.SIZE; i++){
 						btnQuick[i].setPos( btnQuick[i].left()+diff, btnQuick[i].top() );
 					}
 				}

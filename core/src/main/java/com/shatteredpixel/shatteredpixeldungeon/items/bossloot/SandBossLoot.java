@@ -60,7 +60,7 @@ public class SandBossLoot extends BossLoot {
 			return false;
 		}else{
 			super.doPickUp(hero, pos);
-			BossLoot.infection-=2;
+			BossLoot.infection+=299999;
 			GLog.i(Messages.get(SandBossLoot.class, "loot"));
 			return true;
 		}

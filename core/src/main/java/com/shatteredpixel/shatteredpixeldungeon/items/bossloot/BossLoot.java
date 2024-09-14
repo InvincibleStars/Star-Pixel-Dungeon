@@ -40,7 +40,7 @@ public class BossLoot extends Item {
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		//actions.remove(AC_DROP);
-		actions.remove(AC_THROW);
+		//actions.remove(AC_THROW);
 		return actions;
 	}
 

@@ -387,9 +387,9 @@ public abstract class RegularPainter extends Painter {
 				//塌陷区植被将被替换为虚空
 			} else if (Dungeon.depth >= 10 && Dungeon.depth < 16) {
 				if (Random.Float() < count / 2f) {
-					l.map[i] = Terrain.CHASM;
+					l.map[i] = Terrain.DEADEMPTY;
 				} else {
-					l.map[i] = Terrain.CHASM;
+					l.map[i] = Terrain.GRASS;
 				}
 			}
 		}

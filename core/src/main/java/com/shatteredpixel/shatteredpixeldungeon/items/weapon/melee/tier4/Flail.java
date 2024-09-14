@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2021 Evan Debenham
+ * Copyright (C) 2014-2022 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ public class Flail extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(5*(tier+1)) +        //35 base, up from 25
+		return  Math.round(7*(tier+1)) +        //35 base, up from 25
 				lvl*Math.round(1.6f*(tier+1));  //+8 per level, up from +5
 	}
 }
