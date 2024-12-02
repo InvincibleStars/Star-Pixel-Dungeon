@@ -193,8 +193,8 @@ public class SpiritBow extends MeleeWeapon {
 	
 	@Override
 	public int max(int lvl) {
-		int dmg = 6 + (int)(Dungeon.hero.lvl/2.5f)
-				+ 2*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
+		int dmg = 10 + (int)(Dungeon.hero.lvl/2.5f)
+				+ 3*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
 				+ (curseInfusionBonus ? 2 : 0);
 		return Math.max(0, dmg);
 	}
@@ -319,6 +319,12 @@ public class SpiritBow extends MeleeWeapon {
 		
 		@Override
 		public int proc(Char attacker, Char defender, int damage) {
+			//if(curUser.hasTalent(Talent.BOW_ADD)){
+			//	damage+=Dungeon.hero.pointsInTalent(Talent.BOW_ADD);
+			//}
+			if(Dungeon.hero.hasTalent(Talent.BOW_ADD)){
+				damage+=Dungeon.hero.pointsInTalent(Talent.BOW_ADD)*3;
+			}
 			return SpiritBow.this.proc(attacker, defender, damage);
 		}
 		

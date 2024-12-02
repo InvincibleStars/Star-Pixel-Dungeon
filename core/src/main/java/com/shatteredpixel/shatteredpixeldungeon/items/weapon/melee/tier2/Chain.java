@@ -50,9 +50,7 @@ public class Chain extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) + 2 +			//基础
-				lvl*(tier+1) +				//成长
-				(masteryPotionBonus*2)+3;   	//附加
+		return Math.round(9.5f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;   	//附加
 	}
 
 

@@ -46,8 +46,6 @@ public class RuinsRoom extends PatchRoom {
 			door.set( Door.Type.REGULAR );
 		}
 
-
-
 		//fill scales from ~20% at 4x4, to ~50% at 18x18
 		// normal   ~20% to ~30%
 		// large    ~30% to ~40%

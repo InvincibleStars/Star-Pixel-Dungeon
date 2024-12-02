@@ -21,18 +21,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-import java.util.ArrayList;
-
-public class GreenGem extends Gem {
+public class WaterGem extends Gem {
 	
 	{
-		image = ItemSpriteSheet.GREEN_GEM;
+		image = ItemSpriteSheet.WATER_GEM;
 
 	}
 
@@ -41,7 +35,6 @@ public class GreenGem extends Gem {
 	public int value() {
 		return quantity * 80;
 	}
-
 
 
 }

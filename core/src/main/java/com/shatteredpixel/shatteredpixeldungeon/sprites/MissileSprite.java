@@ -23,7 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.CrossBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Gun;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Crossbow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
@@ -103,10 +103,10 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		
 		//720 is default
 
-		ANGULAR_SPEEDS.put(CrossBow.SpiritAmmo.class,  0);
+		ANGULAR_SPEEDS.put(Gun.SpiritAmmo.class,  0);
 
 
-		ANGULAR_SPEEDS.put(CrossBow.class,3440);
+		ANGULAR_SPEEDS.put(Gun.class,3440);
 		
 		ANGULAR_SPEEDS.put(HeavyBoomerang.class,1440);
 		ANGULAR_SPEEDS.put(Bolas.class,         1440);
@@ -163,7 +163,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 				|| item instanceof ScorpioSprite.ScorpioShot
 				|| item instanceof TenguSprite.TenguShuriken){
 			speed *= 1.5f;
-		} else if (item instanceof CrossBow.SpiritAmmo){
+		} else if (item instanceof Gun.SpiritAmmo){
 			speed *= 8f;
 		}
 		

@@ -1,10 +1,8 @@
-package com.shatteredpixel.shatteredpixeldungeon.items.Science;
+package com.shatteredpixel.shatteredpixeldungeon.items.science;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ShamanSprite;
 
 import java.util.ArrayList;
 

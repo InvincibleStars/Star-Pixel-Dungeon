@@ -39,31 +39,23 @@ public class LifeSand extends Mob {
 	{
 		spriteClass = LifeSandSprite.class;
 
-		HP = HT = 16 + Random.Int(4+(BossLoot.infection*2));
+		HP = HT = 56 + Random.Int(-9,9) + BossLoot.infection*2;
 		
 		EXP = 4;
 		maxLvl = 5;
-
-
-		defenseSkill = 4;
 
 		//loot = Generator.Category.WEAPON;
 		lootChance = 0.25f;
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
-		return 12;
-	}
-
-	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(1, 8+BossLoot.infection);
+		return Random.NormalIntRange(5, 11)+BossLoot.infection;
 	}
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(2, 12);
 	}
 	@Override
 	public int attackProc( Char enemy, int damage ) {

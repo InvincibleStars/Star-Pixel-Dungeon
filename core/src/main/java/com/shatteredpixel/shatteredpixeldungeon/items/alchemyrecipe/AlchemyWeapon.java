@@ -1,14 +1,22 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe;
 
+import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.BlueDust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.GreenDust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.RedDust;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Bone;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.DeathBleed;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Shell;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Silme;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Stick;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Tooth;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.shop.Burin;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WeaponDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.ColorGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.RedGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.WeaponGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.material.Book;
 import com.shatteredpixel.shatteredpixeldungeon.items.material.GemGlove;
@@ -20,8 +28,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Quiet;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Chain;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Eleove;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Shortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.ToothNail;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.BoneSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.DeadBook;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.ShellHammer;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.SurgingWaves;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Sword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Whip;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.BleedTooth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.FireGlove;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.FlowingFire;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -38,7 +53,7 @@ public class AlchemyWeapon extends MeleeWeapon {
     //
     public static class GemGloveRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{WeaponGem.class, WeaponGem.class};
+            inputs = new Class[]{WeaponGem.class, WeaponDust.class};
             inQuantity = new int[]{2, 1};
             cost = 5;
             outQuantity = 1;
@@ -46,9 +61,87 @@ public class AlchemyWeapon extends MeleeWeapon {
         }
     }
 
+    public static class BurinRecipe extends Recipe.SimpleRecipe {
+        {
+            inputs = new Class[]{Burin.class, Bones.class};
+            inQuantity = new int[]{2, 1};
+            cost = 5;
+            outQuantity = 1;
+            output = GemGlove.class;
+        }
+    }
+
+    //武器正式合成
+
+
+    //牙钉（齿龈+强化结晶）
+    public static class ToothNailRecipe extends Recipe.SimpleRecipe {
+        {
+            inputs = new Class[]{Tooth.class, WeaponGem.class};
+            inQuantity = new int[]{1, 1};
+            cost = 5;
+            outQuantity = 1;
+            output = ToothNail.class;
+        }
+    }
+
+    //亵渎骨剑（骨头+刻刀+魂灵血液）
+    public static class BoneSwordRecipe extends Recipe.SimpleRecipe {
+        {
+            inputs = new Class[]{Bone.class, DeathBleed.class, Burin.class};
+            inQuantity = new int[]{1, 1, 1};
+            cost = 5;
+            outQuantity = 1;
+            output = BoneSword.class;
+        }
+    }
+
+    //嗜血尖牙（齿龈+不洁之血）
+    public static class BleedToothRecipe extends Recipe.SimpleRecipe {
+        {
+            inputs = new Class[]{Tooth.class, WeaponGem.class};
+            inQuantity = new int[]{1, 1};
+            cost = 5;
+            outQuantity = 1;
+            output = BleedTooth.class;
+        }
+    }
+
+    //齿龈镖（牙钉+液金）
+    public static class LongToothRecipe extends Recipe.SimpleRecipe {
+        {
+            inputs = new Class[]{ToothNail.class, LiquidMetal.class};
+            inQuantity = new int[]{1, 10};
+            cost = 5;
+            outQuantity = 1;
+            output = ToothNail.class;
+        }
+    }
+
+    //骨牙杖（牙钉+枯骨）
+    public static class WandToothRecipe extends Recipe.SimpleRecipe {
+        {
+            inputs = new Class[]{Tooth.class, WeaponGem.class};
+            inQuantity = new int[]{1, 1};
+            cost = 5;
+            outQuantity = 1;
+            output = ToothNail.class;
+        }
+    }
+
+    public static class ShellHammerRecipe extends Recipe.SimpleRecipe {
+        {
+            inputs = new Class[]{Shell.class, Stick.class, Silme.class};
+            inQuantity = new int[]{1, 1, 1};
+            cost = 5;
+            outQuantity = 1;
+            output = ShellHammer.class;
+        }
+    }
+
     public static class EleoveRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{GemGlove.class, ColorGem.class, WeaponGem.class, WeaponGem.class};
+            inputs = new Class[]{GemGlove.class, ColorGem.class, WeaponGem.class, WeaponDust.class};
             inQuantity = new int[]{1, 1, 1, 1};
             cost = 8;
             outQuantity = 1;
@@ -58,7 +151,7 @@ public class AlchemyWeapon extends MeleeWeapon {
 
     public static class FireGloveRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{Eleove.class, RedGem.class, RedDust.class};
+            inputs = new Class[]{Eleove.class, FireGem.class, FireDust.class};
             inQuantity = new int[]{1, 2, 1};
             cost = 12;
             outQuantity = 1;
@@ -68,8 +161,8 @@ public class AlchemyWeapon extends MeleeWeapon {
 
     public static class GreenRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{GreenGem.class, GreenDust.class};
-            inQuantity = new int[]{2, 1};
+            inputs = new Class[]{Shortsword.class, GrassDust.class};
+            inQuantity = new int[]{1, 1};
             cost = 5;
             outQuantity = 1;
             output = Quiet.class;
@@ -79,8 +172,8 @@ public class AlchemyWeapon extends MeleeWeapon {
     public static class RedRecipe extends Recipe.SimpleRecipe {
         {
 
-            inputs = new Class[]{RedGem.class, RedDust.class};
-            inQuantity = new int[]{2, 1};
+            inputs = new Class[]{Sword.class, FireDust.class};
+            inQuantity = new int[]{1, 1};
             cost = 5;
             outQuantity = 1;
             output = FlowingFire.class;
@@ -89,8 +182,8 @@ public class AlchemyWeapon extends MeleeWeapon {
 
     public static class BlueRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{BlueGem.class, BlueDust.class};
-            inQuantity = new int[]{2, 1};
+            inputs = new Class[]{Whip.class, WaterDust.class};
+            inQuantity = new int[]{1, 1};
             cost = 5;
             outQuantity = 1;
             output = SurgingWaves.class;
@@ -115,16 +208,6 @@ public class AlchemyWeapon extends MeleeWeapon {
             cost = 5;
             outQuantity = 1;
             output = DeadBook.class;
-        }
-    }
-
-    public static class acxc1 extends Recipe.SimpleRecipe {
-        {
-            inputs = new Class[]{BlueGem.class};
-            inQuantity = new int[]{1};
-            cost = 5;
-            outQuantity = 1;
-            output = SurgingWaves.class;
         }
     }
 

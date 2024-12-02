@@ -42,7 +42,7 @@ public class Scalpel extends MeleeWeapon {
 	}
 
 	@Override
-	public int max(int lvl) { return 2*(tier+1) + lvl + (masteryPotionBonus*2); }
+	public int max(int lvl) { return Math.round(5f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2; }
 
 
 

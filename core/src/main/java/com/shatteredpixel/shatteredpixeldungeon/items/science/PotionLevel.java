@@ -19,26 +19,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.dust;
+package com.shatteredpixel.shatteredpixeldungeon.items.science;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class GreenDust extends Dust {
-	
-	{
-		
-		stackable = true;
-		unique = true;
-		image = ItemSpriteSheet.GREEN_DUST;
-	}
-	
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
-	
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
+public class PotionLevel extends Science {
+
+
+    {
+        image = ItemSpriteSheet.POTION_HOLDER;
+    }
+
+
+    public boolean isUpgradable() {
+        if(hero.belongings.getItem(ClothArmor.class) == null&&hero.belongings.getItem(WornShortsword.class) == null){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    @Override
+    public int level(){
+        return level;
+    }
+
+
 }

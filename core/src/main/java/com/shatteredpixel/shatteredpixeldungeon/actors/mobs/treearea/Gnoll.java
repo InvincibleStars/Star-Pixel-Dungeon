@@ -38,8 +38,7 @@ public class Gnoll extends Mob {
 		spriteClass = GnollSprite.class;
 
 		
-		HP = HT = 24+Random.Int(2+(BossLoot.infection*2));
-		defenseSkill = 7;
+		HP = HT = 85 + + Random.Int(-14,14) + BossLoot.infection*2;
 		
 		EXP = 5;
 		maxLvl = 11;
@@ -89,17 +88,12 @@ public class Gnoll extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 2, (int)(ATTACKPOWER*9+ BossLoot.infection ) );
+		return Random.NormalIntRange( 6, 23 )+ BossLoot.infection;
 	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 16;
-	}
-	
+
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(0, 17);
 	}
 
 

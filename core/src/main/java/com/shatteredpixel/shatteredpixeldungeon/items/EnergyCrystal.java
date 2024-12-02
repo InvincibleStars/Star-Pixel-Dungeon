@@ -60,7 +60,7 @@ public class EnergyCrystal extends Item {
 
 	@Override
 	public Item random() {
-		quantity = Random.IntRange( 0, 1 );
+		quantity = Random.IntRange( 1, 5 );
 		return this;
 	}
 

@@ -90,7 +90,7 @@ abstract public class MissileWeapon extends Weapon {
 
 	@Override
 	public int max(int lvl) {
-		return 5 * tier +                      //base
+		return 7 * tier +                      //base
 				(tier == 1 ? 2 * lvl : tier * lvl); //level scaling
 	}
 
@@ -227,15 +227,13 @@ abstract public class MissileWeapon extends Weapon {
 		}
 		level(n);
 
-        //15% chance to be enchanted
-		//70% chance to be normal
-        float effectRoll = Random.Float();
+        //float effectRoll = Random.Float();
         /*if (effectRoll < 0.15f) {
             enchant(Enchantment.randomCurse());
             cursed = true;*/
-        if (effectRoll <= 0.08f){
-            enchant();
-        }
+        //if (effectRoll <= 0.08f){
+          //  enchant();
+        //}
 
 		return this;
 	}

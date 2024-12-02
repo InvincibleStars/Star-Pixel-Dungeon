@@ -39,8 +39,7 @@ public class RoundShield extends ShieldType {
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(2.5f*(tier+1)) +     //10 base, down from 20
-				lvl*(tier-1);                   //+2 per level, down from +4
+		return Math.round(4.5f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
 	}
 
 

@@ -47,8 +47,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.Science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Bone;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.shop.Burin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -57,10 +58,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.TechTree;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.GrassGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
+import com.shatteredpixel.shatteredpixeldungeon.items.science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -99,7 +104,10 @@ public enum HeroClass {
 		Item i = new ClothArmor().identify();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor) i;
 
-		Dungeon.gold += 300;
+		//TODO 初始物品设定
+
+		//Dungeon.gold += 300;
+		//Dungeon.energy+=10000;
 
 		if (Badges.isUnlocked(Badges.Badge.GOLD_COLLECTED_1)){Dungeon.gold += 100;}
 
@@ -107,8 +115,24 @@ public enum HeroClass {
 
 		new PotionLevel().quantity(1).identify().collect();
 
-		new PotionOfHealing().quantity(2).identify().collect();
-		new ScrollOfMagicMapping().quantity(2).identify().collect();
+		new Burin().quantity(2).identify().collect();
+
+		new Bone().quantity(2).identify().collect();
+
+		new GrassGem().quantity(2).identify().collect();
+
+		new FireGem().quantity(2).identify().collect();
+
+		new WaterGem().quantity(2).identify().collect();
+
+//		Sword sword = new Sword();
+//		sword.identify();
+//		sword.level(12);
+//		sword.collect();
+
+
+
+		//new WandOfCorrosion().collect();
 
 		//new Mace().quantity(1).identify().collect();
 
@@ -151,11 +175,11 @@ public enum HeroClass {
 
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 
-		//这些物品是为了给快捷栏用的
+		//快捷栏
 		Waterskin waterskin = new Waterskin();
 		waterskin.collect();
 
-		//初始鉴定
+		//TODO 初始鉴定的物品（所有职业）
 		new ScrollOfIdentify().identify();
 
 		switch (this) {
@@ -163,36 +187,36 @@ public enum HeroClass {
 				initWarrior(hero);
 				//战士拥有额外的力量
 				Dungeon.hero.STR++;
-				Dungeon.hero.HTStart=18;
-				Dungeon.hero.HTAdd=7;
+				Dungeon.hero.HTStart=30;
+				Dungeon.hero.HTAdd=15;
 				hero.updateHT( true );
 				break;
 
 			case MAGE:
 				initMage(hero);
-				Dungeon.hero.HTStart=16;
-				Dungeon.hero.HTAdd=4;
+				Dungeon.hero.HTStart=25;
+				Dungeon.hero.HTAdd=10;
 				hero.updateHT( true );
 				break;
 
 			case ROGUE:
 				initRogue(hero);
-				Dungeon.hero.HTStart=17;
-				Dungeon.hero.HTAdd=5;
+				Dungeon.hero.HTStart=28;
+				Dungeon.hero.HTAdd=13;
 				hero.updateHT( true );
 				break;
 
 			case HUNTRESS:
 				initHuntress(hero);
-				Dungeon.hero.HTStart=18;
-				Dungeon.hero.HTAdd=4;
+				Dungeon.hero.HTStart=25;
+				Dungeon.hero.HTAdd=10;
 				hero.updateHT( true );
 				break;
 
 			case STAR:
 				initStar(hero);
-				Dungeon.hero.HTStart=15;
-				Dungeon.hero.HTAdd=5;
+				Dungeon.hero.HTStart=25;
+				Dungeon.hero.HTAdd=11;
 				hero.updateHT( true );
 				break;
 

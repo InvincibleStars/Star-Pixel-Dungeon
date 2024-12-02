@@ -32,11 +32,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.EnhancedRings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WandEmpower;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AttackAdd;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -45,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -53,7 +57,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -145,6 +148,7 @@ public enum Talent {
 	//universal T4
 	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
 	//Ratmogrify T4
+	//Ratmogrify T4
 	RATSISTANCE(124, 4), RATLOMACY(125, 4), RATFORCEMENTS(126, 4),
 
 
@@ -153,17 +157,17 @@ public enum Talent {
 	//T1
 	WARRIOR_EAT1(128,2),ARMOR_KNOW(129,2),UPDATE_HT(130,2),STOP_ARMOR(131,2),
 	//T2
-	WARRIOR_EAT2(132,2), WARRIOR_UPDATE(133,2),BAR_ADD(135,2),HIT_DAMAGE(136,2),UPDATE_BADGE(137,2),ENCHANT_BADGE(138,2),
+	WARRIOR_EAT2(132,2), WARRIOR_UPDATE(133,2), BAR_ADD(135,2), HIT_DAMAGE(136,2), UPDATE_BADGE(137,2), ENCHANT_BADGE(138,2),
 	//新法师天赋(160)
 	//T1
 	MAGE_EAT1(160,2),WAND_KNOW(161,2),WAND_RECOVERY(162,2),GREAT_STAFF(163,2),
 	//T2
-	MAGE_EAT2(164,2),MAGE_UPDATE(165,2),READ_ENERGE(167,2),MAGIC_WAND(168,2),SUCK_BLEED(169,2),ATTACK_MAGE(170,2),
+	MAGE_EAT2(164,2),MAGE_UPDATE(165,2),READ_ENERGE(167,2),MAGIC_ARMOR(168,2),SUCK_BLEED(169,2),ATTACK_MAGE(170,2),
 	//新刺客天赋(192)
 	//T1
 	ROUGE_EAT1(192,2),RING_KNOW(193,2),USE_SPEED(194,2),SLOW_HUNGER(195,2),
 	//T2
-	SNIPER_EAT2(196,2),SNIPER_UPDATE(197,2),ATTACK_TURN(199,2),NO_SOUND(200,2),EYE_UPDATE(201,2),RAID_KILL(202,2),
+	ROUGE_EAT2(196,2),ROUGE_UPDATE(197,2),ATTACK_TURN(199,2),NO_SOUND(200,2),EYE_UPDATE(201,2),RAID_KILL(202,1),
 	//新女猎天赋(224)
 	//T1
 	HUNTRESS_EAT1(224,2),ALL_KNOW(225,2),DIRT_ADD(226,2),BOW_ADD(227,2),
@@ -171,12 +175,17 @@ public enum Talent {
 	HUNTRESS_EAT2(228,2),HUNTRESS_UPDATE(229,2),GRASS_ARMOR(231,2),ACCURATE_BOW(232,2),GROW_FOOT(233,2),GRASS_EYE(234,2),
 	//新星辰天赋(256)
 	//T1
-	STAR_EAT1(256,2),WEAPON_KNOW(257,2),FAST_REG(258,2),SLOW_BLUE(259,2),
+	STAR_EAT1(256,2),WEAPON_KNOW(257,2),SLOW_BLUE(258,2),FAST_REG(259,2),
 	//T2
 	STAR_EAT2(260,2),STAR_UPDATE(261,2),FIRE_PROTECT(263,2),COLD_PROTECT(264,2),ASSIMILATION_ELEMENT(265,2),CONVERSION_POINT(266,2),
 
 	//共用天赋
+	ATTACK_SKILL(288, 2),
+	DEFENCE_SKILL(289, 2),
 	QUIET_ELEMENT(134,2),
+
+
+
 
 
 
@@ -197,10 +206,15 @@ public enum Talent {
 	public static class WandPreservationCounter extends CounterBuff{{revivePersists = true;}};
 	public static class EmpoweredStrikeTracker extends FlavourBuff{};
 	public static class BountyHunterTracker extends FlavourBuff{};
+
+	public static class A3 extends FlavourBuff{};
+
 	public static class RejuvenatingStepsCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0f, 0.35f, 0.15f); }
-		public float iconFadePercent() { return Math.max(0, visualcooldown() / (15 - 5*Dungeon.hero.pointsInTalent(REJUVENATING_STEPS))); }
+		public float iconFadePercent() {
+			return Math.max(0, visualcooldown() / (15 - 5*Dungeon.hero.pointsInTalent(GROW_FOOT)));
+		}
 		public String toString() { return Messages.get(this, "name"); }
 		public String desc() { return Messages.get(this, "desc", dispTurns(visualcooldown())); }
 	};
@@ -217,9 +231,12 @@ public enum Talent {
 	int icon;
 	int maxPoints;
 
+
+
 	// tiers 1/2/3/4 start at levels 2/7/13/21
 	//每层的天赋上限
-	public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
+
+	public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 13, 13};
 
 	Talent( int icon ){
 		this(icon, 2);
@@ -269,13 +286,9 @@ public enum Talent {
 	}
 
 	public static void onTalentUpgraded( Hero hero, Talent talent){
-		if (talent == NATURES_BOUNTY){
-			if ( hero.pointsInTalent(NATURES_BOUNTY) == 1) Buff.count(hero, NatureBerriesAvailable.class, 4);
-			else                                           Buff.count(hero, NatureBerriesAvailable.class, 2);
-		}
 
 		if (talent == ARMSMASTERS_INTUITION && hero.pointsInTalent(ARMSMASTERS_INTUITION) == 2){
-			if (hero.belongings.weapon() != null) hero.belongings.weapon().identify();
+			//if (hero.belongings.weapon() != null) hero.belongings.weapon().identify();
 			if (hero.belongings.armor() != null)  hero.belongings.armor.identify();
 		}
 		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 2){
@@ -305,6 +318,10 @@ public enum Talent {
 		if (talent == HEIGHTENED_SENSES || talent == FARSIGHT){
 			Dungeon.observe();
 		}
+
+        if (talent == GRASS_EYE || talent == FARSIGHT){
+            Dungeon.observe();
+        }
 	}
 
 	public static class CachedRationsDropped extends CounterBuff{{revivePersists = true;}};
@@ -342,10 +359,73 @@ public enum Talent {
 			Buff.affect( hero, ArtifactRecharge.class).set(1 + 2*(hero.pointsInTalent(MYSTICAL_MEAL))).ignoreHornOfPlenty = foodSource instanceof HornOfPlenty;
 			ScrollOfRecharging.charge( hero );
 		}
+
+		if (hero.hasTalent(ROUGE_EAT2)){
+			//3/5 turns of recharging
+			Buff.affect( hero, ArtifactRecharge.class).set(1 + 2*(hero.pointsInTalent(ROUGE_EAT2))).ignoreHornOfPlenty = foodSource instanceof HornOfPlenty;
+			ScrollOfRecharging.charge( hero );
+		}
+
 		if (hero.hasTalent(INVIGORATING_MEAL)){
 			//effectively 1/2 turns of haste
 			Buff.prolong( hero, Haste.class, 0.67f+hero.pointsInTalent(INVIGORATING_MEAL));
 		}
+		//新天赋
+		if (hero.hasTalent(WARRIOR_EAT1)){
+			//回复5、6点生命
+				hero.HP = Math.min(hero.HP + 2 + hero.pointsInTalent(WARRIOR_EAT1)*4, hero.HT);
+				hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1+hero.pointsInTalent(WARRIOR_EAT1));
+		}
+
+		if (hero.hasTalent(ROUGE_EAT1)){
+			Buff.affect(hero, Hunger.class).satisfy(50*hero.pointsInTalent(ROUGE_EAT1));
+		}
+
+		if (hero.hasTalent(HUNTRESS_EAT1)){
+			if(Random.Float()<=0.25*hero.pointsInTalent(HUNTRESS_EAT1)){
+				new Dewdrop().quantity(1).collect();
+			}
+		}
+
+		if (hero.hasTalent(MAGE_EAT1)){
+			//提供5次的法杖伤害加成
+			Buff.affect( hero, WandEmpower.class).set(1 + hero.pointsInTalent(MAGE_EAT1)*2, 5);
+			ScrollOfRecharging.charge( hero );
+		}
+
+
+		if (hero.hasTalent(STAR_EAT1)){
+			//提供20/30回合的伤害加成
+			Buff.affect( hero, AttackAdd.class).set(10+10*hero.pointsInTalent(STAR_EAT1));
+			ScrollOfRecharging.charge( hero );
+		}
+
+		if (hero.hasTalent(MAGE_EAT2)){
+			//5/8 turns of recharging
+			Buff.prolong( hero, Recharging.class, 2 + 3*(hero.pointsInTalent(MAGE_EAT2)) );
+			ScrollOfRecharging.charge( hero );
+		}
+
+		if (hero.hasTalent(HUNTRESS_EAT2)){
+			//effectively 1/2 turns of haste
+			Buff.prolong( hero, Haste.class, 1.67f+hero.pointsInTalent(HUNTRESS_EAT2));
+		}
+
+		if (hero.hasTalent(STAR_EAT1)){
+			if(BurnVest.cooladd+1+2*hero.pointsInTalent(STAR_EAT2)>=BurnVest.burnadd
+					||BurnVest.burnadd+1+2*hero.pointsInTalent(STAR_EAT2)>=BurnVest.cooladd){
+				//差距过小自动均衡
+				BurnVest.cooladd=BurnVest.burnadd=100;
+			} else if (BurnVest.burnadd+1+2*hero.pointsInTalent(STAR_EAT2)<BurnVest.cooladd) {
+				BurnVest.burnadd+=1+2*hero.pointsInTalent(STAR_EAT2);
+				BurnVest.cooladd=200-BurnVest.burnadd;
+			} else if (BurnVest.cooladd+1+2*hero.pointsInTalent(STAR_EAT2)<BurnVest.burnadd) {
+				BurnVest.cooladd += 1 + 2 * hero.pointsInTalent(STAR_EAT2);
+				BurnVest.burnadd=200-BurnVest.cooladd;
+			}
+		}
+
+
 	}
 
 	public static class WarriorFoodImmunity extends FlavourBuff{
@@ -353,9 +433,11 @@ public enum Talent {
 	}
 
 	public static float itemIDSpeedFactor( Hero hero, Item item ){
+		//加速物品的鉴定时间
 		// 1.75x/2.5x speed with huntress talent
-		float factor = 1f + hero.pointsInTalent(SURVIVALISTS_INTUITION)*0.75f;
+		//float factor = 1f + hero.pointsInTalent(SURVIVALISTS_INTUITION)*0.75f;
 
+/*
 		// 2x/instant for Warrior (see onItemEquipped)
 		if (item instanceof MeleeWeapon || item instanceof Armor){
 			factor *= 1f + hero.pointsInTalent(ARMSMASTERS_INTUITION);
@@ -368,6 +450,40 @@ public enum Talent {
 		if (item instanceof Ring){
 			factor *= 1f + hero.pointsInTalent(THIEFS_INTUITION);
 		}
+
+ */
+		//控制加快鉴定速度
+		float factor = 1f + hero.pointsInTalent(ALL_KNOW)*0.75f;
+
+		if (item instanceof Weapon){
+			factor *= 1f + hero.pointsInTalent(WEAPON_KNOW);
+		}
+
+		if (item instanceof Armor){
+			factor *= 1f + hero.pointsInTalent(ARMOR_KNOW);
+		}
+
+		if (item instanceof Ring){
+			factor *= 1f + hero.pointsInTalent(RING_KNOW);
+		}
+
+		if (item instanceof Wand){
+			factor *= 1f + hero.pointsInTalent(WAND_KNOW);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		return factor;
 	}
 
@@ -519,19 +635,29 @@ public enum Talent {
 		ArrayList<Talent> tierTalents = new ArrayList<>();
 
 		//tier 1
+        Collections.addAll(tierTalents, ATTACK_SKILL, DEFENCE_SKILL);
+
 		switch (cls){
-			case WARRIOR: default:
-				Collections.addAll(tierTalents, HEARTY_MEAL, ARMSMASTERS_INTUITION, TEST_SUBJECT, IRON_WILL,UPDATE_HT);
+			default:
+				Collections.addAll(tierTalents, ATTACK_SKILL, DEFENCE_SKILL, WARRIOR_EAT1);
+			case WARRIOR:
+				//Collections.addAll(tierTalents, HEARTY_MEAL, ARMSMASTERS_INTUITION, TEST_SUBJECT, IRON_WILL,UPDATE_HT);
+				Collections.addAll(tierTalents, WARRIOR_EAT1, ARMOR_KNOW, UPDATE_HT, STOP_ARMOR);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, EMPOWERING_MEAL, SCHOLARS_INTUITION, TESTED_HYPOTHESIS, BACKUP_BARRIER);
+				//Collections.addAll(tierTalents, EMPOWERING_MEAL, SCHOLARS_INTUITION, TESTED_HYPOTHESIS, BACKUP_BARRIER);
+				Collections.addAll(tierTalents, MAGE_EAT1, WAND_KNOW, WAND_RECOVERY, GREAT_STAFF);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, CACHED_RATIONS, THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);
+				//Collections.addAll(tierTalents, CACHED_RATIONS, THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);
+				Collections.addAll(tierTalents, ROUGE_EAT1, RING_KNOW, USE_SPEED, SLOW_HUNGER);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, NATURES_BOUNTY, SURVIVALISTS_INTUITION, FOLLOWUP_STRIKE, NATURES_AID);
+				//Collections.addAll(tierTalents, NATURES_BOUNTY, SURVIVALISTS_INTUITION, FOLLOWUP_STRIKE, NATURES_AID);
+				Collections.addAll(tierTalents, HUNTRESS_EAT1, ALL_KNOW, DIRT_ADD, BOW_ADD);
 				break;
+			case STAR:
+				Collections.addAll(tierTalents, STAR_EAT1,	WEAPON_KNOW, SLOW_BLUE, FAST_REG);
 		}
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){
@@ -544,16 +670,24 @@ public enum Talent {
 		//tier 2
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, IRON_STOMACH, RESTORED_WILLPOWER, RUNIC_TRANSFERENCE, LETHAL_MOMENTUM, IMPROVISED_PROJECTILES);
+				//Collections.addAll(tierTalents, IRON_STOMACH, RESTORED_WILLPOWER, RUNIC_TRANSFERENCE, LETHAL_MOMENTUM, IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents,	WARRIOR_EAT2, WARRIOR_UPDATE, QUIET_ELEMENT, BAR_ADD, HIT_DAMAGE, UPDATE_BADGE, ENCHANT_BADGE);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, ENERGIZING_MEAL, ENERGIZING_UPGRADE, WAND_PRESERVATION, ARCANE_VISION, SHIELD_BATTERY);
+				//Collections.addAll(tierTalents, ENERGIZING_MEAL, ENERGIZING_UPGRADE, WAND_PRESERVATION, ARCANE_VISION, SHIELD_BATTERY);
+				Collections.addAll(tierTalents, MAGE_EAT2,MAGE_UPDATE, QUIET_ELEMENT, READ_ENERGE,MAGIC_ARMOR,SUCK_BLEED,ATTACK_MAGE);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, MYSTICAL_MEAL, MYSTICAL_UPGRADE, WIDE_SEARCH, SILENT_STEPS, ROGUES_FORESIGHT);
+				//Collections.addAll(tierTalents, MYSTICAL_MEAL, MYSTICAL_UPGRADE, WIDE_SEARCH, SILENT_STEPS, ROGUES_FORESIGHT);
+				Collections.addAll(tierTalents, ROUGE_EAT2, ROUGE_UPDATE, QUIET_ELEMENT, ATTACK_TURN, NO_SOUND, EYE_UPDATE, RAID_KILL);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, INVIGORATING_MEAL, RESTORED_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
+				//Collections.addAll(tierTalents, INVIGORATING_MEAL, RESTORED_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
+                Collections.addAll(tierTalents, HUNTRESS_EAT2, HUNTRESS_UPDATE, QUIET_ELEMENT, GRASS_ARMOR, ACCURATE_BOW, GROW_FOOT, GRASS_EYE);
+				break;
+			case STAR:
+				//Collections.addAll(tierTalents, INVIGORATING_MEAL, RESTORED_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents, STAR_EAT2, STAR_UPDATE, QUIET_ELEMENT, FIRE_PROTECT, COLD_PROTECT, ASSIMILATION_ELEMENT, CONVERSION_POINT);
 				break;
 		}
 		for (Talent talent : tierTalents){

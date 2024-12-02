@@ -47,7 +47,7 @@ public class SandCrab extends Mob {
 	{
 		spriteClass = CrabSprite.class;
 
-		HP = HT = 16 + Random.Int(5+(BossLoot.infection*2)) + Dungeon.depth;
+		HP = HT = 45 + Random.Int(-8,8) + BossLoot.infection*2;
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 3;
@@ -55,31 +55,23 @@ public class SandCrab extends Mob {
 
 		baseSpeed = 1f;
 
-		defenseSkill=5;
-
 
 		HUNTING = new Hunting();
 
 		//loot = Generator.Category.ARMOR;
-		lootChance = 0.25F;
-
-		defenseSkill = 2;
+		lootChance = 0.25f;
 	}
 
-	@Override
-	public int attackSkill( Char target ) {
-		return 12;
-	}
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 2 , 6+BossLoot.infection );
+		return Random.NormalIntRange(3, 13)+BossLoot.infection;
 	}
 
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 3);
+		return Random.NormalIntRange(2, 10);
 	}
 	
 	private Ballistica beam;
@@ -200,7 +192,7 @@ public class SandCrab extends Mob {
 				//挑战开启失明
 				//Buff.prolong( ch, Blindness.class, BuffWait.T5 );
 				//Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
-				ch.damage( Random.NormalIntRange( 3, 3+damageadd ), new SandCrab.DeathGaze() );
+				ch.damage( Random.NormalIntRange( 5, 9+damageadd*2 ), new SandCrab.DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
 					ch.sprite.flash();

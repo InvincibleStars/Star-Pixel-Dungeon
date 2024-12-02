@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.DeathBleed;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
@@ -18,8 +19,7 @@ public class Bat extends Mob {
     {
         spriteClass = BatSprite.class;
 
-        HP = HT = 20+Random.Int(2+(BossLoot.infection*2));
-        defenseSkill = 5;
+        HP = HT = 65 + Random.Int(-11,11) + BossLoot.infection*2;
         baseSpeed = 2f;
 
         EXP = 7;
@@ -33,17 +33,13 @@ public class Bat extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 3, 14 );
+        return Random.NormalIntRange( 3, 24 ) + BossLoot.infection;
     }
 
-    @Override
-    public int attackSkill( Char target ) {
-        return 16;
-    }
 
     @Override
     public int drRoll() {
-        return Random.NormalIntRange(0, 4);
+        return Random.NormalIntRange(0, 15);
     }
 
     	@Override
@@ -74,11 +70,16 @@ public class Bat extends Mob {
     protected Item createLoot() {
         Item loot;
         float a = Random.Float();
+        float b = Random.Float();
         if(a<=(0.2f * ((6f - Dungeon.LimitedDrops.BAT2_LOOT.count) / 6f))){
             loot = Generator.random(Generator.Category.STONE);
             Dungeon.LimitedDrops.BAT2_LOOT.count++;
         } else {
-            loot = Generator.random(Generator.Category.SEED);
+            if(b<=0.4f){
+                loot = new DeathBleed();
+            }else {
+                loot = Generator.random(Generator.Category.SEED);
+            }
         }
         return loot;
     }

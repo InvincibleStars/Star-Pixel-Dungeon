@@ -47,7 +47,7 @@ public class Eleove extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  2*(tier+1) + lvl*(tier+1) + masteryPotionBonus*2 - 1;
+		return Math.round(7.5f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
 	}
 
 

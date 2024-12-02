@@ -23,7 +23,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class Gem extends Item {
 
@@ -53,20 +52,4 @@ public class Gem extends Item {
 		return true;
 	}
 
-	public static class GemHolder extends Gem {
-
-		{
-			image = ItemSpriteSheet.WHITE_GEM;
-		}
-
-		@Override
-		public boolean isSimilar(Item item) {
-			return item instanceof Gem;
-		}
-
-		@Override
-		public String info() {
-			return "";
-		}
-	}
 }

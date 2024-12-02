@@ -18,8 +18,7 @@ public class Rat extends Mob {
     {
         spriteClass = RatSprite.class;
 
-        HP = HT = 17+Random.Int(2+(BossLoot.infection*2));
-        defenseSkill = 6;
+        HP = HT = 55 + Random.Int(-9,9) + BossLoot.infection*2;
         EXP = 4;
         maxLvl = 11;
 
@@ -51,17 +50,13 @@ public class Rat extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 1, 10 + BossLoot.infection );
+        return Random.NormalIntRange( 3, 17 )+ BossLoot.infection;
     }
 
-    @Override
-    public int attackSkill( Char target ) {
-        return 14;
-    }
 
     @Override
     public int drRoll() {
-        return Random.NormalIntRange(0, 4);
+        return Random.NormalIntRange(0, 11);
     }
 
 

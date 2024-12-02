@@ -49,10 +49,10 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PitRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EntranceRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.ExitRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.FangXingRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BlazingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BurningTrap;
@@ -86,15 +86,12 @@ public abstract class RegularLevel extends Level {
 		ArrayList<Room> initRooms = initRooms();
 		Random.shuffle(initRooms);
 
+		/*
 		if(feeling == feeling.CHASM&&Dungeon.depth>10&&Dungeon.depth<16){
-			Room FangXingRoom = new FangXingRoom();
-			initRooms.add(FangXingRoom);
+			//Room FangXingRoom = new FangXingRoom();
+			//initRooms.add(FangXingRoom);
 		}
-
-		if(feeling == feeling.CHASM&&Dungeon.depth>10&&Dungeon.depth<16){
-			Room FangXingRoom = new FangXingRoom();
-			initRooms.add(FangXingRoom);
-		}
+		 */
 
 		
 		do {
@@ -130,7 +127,7 @@ public abstract class RegularLevel extends Level {
 		//固定生成
 		if (Dungeon.shopOnLevel()) {
 			initRooms.add(new ShopRoom());
-			//initRooms.add(new ShopRoom2());
+			initRooms.add(new ShopRoom2());
 		}
 
 		//force max special rooms and add one more for large levels
@@ -205,7 +202,7 @@ public abstract class RegularLevel extends Level {
 		//%为取余，即楼层/5后的余数
 		int mobs = ((10 + Dungeon.depth % 5 + Random.Int(3))*killmobadd);
 		if (feeling == Feeling.LARGE){
-			mobs = ((int)Math.ceil(mobs * 1.20f * killmobadd));	//由4/3变成120%
+			mobs = ((int)Math.ceil(mobs * 1.1f * killmobadd));	//由4/3变成110%
 		}
 		return mobs;
 	}
@@ -342,6 +339,10 @@ public abstract class RegularLevel extends Level {
 			nItems += 4;
 			//2
 		}
+
+		if(NPC.choose_num==2){
+			nItems +=20;
+		}
 		
 		for (int i=0; i < nItems; i++) {
 
@@ -462,6 +463,51 @@ public abstract class RegularLevel extends Level {
 				}
 			}
 		}
+/*
+
+		if (Dungeon.hero.hasTalent(Talent.HUNTRESS_EAT1)){
+			Talent.CachedRationsDropped dropped = Buff.affect(Dungeon.hero, Talent.CachedRationsDropped.class);
+			if (dropped.count() < 4 + Dungeon.hero.pointsInTalent(Talent.HUNTRESS_EAT1)){
+				int cell;
+				int tries = 100;
+				do {
+					cell = randomDropCell(SpecialRoom.class);
+					//} while (tries-- > 0 && (room(cell) instanceof SecretRoom || room(cell) instanceof ShopRoom));
+				} while (tries-- > 0 && ( room(cell) instanceof ShopRoom));
+				if (!(room(cell) instanceof ShopRoom)) {
+					//if (!(room(cell) instanceof SecretRoom || room(cell) instanceof ShopRoom) && cell != -1) {
+					if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
+						map[cell] = Terrain.GRASS;
+						losBlocking[cell] = false;
+					}
+					drop(new Berry(), cell).type = Heap.Type.CHEST;
+					dropped.countUp(1);
+				}
+			}
+		}
+
+		if (Dungeon.hero.hasTalent(Talent.ROUGE_EAT1)){
+			Talent.CachedRationsDropped dropped = Buff.affect(Dungeon.hero, Talent.CachedRationsDropped.class);
+			if (dropped.count() < 4 + Dungeon.hero.pointsInTalent(Talent.ROUGE_EAT1)){
+				int cell;
+				int tries = 100;
+				do {
+					cell = randomDropCell(SpecialRoom.class);
+					//} while (tries-- > 0 && (room(cell) instanceof SecretRoom || room(cell) instanceof ShopRoom));
+				} while (tries-- > 0 && ( room(cell) instanceof ShopRoom));
+				if (!(room(cell) instanceof ShopRoom)) {
+					//if (!(room(cell) instanceof SecretRoom || room(cell) instanceof ShopRoom) && cell != -1) {
+					if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
+						map[cell] = Terrain.GRASS;
+						losBlocking[cell] = false;
+					}
+					drop(new SmallRation(), cell).type = Heap.Type.CHEST;
+					dropped.countUp(1);
+				}
+			}
+		}
+
+ */
 
 		//guide pages
 		Collection<String> allPages = Document.ADVENTURERS_GUIDE.pageNames();

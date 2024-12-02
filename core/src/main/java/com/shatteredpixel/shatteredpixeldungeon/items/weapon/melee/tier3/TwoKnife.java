@@ -38,7 +38,7 @@ public class TwoKnife extends MeleeWeapon {
 	}
 
 	@Override
-	public int max(int lvl) { return 2*(tier+1) + lvl * (tier+1) + (masteryPotionBonus*2)-4; }
+	public int max(int lvl) { return Math.round(7f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2; }
 
 
 }

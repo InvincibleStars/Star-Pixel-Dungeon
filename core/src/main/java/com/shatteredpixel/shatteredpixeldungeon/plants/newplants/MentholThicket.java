@@ -2,7 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.plants.newplants;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.utils.PathFinder;
@@ -29,7 +29,7 @@ public class MentholThicket extends Plant {
 
         int nSeeds = Random.NormalIntRange(1, 3);
 
-        BlueGem sword = new BlueGem();
+        WaterGem sword = new WaterGem();
 
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int i : PathFinder.NEIGHBOURS9){

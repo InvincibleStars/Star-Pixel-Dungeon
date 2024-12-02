@@ -21,21 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.dust;
 
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.RedGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.WeaponGem;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
-import com.watabou.utils.Random;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.GemHolder;
 
 public class Dust extends Item {
 	
@@ -54,93 +42,14 @@ public class Dust extends Item {
 		return true;
 	}
 
-	public static class GemToDust extends Recipe {
-		public static HashMap<Class<?extends Gem>, Class<?extends Dust>> types = new HashMap<>();
-		static {
-			types.put(GreenGem.class,	GreenDust.class);
-			types.put(RedGem.class,		RedDust.class);
-			types.put(BlueGem.class,	BlueDust.class);
-			types.put(WeaponGem.class,	WeaponDust.class);
-		}
-		@Override
-		public boolean testIngredients(ArrayList<Item> ingredients) {
-			if (ingredients.size() != 2) {
-				return false;
-			}
-			for (Item ingredient : ingredients){
-				if (!(ingredient instanceof Gem && types.containsKey(ingredient.getClass()))){
-					return false;
-				}
-			}
-			return true;
-		}
-		@Override
-		public int cost(ArrayList<Item> ingredients) {
-			return 0;
-		}
-		@Override
-		public Item brew(ArrayList<Item> ingredients) {
-			if (!testIngredients(ingredients)) {
-				return null;
-			}
-			for (Item ingredient : ingredients){
-				ingredient.quantity(ingredient.quantity() - 1);
-			}
-			ArrayList<Class<?extends Gem>> gems = new ArrayList<>();
-			for (Item i : ingredients) {
-				if (!gems.contains(i.getClass())) {
-					gems.add((Class<? extends Gem>) i.getClass());
-				}
-			}
-			Dust result = null;
-
-			if ( (gems.size() == 1 && Random.Int(2) == 0) || (gems.size() == 2) ){
-
-				result = (Dust) Generator.randomUsingDefaults( Generator.Category.DUST );
-
-			} else {
-				//result = Reflection.newInstance(types.get(Random.element(ingredients).getClass()));
-				result = (Dust) new GreenDust();
-
-			}
-
-			if (gems.size() == 1){
-				result.identify();
-			}
-
-			return result;
-		}
-
-
-		@Override
-		public Item sampleOutput(ArrayList<Item> ingredients) {
-			return new WndBag.Placeholder(ItemSpriteSheet.DUST_HOLDER){
-				@Override
-				public String name() {
-					return Messages.get(Dust.GemToDust.class, "name");
-				}
-				@Override
-				public String info() {
-					return "";
-				}
-			};
-		}
-	}
-
-	public static class DustHolder extends Dust {
-
+	public static class GemtoDustHolder extends Recipe.SimpleRecipe {
 		{
-			image = ItemSpriteSheet.SEED_HOLDER;
-		}
-
-		@Override
-		public boolean isSimilar(Item item) {
-			return item instanceof Dust;
-		}
-
-		@Override
-		public String info() {
-			return "";
+			inputs = new Class[]{GemHolder.class};
+			inQuantity = new int[]{2};
+			cost=1;
+			outQuantity = 1;
+			output = DustHolder.class;
 		}
 	}
+
 }

@@ -49,7 +49,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
-import com.shatteredpixel.shatteredpixeldungeon.levels.CavesLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
@@ -57,6 +56,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level0;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.Temple2AreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel.SandAreaBossLevel2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.bosslevel.TreeAreaBossLevel2;
@@ -90,7 +90,9 @@ public class Dungeon {
 		//自定义全生物特指表
 		SANDWORM_LOOT,
 		BLACKWORM_LOOT,
+		BLACKWORM_LOOT2,
 		ROCKBUG_LOOT,
+		ROCKBUG_LOOT2,
 		SANDSCORPION_LOOT,
 		SANDCRAB_LOOT,
 		LIFESAND_LOOT,
@@ -258,7 +260,16 @@ public class Dungeon {
 		Dungeon.level = null;
 		Actor.clear();
 
+		//TODO 下楼
 		depth++;
+		/*
+		if(hero.heroClass== HeroClass.WARRIOR){
+			depth+=3;
+		}else{
+			depth++;
+		}
+
+		 */
 		if (depth > Statistics.deepestFloor) {
 			Statistics.deepestFloor = depth;
 
@@ -288,7 +299,7 @@ public class Dungeon {
 				break;
 			case 11: case 12: case 13: case 14:
 			case 15:
-				level = new CavesLevel();
+				level = new Temple2AreaLevel();
 				break;
 			case 16: case 17: case 18: case 19:
 			case 20:
@@ -347,7 +358,7 @@ public class Dungeon {
 	}
 
 	public static boolean shopOnLevel() {
-		return depth == 0 || depth == 6 || depth == 11 || depth == 16|| depth == 21|| depth == 26;
+		return depth == 1 || depth == 6 || depth == 11 || depth == 16|| depth == 21|| depth == 26;
 	}
 
 	public static boolean bossLevel() {
@@ -413,10 +424,10 @@ public class Dungeon {
 		dropped.add( item );
 	}
 
-	//固定生成的物品
+	//TODO 每个区域的固定资产
 
-	public static boolean posNeeded() { //力量药水（每区两瓶）
-		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
+	public static boolean posNeeded() {
+		int posLeftThisSet =  Math.round (2.0f - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2.0f));
 		if (posLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -428,32 +439,15 @@ public class Dungeon {
 
 		if (targetPOSLeft < posLeftThisSet) return true;
 		else return false;
-
 	}
 
-
-
-	public static boolean souNeeded() { //升级卷轴（每区2张）
+	public static boolean souNeeded() {
 		int souLeftThisSet;
-		if (isChallenged(Challenges.NO_SCROLLS)){
-			souLeftThisSet = Math.round(2.0f - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 2.0f));
-		} else {
-			souLeftThisSet = Math.round ( 3.0f - ( LimitedDrops.UPGRADE_SCROLLS.count - ( depth / 5 ) * 3.0f ) );
-		}
+		souLeftThisSet = Math.round ( 3.0f - ( LimitedDrops.UPGRADE_SCROLLS.count - ( depth / 5 ) * 3.0f ) );
+
 		if (souLeftThisSet <= 0){
 			return false;
 		}
-
-		int floorThisSet = (depth % 5);
-		//chance is floors left / scrolls left
-		return Random.Int(5 - floorThisSet) < souLeftThisSet;
-	}
-
-	//生成强化结晶，每个区域生成2个
-	public static boolean updNeeded() {
-		int souLeftThisSet;
-			souLeftThisSet = 1 - (LimitedDrops.UPDATE_STONE.count - (depth / 5) * 1);
-		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
 		//chance is floors left / scrolls left

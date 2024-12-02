@@ -45,8 +45,7 @@ public class DeadBook extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return Math.round(2f * (tier * 1)) +
-				lvl * Math.round(1f + (tier * 2)) + 1;
+		return Math.round(5f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
 	}
 
 

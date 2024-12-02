@@ -24,7 +24,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -185,12 +184,25 @@ public class Armor extends EquipableItem {
 			if (detaching.level() > 0){
 				degrade();
 			}
+			/*
 			if (detaching.getGlyph() != null){
 				if (hero.hasTalent(Talent.RUNIC_TRANSFERENCE)
 						&& (Arrays.asList(Glyph.common).contains(detaching.getGlyph().getClass())
 							|| Arrays.asList(Glyph.uncommon).contains(detaching.getGlyph().getClass()))){
 					inscribe(null);
 				} else if (hero.pointsInTalent(Talent.RUNIC_TRANSFERENCE) == 2){
+					inscribe(null);
+				} else {
+					detaching.setGlyph(null);
+				}
+			}
+			 */
+			if (detaching.getGlyph() != null){
+				if (hero.hasTalent(Talent.ENCHANT_BADGE)
+						&& (Arrays.asList(Glyph.common).contains(detaching.getGlyph().getClass())
+						|| Arrays.asList(Glyph.uncommon).contains(detaching.getGlyph().getClass()))){
+					inscribe(null);
+				} else if (hero.pointsInTalent(Talent.ENCHANT_BADGE) == 2){
 					inscribe(null);
 				} else {
 					detaching.setGlyph(null);
@@ -292,6 +304,7 @@ public class Armor extends EquipableItem {
 		return DRMax(buffedLvl());
 	}
 
+	/*
 	public int DRMax(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 2 + tier + lvl + augment.defenseFactor(lvl);
@@ -304,11 +317,16 @@ public class Armor extends EquipableItem {
 			return max;
 		}
 	}
+	 */
+	public int DRMax(int lvl){
+		return tier * 10 + (lvl * tier) +augment.defenseFactor(lvl);
+	}
 
 	public final int DRMin(){
 		return DRMin(buffedLvl());
 	}
 
+	/*
 	public int DRMin(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 0;
@@ -320,6 +338,10 @@ public class Armor extends EquipableItem {
 		} else {
 			return lvl;
 		}
+	}
+	 */
+	public int DRMin(int lvl){
+		return tier + lvl;
 	}
 
 	public float evasionFactor( Char owner, float evasion ){

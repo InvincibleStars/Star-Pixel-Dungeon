@@ -23,13 +23,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollThrowSprite;
 import com.watabou.utils.Random;
 
@@ -38,8 +34,7 @@ public class GnollThrow extends Gnoll {
 	{
 		spriteClass = GnollThrowSprite.class;
 		
-		HP = HT = 15+Random.Int(2+(BossLoot.infection*2));
-		defenseSkill = 6;
+		HP = HT = 65 + Random.Int(-11,11) + BossLoot.infection*2;
 		
 		EXP = 2;
 		maxLvl = 8;
@@ -49,15 +44,11 @@ public class GnollThrow extends Gnoll {
 	}
 	
 	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 12+ BossLoot.infection  ); }
+	public int damageRoll() { return Random.NormalIntRange( 5, 15 )+ BossLoot.infection; }
+
 	
 	@Override
-	public int attackSkill( Char target ) {
-		return 16;
-	}
-	
-	@Override
-	public int drRoll() { return Random.NormalIntRange(0, 2); }
+	public int drRoll() { return Random.NormalIntRange(0, 10); }
 
 	@Override
 	protected boolean canAttack( Char enemy ) {

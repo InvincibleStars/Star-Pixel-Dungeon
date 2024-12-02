@@ -21,11 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
-import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
@@ -97,10 +92,10 @@ public class Star_v0_1_X_Changes {
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_NONE, null), "原初戒指",
 				"_-_ 初始携带的物品，可以通过嬗变转换成其他戒指"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_GEM, null), "结晶力量",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GRASS_DUST, null), "结晶力量",
 				"_-_ 具有独特用途和合成素材的结晶将加入游戏\n"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREEN_DUST, null), "星尘系统",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GRASS_DUST, null), "星尘系统",
 				"_-_ 星尘是一种蕴含了某种特定能量的粉尘\n" +
 						"星尘通常具有强大的效用性，尽管你并不能直观地感受到"));
 

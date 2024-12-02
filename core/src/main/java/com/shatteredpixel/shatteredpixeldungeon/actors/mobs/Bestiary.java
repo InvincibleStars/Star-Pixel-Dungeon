@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.GnollThrow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rattan;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.SplitSlime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.VineDerived;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.WoodenCross;
 import com.watabou.utils.Random;
@@ -55,6 +56,8 @@ public class Bestiary {
 	//returns a rotation of standard mobs, unshuffled.
 	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ) {
 		switch (depth) {
+
+			//TODO 地牢区域生物设置
 
 			// 荒漠
 			case 0: default:
@@ -97,6 +100,7 @@ public class Bestiary {
 			case 6:
 				//1x 老鼠, 2x 活化植物, 1x 十字架
 				return new ArrayList<>(Arrays.asList(
+						Rat.class,
 						Rattan.class, Rattan.class,
 						WoodenCross.class));
 			case 7:
@@ -218,6 +222,8 @@ public class Bestiary {
 	public static void addRareMobs( int depth, ArrayList<Class<?extends Mob>> rotation ){
 		
 		switch (depth){
+
+			//TODO 在区域生成上个区域的生物
 			
 			// Sewers
 			default:
@@ -243,7 +249,7 @@ public class Bestiary {
 		}
 	}
 	
-	//精英怪生成（5%）
+	//TODO 精英怪生成（5%）
 	private static void swapMobAlts(ArrayList<Class<?extends Mob>> rotation){
 		for (int i = 0; i < rotation.size(); i++){
 			if (Random.Int( 19 ) == 0) {
@@ -272,7 +278,7 @@ public class Bestiary {
 		}
 	}
 
-	//替代生成（针对多色灌木等）
+	//TODO 单个生物但多态时替代生成
 	private static void RandomMob(ArrayList<Class<?extends Mob>> rotation){
 		for (int i = 0; i < rotation.size(); i++){
 			if (Random.Int( 2 ) == 0) {

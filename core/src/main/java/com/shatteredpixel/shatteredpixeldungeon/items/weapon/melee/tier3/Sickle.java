@@ -44,7 +44,7 @@ public class Sickle extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) + lvl*(tier+1)-2;
+		return Math.round(7f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
 	}
 	
 	@Override

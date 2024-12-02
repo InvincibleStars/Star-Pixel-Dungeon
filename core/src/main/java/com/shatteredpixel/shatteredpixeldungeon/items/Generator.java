@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
@@ -42,19 +43,19 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.BlueDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.GreenDust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.RedDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.WeaponDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.ColorGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.GreenGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.RedGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.GrassGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.WeaponGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.newitem.RingOfNone;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
@@ -231,16 +232,18 @@ public class Generator {
 		
 		FOOD	( 0, 0, Food.class ),
 		
-		POTION	( 8, 8, Potion.class ),
+		POTION	( NPC.choose_num==2?4:8, NPC.choose_num==2?4:8, Potion.class ),
 		SEED	( 1, 1, Plant.Seed.class ),
 
 		GEM		(2,2, Gem.class),
 		DUST	(0,0, Dust.class),
 		
-		SCROLL	( 8, 8, Scroll.class ),
+		SCROLL	( NPC.choose_num==2?4:8, NPC.choose_num==2?4:8, Scroll.class ),
 		STONE   ( 1, 1, Runestone.class),
 		
-		GOLD	( 1, 1,   Gold.class );
+		//GOLD	( 1, 1,   Gold.class );
+
+		GOLD	(NPC.choose_num==2?8:1, NPC.choose_num==2?8:1,   Gold.class );
 		
 		public Class<?>[] classes;
 
@@ -312,17 +315,17 @@ public class Generator {
 			SEED.probs = SEED.defaultProbs.clone();
 
 			GEM.classes = new Class<?>[]{
-					GreenGem.class,
-					RedGem.class,
-					BlueGem.class,
+					GrassGem.class,
+					FireGem.class,
+					WaterGem.class,
 					WeaponGem.class,
 					ColorGem.class};
 			GEM.defaultProbs = new float[]{ 1,1,1,0,0 };
 
 			DUST.classes = new Class<?>[]{
-					GreenDust.class,
-					RedDust.class,
-					BlueDust.class,
+					GrassDust.class,
+					FireDust.class,
+					WaterDust.class,
 					WeaponDust.class};
 			DUST.defaultProbs = new float[]{ 1,1,1,0 };
 

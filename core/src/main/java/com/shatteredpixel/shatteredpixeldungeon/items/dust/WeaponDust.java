@@ -29,7 +29,7 @@ public class WeaponDust extends Dust {
 		
 		stackable = true;
 		unique = true;
-		image = ItemSpriteSheet.YELLOW_DUST;
+		image = ItemSpriteSheet.WEAPON_DUST;
 	}
 	
 	@Override

@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -36,8 +35,7 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 7 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
-		defenseSkill = 3;
+		HP = HT = 30 + Random.Int(-6, 6) + BossLoot.infection*2;
 		EXP = 2;
 		maxLvl = 4;
 
@@ -51,10 +49,6 @@ public class SandWorm extends Mob {
 
 	public int cooldown = 5;
 
-	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
 
 
 	@Override
@@ -63,6 +57,12 @@ public class SandWorm extends Mob {
 			HP=Math.min(HP+=1,HT);
 			spend(1f);
 		}
+
+		/*
+		if(this.HP<=this.HT/2){
+			remove(this);
+		}
+		 */
 		return super.act();
 	}
 
@@ -75,11 +75,11 @@ public class SandWorm extends Mob {
 	protected boolean getFurther(int target) { return true; }
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 6+BossLoot.infection); }
+	public int damageRoll() { return Random.NormalIntRange(3, 11+BossLoot.infection); }
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0,2);
+		return Random.NormalIntRange(1,7);
 	}
 
 	//{ immunities.add( ToxicGas.class ); }

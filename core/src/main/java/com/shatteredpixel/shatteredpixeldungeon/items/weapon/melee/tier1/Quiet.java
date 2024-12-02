@@ -42,7 +42,9 @@ public class Quiet extends MeleeWeapon {
 	public int min(int lvl) { return 1; }
 
 	@Override
-	public int max(int lvl) { return (tier+1) + lvl*(tier+1) + masteryPotionBonus; }
+	public int max(int lvl) {
+		return Math.round(4f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
+	}
 
 
 /*

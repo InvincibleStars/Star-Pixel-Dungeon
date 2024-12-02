@@ -21,17 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
-import static com.shatteredpixel.shatteredpixeldungeon.utils.GLog.update;
-
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.watabou.noosa.Image;
 
 public class WaitDamage extends Buff {
 
@@ -50,7 +41,11 @@ public class WaitDamage extends Buff {
 			pos = target.pos;
 		};
 		if (pos != target.pos) {
-			waittime=0;
+			if(Dungeon.hero.hasTalent(Talent.SLOW_BLUE)){
+				waittime=Dungeon.hero.pointsInTalent(Talent.SLOW_BLUE);
+			}else {
+				waittime = 0;
+			}
 			pos = target.pos;
 		} else {
 			waittime+=1;

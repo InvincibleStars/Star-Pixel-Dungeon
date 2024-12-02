@@ -19,26 +19,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.dust;
+package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class BlueDust extends Dust {
+public class GrassGem extends Gem {
 	
 	{
-		
-		stackable = true;
-		unique = true;
-		image = ItemSpriteSheet.BLUE_DUST;
+		image = ItemSpriteSheet.GRASS_GEM;
+
 	}
-	
+
+	//物品的价值
 	@Override
-	public boolean isUpgradable() {
-		return false;
+	public int value() {
+		return quantity * 80;
 	}
-	
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
+
+	//11111111111
+
+
+
 }

@@ -65,11 +65,11 @@ public class ShopRoom extends SpecialRoom {
 	private ArrayList<Item> itemsToSpawn;
 	@Override
 	public int minWidth() {
-		return Math.max(7, (int)(Math.sqrt(itemCount())+3));
+		return Math.max(9, (int)(Math.sqrt(itemCount())+3));
 	}
 	@Override
 	public int minHeight() {
-		return Math.max(7, (int)(Math.sqrt(itemCount())+3));
+		return Math.max(9, (int)(Math.sqrt(itemCount())+3));
 	}
 	public int itemCount(){
 		if (itemsToSpawn == null) itemsToSpawn = generateItems();
@@ -125,48 +125,11 @@ public class ShopRoom extends SpecialRoom {
 	}
 	protected static ArrayList<Item> generateItems() {
 		ArrayList<Item> itemsToSpawn = new ArrayList<>();
-		/*
-		w.enchant(null);
-		w.cursed = false;
-		w.level(0);
-		w.identify();
-		itemsToSpawn.add(w);
-		*/
-		/*
-		switch (Random.Int(4)){
-			case 0:
-				itemsToSpawn.add( new Bomb() );
-				break;
-			case 1:
-			case 2:
-				itemsToSpawn.add( new Bomb.DoubleBomb() );
-				break;
-			case 3:
-				itemsToSpawn.add( new Honeypot() );
-				break;
-		}
-				itemsToSpawn.add( new Ankh() );
-
- */
-		/*
-		MeleeWeapon w;
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[depth/5]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify() );
-			itemsToSpawn.add( new ClothArmor().identify() );
-
-			itemsToSpawn.add( new CrossBow().identify() );
-			itemsToSpawn.add( new Ammo.AmmoBox() );
-			if(Random.Float()<=0.3f){
-				itemsToSpawn.add( new Ammo.AmmoBox() );
-			}
-
-*/
 
 		switch (depth) {
 		default:
 			itemsToSpawn.add( new ClothArmor().identify() );
-
-				break;
+			break;
 		case 6:
 			itemsToSpawn.add( new LeatherArmor().identify() );
 			break;
@@ -256,7 +219,7 @@ public class ShopRoom extends SpecialRoom {
 	protected static Bag ChooseBag(Belongings pack){
 		//generate a hashmap of all valid bags.
 		HashMap<Bag, Integer> bags = new HashMap<>();
-		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new VelvetPouch(), 1);
+		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new VelvetPouch(), 0);
 		if (!Dungeon.LimitedDrops.SCROLL_HOLDER.dropped()) bags.put(new ScrollHolder(), 0);
 		if (!Dungeon.LimitedDrops.POTION_BANDOLIER.dropped()) bags.put(new PotionBandolier(), 0);
 		if (!Dungeon.LimitedDrops.MAGICAL_HOLSTER.dropped()) bags.put(new MagicalHolster(), 0);

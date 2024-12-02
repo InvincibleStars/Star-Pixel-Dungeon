@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWorm2Sprite;
 import com.watabou.utils.Random;
 
@@ -62,7 +63,7 @@ public class SandWorm2 extends SandWorm {
 	}
 
 	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 7); }
+	public int damageRoll() { return Random.NormalIntRange(3, 12); }
 
 	@Override
 	public int drRoll() {
@@ -70,4 +71,10 @@ public class SandWorm2 extends SandWorm {
 	}
 
 	private class Waiting extends Wandering{}
+
+	@Override
+	public void die(Object cause){
+		super.die(cause);
+		BossLoot.infection+=1;
+	}
 }

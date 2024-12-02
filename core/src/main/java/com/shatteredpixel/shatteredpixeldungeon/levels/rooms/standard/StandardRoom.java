@@ -37,24 +37,16 @@ public abstract class StandardRoom extends Room {
 		
 		NORMAL(4, 10, 1),   //4 10 1
 		LARGE(10, 14, 2),   //10 14 2
-		GIANT(14, 18, 3);   //18 18 3
+		GIANT(18, 18, 3);   //18 18 3
 		
 		public final int minDim, maxDim;  //final
 		public final int roomValue;		//final
 		
 		SizeCategory(int min, int max, int val) {
 
-			if(Dungeon.depth>5&&Dungeon.depth<10) {
-				minDim = min*2;
-				maxDim = max*2;
-				roomValue = val*2;
-			}else{
-				minDim = min;
-				maxDim = max;
-				roomValue = val;
-			}
-
-
+			minDim = min;
+			roomValue = val;
+			maxDim = max;
 		}
 		
 		public int connectionWeight(){
@@ -161,10 +153,10 @@ public abstract class StandardRoom extends Room {
 	private static float[][] chances = new float[27][];
 	static {
 		//沙地/荒漠属于干旱地区，因此不生成含水房间
-		chances[1] =  new float[]{5,   0,0,0,   0,0,2, 0,0,0, 0,0,0, 1,0,0,  0,0,0,0,0,1,0,0,1,0, 3};
+		chances[1] =  new float[]{10,	0,0,0,	2,0,2,	0,0,0,	0,0,0,	1,0,0,	0,0,1,0,1,0,0,0,0,1,	3};
 		chances[5] = chances[4] =  chances[3] = chances[2] = chances[1];
 		//森林整体结构破碎，因为废墟将作为主要地形生成
-		chances[6] =  new float[]{10,  1,0,2, 0,2,0, 0,0,0, 0,0,0, 9,0,0,  1,1,0,0,0,0,0,1,1,0, 0};
+		chances[6] =  new float[]{0,	0,0,2,	0,0,0,	0,10,0,	0,0,0,	10,0,0,	1,1,0,0,0,0,0,1,1,0,    3};
 		chances[10] = chances[9] = chances[8] = chances[7] = chances[6];
 		//神殿由于信徒们的维护因此总是干干净净的，几乎没有杂草和积水
 		chances[11] = new float[]{10, 0,0,0, 0,0,0, 10,10,5, 0,0,0, 0,0,0,  1,1,1,1,1,1,1,1,1,1, 0};

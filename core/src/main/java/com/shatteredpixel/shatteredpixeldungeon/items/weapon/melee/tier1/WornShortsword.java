@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -36,5 +37,10 @@ public class WornShortsword extends MeleeWeapon {
 		
 		bones = false;
 	}
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		return super.proc(attacker, defender, damage);
+	}
+
 
 }

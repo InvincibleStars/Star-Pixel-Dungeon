@@ -26,10 +26,9 @@ import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.STA
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
@@ -91,7 +90,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 			if (isStarving()) {
 
-				partialDamage += STEP * target.HT/1000f;
+				partialDamage += target.HT/100f;
 
 				if (partialDamage > 1){
 					target.damage( (int)partialDamage, this);
@@ -100,7 +99,11 @@ public class Hunger extends Buff implements Hero.Doom {
 				
 			} else {
 
-				float newLevel = level + STEP;
+
+				float newLevel = level + 10;
+				if(Dungeon.hero.hasTalent(Talent.SLOW_HUNGER)){
+					newLevel = level + (9 - hero.pointsInTalent(Talent.SLOW_HUNGER));
+				}
 				if (newLevel >= STARVING) {
 
 					GLog.n( Messages.get(this, "onstarving") );

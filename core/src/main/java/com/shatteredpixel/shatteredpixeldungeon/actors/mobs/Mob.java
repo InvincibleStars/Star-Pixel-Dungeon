@@ -115,9 +115,9 @@ public abstract class Mob extends Char {
 
 	private int reward = 0;
 	
-	public int defenseSkill = 2;
+	public int defenseSkill = 1;
 
-	public int attackskill = 10;
+	public int attackskill = 15;
 	
 	public int EXP = 1;
 	public int maxLvl = Hero.MAX_LEVEL;
@@ -320,6 +320,7 @@ public abstract class Mob extends Char {
 				
 			//if we are an enemy...
 			//谁可以攻击带有ALLY标签的单位
+			//TODO 独立处理携带标签的生物
 			} else if (alignment == Alignment.ENEMY || alignment == Alignment.ALLY2) {
 				//look for ally mobs to attack
 				for (Mob mob : Dungeon.level.mobs)
@@ -652,7 +653,7 @@ public abstract class Mob extends Char {
 			}
 			if (restoration > 0) {
 				Buff.affect(Dungeon.hero, Hunger.class).affectHunger(restoration*Dungeon.hero.pointsInTalent(Talent.SOUL_EATER)/3f);
-				Dungeon.hero.HP = (int) Math.ceil(Math.min(Dungeon.hero.HT, Dungeon.hero.HP + (restoration * 0.4f)));
+				Dungeon.hero.HP = (int) Math.ceil(Math.min(Dungeon.hero.HT, Dungeon.hero.HP + (restoration * (0.4f+(0.2f*(float)Dungeon.hero.pointsInTalent(Talent.SUCK_BLEED))))));
 				Dungeon.hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 		}
@@ -740,6 +741,13 @@ public abstract class Mob extends Char {
 					&& Random.Float() < 0.34f + 0.33f* Dungeon.hero.pointsInTalent(Talent.LETHAL_MOMENTUM)){
 				Buff.affect(Dungeon.hero, Talent.LethalMomentumTracker.class, 1f);
 			}
+
+			if (cause == Dungeon.hero
+					&& Dungeon.hero.hasTalent(Talent.ATTACK_TURN)
+					&& Random.Float() < 0.34f + 0.33f* Dungeon.hero.pointsInTalent(Talent.ATTACK_TURN)){
+				Buff.affect(Dungeon.hero, Talent.LethalMomentumTracker.class, 1f);
+			}
+
 		}
 
 		if (Dungeon.hero.isAlive() && !Dungeon.level.heroFOV[pos]) {
@@ -906,6 +914,12 @@ public abstract class Mob extends Char {
 
 				if (enemy instanceof Hero && ((Hero) enemy).hasTalent(Talent.SILENT_STEPS)){
 					if (Dungeon.level.distance(pos, enemy.pos) >= 4 - ((Hero) enemy).pointsInTalent(Talent.SILENT_STEPS)) {
+						enemyStealth = Float.POSITIVE_INFINITY;
+					}
+				}
+
+				if (enemy instanceof Hero && ((Hero) enemy).hasTalent(Talent.NO_SOUND)){
+					if (Dungeon.level.distance(pos, enemy.pos) >= 4 - ((Hero) enemy).pointsInTalent(Talent.NO_SOUND)) {
 						enemyStealth = Float.POSITIVE_INFINITY;
 					}
 				}

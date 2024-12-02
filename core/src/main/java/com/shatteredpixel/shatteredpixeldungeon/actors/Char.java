@@ -76,6 +76,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.DeathMark;
@@ -86,6 +87,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
@@ -250,9 +252,16 @@ public abstract class Char extends Actor {
 		c.spend( 1 / c.speed() );
 
 		if (c == hero){
+			if(hero.hasTalent(Talent.RAID_KILL)){
+				if(hero.pointsInTalent(Talent.RAID_KILL)>=1){
+					Buff.affect(hero, Momentum.class).gainStack();
+				}
+			}
+			/*
 			if (hero.subClass == HeroSubClass.FREERUNNER){
 				Buff.affect(hero, Momentum.class).gainStack();
 			}
+			 */
 
 			hero.busy();
 		}
@@ -471,13 +480,17 @@ public abstract class Char extends Actor {
 	public static int INFINITE_ACCURACY = 1_000_000;
 	public static int INFINITE_EVASION = 1_000_000;
 
-	final public static boolean hit( Char attacker, Char defender, boolean magic ) {
+//	final public static boolean hit( Char attacker, Char defender, boolean magic ) {
+	public boolean hit( Char attacker, Char defender, boolean magic ) {
 		return hit(attacker, defender, magic ? 2f : 1f);
 	}
 
-	public static boolean hit( Char attacker, Char defender, float accMulti ) {
+//	public static boolean hit( Char attacker, Char defender, float accMulti ) {
+	public boolean hit( Char attacker, Char defender, float accMulti ) {
 		float acuStat = attacker.attackSkill( defender );
 		float defStat = defender.defenseSkill( attacker );
+
+
 
 		//if accuracy or evasion are large enough, treat them as infinite.
 		//note that infinite evasion beats infinite accuracy
@@ -529,9 +542,11 @@ public abstract class Char extends Actor {
 		if ( buff(Weakness.class) != null ){
 			damage *= 0.67f;
 		}
-		//连击数会增加伤害（三点连击提高一伤害）
+		//连击数会增加伤害
 		for (Combo buff : buffs(Combo.class)){
-			damage += buff.count/4;
+			if(hero.hasTalent(Talent.HIT_DAMAGE)||hero.heroClass== HeroClass.WARRIOR){
+				damage += buff.count/5-hero.pointsInTalent(Talent.HIT_DAMAGE);
+			}
 		}
 
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
@@ -541,7 +556,11 @@ public abstract class Char extends Actor {
 
 		for (WaitDamage buff : buffs(WaitDamage.class)){
 			if (buff.waittime!=0) {
-				damage *=(1+(0.2*buff.waittime));
+				if(hero.hasTalent(Talent.BAR_ADD)){
+					damage *= (1f + (buff.waittime*(0.09f+0.02f*hero.pointsInTalent(Talent.BAR_ADD))));
+				}else {
+					damage *= (1 + (0.1 * buff.waittime));
+				}
 				buff.waittime=-1;
 			}
 			damage *=1;
@@ -567,6 +586,8 @@ public abstract class Char extends Actor {
 		for (Adrenaline2 buff : buffs(Adrenaline2.class)) {
 				speed *= 1+buff.visualcooldown()/10f;
 		}
+		if((buff(CloakOfShadows.cloakStealth.class )!=null)&& hero.hasTalent(Talent.USE_SPEED)){
+			speed*=1.1+(float)(hero.pointsInTalent(Talent.USE_SPEED))/10;}
 		return speed;
 	}
 

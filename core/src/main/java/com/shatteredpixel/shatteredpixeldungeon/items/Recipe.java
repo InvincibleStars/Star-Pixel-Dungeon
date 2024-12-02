@@ -25,9 +25,9 @@ import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.AlchemyWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.GemToDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.AlchemyDust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
@@ -160,6 +160,24 @@ public abstract class Recipe {
 		public final Item sampleOutput(ArrayList<Item> ingredients){
 			try {
 				Item result = Reflection.newInstance(output);
+				//通过判断result所属来判定是否鉴定这个物品
+				//TODO 等待更多的炼金武器加入
+
+				/*
+				if(		result instanceof FlowingFire
+					||	result instanceof SurgingWaves
+					||	result instanceof Quiet
+					||	result instanceof GemGlove
+					||	result instanceof FireGlove
+					||	result instanceof Quiet
+					||	result instanceof Quiet
+				){
+					result.identify();
+				}
+
+				 */
+
+
 				result.quantity(outQuantity);
 				return result;
 			} catch (Exception e) {
@@ -185,11 +203,21 @@ public abstract class Recipe {
 		new ArcaneResin.Recipe(),
 		new Alchemize.Recipe(),
 		new StewedMeat.oneMeat(),
-		new AlchemyWeapon.acxc1(),
 		new AlchemyGem.GemtoPotion(),
 		new AlchemyGem.GemtoScroll(),
-		new AlchemyDust.DusttoExoticPotion(),
-		new AlchemyDust.DusttoExoticScroll()
+		new AlchemyDust.BlueDusttoPotion(),
+		new AlchemyDust.BlueDusttoScroll(),
+		new AlchemyDust.RedDusttoPotion(),
+		new AlchemyDust.RedDusttoScroll(),
+		new AlchemyDust.GreenDusttoPotion(),
+		new AlchemyDust.GreenDusttoScroll(),
+		new GemToDust.FireDustRecipe(),
+		new GemToDust.WaterDustRecipe(),
+		new GemToDust.GrassDustRecipe(),
+
+		new GemToDust.WeaponDustRecipe(),
+		new AlchemyGem.Recipe(),
+		//new WeaponGem.Recipe(),
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -221,7 +249,13 @@ public abstract class Recipe {
 		new TelekineticGrab.Recipe(),
 		new SummonElemental.Recipe(),
 		new StewedMeat.twoMeat(),
-		new Dust.GemToDust(),
+		new GemToDust.FireDustRecipe(),
+		new GemToDust.WaterDustRecipe(),
+		//new GemToDust.GrassDustRecipe(),
+		new GemToDust.WeaponDustRecipe(),
+		new AlchemyWeapon.BleedToothRecipe(),
+		new AlchemyWeapon.ToothNailRecipe(),
+		new AlchemyWeapon.BlueRecipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
@@ -231,6 +265,10 @@ public abstract class Recipe {
 		new MeatPie.Recipe(),
 		new AlchemyWeapon.ChainRecipe(),
 		new AlchemyWeapon.DeadBookRecipe(),
+		new AlchemyWeapon.BoneSwordRecipe(),
+		new AlchemyWeapon.ShellHammerRecipe(),
+		new AlchemyWeapon.GemGloveRecipe(),
+
 	};
 
 	private static Recipe[] fourIngredientRecipes = new Recipe[]{

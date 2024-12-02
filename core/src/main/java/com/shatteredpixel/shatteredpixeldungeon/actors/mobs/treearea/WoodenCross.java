@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AnkhBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Stick;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -43,11 +44,15 @@ import java.util.HashSet;
 public class WoodenCross extends Mob {
 	{
 		spriteClass = WoodenAnkhSprite.class;
-		HP = HT = 14+ BossLoot.infection*2 ;
+		HP = HT = 120+ BossLoot.infection*2 ;
 		maxLvl = 0;
 		EXP=0;
 		properties.add(Property.IMMOVABLE);
 		state = PASSIVE;
+		baseSpeed=0;
+
+		loot = Stick.class;
+		lootChance = 1f;
 
 		//loot = Ankh.class;
 		//lootChance = 0.039f;
@@ -90,14 +95,15 @@ public class WoodenCross extends Mob {
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
 		if (heap != null) heap.explode();
-		if (target != null && target.HP!=target.HT && this.HP>1 && Dungeon.level.trueDistance(this.pos,target.pos)<=3 ) {
+		if (target != null && target.HP!=target.HT && this.HP>8 && Dungeon.level.trueDistance(this.pos,target.pos)<=3 ) {
 			//if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[target.pos]) {
 				//Sample.INSTANCE.play(Assets.Sounds.RAY);
 				//ShatteredPixelDungeon.scene().add(new Beam.DeathRay(DungeonTilemap.tileCenterToWorld(pos), target.sprite.center()));
 			//}
 			//GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
 			Buff.prolong(target, AnkhBuff.class, BuffWait.T1);
-			this.HP-=1;
+			this.HP-=8;
+			target.HP+=8;
 		}
 	}
 	int start = 0;

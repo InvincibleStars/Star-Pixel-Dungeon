@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -31,13 +34,29 @@ import com.watabou.utils.Rect;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public abstract class Room extends Rect implements Graph.Node, Bundlable {
 	
 	public ArrayList<Room> neigbours = new ArrayList<>();
 	public LinkedHashMap<Room, Door> connected = new LinkedHashMap<>();
-	
+
+	public static HashMap<Class<? extends Scroll>, Float> scrollChances114514 = new HashMap<>();
+	static{
+		scrollChances114514.put( ScrollOfIdentify.class,      1f );
+		scrollChances114514.put( ScrollOfRemoveCurse.class,   2f );
+	}
+	public static HashMap<Class<? extends Scroll>, Float> scrollChances114515 = new HashMap<>();
+	static{
+		scrollChances114515.put( ScrollOfIdentify.class,      1f );
+		scrollChances114515.put( ScrollOfRemoveCurse.class,   2f );
+	}
+	public static HashMap<Class<? extends Scroll>, Float> scrollChances114516 = new HashMap<>();
+	static{
+		scrollChances114516.put( ScrollOfIdentify.class,      1f );
+		scrollChances114516.put( ScrollOfRemoveCurse.class,   2f );
+	}
 	public int distance;
 	public int price = 1;
 	

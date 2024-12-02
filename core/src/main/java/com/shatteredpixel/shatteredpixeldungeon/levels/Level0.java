@@ -4,7 +4,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.temple.Scavenger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.GoldBust;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust2;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -131,7 +133,7 @@ public class Level0 extends Level {
     //地块贴图
     @Override
     public String tilesTex() {
-        return Assets.Environment.TILES_CAVES;
+        return Assets.Environment.TILES_SAND;
     }
     //水体贴图
     @Override
@@ -173,9 +175,17 @@ public class Level0 extends Level {
 
  */
 
-        Scavenger i = new Scavenger();
-        i.pos = 518;
-        mobs.add(i);
+        //杀戮雕像
+        KillBust killBust = new KillBust();
+        GoldBust goldBust = new GoldBust();
+        KillBust2 killBust2 = new KillBust2();
+        killBust.pos = 518;
+        goldBust.pos = 522;
+        killBust2.pos=520;
+        mobs.add(killBust);
+        mobs.add(goldBust);
+        //mobs.add(killBust2);
+
     }
 
     public Actor addRespawner() {

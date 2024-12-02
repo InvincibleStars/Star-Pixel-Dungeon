@@ -38,8 +38,7 @@ public class Mace extends HammerType {
 
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //16 base, down from 20
-				lvl*(tier+1);   //scaling unchanged
+		return Math.round(6f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
 	}
 
 }

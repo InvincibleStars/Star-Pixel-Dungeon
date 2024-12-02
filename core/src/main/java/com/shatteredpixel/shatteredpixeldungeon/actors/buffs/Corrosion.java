@@ -58,7 +58,9 @@ public class Corrosion extends Buff implements Hero.Doom {
 
 	public void set(float duration, int damage) {
 		this.left = Math.max(duration, left);
-		if (this.damage < damage) this.damage = damage;
+		if (this.damage < damage){
+			this.damage = damage;
+		}
 	}
 	
 	@Override
@@ -89,6 +91,7 @@ public class Corrosion extends Buff implements Hero.Doom {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
+			damage = target.HT*0.15f;
 			target.damage((int)damage, this);
 			if (damage < (Dungeon.depth/2)+2) {
 				damage++;

@@ -85,6 +85,7 @@ public class SecretLibraryRoom extends SecretRoom {
 		
 		int n = Random.IntRange( 2, 3 );
 		HashMap<Class<? extends Scroll>, Float> chances = new HashMap<>(scrollChances);
+		HashMap<Class<? extends Scroll>, Float> chances2 = new HashMap<>(scrollChances114514);
 		for (int i=0; i < n; i++) {
 			int pos;
 			do {

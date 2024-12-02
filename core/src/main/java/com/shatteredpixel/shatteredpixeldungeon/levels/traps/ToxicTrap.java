@@ -39,7 +39,7 @@ public class ToxicTrap extends Trap{
 	@Override
 	public void activate() {
 
-		GameScene.add( Blob.seed( pos, 300 + 35 * Dungeon.depth, ToxicGas.class ) );
+		GameScene.add( Blob.seed( pos, 120 + 10 * Dungeon.depth, ToxicGas.class ) );
 		Sample.INSTANCE.play(Assets.Sounds.GAS);
 
 	}

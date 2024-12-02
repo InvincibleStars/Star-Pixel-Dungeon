@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -60,6 +61,12 @@ public class AssassinsBlade extends MeleeWeapon {
 				if (exStr > 0) {
 					damage += Random.IntRange(0, exStr);
 				}
+				//提高10%伤害
+				if(hero.hasTalent(Talent.ROUGE_UPDATE)){
+					damage*= 1+ (0.1* hero.pointsInTalent(Talent.ROUGE_UPDATE));
+				}
+
+
 				return damage;
 			}
 		}

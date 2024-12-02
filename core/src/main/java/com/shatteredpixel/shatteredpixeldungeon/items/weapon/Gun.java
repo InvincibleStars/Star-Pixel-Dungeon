@@ -46,7 +46,7 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
-public class CrossBow extends Weapon {
+public class Gun extends Weapon {
 	public static final String AC_SHOOT = "SHOOT";
 	public static final String AC_LOAD = "LOAD";
 	//初始无弹药
@@ -151,7 +151,7 @@ public class CrossBow extends Weapon {
 	public String info() {
 		String info = desc();
 
-		info += "\n\n" + Messages.get(CrossBow.class, "stats",
+		info += "\n\n" + Messages.get(Gun.class, "stats",
 				Math.round(augment.damageFactor(min())),
 				Math.round(augment.damageFactor(max())),
 				STRReq());
@@ -307,22 +307,22 @@ public class CrossBow extends Weapon {
 
 		@Override
 		public int damageRoll(Char owner) {
-			return CrossBow.this.damageRoll(owner);
+			return Gun.this.damageRoll(owner);
 		}
 
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
-			return CrossBow.this.hasEnchant(type, owner);
+			return Gun.this.hasEnchant(type, owner);
 		}
 
 		@Override
 		public int proc(Char attacker, Char defender, int damage) {
-			return CrossBow.this.proc(attacker, defender, damage);
+			return Gun.this.proc(attacker, defender, damage);
 		}
 
 		@Override
 		public float delayFactor(Char user) {
-			return CrossBow.this.delayFactor(user);
+			return Gun.this.delayFactor(user);
 		}
 		
 		/*
@@ -345,7 +345,7 @@ public class CrossBow extends Weapon {
 
 		@Override
 		public int STRReq(int lvl) {
-			return CrossBow.this.STRReq(lvl);
+			return Gun.this.STRReq(lvl);
 		}
 
 		@Override
@@ -358,7 +358,7 @@ public class CrossBow extends Weapon {
 				if (!curUser.shoot(enemy, this)) {
 					Splash.at(cell, 0xCC99FFFF, 1);
 				}
-				if (sniperSpecial && CrossBow.this.augment != Augment.SPEED) sniperSpecial = false;
+				if (sniperSpecial && Gun.this.augment != Augment.SPEED) sniperSpecial = false;
 			}
 		}
 
@@ -372,8 +372,8 @@ public class CrossBow extends Weapon {
 		@Override
 		public void cast(final Hero user, final int dst) {
 			final int cell = throwPos(user, dst);
-			CrossBow.this.targetPos = cell;
-			if (sniperSpecial && CrossBow.this.augment == Augment.SPEED) {
+			Gun.this.targetPos = cell;
+			if (sniperSpecial && Gun.this.augment == Augment.SPEED) {
 				if (flurryCount == -1) flurryCount = 3;
 
 				final Char enemy = Actor.findChar(cell);
@@ -447,7 +447,7 @@ public class CrossBow extends Weapon {
 
 		@Override
 		public String prompt() {
-			return Messages.get(CrossBow.class, "prompt");
+			return Messages.get(Gun.class, "prompt");
 		}
 	};
 

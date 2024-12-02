@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -29,11 +29,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SwarmSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -42,9 +43,9 @@ import java.util.ArrayList;
 public class SplitSlime extends Mob {
 
 	{
-		spriteClass = SwarmSprite.class;
+		spriteClass = SlimeSprite.class;
 		
-		HP = HT = 22+Random.Int(2+(BossLoot.infection*2));
+		HP = HT = 80 + Random.Int(-13,13) + BossLoot.infection*2;
 		defenseSkill = 8;
 
 		EXP = 6;
@@ -77,7 +78,7 @@ public class SplitSlime extends Mob {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 3, 14+ BossLoot.infection  );
+		return Random.NormalIntRange( 3, 22 )+ BossLoot.infection;
 	}
 	
 	@Override

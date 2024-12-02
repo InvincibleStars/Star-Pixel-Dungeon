@@ -453,6 +453,10 @@ public class Item implements Bundlable {
 		return null;
 	}
 
+	public ItemSprite.Glowing glowing2() {
+		return null;
+	}
+
 	public Emitter emitter() { return null; }
 
 	public String info() {

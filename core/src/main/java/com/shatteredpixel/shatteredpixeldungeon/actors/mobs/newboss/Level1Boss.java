@@ -11,8 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.SandBossLoot;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -153,16 +152,18 @@ public class Level1Boss extends Mob {
         super.die(cause);
         Dungeon.level.unseal();
         GameScene.bossSlain();
-//        Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
-        Dungeon.level.drop( new SandBossLoot(), pos ).sprite.drop();
-        Dungeon.level.drop( new IronKey( Dungeon.depth ), pos ).sprite.drop();
-        GLog.n( Messages.get(this, "defeated") );
+        //Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
+        //Dungeon.level.drop( new SandBossLoot(), pos ).sprite.drop();
+        //Dungeon.level.drop( new IronKey( Dungeon.depth ), pos ).sprite.drop();
+        //GLog.n( Messages.get(this, "defeated") );
+        BossLoot.infection+=6;
         GLog.n( Messages.get(this, "die"));
+        GLog.n( Messages.get(this, "none_kill"));
         Badges.validateBossSlain();
     }
     @Override
     public void notice() {
-        super.notice();
+        //super.notice();
             BossHealthBar.assignBoss(this);
             GLog.n(Messages.get(this, "notice"));
             for (Char ch : Actor.chars()){

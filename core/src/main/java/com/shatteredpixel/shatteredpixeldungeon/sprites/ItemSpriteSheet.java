@@ -240,6 +240,7 @@ public class ItemSpriteSheet {
 	public static final int ELEOVE   = WEP_TIER2 +8;
 	public static final int GEMGLOVE   = WEP_TIER2 +9;
 	public static final int BOOK   = WEP_TIER2 +10;
+	public static final int TOOTH_NAIL   = WEP_TIER2 +11;
 
 	static {
 		assignItemRect(SHORTSWORD, 13, 13);
@@ -253,6 +254,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ELEOVE,   13, 15);
 		assignItemRect(GEMGLOVE,   13, 15);
 		assignItemRect(BOOK,   13, 16);
+		assignItemRect(TOOTH_NAIL,12,9);
 	}
 	//三阶武器-------------------------------------------------------------------------------------
 	private static final int WEP_TIER3 = xy(1, 9);
@@ -269,6 +271,8 @@ public class ItemSpriteSheet {
 	public static final int  TWO_KNIFE  = WEP_TIER3 + 10;
 	public static final int DEADBOOK   = WEP_TIER3+11;
 	public static final int BLUE_GEMWEAPON   = WEP_TIER3+12;
+	public static final int BONE_SWORD	= WEP_TIER3+13;
+	public static final int SHELL_HAMMER	= WEP_TIER3+14;
 
 	static {
 		assignItemRect(SWORD, 14, 14);
@@ -284,6 +288,8 @@ public class ItemSpriteSheet {
 		assignItemRect(TWO_KNIFE,   16, 16);
 		assignItemRect(DEADBOOK,   13, 16);
 		assignItemRect(BLUE_GEMWEAPON,   14, 14);
+		assignItemRect(BONE_SWORD,14,14);
+		assignItemRect(SHELL_HAMMER,16,15);
 	}
 	//四阶武器-------------------------------------------------------------------------------------
 	private static final int WEP_TIER4 = xy(1, 10);
@@ -298,6 +304,7 @@ public class ItemSpriteSheet {
 	public static final int  THORN  = WEP_TIER4 + 8;
 	public static final int  NEMESIS  =WEP_TIER4 + 9;
 	public static final int  FIRESWORD  = WEP_TIER4 + 10;
+	public static final int  BLEED_TOOTH = WEP_TIER4+11;
 
 	static {
 		assignItemRect(LONGSWORD, 15, 15);
@@ -311,6 +318,7 @@ public class ItemSpriteSheet {
 		assignItemRect(THORN,   14, 16);
 		assignItemRect(NEMESIS,   15, 15);
 		assignItemRect(FIRESWORD, 14, 14);
+		assignItemRect(BLEED_TOOTH,15,14);
 	}
 //五阶武器-------------------------------------------------------------------------------------
 
@@ -445,10 +453,12 @@ public class ItemSpriteSheet {
 	public static final int WAND_WARDING = WANDS + 10;
 	public static final int WAND_REGROWTH = WANDS + 11;
 	public static final int WAND_TRANSFUSION = WANDS + 12;
+	public static final int TOOTH_WAND = WANDS + 13;
 
 	static {
 		for (int i = WANDS; i < WANDS + 16; i++)
 			assignItemRect(i, 14, 14);
+		assignItemRect(TOOTH_WAND,16,16);
 	}
 	//戒指-------------------------------------------------------------------------------------
 	private static final int RINGS = xy(1, 20);
@@ -790,31 +800,33 @@ public class ItemSpriteSheet {
 	}
 	//碎晶-------------------------------------------------------------------------------------
 	private static final int GEM = xy(1, 36);
-	public static final int RED_GEM = GEM + 0;
-	public static final int YELLOW_GEM = GEM + 2;
-	public static final int GREEN_GEM = GEM + 3;
-	public static final int BLUE_GEM = GEM + 5;
+	public static final int FIRE_GEM = GEM + 0;
+	public static final int WEAPON_GEM = GEM + 2;
+	public static final int GRASS_GEM = GEM + 3;
+	public static final int WATER_GEM = GEM + 5;
 	public static final int BLACK_GEM = GEM + 9;
 	public static final int WHITE_GEM = GEM + 11;
 	public static final int COLOR_GEM = GEM + 12;
 
 	static {
-		for (int i = GEM; i < GEM + 16; i++)
-			assignItemRect(i, 6, 8);
+		assignItemRect(FIRE_GEM,12,10);
+		assignItemRect(WEAPON_GEM,13,12);
+		assignItemRect(GRASS_GEM,14,12);
+		assignItemRect(WATER_GEM,11,11);
 	}
 
 	//星尘-------------------------------------------------------------------------------------
 	private static final int STAR_DUST = xy(1, 37);
-	public static final int RED_DUST = STAR_DUST + 0;
-	public static final int YELLOW_DUST = STAR_DUST + 2;
-	public static final int GREEN_DUST = STAR_DUST + 3;
-	public static final int BLUE_DUST = STAR_DUST + 5;
+	public static final int FIRE_DUST = STAR_DUST + 0;
+	public static final int WEAPON_DUST = STAR_DUST + 2;
+	public static final int GRASS_DUST = STAR_DUST + 3;
+	public static final int WATER_DUST = STAR_DUST + 5;
 	public static final int WHITE_DUST = STAR_DUST + 11;
 	public static final int COLOR_DUST = STAR_DUST + 12;
 
 	static {
 		for (int i = STAR_DUST; i < STAR_DUST + 16; i++)
-			assignItemRect(i, 9, 9);
+			assignItemRect(i, 16, 16);
 	}
 	//食物-------------------------------------------------------------------------------------
 	private static final int FOOD = xy(1, 38);
@@ -912,6 +924,27 @@ private static final int OTHER1 = xy(1, 44);
 	public static final int BURN_GEM_MAKER = OTHER1 + 1;
 	static {
 		assignItemRect(BURN_GEM_MAKER, 12, 10);
+	}
+
+//区域特殊物品-------------------------------------------------------------------------------------
+	private static final int AREA_ITEM = xy(1, 45);
+	public static final int TOOTH = AREA_ITEM + 0;
+	public static final int BURIN = AREA_ITEM + 1;
+	public static final int BONE = AREA_ITEM + 2;
+	public static final int SLIME = AREA_ITEM + 3;
+	public static final int SOUL = AREA_ITEM + 4;
+	public static final int SOUL_BLEED = AREA_ITEM + 5;
+	public static final int SHELL = AREA_ITEM + 6;
+	public static final int DEATH_BLEED = AREA_ITEM + 7;
+	static {
+		assignItemRect(TOOTH, 11, 14);
+		assignItemRect(BURIN,12,13);
+		assignItemRect(BONE,13,13);
+		assignItemRect(SLIME,10,10);
+		assignItemRect(SOUL,10,10);
+		assignItemRect(SOUL_BLEED,6,15);
+		assignItemRect(SHELL,12,9);
+		assignItemRect(DEATH_BLEED,8,15);
 	}
 
 //物品角标栏-------------------------------------------------------------------------------------

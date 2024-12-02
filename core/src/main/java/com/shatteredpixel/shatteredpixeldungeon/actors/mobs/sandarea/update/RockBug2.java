@@ -21,7 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.RockBug;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
@@ -40,15 +39,16 @@ public class RockBug2 extends RockBug {
 		lootChance = 1f; //by default, see rollToDropLoot()
 	}
 
-	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
-
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(3+BossLoot.infection, 3+BossLoot.infection);
+		return Random.NormalIntRange(4, 11)+BossLoot.infection;
+	}
+
+	@Override
+	public void die(Object cause){
+		super.die(cause);
+		BossLoot.infection+=1;
 	}
 
 }

@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -36,11 +35,10 @@ public class SandScorpion extends Mob {
 	{
 		spriteClass = SandScorpionSprite.class;
 
-		HP = HT = 15 + Random.Int(5+(BossLoot.infection*2));
+		HP = HT = 60 + Random.Int(-10,10) + BossLoot.infection*2;
 		EXP =3;
 		
 		maxLvl = 6;
-		defenseSkill = 5;
 
 		//loot = Generator.Category.SCROLL;
 		lootChance = 0.125f;
@@ -53,19 +51,14 @@ public class SandScorpion extends Mob {
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
-		return 13;
-	}
-
-	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 7+BossLoot.infection );
+		return Random.NormalIntRange( 5, 17 )+BossLoot.infection;
 	}
 
 	
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 2);
+		return Random.NormalIntRange(4, 16);
 	}
 
 	@Override
