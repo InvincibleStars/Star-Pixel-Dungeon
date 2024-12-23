@@ -75,7 +75,7 @@ public class SandAreaLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_SAND;
+		return Assets.Environment.TILES_TREE;
 	}
 	
 	@Override

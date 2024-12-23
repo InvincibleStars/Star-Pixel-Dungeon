@@ -335,9 +335,9 @@ public class StatusPane extends Component {
             dark2= new ItemSprite(ItemSpriteSheet.BACKPACK);
         }
         //dark2.x= dark2.y=0;
-        dark2.x= 84; //includes the depth display to the left
-        dark2.y = 3;
-        dark2.scale.x = dark2.scale.y = 1f;
+        dark2.x= 7; //includes the depth display to the left
+        dark2.y = 32;
+        dark2.scale.x = dark2.scale.y = 0.7f;
         add(dark2);
 
         Calendar cal=Calendar.getInstance();

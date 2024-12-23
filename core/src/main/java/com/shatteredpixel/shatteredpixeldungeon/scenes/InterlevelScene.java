@@ -415,7 +415,7 @@ public class InterlevelScene extends PixelScene {
 
 		//TODO 上楼
 		Dungeon.saveAll();
-		Dungeon.depth-=2;
+		Dungeon.depth-=1;
 
 
 		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );

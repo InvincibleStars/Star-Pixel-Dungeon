@@ -21,6 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.dust;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfStormClouds;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class WaterDust extends Dust {
@@ -40,5 +44,37 @@ public class WaterDust extends Dust {
 	@Override
 	public boolean isIdentified() {
 		return true;
+	}
+
+	public static class twoWaterGem extends Recipe.SimpleRecipe{
+		{
+			inputs =  new Class[]{WaterGem.class};
+			inQuantity = new int[]{2};
+
+			cost = 2;
+
+			output = WaterDust.class;
+			outQuantity = 2;
+		}
+	}
+
+	public static class BlueDusttoPotion extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WaterDust.class};
+			inQuantity = new int[]{1};
+			cost = 2;
+			output = PotionOfStormClouds.class;
+			outQuantity = 1;
+		}
+	}
+
+	public static class BlueDusttoScroll extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WaterDust.class};
+			inQuantity = new int[]{1};
+			cost = 2;
+			output = ScrollOfPrismaticImage.class;
+			outQuantity = 1;
+		}
 	}
 }

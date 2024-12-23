@@ -60,11 +60,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.GrassGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.newpotion.PotionOfWithered;
 import com.shatteredpixel.shatteredpixeldungeon.items.science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -72,13 +73,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMappi
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Knuckle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Quiet;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.SurgingWaves;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.FlowingFire;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -123,7 +128,21 @@ public enum HeroClass {
 
 		new FireGem().quantity(2).identify().collect();
 
-		new WaterGem().quantity(2).identify().collect();
+		new ScrollOfMagicMapping().quantity(200).identify().collect();
+
+		new PotionOfWithered().quantity(300).identify().collect();
+
+		new Ammo.AmmoBox().quantity(1).identify().collect();
+
+		new SurgingWaves().quantity(1).identify().collect();
+
+		new FlowingFire().quantity(1).identify().collect();
+
+		new Quiet().quantity(1).identify().collect();
+
+		new Bone().quantity(1).identify().collect();
+
+		new WandOfCorrosion().quantity(1).identify().collect();
 
 //		Sword sword = new Sword();
 //		sword.identify();

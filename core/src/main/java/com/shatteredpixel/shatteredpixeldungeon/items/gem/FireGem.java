@@ -21,6 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class FireGem extends Gem {
@@ -30,10 +34,34 @@ public class FireGem extends Gem {
 
 	}
 
-	//物品的价值
-	@Override
-	public int value() {
-		return quantity * 80;
+	public static class RedGemtoPotion extends AlchemyGem.Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{FireGem.class};
+			inQuantity = new int[]{1};
+			cost = 1;
+			output = PotionOfLiquidFlame.class;
+			outQuantity = 1;
+		}
+	}
+
+	public static class RedGemtoScroll extends AlchemyGem.Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{FireGem.class};
+			inQuantity = new int[]{1};
+			cost = 1;
+			output = ScrollOfRage.class;
+			outQuantity = 1;
+		}
+	}
+
+	public static class FireDustRecipe extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{FireGem.class};
+			inQuantity = new int[]{2};
+			cost=1;
+			outQuantity = 1;
+			output = FireDust.class;
+		}
 	}
 
 

@@ -423,6 +423,7 @@ public abstract class Level implements Bundlable {
 			if (mob != null) {
 				mobs.add( mob );
 			}
+
 		}
 
 		collection = bundle.getCollection( BLOBS );

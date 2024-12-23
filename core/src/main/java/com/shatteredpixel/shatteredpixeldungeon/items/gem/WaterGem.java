@@ -21,6 +21,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WeaponDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class WaterGem extends Gem {
@@ -30,11 +36,36 @@ public class WaterGem extends Gem {
 
 	}
 
-	//物品的价值
-	@Override
-	public int value() {
-		return quantity * 80;
+	public static class BlueGemtoPotion extends AlchemyGem.Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WaterGem.class};
+			inQuantity = new int[]{1};
+			cost = 1;
+			output = PotionOfLevitation.class;
+			outQuantity = 1;
+		}
 	}
+
+	public static class BlueGemtoScroll extends AlchemyGem.Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WaterGem.class};
+			inQuantity = new int[]{1};
+			cost = 1;
+			output = ScrollOfMirrorImage.class;
+			outQuantity = 1;
+		}
+	}
+
+	public static class WaterDustRecipe extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WaterGem.class};
+			inQuantity = new int[]{2};
+			cost=1;
+			outQuantity = 1;
+			output = WaterDust.class;
+		}
+	}
+
 
 
 }

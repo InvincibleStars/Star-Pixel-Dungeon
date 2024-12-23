@@ -43,19 +43,19 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.WeaponDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.ColorGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.GrassGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.WeaponGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.newitem.RingOfNone;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
@@ -71,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticG
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.newpotion.PotionOfWithered;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
@@ -294,8 +295,9 @@ public class Generator {
 					PotionOfLevitation.class,
 					PotionOfParalyticGas.class,
 					PotionOfPurity.class,
-					PotionOfExperience.class};
-			POTION.defaultProbs = new float[]{ 0, 4, 3, 4, 4, 4, 3, 3, 2, 2, 2, 1 };
+					PotionOfExperience.class,
+					PotionOfWithered.class};
+			POTION.defaultProbs = new float[]{ 0, 4, 3, 4, 4, 4, 3, 3, 2, 2, 2, 1,0 };
 					POTION.probs = POTION.defaultProbs.clone();
 			
 			SEED.classes = new Class<?>[]{

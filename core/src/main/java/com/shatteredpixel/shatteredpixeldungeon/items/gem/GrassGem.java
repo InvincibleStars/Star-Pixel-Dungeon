@@ -21,6 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHaste;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class GrassGem extends Gem {
@@ -30,13 +34,36 @@ public class GrassGem extends Gem {
 
 	}
 
-	//物品的价值
-	@Override
-	public int value() {
-		return quantity * 80;
+	public static class GreenGemtoPotion extends AlchemyGem.Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{GrassGem.class};
+			inQuantity = new int[]{1};
+			cost = 1;
+			output = PotionOfHaste.class;
+			outQuantity = 1;
+		}
 	}
 
-	//11111111111
+	public static class GreenGemtoScroll extends AlchemyGem.Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{GrassGem.class};
+			inQuantity = new int[]{1};
+			cost = 1;
+			output = ScrollOfLullaby.class;
+			outQuantity = 1;
+		}
+	}
+
+	public static class GrassDustRecipe extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{GrassGem.class};
+			inQuantity = new int[]{2};
+			cost=1;
+			outQuantity = 1;
+			output = GrassDust.class;
+		}
+	}
+
 
 
 

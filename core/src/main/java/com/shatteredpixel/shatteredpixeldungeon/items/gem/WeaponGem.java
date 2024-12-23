@@ -22,6 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WeaponDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -34,11 +36,27 @@ public class WeaponGem extends Gem {
 
 	}
 
-	//物品的价值
-	@Override
-	public int value() {
-		return quantity * 80;
+
+	public static class WeaponDustRecipe extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WeaponGem.class};
+			inQuantity = new int[]{2};
+			cost=1;
+			outQuantity = 1;
+			output = WeaponDust.class;
+		}
 	}
+
+	public static class WeaponGemToUpdateRecipe extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WeaponGem.class};
+			inQuantity = new int[]{3};
+			cost=1;
+			outQuantity = 5;
+			output = ScrollOfUpgrade.class;
+		}
+	}
+
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 

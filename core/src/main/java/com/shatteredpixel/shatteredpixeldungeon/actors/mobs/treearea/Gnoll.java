@@ -38,8 +38,7 @@ public class Gnoll extends Mob {
 		spriteClass = GnollSprite.class;
 
 		
-		HP = HT = 85 + + Random.Int(-14,14) + BossLoot.infection*2;
-		
+		HT = 85 + + Random.Int(-14,14) + BossLoot.infection*2;
 		EXP = 5;
 		maxLvl = 11;
 		
@@ -68,7 +67,7 @@ public class Gnoll extends Mob {
 	@Override
 	public void move( int step, boolean travelling) {
 		if (travelling&&ATTACKPOWER<2){
-			ATTACKPOWER += 0.15f;
+			ATTACKPOWER += 0.2f;
 		}
 		super.move( step, travelling);
 	}

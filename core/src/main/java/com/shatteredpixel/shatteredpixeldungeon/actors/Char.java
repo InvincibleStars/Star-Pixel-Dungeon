@@ -49,7 +49,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -75,6 +74,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WaitDamage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.DamagePotion;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.UnityWithered;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -372,14 +373,10 @@ public abstract class Char extends Actor {
 				dmg = damageRoll();
 			}
 
-			dmg = Math.round(dmg*dmgMulti);
-
 			Berserk berserk = buff(Berserk.class);
 			if (berserk != null) dmg = berserk.damageFactor(dmg);
 
-			if (buff( Fury.class ) != null) {
-				dmg *= 1.5f;
-			}
+			dmg = Math.round(dmg*dmgMulti);
 
 			dmg += dmgBonus;
 
@@ -397,12 +394,25 @@ public abstract class Char extends Actor {
 				dmg *= 0.67f;
 			}
 
+			if(enemy.buff(DamagePotion.class)!=null) {
+				dmg *=1.2f;
+			}
+
+			if(enemy.buff(Corrosion.class)!=null){
+				dmg+=enemy.drRoll()*0.66f;
+			}
+			
+			if(enemy.buff(UnityWithered.class)!=null) {
+				dmg += 2*enemy.buff(UnityWithered.class).level;
+			}
+
 			int effectiveDamage = enemy.defenseProc( this, dmg );
 			effectiveDamage = Math.max( effectiveDamage - dr, 0 );
 
 			if ( enemy.buff( Vulnerable.class ) != null){
 				effectiveDamage *= 1.33f;
 			}
+
 
 			if ( enemy.buff( Vulnerable2.class ) != null){
 				effectiveDamage -= 564650;

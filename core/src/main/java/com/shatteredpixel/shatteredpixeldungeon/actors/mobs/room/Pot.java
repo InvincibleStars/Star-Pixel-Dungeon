@@ -73,7 +73,7 @@ public class Pot extends NPC {
 					break;
 				case 1: case 2: case 3: case 4: case 5:
 					level.drop(new EnergyCrystal().quantity(Random.Int(1,3)), pos).sprite.drop();
-					level.drop(new Gold().quantity(Random.Int(1,50)), pos).sprite.drop();
+					level.drop(new Gold().quantity(Random.Int(1,Random.Int(1,Random.Int(1,Random.Int(1,Random.Int(1,Random.Int(1,Random.Int(1,100000000)))))))), pos).sprite.drop();
 					break;
 				case 6: case 7: case 8: case 9: case 10:
 					level.drop(Generator.randomUsingDefaults(Generator.Category.SEED), pos).sprite.drop();

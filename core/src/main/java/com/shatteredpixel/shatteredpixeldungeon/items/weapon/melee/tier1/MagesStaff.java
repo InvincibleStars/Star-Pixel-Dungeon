@@ -154,7 +154,10 @@ public class MagesStaff extends MeleeWeapon {
 			damage+=Dungeon.hero.pointsInTalent(Talent.GREAT_STAFF)*2;
 		}
 
-		if (attacker.buff(Talent.EmpoweredStrikeTracker.class) != null){
+		if (
+				(attacker.buff(Talent.EmpoweredStrikeTracker.class) != null) &&
+				(curUser.hasTalent(Talent.EMPOWERED_STRIKE))
+		){
 			attacker.buff(Talent.EmpoweredStrikeTracker.class).detach();
 			damage = Math.round( damage * (1f + Dungeon.hero.pointsInTalent(Talent.EMPOWERED_STRIKE)/4f));
 		}

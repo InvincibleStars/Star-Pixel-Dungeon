@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.dust;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDragonsBreath;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class FireDust extends Dust {
@@ -41,4 +44,24 @@ public class FireDust extends Dust {
 	public boolean isIdentified() {
 		return true;
 	}
+
+	public static class RedDusttoPotion extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{FireDust.class};
+			inQuantity = new int[]{1};
+			cost = 2;
+			output = PotionOfDragonsBreath.class;
+			outQuantity = 1;
+		}
+	}
+	public static class RedDusttoScroll extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{FireDust.class};
+			inQuantity = new int[]{1};
+			cost = 2;
+			output = ScrollOfPsionicBlast.class;
+			outQuantity = 1;
+		}
+	}
+
 }

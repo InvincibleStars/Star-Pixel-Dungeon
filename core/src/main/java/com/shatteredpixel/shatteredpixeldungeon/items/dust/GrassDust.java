@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.dust;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class GrassDust extends Dust {
@@ -41,4 +44,24 @@ public class GrassDust extends Dust {
 	public boolean isIdentified() {
 		return true;
 	}
+
+	public static class GreenDusttoPotion extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{GrassDust.class};
+			inQuantity = new int[]{1};
+			cost = 2;
+			output = PotionOfCleansing.class;
+			outQuantity = 1;
+		}
+	}
+	public static class GreenDusttoScroll extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{GrassDust.class};
+			inQuantity = new int[]{1};
+			cost = 2;
+			output = ScrollOfMysticalEnergy.class;
+			outQuantity = 1;
+		}
+	}
+
 }

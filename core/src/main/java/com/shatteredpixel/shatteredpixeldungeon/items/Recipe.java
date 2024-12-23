@@ -25,13 +25,18 @@ import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.AlchemyWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.GemToDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.AlchemyDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.gem.AlchemyGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.GrassGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WeaponGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -203,21 +208,19 @@ public abstract class Recipe {
 		new ArcaneResin.Recipe(),
 		new Alchemize.Recipe(),
 		new StewedMeat.oneMeat(),
-		new AlchemyGem.GemtoPotion(),
-		new AlchemyGem.GemtoScroll(),
-		new AlchemyDust.BlueDusttoPotion(),
-		new AlchemyDust.BlueDusttoScroll(),
-		new AlchemyDust.RedDusttoPotion(),
-		new AlchemyDust.RedDusttoScroll(),
-		new AlchemyDust.GreenDusttoPotion(),
-		new AlchemyDust.GreenDusttoScroll(),
-		new GemToDust.FireDustRecipe(),
-		new GemToDust.WaterDustRecipe(),
-		new GemToDust.GrassDustRecipe(),
-
-		new GemToDust.WeaponDustRecipe(),
 		new AlchemyGem.Recipe(),
-		//new WeaponGem.Recipe(),
+		new FireGem.RedGemtoPotion(),
+		new FireGem.RedGemtoScroll(),
+		new GrassGem.GreenGemtoPotion(),
+		new GrassGem.GreenGemtoScroll(),
+		new WaterGem.BlueGemtoPotion(),
+		new WaterGem.BlueGemtoScroll(),
+		new FireDust.RedDusttoPotion(),
+		new FireDust.RedDusttoScroll(),
+		new GrassDust.GreenDusttoPotion(),
+		new GrassDust.GreenDusttoScroll(),
+		new WaterDust.BlueDusttoPotion(),
+		new WaterDust.BlueDusttoScroll(),
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -249,31 +252,32 @@ public abstract class Recipe {
 		new TelekineticGrab.Recipe(),
 		new SummonElemental.Recipe(),
 		new StewedMeat.twoMeat(),
-		new GemToDust.FireDustRecipe(),
-		new GemToDust.WaterDustRecipe(),
-		//new GemToDust.GrassDustRecipe(),
-		new GemToDust.WeaponDustRecipe(),
 		new AlchemyWeapon.BleedToothRecipe(),
 		new AlchemyWeapon.ToothNailRecipe(),
 		new AlchemyWeapon.BlueRecipe(),
+		new GrassGem.GrassDustRecipe(),
+		new FireGem.FireDustRecipe(),
+		new WaterGem.WaterDustRecipe(),
+		new WeaponGem.WeaponDustRecipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new StewedMeat.threeMeat(),
-		new AlchemyGem.YellowGemToUpdateScroll(),
 		new MeatPie.Recipe(),
 		new AlchemyWeapon.ChainRecipe(),
 		new AlchemyWeapon.DeadBookRecipe(),
 		new AlchemyWeapon.BoneSwordRecipe(),
 		new AlchemyWeapon.ShellHammerRecipe(),
 		new AlchemyWeapon.GemGloveRecipe(),
-
+		new WeaponGem.WeaponGemToUpdateRecipe(),
 	};
+
 
 	private static Recipe[] fourIngredientRecipes = new Recipe[]{
 			//new AlchemyWeapon.EleoveRecipe(),
 	};
+
 
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){

@@ -225,7 +225,7 @@ public class ItemSpriteSheet {
 		assignItemRect(SCALPEL, 11, 12);
 		assignItemRect(KUNCKLES, 13, 9);
 		assignItemRect(STICK, 15, 14);
-		assignItemRect(GREENDAGGER, 11, 12);
+		assignItemRect(GREENDAGGER, 15, 15);
 	}
 	//二阶武器-------------------------------------------------------------------------------------
 	private static final int WEP_TIER2 = xy(1, 8);
@@ -282,13 +282,13 @@ public class ItemSpriteSheet {
 		assignItemRect(SAI, 16, 16);
 		assignItemRect(WHIP, 14, 14);
 		assignItemRect(CANG_LAN,   14, 14);
-		assignItemRect(SICKLE,   14, 12);
+		assignItemRect(SICKLE,   16, 16);
 		assignItemRect(TWO_SWORD,   14, 14);
 		assignItemRect(KNIFE_TURN,   16, 16);
 		assignItemRect(TWO_KNIFE,   16, 16);
 		assignItemRect(DEADBOOK,   13, 16);
-		assignItemRect(BLUE_GEMWEAPON,   14, 14);
-		assignItemRect(BONE_SWORD,14,14);
+		assignItemRect(BLUE_GEMWEAPON,   14, 16);
+		assignItemRect(BONE_SWORD,16,16);
 		assignItemRect(SHELL_HAMMER,16,15);
 	}
 	//四阶武器-------------------------------------------------------------------------------------
@@ -317,7 +317,7 @@ public class ItemSpriteSheet {
 		assignItemRect(FIRE_GLOVE,   13, 15);
 		assignItemRect(THORN,   14, 16);
 		assignItemRect(NEMESIS,   15, 15);
-		assignItemRect(FIRESWORD, 14, 14);
+		assignItemRect(FIRESWORD, 16, 16);
 		assignItemRect(BLEED_TOOTH,15,14);
 	}
 //五阶武器-------------------------------------------------------------------------------------
@@ -546,13 +546,22 @@ public class ItemSpriteSheet {
 	public static final int SCROLL_BERKANAN = SCROLLS + 9;
 	public static final int SCROLL_ODAL = SCROLLS + 10;
 	public static final int SCROLL_TIWAZ = SCROLLS + 11;
-
-	public static final int SCROLL_CATALYST = SCROLLS + 13;
-	public static final int ARCANE_RESIN = SCROLLS + 14;
+	public static final int SCROLL_CATALYST = SCROLLS + 12;
+	public static final int ARCANE_RESIN = SCROLLS + 13;
 
 	static {
-		for (int i = SCROLLS; i < SCROLLS + 16; i++)
-			assignItemRect(i, 15, 14);
+		assignItemRect(SCROLL_KAUNAN, 6, 8);
+		assignItemRect(SCROLL_SOWILO, 6, 8);
+		assignItemRect(SCROLL_LAGUZ, 5, 8);
+		assignItemRect(SCROLL_YNGVI, 6, 6);
+		assignItemRect(SCROLL_GYFU, 7, 8);
+		assignItemRect(SCROLL_RAIDO, 6, 8);
+		assignItemRect(SCROLL_ISAZ, 3, 8);
+		assignItemRect(SCROLL_MANNAZ, 7, 8);
+		assignItemRect(SCROLL_NAUDIZ, 7, 9);
+		assignItemRect(SCROLL_BERKANAN, 6, 8);
+		assignItemRect(SCROLL_ODAL, 5, 8);
+		assignItemRect(SCROLL_TIWAZ, 7, 8);
 		assignItemRect(SCROLL_CATALYST, 12, 11);
 		assignItemRect(ARCANE_RESIN, 12, 11);
 	}
@@ -640,9 +649,10 @@ public class ItemSpriteSheet {
 	public static final int POTION_IVORY = POTIONS + 11;
 	public static final int POTION_CATALYST = POTIONS + 13;
 	public static final int LIQUID_METAL = POTIONS + 14;
+	public static final int LIQUID_METAL2 = POTIONS + 15;
 
 	static {
-		for (int i = POTIONS; i < POTIONS + 16; i++)
+		for (int i = POTIONS; i < POTIONS + 32; i++)
 			assignItemRect(i, 15, 15);
 		assignItemRect(POTION_CATALYST, 6, 15);
 		assignItemRect(LIQUID_METAL, 8, 15);
@@ -870,7 +880,7 @@ public class ItemSpriteSheet {
 	public static final int VIAL = BAGS + 6;
 
 	static {
-		assignItemRect(WATERSKIN, 16, 14);
+		assignItemRect(WATERSKIN, 8, 14);
 		assignItemRect(BACKPACK, 16, 16);
 		assignItemRect(POUCH, 14, 15);
 		assignItemRect(HOLDER, 16, 16);
@@ -910,9 +920,9 @@ public class ItemSpriteSheet {
 	public static final int COLOR= OTHER + 4;
 	public static final int LOCK = OTHER + 5;
 	static {
-		assignItemRect(AMMO_MINI, 2, 2);
-		assignItemRect(AMMO_BOX, 9, 13);
-		assignItemRect(GUN, 12, 14);
+		assignItemRect(AMMO_MINI, 7, 16);
+		assignItemRect(AMMO_BOX, 13, 10);
+		assignItemRect(GUN, 12, 16);
 		assignItemRect(SEETING1,   13, 13);
 		assignItemRect(COLOR,   12, 11);
 		assignItemRect(LOCK,   10, 11);
@@ -1070,6 +1080,7 @@ private static final int OTHER1 = xy(1, 44);
 		public static final int POTION_PARAGAS = POTIONS + 9;
 		public static final int POTION_PURITY = POTIONS + 10;
 		public static final int POTION_EXP = POTIONS + 11;
+		public static final int POTION_DAMAGE = POTIONS + 12;
 
 		static {
 			assignIconRect(POTION_STRENGTH, 7, 7);
@@ -1084,6 +1095,7 @@ private static final int OTHER1 = xy(1, 44);
 			assignIconRect(POTION_PARAGAS, 7, 7);
 			assignIconRect(POTION_PURITY, 5, 7);
 			assignIconRect(POTION_EXP, 7, 7);
+			assignIconRect(POTION_DAMAGE, 7, 7);
 		}
 
 		private static final int EXOTIC_POTIONS = xy(1, 7);  //16 slots

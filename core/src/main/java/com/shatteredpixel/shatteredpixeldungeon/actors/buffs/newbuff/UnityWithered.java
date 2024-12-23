@@ -19,49 +19,69 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
+package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.watabou.utils.Bundle;
 
-public class MindVision extends FlavourBuff {
+public class UnityWithered extends Buff {
 
-	public static final float DURATION = 20f;
+	//单位--灾荒
 	
-	public int distance = 2;
-
 	{
-		type = buffType.POSITIVE;
+		type = buffType.NEGATIVE;
 		announced = true;
 	}
 
+	public int level;
+
+	/*
+	@Override
+	public boolean act() {
+		if(level==0){
+			detach();
+		}
+		return super.act();
+	}
+
+	 */
+
+	public void set(int value ) {
+			level = level + value;
+			spend(0);
+	}
 
 	@Override
 	public int icon() {
-		return BuffIndicator.MIND_VISION;
+		return BuffIndicator.CORRUPT;
 	}
 
-	@Override
-	public float iconFadePercent() {
-		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
-	}
-	
 	@Override
 	public String toString() {
 		return Messages.get(this, "name");
 	}
 
 	@Override
-	public void detach() {
-		super.detach();
-		Dungeon.observe();
-		GameScene.updateFog();
+	public String desc() {
+		return Messages.get(this, "desc", level);
+	}
+
+
+	private static final String LEVEL	    = "level";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle( bundle );
+		bundle.put( LEVEL, level );
 	}
 
 	@Override
-	public String desc() {
-		return Messages.get(this, "desc", dispTurns());
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle( bundle );
+		level = bundle.getInt( LEVEL );
 	}
+
+
 }

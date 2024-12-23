@@ -52,4 +52,9 @@ public class Gem extends Item {
 		return true;
 	}
 
+	@Override
+	public int value() {
+		return quantity * 80;
+	}
+
 }

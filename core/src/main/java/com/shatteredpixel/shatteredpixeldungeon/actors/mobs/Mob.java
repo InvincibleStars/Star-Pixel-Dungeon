@@ -718,6 +718,7 @@ public abstract class Mob extends Char {
 	@Override
 	public void die( Object cause ) {
 
+
 		reward=Random.Int(0,2);
 		for(int i = 1; i <= reward; i++){
 			if(Random.Float()<0.2f){
