@@ -308,30 +308,20 @@ public class Assets {
 
 
 		//沙区
-
-		//沙虫
 		public static final String SAND_WORM= "sprites/newsprites/sand/sand_worm.png";
 		public static final String SAND_WORM2= "sprites/newsprites/sand/sand_worm2.png";
-		//岩石虫
 		public static final String ROCK_BUG= "sprites/newsprites/sand/rock_bug.png";
 		public static final String ROCK_BUG2= "sprites/newsprites/sand/rock_bug2.png";
-		//黑色晶虫
 		public static final String BLACK_WORM= "sprites/newsprites/sand/black_worm.png";
-		//激光蟹
+		public static final String BLACK_CUBE= "sprites/newsprites/sand/black_cube.png";
 		public static final String SAND_CRAB= "sprites/newsprites/sand/sand_crab.png";
-		//节肢蝎子
 		public static final String SAND_SCORPION= "sprites/newsprites/sand/killrock.png";
-		//沙团
 		public static final String LIFE_SAND= "sprites/newsprites/sand/sand.png";
 
 		//林地
-
-		//活化植物
 		public static final String LIFE_PLANT= "sprites/newsprites/tree/lifeplant.png";
 		public static final String DEATH_PLANT= "sprites/newsprites/tree/deathplant.png";
-
 		public static final String ANGRY_VINE= "sprites/newsprites/tree/angryvine.png";
-		//十字架
 		public static final String WOOD_ANKH= "sprites/newsprites/tree/woodankh.png";
 
 

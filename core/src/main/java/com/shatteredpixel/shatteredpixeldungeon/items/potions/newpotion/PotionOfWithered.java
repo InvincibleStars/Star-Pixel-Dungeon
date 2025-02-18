@@ -11,7 +11,6 @@ public class PotionOfWithered extends Potion {
 
     {
         identify();
-        //icon = ItemSpriteSheet.SWORD;
         image=ItemSpriteSheet.SWORD;
     }
 

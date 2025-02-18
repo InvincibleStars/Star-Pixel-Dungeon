@@ -47,7 +47,7 @@ public class Withered extends Buff {
 	public void detach() {
 		super.detach();
 		//二区才会出现
-		if(depth>0&&depth<=10) {
+		if(depth>5&&depth<=10) {
 			int b;
 			//
 			if (level.map[target.pos] == Terrain.DEADEMPTY) {

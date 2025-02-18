@@ -105,6 +105,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.ShockingDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.tier2.FractalLight;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
@@ -373,12 +374,16 @@ public abstract class Char extends Actor {
 				dmg = damageRoll();
 			}
 
+			//dmg = (int) Random.Float(dmgmin,dmgmax);
+
+
 			Berserk berserk = buff(Berserk.class);
 			if (berserk != null) dmg = berserk.damageFactor(dmg);
 
 			dmg = Math.round(dmg*dmgMulti);
 
 			dmg += dmgBonus;
+
 
 			//friendly endure
 			Endure.EndureTracker endure = buff(Endure.EndureTracker.class);
@@ -388,6 +393,10 @@ public abstract class Char extends Actor {
 			endure = enemy.buff(Endure.EndureTracker.class);
 			if (endure != null){
 				dmg = endure.adjustDamageTaken(dmg);
+			}
+
+			if(enemy.buff(FractalLight.FractalLightMark.class)!=null){
+				dmg *=999999;
 			}
 
 			if (enemy.buff(ScrollOfChallenge.ChallengeArena.class) != null){
@@ -500,10 +509,8 @@ public abstract class Char extends Actor {
 		float acuStat = attacker.attackSkill( defender );
 		float defStat = defender.defenseSkill( attacker );
 
-
-
-		//if accuracy or evasion are large enough, treat them as infinite.
-		//note that infinite evasion beats infinite accuracy
+		//如果准确度或回避度足够大，就把它们视为无限。
+		//请注意，无限的逃避胜过无限的准确性
 		if (defStat >= INFINITE_EVASION){
 			return false;
 		} else if (acuStat >= INFINITE_ACCURACY){
@@ -511,20 +518,25 @@ public abstract class Char extends Actor {
 		}
 
 		float acuRoll = Random.Float( acuStat );
+		//负面buff影响命中
 		if (attacker.buff(Bless.class) != null) acuRoll *= 1.25f;
 		if (attacker.buff(  Hex.class) != null) acuRoll *= 0.8f;
+		//精英
 		for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)){
 			acuRoll *= buff.evasionAndAccuracyFactor();
 		}
 
 		float defRoll = Random.Float( defStat );
+		//负面buff影响闪避
 		if (defender.buff(Bless.class) != null) defRoll *= 1.25f;
 		if (defender.buff(  Hex.class) != null) defRoll *= 0.8f;
+		//精英
 		for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)){
 			defRoll *= buff.evasionAndAccuracyFactor();
 		}
 
 		return (acuRoll * accMulti) >= defRoll;
+		//return true;
 	}
 
 	public int attackSkill( Char target ) { return 10; }

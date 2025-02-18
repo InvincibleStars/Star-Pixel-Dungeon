@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.watabou.utils.Random;
@@ -37,10 +36,9 @@ public class Gnoll extends Mob {
 
 		spriteClass = GnollSprite.class;
 
-		
-		HT = 85 + + Random.Int(-14,14) + BossLoot.infection*2;
-		EXP = 5;
-		maxLvl = 11;
+
+		hpPole=6;
+		attackPloe=6;
 		
 		loot = Gold.class;
 		lootChance = 1f;
@@ -82,18 +80,4 @@ public class Gnoll extends Mob {
 		}
 		return damage;
 	}
-
-
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 6, 23 )+ BossLoot.infection;
-	}
-
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(0, 17);
-	}
-
-
 }

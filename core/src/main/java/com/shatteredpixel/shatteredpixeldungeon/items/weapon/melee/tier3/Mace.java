@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2022 Evan Debenham
+ * Copyright (C) 2014-2021 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HammerType;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Mace extends HammerType {
+public class Mace extends MeleeWeapon {
 
 	{
 		image = ItemSpriteSheet.MACE;
@@ -38,7 +38,8 @@ public class Mace extends HammerType {
 
 	@Override
 	public int max(int lvl) {
-		return Math.round(6f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
+		return  4*(tier+1) +    //16 base, down from 20
+				lvl*(tier+1);   //scaling unchanged
 	}
 
 }

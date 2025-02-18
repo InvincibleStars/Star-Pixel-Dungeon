@@ -55,8 +55,8 @@ public class Regeneration extends Buff {
 			if (target.HP < regencap() && !((Hero)target).isStarving()) {
 				LockedFloor lock = target.buff(LockedFloor.class);
 				if (target.HP > 0 && (lock == null || lock.regenOn())) {
-					//数值膨胀
-					target.HP += 5;
+					//生命回复
+					target.HP += 2;
 					//GameScene.flash(0x0700FF00,true);
 					if (target.HP == regencap()) {
 						((Hero) target).resting = false;

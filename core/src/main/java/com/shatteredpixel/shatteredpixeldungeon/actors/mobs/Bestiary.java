@@ -21,12 +21,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.BlackCube;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.BlackWorm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.LifeSand;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.RockBug;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandCrab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandScorpion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.TestBug;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.RockBug2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.SandWorm2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Bat;
@@ -62,18 +64,21 @@ public class Bestiary {
 			// 荒漠
 			case 0: default:
 				return new ArrayList<>(Arrays.asList(
-						WoodenCross.class
+						//WoodenCross.class
+						//TestBug.class
 				));
 
 			case 1:
 				//2x黑晶虫，1x沙虫
 				return new ArrayList<>(Arrays.asList(
-						BlackWorm.class,BlackWorm.class,
+						BlackCube.class,
+						BlackWorm.class,
 						SandWorm.class
 						));
 			case 2:
 				//2x黑晶虫，2x沙虫，1x甲虫
 				return new ArrayList<>(Arrays.asList(
+						BlackCube.class,
 						BlackWorm.class,BlackWorm.class,
 						SandWorm.class, SandWorm.class,
 						RockBug.class
@@ -82,6 +87,7 @@ public class Bestiary {
 				//2x黑晶虫，1x沙虫，1x甲虫，1x激光蟹，1x流沙
 				return new ArrayList<>(Arrays.asList(
 						SandWorm.class,
+						BlackCube.class,BlackCube.class,
 						BlackWorm.class,
 						RockBug.class,RockBug.class,
 						LifeSand.class,
@@ -90,6 +96,7 @@ public class Bestiary {
 				//1x甲虫，1x沙虫，1x激光蟹，1x蝎子
 				return new ArrayList<>(Arrays.asList(
 						SandWorm.class,
+						BlackCube.class,
 						RockBug.class,
 						SandCrab.class,
 						SandScorpion.class));
@@ -107,6 +114,7 @@ public class Bestiary {
 				//1x 活化植物, 2x 老鼠, 1x 近战豺狼，1x 十字架
 				return new ArrayList<>(Arrays.asList(
 						Rattan.class,
+						DM100.class,
 						Rat.class,Rat.class,
 						WoodenCross.class));
 			case 8:
@@ -114,6 +122,7 @@ public class Bestiary {
 				return new ArrayList<>(Arrays.asList(
 						VineDerived.class,
 						Rat.class,
+						DM100.class,
 						Gnoll.class, Gnoll.class,
 						GnollThrow.class,
 						WoodenCross.class));
@@ -122,6 +131,7 @@ public class Bestiary {
 				return new ArrayList<>(Arrays.asList(
 						VineDerived.class,
 						Gnoll.class,
+						DM100.class,
 						GnollThrow.class,
 						SplitSlime.class,
 						WoodenCross.class,
@@ -208,9 +218,14 @@ public class Bestiary {
 			case 24: case 25: case 26:
 				//1x succubus, 2x evil eye, 3x scorpio
 				return new ArrayList<>(Arrays.asList(
+						TestBug.class
+						/*
 						Succubus.class,
 						Eye.class, Eye.class,
-						Scorpio.class, Scorpio.class, Scorpio.class));
+						Scorpio.class, Scorpio.class, Scorpio.class
+						*/
+						));
+
 
 
 

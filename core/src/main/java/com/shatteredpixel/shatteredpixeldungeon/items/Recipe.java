@@ -26,6 +26,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.SandBossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
@@ -71,6 +72,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -142,16 +145,23 @@ public abstract class Recipe {
 			if (!testIngredients(ingredients)) return null;
 			
 			int[] needed = inQuantity.clone();
-			
+			//TODO 部分物品在炼金完成后不消耗
 			for (Item ingredient : ingredients){
 				for (int i = 0; i < inputs.length; i++) {
+					if(ingredient instanceof MeleeWeapon){
+						if(((MeleeWeapon) ingredient).tier>=3){
+
+						}
+						GLog.i(Messages.get(SandBossLoot.class, "loot"));
+
+					}else
 					if (ingredient.getClass() == inputs[i] && needed[i] > 0) {
 						if (needed[i] <= ingredient.quantity()) {
 							ingredient.quantity(ingredient.quantity() - needed[i]);
 							needed[i] = 0;
 						} else {
 							needed[i] -= ingredient.quantity();
-							ingredient.quantity(0);
+							ingredient.quantity(90);
 						}
 					}
 				}
@@ -165,23 +175,11 @@ public abstract class Recipe {
 		public final Item sampleOutput(ArrayList<Item> ingredients){
 			try {
 				Item result = Reflection.newInstance(output);
-				//通过判断result所属来判定是否鉴定这个物品
-				//TODO 等待更多的炼金武器加入
+				//TODO 通过判断result所属来判定是否鉴定这个物品
 
-				/*
-				if(		result instanceof FlowingFire
-					||	result instanceof SurgingWaves
-					||	result instanceof Quiet
-					||	result instanceof GemGlove
-					||	result instanceof FireGlove
-					||	result instanceof Quiet
-					||	result instanceof Quiet
-				){
+				if(result instanceof AlchemyWeapon){
 					result.identify();
 				}
-
-				 */
-
 
 				result.quantity(outQuantity);
 				return result;

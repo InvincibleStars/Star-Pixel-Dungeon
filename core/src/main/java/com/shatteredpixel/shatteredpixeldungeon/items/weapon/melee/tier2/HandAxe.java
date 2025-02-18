@@ -44,7 +44,8 @@ public class HandAxe extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return Math.round(4f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;   //scaling unchanged
+		return  4*(tier+1) +    //12 base, down from 15
+				lvl*(tier+1);   //scaling unchanged
 	}
 
 	//attackBuff

@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Silme;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.LifePlantSprite;
 import com.watabou.utils.Random;
 
@@ -34,26 +33,10 @@ public class Rattan extends Rat {
 
 	{
 		spriteClass = LifePlantSprite.class;
-		
-		HP = HT = 75 + Random.Int(-13,13) + BossLoot.infection*2;
-		EXP = 4;
-		maxLvl=11;
-		
 		//loot = Generator.Category.POTION;
 		lootChance = 0.25f;
 	}
 
-
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 4, 20 )+ BossLoot.infection;
-	}
-
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(0, 15);
-	}
 
 	@Override
 	protected Item createLoot() {

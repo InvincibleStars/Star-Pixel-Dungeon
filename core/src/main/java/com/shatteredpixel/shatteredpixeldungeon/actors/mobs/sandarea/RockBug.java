@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Shell;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBugSprite;
 import com.watabou.utils.Random;
@@ -35,26 +34,10 @@ public class RockBug extends Mob {
 
 	{
 		spriteClass = RockBugSprite.class;
-
-		HP = HT = 26 + Random.Int(-7,7)+BossLoot.infection*2;
-		EXP = 2;
-		maxLvl = 3;
-
+		hpPole=10;
+		attackPloe=4;
 		//loot = Generator.Category.POTION;
 		lootChance = 0.125f;
-	}
-
-
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 9 +BossLoot.infection);
-	}
-
-	
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(4, 7)+BossLoot.infection;
 	}
 
 	@Override

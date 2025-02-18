@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2022 Evan Debenham
+ * Copyright (C) 2014-2021 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,8 @@ public class Dirk extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return Math.round(5f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;   //scaling unchanged
+		return  4*(tier+1) +    //12 base, down from 15
+				lvl*(tier+1);   //scaling unchanged
 	}
 	
 	@Override

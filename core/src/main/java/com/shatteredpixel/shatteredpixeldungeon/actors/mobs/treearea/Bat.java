@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.DeathBleed;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.watabou.utils.Random;
@@ -19,29 +18,14 @@ public class Bat extends Mob {
     {
         spriteClass = BatSprite.class;
 
-        HP = HT = 65 + Random.Int(-11,11) + BossLoot.infection*2;
-        baseSpeed = 2f;
-
-        EXP = 7;
-        maxLvl = 15;
+        hpPole=6;
+        attackPloe=8;
 
         flying = true;
 
         loot = new PotionOfHealing();
         lootChance = 0.23f; //by default, see rollToDropLoot()
     }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange( 3, 24 ) + BossLoot.infection;
-    }
-
-
-    @Override
-    public int drRoll() {
-        return Random.NormalIntRange(0, 15);
-    }
-
     	@Override
     	public int attackProc(Char enemy,int damage){
     		damage=super.attackProc( enemy, damage );
@@ -58,14 +42,8 @@ public class Bat extends Mob {
               && Random.Int(5) == 0) {
                 Buff.affect(enemy, HuntingMarkers.class, Random.Float(3f,8f) );
             }
-
-
-
     		return damage;
     	}
-
-
-
     @Override
     protected Item createLoot() {
         Item loot;
@@ -83,33 +61,6 @@ public class Bat extends Mob {
         }
         return loot;
     }
-/*
-    protected Item createLoot() {
-        Item loot;
-        switch(Random.Int(4)){
-            case 0: case 1: default:
-                loot = new Dewdrop();
-                int ofs;
-                do {
-                    ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
-                } while (Dungeon.level.solid[pos + ofs] && !Dungeon.level.passable[pos + ofs]);
-                if (Dungeon.level.heaps.get(pos+ofs) == null) {
-                    Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos);
-                } else {
-                    Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos + ofs);
-                }
-                break;
-            case 2:
-                loot = Generator.random(Generator.Category.SEED);
-                break;
-            case 3:
-                loot = Generator.random(Generator.Category.STONE);
-                break;
-        }
-        return loot;
-    }
- */
-
 
 
 

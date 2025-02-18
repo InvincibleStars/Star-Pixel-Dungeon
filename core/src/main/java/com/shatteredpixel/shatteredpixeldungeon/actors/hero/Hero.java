@@ -200,8 +200,8 @@ public class Hero extends Char {
 
 
 
-	private int attackSkill = 15;
-	private int defenseSkill = 1;
+	private int attackSkill;
+	private int defenseSkill;
 
 	public boolean ready = false;
 	private boolean damageInterrupt = true;
@@ -222,28 +222,23 @@ public class Hero extends Char {
 	public int exp = 0;
 
 	public int HTBoost = 0;
-	public int HTStart = HTStart();
-	public int HTAdd = HTAdd();
+	public int HTStart = 15;
+	public int HTAdd = 5;
 
+	/*
 	public int HTStart(){
 		int point = 0;
 		switch (heroClass) {
-			case WARRIOR: point=30;break;
-			case MAGE: point=25;break;
-			case ROGUE: point=28;break;
-			case HUNTRESS: point=25;break;
-			case STAR: point=25;break;
+			default: point=15;break;
 		}	return point;	}
 
 	public int HTAdd(){
 		int point = 0;
 		switch (heroClass) {
-			case WARRIOR: point=15; break;
-			case MAGE: point=10;break;
-			case ROGUE: point=13;break;
-			case HUNTRESS: point=10;break;
-			case STAR: point=11;break;
+			default: point=5;break;
 		}	return point;	}
+
+	 */
 
 
 	public static final int NONE_HT = 20;
@@ -807,12 +802,15 @@ public class Hero extends Char {
 	@Override
 	public boolean act() {
 		updateHT(true);
-		//hero.HP=9999;
 		if (hero.buff(MagicImmune.class) == null){Buff.affect(this, WaitDamage.class);}
 
 		if (heroClass == STAR&&hero.buff(Combo2.class) == null){
 			Buff.affect( this, Combo2.class);
 		}
+
+		defenseSkill= hero.lvl;
+		attackSkill = hero.lvl+200;
+
 
 		//在这里设置特定区域的限制条件
 		/*
@@ -1848,31 +1846,19 @@ public class Hero extends Char {
 		while (this.exp >= maxExp()) {
 			this.exp -= maxExp();
 			if (lvl < MAX_LEVEL) {
-				lvl++;
-				levelUp = true;
-				
-				if (buff(ElixirOfMight.HTBoost.class) != null){
-					buff(ElixirOfMight.HTBoost.class).onLevelUp();
-				}
-
+				lvl++;	levelUp = true;
+				if (buff(ElixirOfMight.HTBoost.class) != null)	buff(ElixirOfMight.HTBoost.class).onLevelUp();
 				updateHT( true );
-				//attackSkill+=2;
-				//defenseSkill++;
 				Perks.earnPerk(this);
-
 			} else {
 				Buff.prolong(this, Bless.class, Bless.DURATION);
 				this.exp = 0;
-
 				GLog.newLine();
 				GLog.p( Messages.get(this, "level_cap"));
 				Sample.INSTANCE.play( Assets.Sounds.LEVELUP );
 			}
-			
 		}
-		
 		if (levelUp) {
-			
 			if (sprite != null) {
 				GLog.newLine();
 				GLog.p( Messages.get(this, "new_level") );

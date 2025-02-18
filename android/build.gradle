@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
+    namespace 'com.shatteredpixel.shatteredpixeldungeon.android'
     compileSdkVersion appAndroidCompileSDK
     compileOptions.sourceCompatibility = compileOptions.targetCompatibility = appJavaCompatibility
 
@@ -17,8 +17,9 @@ android {
         //noinspection MinSdkTooLow
         minSdkVersion appAndroidMinSDK
         targetSdkVersion appAndroidTargetSDK
-        resConfigs 'en_US', 'zh_CN'
 
+        resConfigs "en_US", "cs", "tr", "ca", "ko", "pl", "it", "ja",
+                "eo", "ru", "zh_CN", "de", "fr", "es", "pt", "fi", "hu", "in"
     }
 
     buildTypes {
@@ -26,9 +27,8 @@ android {
             applicationIdSuffix ".indev"
             versionNameSuffix '-INDEV'
             dependencies {
-                //debugImplementation project(':services:updates:debugUpdates')
-                //debugImplementation project(':services:news:debugNews')
-                implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
+                debugImplementation project(':services:updates:debugUpdates')
+                debugImplementation project(':services:news:debugNews')
             }
         }
         release {
@@ -42,13 +42,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             dependencies {
-                //releaseImplementation project(':services:updates:githubUpdates')
-                //releaseImplementation project(':services:news:shatteredNews')
-                //implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
+                releaseImplementation project(':services:updates:githubUpdates')
+                releaseImplementation project(':services:news:shatteredNews')
             }
         }
     }
-    namespace 'com.shatteredpixel.shatteredpixeldungeon.android'
 
     sourceSets {
         main {

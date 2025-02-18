@@ -45,11 +45,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Smok
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.NoDeath;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
-import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Bone;
-import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.shop.Burin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -58,32 +58,23 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.TechTree;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.GrassGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.newpotion.PotionOfWithered;
 import com.shatteredpixel.shatteredpixeldungeon.items.science.PotionLevel;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Knuckle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Quiet;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.SurgingWaves;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.FlowingFire;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -113,76 +104,24 @@ public enum HeroClass {
 
 		//Dungeon.gold += 300;
 		//Dungeon.energy+=10000;
-
-		if (Badges.isUnlocked(Badges.Badge.GOLD_COLLECTED_1)){Dungeon.gold += 100;}
+		//if (Badges.isUnlocked(Badges.Badge.GOLD_COLLECTED_1)){Dungeon.gold += 100;}
+		//重置一些暂时的变量
+		NoDeath.noDeath=0;
+		NPC.choose_num=0;
 
 		new TechTree().quantity(1).identify().collect();
 
 		new PotionLevel().quantity(1).identify().collect();
 
-		new Burin().quantity(2).identify().collect();
-
-		new Bone().quantity(2).identify().collect();
-
-		new GrassGem().quantity(2).identify().collect();
-
-		new FireGem().quantity(2).identify().collect();
-
-		new ScrollOfMagicMapping().quantity(200).identify().collect();
-
-		new PotionOfWithered().quantity(300).identify().collect();
-
-		new Ammo.AmmoBox().quantity(1).identify().collect();
-
-		new SurgingWaves().quantity(1).identify().collect();
-
-		new FlowingFire().quantity(1).identify().collect();
-
-		new Quiet().quantity(1).identify().collect();
-
-		new Bone().quantity(1).identify().collect();
-
-		new WandOfCorrosion().quantity(1).identify().collect();
-
-//		Sword sword = new Sword();
-//		sword.identify();
-//		sword.level(12);
-//		sword.collect();
-
-
-
-		//new WandOfCorrosion().collect();
-
-		//new Mace().quantity(1).identify().collect();
-
-		//new RoundShield().quantity(1).identify().collect();
-
-		//new FrostExotic().quantity(30).collect();
-
-		//Weapon randomWeapon;
-		//阶数
-		//randomWeapon = (Weapon) Generator.random(Generator.Category.WEP_T2);
-		//randomWeapon.quantity();
-		//randomWeapon.level(10);
-		//randomWeapon.identify().collect();
-
-
-		//new 类名().quantity(1).identify().collect();
-
-		//new SandBossLoot().quantity(1).identify().collect();
+		new Food().quantity(3).identify().collect();
 
 		/*
-		//随机武器
 		Weapon randomWeapon;
-		//阶数
 		randomWeapon = (Weapon) Generator.random(Generator.Category.WEP_T2);
 		randomWeapon.quantity();
-		//等级
 		randomWeapon.level(6);
-		//诅咒/附魔
 		randomWeapon.cursed=false;
 		randomWeapon.enchantment=null;
-		//给予/不鉴定去掉identify()
 		randomWeapon.identify().collect();
 		 */
 
@@ -199,43 +138,33 @@ public enum HeroClass {
 		waterskin.collect();
 
 		//TODO 初始鉴定的物品（所有职业）
-		new ScrollOfIdentify().identify();
+		//new ScrollOfIdentify().identify();
 
 		switch (this) {
+
 			case WARRIOR:
 				initWarrior(hero);
-				//战士拥有额外的力量
 				Dungeon.hero.STR++;
-				Dungeon.hero.HTStart=30;
-				Dungeon.hero.HTAdd=15;
 				hero.updateHT( true );
 				break;
 
 			case MAGE:
 				initMage(hero);
-				Dungeon.hero.HTStart=25;
-				Dungeon.hero.HTAdd=10;
 				hero.updateHT( true );
 				break;
 
 			case ROGUE:
 				initRogue(hero);
-				Dungeon.hero.HTStart=28;
-				Dungeon.hero.HTAdd=13;
 				hero.updateHT( true );
 				break;
 
 			case HUNTRESS:
 				initHuntress(hero);
-				Dungeon.hero.HTStart=25;
-				Dungeon.hero.HTAdd=10;
 				hero.updateHT( true );
 				break;
 
 			case STAR:
 				initStar(hero);
-				Dungeon.hero.HTStart=25;
-				Dungeon.hero.HTAdd=11;
 				hero.updateHT( true );
 				break;
 

@@ -6,8 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.GoldBust;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.temple.Scavenger;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -179,14 +177,10 @@ public class Level0 extends Level {
         //杀戮雕像
         KillBust killBust = new KillBust();
         GoldBust goldBust = new GoldBust();
-        Scavenger scavenger = new Scavenger();
-        Gnoll gnoll = new Gnoll();
         killBust.pos = 518;
         goldBust.pos = 522;
-        gnoll.pos=520;
         mobs.add(killBust);
         mobs.add(goldBust);
-        mobs.add(gnoll);
 
     }
 

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2022 Evan Debenham
+ * Copyright (C) 2014-2021 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,8 @@ public class Sai extends MeleeWeapon {
 
 	@Override
 	public int max(int lvl) {
-		return Math.round(4f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
+		return  Math.round(2.5f*(tier+1)) +     //10 base, down from 20
+				lvl*Math.round(0.5f*(tier+1));  //+2 per level, down from +4
 	}
 
 }

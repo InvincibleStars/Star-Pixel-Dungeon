@@ -108,7 +108,7 @@ public class Burning extends Buff implements Hero.Doom {
 				burnIncrement++;
 
 				//at 4+ turns, there is a (turns-3)/3 chance an item burns
-				if (Random.Int(3) < (burnIncrement - 3)){
+				//if (Random.Int(3) < (burnIncrement - 3)){
 					burnIncrement = 0;
 					ArrayList<Item> burnable = new ArrayList<>();
 					//does not reach inside of containers
@@ -132,7 +132,7 @@ public class Burning extends Buff implements Hero.Doom {
 						Heap.burnFX( hero.pos );
 					}
 
-				}
+				//}
 			} else {
 				target.damage( damage, this );
 			}

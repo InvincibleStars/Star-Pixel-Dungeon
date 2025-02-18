@@ -85,6 +85,7 @@ public class Armor extends EquipableItem {
 		private float evasionFactor;
 		private float defenceFactor;
 
+
 		Augment(float eva, float df){
 			evasionFactor = eva;
 			defenceFactor = df;
@@ -127,6 +128,8 @@ public class Armor extends EquipableItem {
 	private static final String MASTERY_POTION_BONUS = "mastery_potion_bonus";
 	private static final String SEAL            = "seal";
 	private static final String AUGMENT			= "augment";
+	private static final String RANDOMROLL            = "randomroll";
+	private static final String ARMORMAXADD            = "armormaxadd";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -138,6 +141,8 @@ public class Armor extends EquipableItem {
 		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
 		bundle.put( SEAL, seal);
 		bundle.put( AUGMENT, augment);
+		bundle.put( RANDOMROLL, randomroll);
+		bundle.put( ARMORMAXADD, armormaxadd);
 	}
 
 	@Override
@@ -149,6 +154,8 @@ public class Armor extends EquipableItem {
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		masteryPotionBonus = bundle.getInt( MASTERY_POTION_BONUS );
 		seal = (BrokenSeal)bundle.get(SEAL);
+		randomroll = bundle.getBoolean(RANDOMROLL);
+		armormaxadd = bundle.getInt(ARMORMAXADD);
 
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}
@@ -300,46 +307,26 @@ public class Armor extends EquipableItem {
 		return hero.belongings.armor() == this;
 	}
 
+	public boolean randomroll = false;
+	public int armormaxadd;
+
 	public final int DRMax(){
 		return DRMax(buffedLvl());
 	}
 
-	/*
 	public int DRMax(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return 2 + tier + lvl + augment.defenseFactor(lvl);
+		int a = (tier * 2) + (lvl * tier) +augment.defenseFactor(lvl);
+		if(randomroll!=true){
+			armormaxadd=Random.Int(a/2+1);
+			randomroll = true;
 		}
-
-		int max = 1 + tier * (2 + lvl) + augment.defenseFactor(lvl);
-		if (lvl > max){
-			return ((lvl - max)+1)/2;
-		} else {
-			return max;
-		}
-	}
-	 */
-	public int DRMax(int lvl){
-		return tier * 10 + (lvl * tier) +augment.defenseFactor(lvl);
+		return a+armormaxadd;
 	}
 
 	public final int DRMin(){
 		return DRMin(buffedLvl());
 	}
 
-	/*
-	public int DRMin(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return 0;
-		}
-
-		int max = DRMax(lvl);
-		if (lvl >= max){
-			return (lvl - max);
-		} else {
-			return lvl;
-		}
-	}
-	 */
 	public int DRMin(int lvl){
 		return tier + lvl;
 	}
@@ -574,11 +561,19 @@ public int STRReq(){
 		return STRReq(tier, lvl);
 	}
 
-	protected static int STRReq(int tier, int lvl){
+	protected int STRReq(int tier, int lvl){
 		lvl = Math.max(0, lvl);
+		int req = (8 + tier * 2) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2;
+		int add = (tier * 2 + (lvl * tier))*4/3;
+		if(DRMax()>add) {
+			//req+=1;
+		}
+			return req;
+
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return 8 +(tier*2) - (lvl*(lvl+1)/2);
+
 	}
+
 	
 	@Override
 	public int value() {

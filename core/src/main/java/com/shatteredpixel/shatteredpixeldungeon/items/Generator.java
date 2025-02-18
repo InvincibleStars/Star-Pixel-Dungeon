@@ -71,7 +71,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticG
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.newpotion.PotionOfWithered;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
@@ -132,40 +131,23 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesSt
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Quiet;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Scalpel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Book_DELETE;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Chain;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.CutOff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Dirk;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Eleove;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.GemGlove_DELETE;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.HandAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.IronLeave_DELETE;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Quarterstaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Shortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Spear;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.DeadBook;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.KnifeAoe_DELETE;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.KnifeTurn_DELETE;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Mace;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.RoundShield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Sai;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Scimitar;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Sickle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Sword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.TwoKnife;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.TwoSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Whip;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.AssassinsBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.BattleAxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Crossbow;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.FireGlove;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Flail;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.FlowingFire;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Longsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Nemesis_DELETE;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.RunicBlade;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Stabsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Thorn;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.Gauntlet;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.Glaive;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier5.Greataxe;
@@ -295,9 +277,8 @@ public class Generator {
 					PotionOfLevitation.class,
 					PotionOfParalyticGas.class,
 					PotionOfPurity.class,
-					PotionOfExperience.class,
-					PotionOfWithered.class};
-			POTION.defaultProbs = new float[]{ 0, 4, 3, 4, 4, 4, 3, 3, 2, 2, 2, 1,0 };
+					PotionOfExperience.class};
+			POTION.defaultProbs = new float[]{ 0, 4, 3, 4, 4, 4, 3, 3, 2, 2, 2, 1 };
 					POTION.probs = POTION.defaultProbs.clone();
 			
 			SEED.classes = new Class<?>[]{
@@ -402,27 +383,22 @@ public class Generator {
 			};//三目运算法，检测到?前成立执行?:，负责执行:后内容
 			//WEP_T1.probs = Dungeon.isChallenged(NO_FOOD)?new float[]{ 1, 1, 1, 0, 1, 1 }:new float[]{ 1, 1, 1, 0, 1, 1 };
 
-			WEP_T1.probs = new float[]{ 2, 2, 2, 0,
-										1, 1, 0 };
+			WEP_T1.classes = new Class<?>[]{
+					WornShortsword.class,
+					Gloves.class,
+					Dagger.class,
+					MagesStaff.class,
+			};
+			WEP_T1.probs = new float[]{ 1, 1, 1, 0 };
+
 			WEP_T2.classes = new Class<?>[]{
 					Shortsword.class,
 					HandAxe.class,
 					Spear.class,
-					Dirk.class,
-					IronLeave_DELETE.class,
-
-					Book_DELETE.class,
-					Eleove.class,
 					Quarterstaff.class,
-					Chain.class,
-					CutOff.class,
-					GemGlove_DELETE.class,
-
-
-
+					Dirk.class
 			};
-			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 0,
-										0, 0, 3, 0, 0, 0 };
+			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 4 };
 
 			WEP_T3.classes = new Class<?>[]{
 					Sword.class,
@@ -430,49 +406,29 @@ public class Generator {
 					Scimitar.class,
 					RoundShield.class,
 					Sai.class,
-					Whip.class,
-
-					DeadBook.class,
-					KnifeAoe_DELETE.class,
-					KnifeTurn_DELETE.class,
-					Sickle.class,
-					TwoKnife.class,
-					TwoSword.class
-
+					Whip.class
 			};
-			WEP_T3.probs =new float[]{ 6, 5, 5, 4, 4, 3,
-									   0, 0, 0, 3, 2, 2 };
+			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
 
-			
 			WEP_T4.classes = new Class<?>[]{
 					Longsword.class,
 					BattleAxe.class,
 					Flail.class,
 					RunicBlade.class,
 					AssassinsBlade.class,
-					Crossbow.class,
-
-					FireGlove.class,
-					FlowingFire.class,
-					Nemesis_DELETE.class,
-					Stabsword.class,
-					Thorn.class
+					Crossbow.class
 			};
-			WEP_T4.probs = new float[]{ 6, 5, 5, 0, 4, 4,
-										0, 0, 0, 3, 2 };
+			WEP_T4.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
 
-			
 			WEP_T5.classes = new Class<?>[]{
 					Greatsword.class,
 					WarHammer.class,
 					Glaive.class,
 					Greataxe.class,
 					Greatshield.class,
-
 					Gauntlet.class
 			};
-			WEP_T5.probs = new float[]{ 6, 5, 5, 4, 4,
-										4 };
+			WEP_T5.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
 			
 			//see Generator.randomArmor
 			ARMOR.classes = new Class<?>[]{

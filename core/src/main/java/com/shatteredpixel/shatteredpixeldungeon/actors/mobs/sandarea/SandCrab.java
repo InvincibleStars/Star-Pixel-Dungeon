@@ -31,7 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -46,38 +45,16 @@ public class SandCrab extends Mob {
 	
 	{
 		spriteClass = CrabSprite.class;
+		hpPole=6;
+		attackPloe=6;
 
-		HP = HT = 45 + Random.Int(-8,8) + BossLoot.infection*2;
 		viewDistance = Light.DISTANCE;
-		
-		EXP = 3;
-		maxLvl = 5;
 
-		baseSpeed = 1f;
-
-
-		HUNTING = new Hunting();
-
-		//loot = Generator.Category.ARMOR;
 		lootChance = 0.25f;
-	}
-
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange(3, 13)+BossLoot.infection;
-	}
-
-	
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(2, 10);
 	}
 	
 	private Ballistica beam;
 	private int beamTarget = -1;
-		//伤害加深
-	private int damageadd = 0;
 
 	//技能
 	private int skill = -1;
@@ -142,8 +119,6 @@ public class SandCrab extends Mob {
 			beam = new Ballistica(pos, beamTarget, Ballistica.STOP_SOLID);
 			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
 				sprite.zap( beam.collisionPos );
-				//伤害追加
-				damageadd++;
 				return false;
 			} else {
 				sprite.idle();
@@ -169,7 +144,7 @@ public class SandCrab extends Mob {
 			return;
 
 		beamCharged = false;
-		beamCooldown = Random.IntRange(6, 10);
+		beamCooldown = Random.IntRange(2, 4);
 
 		boolean terrainAffected = false;
 
@@ -192,7 +167,7 @@ public class SandCrab extends Mob {
 				//挑战开启失明
 				//Buff.prolong( ch, Blindness.class, BuffWait.T5 );
 				//Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
-				ch.damage( Random.NormalIntRange( 5, 9+damageadd*2 ), new SandCrab.DeathGaze() );
+				ch.damage( Random.NormalIntRange( this.damageRoll()/3,this.damageRoll()/2), new SandCrab.DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
 					ch.sprite.flash();
@@ -228,7 +203,6 @@ public class SandCrab extends Mob {
 		bundle.put( BEAM_TARGET, beamTarget);
 		bundle.put( BEAM_COOLDOWN, beamCooldown );
 		bundle.put( BEAM_CHARGED, beamCharged );
-		bundle.put( ADD_DAMAGE, damageadd );
 	}
 
 	@Override
@@ -238,7 +212,6 @@ public class SandCrab extends Mob {
 			beamTarget = bundle.getInt(BEAM_TARGET);
 		beamCooldown = bundle.getInt(BEAM_COOLDOWN);
 		beamCharged = bundle.getBoolean(BEAM_CHARGED);
-		damageadd = bundle.getInt(ADD_DAMAGE);
 	}
 
 	{

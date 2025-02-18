@@ -31,7 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotLasher;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RotHeartSprite;
@@ -47,8 +46,7 @@ public class VineDerived extends Mob {
 	{
 		spriteClass = RotHeartSprite.class;
 
-		HP = HT = 30+ Random.Int(2+(BossLoot.infection*2));
-		defenseSkill = 0;
+		hpPole=8;
 
 		EXP = 0;
 

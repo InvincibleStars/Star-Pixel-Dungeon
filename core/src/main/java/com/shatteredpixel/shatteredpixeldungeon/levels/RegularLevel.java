@@ -242,12 +242,16 @@ public abstract class RegularLevel extends Level {
 
 			if (tries >= 0) {
 				mobsToSpawn--;
+				//TODO 所有生物数据于此重写
 				mobs.add(mob);
 				//TODO 生物出生即带buff
-				Buff.affect(mob, Withered.class);
-
+				if(Dungeon.depth>5&&Dungeon.depth<11) {
+					if(Random.Float()<=0.35f) {
+						Buff.affect(mob, Withered.class);
+					}
+				}
 				//chance to add a second mob to this room, except on floor 1
-				if (Dungeon.depth > 1 && mobsToSpawn > 0 && Random.Int(4) == 0){
+				if (Dungeon.depth > 5 && Dungeon.depth < 11 && mobsToSpawn > 0 && Random.Int(4) == 0){
 					mob = createMob();
 
 					tries = 30;

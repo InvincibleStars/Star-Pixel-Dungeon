@@ -24,31 +24,19 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollThrowSprite;
-import com.watabou.utils.Random;
 
 public class GnollThrow extends Gnoll {
 	
 	{
 		spriteClass = GnollThrowSprite.class;
-		
-		HP = HT = 65 + Random.Int(-11,11) + BossLoot.infection*2;
-		
-		EXP = 2;
-		maxLvl = 8;
+		hpPole=3;
+		attackPloe=3;
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
 	}
-	
-	@Override
-	public int damageRoll() { return Random.NormalIntRange( 5, 15 )+ BossLoot.infection; }
-
-	
-	@Override
-	public int drRoll() { return Random.NormalIntRange(0, 10); }
 
 	@Override
 	protected boolean canAttack( Char enemy ) {

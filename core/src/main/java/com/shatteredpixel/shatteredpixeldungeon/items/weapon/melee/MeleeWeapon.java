@@ -45,25 +45,24 @@ public abstract class MeleeWeapon extends Weapon {
 
 	public int tier;
 
+
 	@Override
 	public int min(int lvl) {
-		return  tier*3 +  //base
-				lvl +
-				masteryPotionBonus;    //level scaling
+		return  tier +  //base
+				lvl+masteryPotionBonus;    //level scaling
 	}
 
 	@Override
 	public int max(int lvl) {
-		int add=0;
+		int add =0;
 		if(hero.hasTalent(Talent.WARRIOR_UPDATE)){
 			//超过10点的每点力量提高0.5最高伤害
 			add=Math.round(((float)hero.STR-10)*(0.5f*(float) hero.pointsInTalent(Talent.WARRIOR_UPDATE)));
 		}
-		return  8*(tier+1) + lvl*(tier+1) + masteryPotionBonus*2 + add;
+		return  5*(tier+1) +    //base
+				lvl*(tier+1)+add+masteryPotionBonus*2;   //level scaling
 	}
 
-
-	//力量
 	public int STRReq(int lvl){
 		return STRReq(tier, lvl);
 	}

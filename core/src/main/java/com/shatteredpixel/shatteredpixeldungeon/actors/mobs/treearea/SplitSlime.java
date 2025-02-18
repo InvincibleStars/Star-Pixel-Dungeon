@@ -32,7 +32,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
 import com.watabou.utils.Bundle;
@@ -44,12 +43,9 @@ public class SplitSlime extends Mob {
 
 	{
 		spriteClass = SlimeSprite.class;
-		
-		HP = HT = 80 + Random.Int(-13,13) + BossLoot.infection*2;
-		defenseSkill = 8;
 
-		EXP = 6;
-		maxLvl = 11;
+		hpPole=6;
+		attackPloe=6;
 		
 		flying = true;
 
@@ -75,12 +71,7 @@ public class SplitSlime extends Mob {
 		generation = bundle.getInt( GENERATION );
 		if (generation > 0) EXP = 0;
 	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 3, 22 )+ BossLoot.infection;
-	}
-	
+
 	@Override
 	public int defenseProc( Char enemy, int damage ) {
 
@@ -113,12 +104,7 @@ public class SplitSlime extends Mob {
 		
 		return super.defenseProc(enemy, damage);
 	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
-	
+
 	private SplitSlime split() {
 		SplitSlime clone = new SplitSlime();
 		clone.generation = generation + 1;

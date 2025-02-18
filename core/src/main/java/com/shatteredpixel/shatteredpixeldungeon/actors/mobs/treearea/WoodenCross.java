@@ -31,7 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AnkhBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Stick;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -44,7 +43,7 @@ import java.util.HashSet;
 public class WoodenCross extends Mob {
 	{
 		spriteClass = WoodenAnkhSprite.class;
-		HP = HT = 120+ BossLoot.infection*2 ;
+		hpPole=13;
 		maxLvl = 0;
 		EXP=0;
 		properties.add(Property.IMMOVABLE);

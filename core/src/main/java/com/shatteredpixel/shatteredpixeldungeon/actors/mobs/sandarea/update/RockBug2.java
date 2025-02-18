@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.RockBug;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBug2Sprite;
-import com.watabou.utils.Random;
 
 public class RockBug2 extends RockBug {
 
@@ -37,12 +36,6 @@ public class RockBug2 extends RockBug {
 		maxLvl = 4;
 		loot = Generator.Category.POTION;
 		lootChance = 1f; //by default, see rollToDropLoot()
-	}
-
-	
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(4, 11)+BossLoot.infection;
 	}
 
 	@Override

@@ -27,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Tooth;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
 import com.watabou.utils.Random;
 
@@ -36,35 +35,12 @@ public class BlackWorm extends Mob {
 
 	{
 		spriteClass = BlackWormSprite.class;
-
-		HP = HT =  22 + Random.Int(-5,5)+BossLoot.infection*2;
-
+		hpPole=4;
+		attackPloe=6;
 		EXP = 1;
-
-		
-		maxLvl = 3;
-
+		//loot=Generator.random(Generator.Category.SEED);
 		lootChance = 0.1f;
 
-	}
-
-	public boolean act() {
-		baseSpeed = Random.Float(1f,1.25f+(BossLoot.infection/2));
-		return super.act();
-	}
-
-
-	@Override
-	public float attackDelay() {
-		return Random.Float(0.7f, 1.1f);
-	}
-
-	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 7 + BossLoot.infection ); }
-
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange( 0, 5);
 	}
 
 	@Override

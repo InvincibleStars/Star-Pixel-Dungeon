@@ -3,6 +3,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.temple;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.RchAddBy2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollTricksterSprite;
@@ -19,6 +22,17 @@ public class Scavenger extends Mob {
 
     boolean skill = true;
     boolean zap = false;
+
+    @Override
+    protected boolean act() {
+        //拥有两格攻击距离
+        Buff.affect(this, RchAddBy2.class);
+        if(ATTACKPOWER>=2f){
+            ATTACKPOWER=2f;
+        }
+        return super.act();
+    }
+
 
 
     @Override
@@ -41,10 +55,16 @@ public class Scavenger extends Mob {
 
     @Override
     public int attackProc( Char enemy, int damage ) {
+        ATTACKPOWER+=0.2f;
         damage = super.attackProc( enemy, damage );
         if(zap == true){
             zap = false;
             damage=Random.Int(19);
+        }
+        //重伤加致残
+        if(ATTACKPOWER>=2){
+            damage*=1.3f;
+            Buff.affect(enemy, Cripple.class,5f);
         }
 
         return damage;

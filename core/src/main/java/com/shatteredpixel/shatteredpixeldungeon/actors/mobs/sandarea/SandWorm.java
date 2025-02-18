@@ -35,9 +35,8 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 30 + Random.Int(-6, 6) + BossLoot.infection*2;
-		EXP = 2;
-		maxLvl = 4;
+		hpPole=8;
+		attackPloe=8;
 
 		//loot = new MobLoot();
 		lootChance = 0.125f;
@@ -58,11 +57,6 @@ public class SandWorm extends Mob {
 			spend(1f);
 		}
 
-		/*
-		if(this.HP<=this.HT/2){
-			remove(this);
-		}
-		 */
 		return super.act();
 	}
 
@@ -73,16 +67,6 @@ public class SandWorm extends Mob {
 
 	@Override
 	protected boolean getFurther(int target) { return true; }
-
-	@Override
-	public int damageRoll() { return Random.NormalIntRange(3, 11+BossLoot.infection); }
-
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(1,7);
-	}
-
-	//{ immunities.add( ToxicGas.class ); }
 
 	private class Waiting extends Wandering{}
 
