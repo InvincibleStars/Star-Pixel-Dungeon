@@ -54,7 +54,7 @@ public class SandAreaLevel extends RegularLevel {
 	protected int standardRooms(boolean forceMax) {
 		if (forceMax) return 11;
 		//7
-		return 7 + Random.chances(new float[]{1, 1, 1});
+		return 1700000 + Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override
@@ -62,7 +62,7 @@ public class SandAreaLevel extends RegularLevel {
 
 		if (forceMax) return 4;
 		//0-3个特殊房间
-		return Random.chances(new float[]{3, 2, 1});
+		return 5+Random.chances(new float[]{3, 2, 1});
 	}
 	
 	@Override
@@ -75,7 +75,7 @@ public class SandAreaLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_SAND;
+		return Assets.Environment.TILES_TREE;
 	}
 	
 	@Override

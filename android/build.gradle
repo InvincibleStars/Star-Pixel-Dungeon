@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+
+
 android {
     namespace 'com.shatteredpixel.shatteredpixeldungeon.android'
     compileSdkVersion appAndroidCompileSDK
@@ -70,6 +72,10 @@ dependencies {
     natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
     natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
     natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.blankj:utilcodex:1.30.6'
+    implementation 'cat.ereza:customactivityoncrash:2.4.0'
 }
 
 // called every time gradle gets executed, takes the native dependencies of

@@ -39,7 +39,7 @@ public class Star_v0_1_X_Changes {
 
 	public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
 		add_v0_1_1_Changes(changeInfos);
-		//add_v0_1_0_Changes(changeInfos);
+		add_v0_1_2_Changes(changeInfos);
 	}
 	
 	public static void add_v0_1_1_Changes( ArrayList<ChangeInfo> changeInfos ){
@@ -215,6 +215,22 @@ public class Star_v0_1_X_Changes {
 						"_-_ 蓄血圣杯，丰饶之角的回复速度和恢复效果略微降低\n"+
 						"_-_ 露珠提供的治疗效果减少1，露珠ping容量下降\n"+
 						""));
+	}
+
+	public static void add_v0_1_2_Changes( ArrayList<ChangeInfo> changeInfos ){
+
+		ChangeInfo changes = new ChangeInfo("about", true, "about");
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+
+		changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+		changes.hardlight(CharSprite.WARNING);
+		changeInfos.add(changes);
+
+		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "鸣谢",
+				"感谢ColdMint所制作的新错误界面\n" +
+						"_-_ 感谢Ling、坚果、沐沐、泰勒的代码教学、支持和答疑解惑"
+		));
 	}
 	
 }

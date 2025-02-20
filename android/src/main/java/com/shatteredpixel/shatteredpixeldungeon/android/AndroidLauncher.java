@@ -32,12 +32,20 @@ import android.widget.TextView;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
+import cat.ereza.customactivityoncrash.config.CaocConfig;
+
 public class AndroidLauncher extends Activity {
 	
 	@SuppressLint("SetTextI18n")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		CaocConfig.Builder.create()
+				.backgroundMode(CaocConfig.BACKGROUND_MODE_SHOW_CUSTOM) //default: CaocConfig.BACKGROUND_MODE_SHOW_CUSTOM
+				.minTimeBetweenCrashesMs(2000) //default: 3000
+				.errorActivity(ErrorActivity.class) //default: null (default error activity)
+				.apply();
 		
 		try {
 			GdxNativesLoader.load();

@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.GoldBust;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.sell.ElementalWell;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -177,10 +178,13 @@ public class Level0 extends Level {
         //杀戮雕像
         KillBust killBust = new KillBust();
         GoldBust goldBust = new GoldBust();
+        ElementalWell elementalWell = new ElementalWell();
         killBust.pos = 518;
         goldBust.pos = 522;
+        elementalWell.pos = 520;
         mobs.add(killBust);
         mobs.add(goldBust);
+        mobs.add(elementalWell);
 
     }
 

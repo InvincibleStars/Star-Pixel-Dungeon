@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.newrooms.MachineryRoom;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -148,13 +149,14 @@ public abstract class StandardRoom extends Room {
 
 		rooms.add(HollowRoom.class);			//外圈空心房间
 		//rooms.add(FangXingRoom.class);
+		rooms.add(MachineryRoom.class);			//高大的草地房间
 
 	}
 
 	private static float[][] chances = new float[27][];
 	static {
 		//沙地/荒漠属于干旱地区，因此不生成含水房间
-		chances[1] =  new float[]{0,	0,0,0,	10,0,2,	0,0,0,	0,0,0,	1,0,0,	0,0,1,0,1,0,0,0,10,0,	3};
+		chances[1] =  new float[]{0,	0,0,0,	0,0,2,	0,0,0,	0,0,0,	1,0,0,	0,0,1,0,1,0,0,0,10,0,	3,10};
 		chances[5] = chances[4] =  chances[3] = chances[2] = chances[1];
 		//森林整体结构破碎，因为废墟将作为主要地形生成
 		chances[6] =  new float[]{0,	0,0,2,	0,0,0,	0,10,0,	0,0,0,	10,0,0,	1,1,0,0,0,0,0,1,1,0,    3};
