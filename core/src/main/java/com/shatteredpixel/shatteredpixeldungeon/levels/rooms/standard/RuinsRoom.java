@@ -27,10 +27,10 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.watabou.utils.Point;
 
 public class RuinsRoom extends PatchRoom {
-	
 	@Override
 	public float[] sizeCatProbs() {
-		return new float[]{4, 2, 1};
+		// 增大房间尺寸的概率
+		return new float[]{1, 2, 3}; // 更倾向于生成大房间
 	}
 
 	@Override
@@ -40,29 +40,36 @@ public class RuinsRoom extends PatchRoom {
 
 	@Override
 	public void paint(Level level) {
-		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1 , Terrain.EMPTY );
-		for (Door door : connected.values()) {
-			door.set( Door.Type.REGULAR );
-		}
+		// 填充墙壁
+		Painter.fill(level, this, Terrain.WALL);
+		// 填充内部为空地
+		Painter.fill(level, this, 1, Terrain.EMPTY);
 
+		// 增加内部混乱度
+		// fill scales from ~30% at 4x4, to ~60% at 18x18
+		float fill = 0.30f + (width() * height()) / 512f;
 
-
-		//fill scales from ~20% at 4x4, to ~50% at 18x18
-		// normal   ~20% to ~30%
-		// large    ~30% to ~40%
-		// giant    ~40% to ~50%
-		float fill = 0.20f + (width()*height())/1024f;
-		
 		setupPatch(level, fill, 0, true);
 		cleanDiagonalEdges();
-		
+
 		for (int i = top + 1; i < bottom; i++) {
 			for (int j = left + 1; j < right; j++) {
 				if (patch[xyToPatchCoords(j, i)]) {
 					int cell = i * level.width() + j;
 					level.map[cell] = Terrain.WALL;
 				}
+			}
+		}
+
+		// 去掉所有门
+		for (Door door : connected.values()) {
+			// 将门的位置改为 EMPTY
+			Painter.set(level, door.x, door.y, Terrain.EMPTY);
+			// 如果门是水平的，删除两个格子
+			if (door.x == left || door.x == right) {
+				Painter.set(level, door.x, door.y + 1, Terrain.EMPTY);
+			} else {
+				Painter.set(level, door.x + 1, door.y, Terrain.EMPTY);
 			}
 		}
 	}

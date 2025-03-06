@@ -80,8 +80,12 @@ public abstract class RegularPainter extends Painter {
 		
 		//painter can be used without rooms
 		if (rooms != null) {
-			
+
+			//TODO 楼层大小
 			int padding = level.feeling == Level.Feeling.CHASM ? 2 : 1;
+			if(Dungeon.depth>=0 && Dungeon.depth<=10){
+				padding = level.feeling == Level.Feeling.CHASM ? 6 : 4;
+			}
 			
 			int leftMost = Integer.MAX_VALUE, topMost = Integer.MAX_VALUE;
 			

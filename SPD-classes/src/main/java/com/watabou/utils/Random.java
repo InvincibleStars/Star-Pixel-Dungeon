@@ -21,6 +21,8 @@
 
 package com.watabou.utils;
 
+import static com.badlogic.gdx.math.MathUtils.random;
+
 import com.watabou.noosa.Game;
 
 import java.util.ArrayDeque;
@@ -79,6 +81,43 @@ public class Random {
 	public static float NormalFloat( float min, float max ) {
 		return min + ((Float(max - min) + Float(max - min))/2f);
 	}
+
+
+
+	public static float TestRandomFloat( float min, float max, int slot ) {
+		int i;
+		float a = min;
+		for(i=0;i<slot;i++){
+			a+= Float(max-min);
+		}
+		return a/slot;
+	}
+
+	public static float generateWeightedRandom(double min, double max, double slot) {
+		if (min > max) {
+			throw new IllegalArgumentException("Minimum value cannot be greater than maximum value.");
+		}
+
+		double randomValue = random.nextDouble();
+		double adjustedValue;
+
+		if (slot > 0) {
+			// 正 slot：使结果更倾向于 max（调整公式的指数部分）
+			adjustedValue = Math.pow(randomValue, 1.0 / (1.0 + slot));
+		} else if (slot < 0) {
+			// 负 slot：使结果更倾向于 min（调整公式的指数部分）
+			adjustedValue = Math.pow(randomValue, 1.0 + Math.abs(slot));
+		} else {
+			// slot 为 0 时，返回均匀分布的随机数
+			adjustedValue = randomValue;
+		}
+
+		return (float) (min + (max - min) * adjustedValue);
+	}
+
+
+
+
 
 	//returns a uniformly distributed int in the range [0, max)
 	public static synchronized int Int( int max ) {

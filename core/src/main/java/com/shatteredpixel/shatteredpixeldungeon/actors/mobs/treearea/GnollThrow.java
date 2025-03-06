@@ -23,41 +23,20 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollThrowSprite;
-import com.watabou.utils.Random;
 
 public class GnollThrow extends Gnoll {
 	
 	{
 		spriteClass = GnollThrowSprite.class;
-		
-		HP = HT = 15+Random.Int(2+(BossLoot.infection*2));
-		defenseSkill = 6;
-		
-		EXP = 2;
-		maxLvl = 8;
+		hpPole=3;
+		attackPloe=3;
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
 	}
-	
-	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 12+ BossLoot.infection  ); }
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 16;
-	}
-	
-	@Override
-	public int drRoll() { return Random.NormalIntRange(0, 2); }
 
 	@Override
 	protected boolean canAttack( Char enemy ) {

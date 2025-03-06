@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.AnkhParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.KillBustParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.ShtoffBuffParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.newparticle.WitheredParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -86,7 +87,10 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, CUTOFFBUFF,ANKHBUFF, KILLBUST, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS
+		BURNING, CUTOFFBUFF, ANKHBUFF, KILLBUST, WITHERED,
+		LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED,
+		CHILLED, DARKENED, MARKED, HEALING, SHIELDED,
+		HEARTS
 	}
 	private int stunStates = 0;
 	
@@ -403,6 +407,13 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					Sample.INSTANCE.play( Assets.Sounds.BURNING );
 				}
 				break;
+			case WITHERED:
+				killbust = emitter();
+				killbust.pour(WitheredParticle.BLACK, 0.06f );//0.06
+				if (visible) {
+					Sample.INSTANCE.play( Assets.Sounds.BURNING );
+				}
+				break;
 			case LEVITATING:
 				levitation = emitter();
 				levitation.pour( Speck.factory( Speck.JET ), 0.02f );
@@ -473,6 +484,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				}
 				break;
 			case KILLBUST:
+				if (killbust != null) {
+					killbust.on = false;
+					killbust = null;
+				}
+				break;
+			case WITHERED:
 				if (killbust != null) {
 					killbust.on = false;
 					killbust = null;

@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WaitDamage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
@@ -38,6 +39,8 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
@@ -71,6 +74,7 @@ public class StatusPane extends Component {
     private Image shieldedHP;
     private Image hp;
     private Image dark;
+    private Image dark2;
     private BitmapText hpText;
 
     private Image hg;
@@ -159,6 +163,7 @@ public class StatusPane extends Component {
         //血条蒙版
         dark = new Image(Assets.Interfaces.DARK_BAR);
         add(dark);
+
 
         //饥饿条
         hg = new Image( Assets.Interfaces.HUNGER_BAR );
@@ -305,6 +310,35 @@ public class StatusPane extends Component {
     @Override
     public void update() {
         super.update();
+        /*
+        if(hero.belongings.weapon!=null){
+            dark2= new ItemSprite(hero.belongings.weapon);
+        }else{
+            dark2= new ItemSprite(ItemSpriteSheet.STONE_NONE);
+        }
+
+         */
+        erase(dark2);
+        if(NPC.choose_num==1){
+            //杀戮
+            dark2 = new ItemSprite(ItemSpriteSheet.BLEED_TOOTH);
+        } else if (NPC.choose_num==2) {
+            //财富
+            dark2 = new ItemSprite(ItemSpriteSheet.GOLD);
+        } else if (NPC.choose_num==3) {
+            //生命
+            dark2 = new ItemSprite(ItemSpriteSheet.ELIXIR_MIGHT);
+        } else if (NPC.choose_num==4) {
+            //强健
+            dark2 = new ItemSprite(ItemSpriteSheet.ELIXIR_MIGHT);
+        }else{
+            dark2= new ItemSprite(ItemSpriteSheet.BACKPACK);
+        }
+        //dark2.x= dark2.y=0;
+        dark2.x= 7; //includes the depth display to the left
+        dark2.y = 32;
+        dark2.scale.x = dark2.scale.y = 0.7f;
+        add(dark2);
 
         Calendar cal=Calendar.getInstance();
 

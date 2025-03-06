@@ -25,11 +25,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LostBackpack;
@@ -358,11 +356,17 @@ public class InterlevelScene extends PixelScene {
 						s += "\n";
 						s += t.toString();
 					}
+                    throw new RuntimeException("fatal error occured while moving between floors. " +
+                            "Seed:" + Dungeon.seed + " depth:" + Dungeon.depth, error);
+                    /*
 					ShatteredPixelDungeon.reportException(
 							new RuntimeException("waited more than 10 seconds on levelgen. " +
 									"Seed:" + Dungeon.seed + " depth:" + Dungeon.depth + " trace:" +
 									s)
 					);
+
+                     */
+
 				}
 				break;
 		}
@@ -414,8 +418,11 @@ public class InterlevelScene extends PixelScene {
 
 		Mob.holdAllies( Dungeon.level );
 
+		//TODO 上楼
 		Dungeon.saveAll();
-		Dungeon.depth--;
+		Dungeon.depth-=1;
+
+
 		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
 		Dungeon.switchLevel( level, level.exit );
 	}

@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -36,10 +35,8 @@ public class SandWorm extends Mob {
 	{
 		spriteClass = SandWormSprite.class;
 
-		HP = HT = 7 + Random.Int(4+(BossLoot.infection*2)) + Dungeon.depth;
-		defenseSkill = 3;
-		EXP = 2;
-		maxLvl = 4;
+		hpPole=8;
+		attackPloe=8;
 
 		//loot = new MobLoot();
 		lootChance = 0.125f;
@@ -51,10 +48,6 @@ public class SandWorm extends Mob {
 
 	public int cooldown = 5;
 
-	@Override
-	public int attackSkill( Char target ) {
-		return 10;
-	}
 
 
 	@Override
@@ -63,6 +56,7 @@ public class SandWorm extends Mob {
 			HP=Math.min(HP+=1,HT);
 			spend(1f);
 		}
+
 		return super.act();
 	}
 
@@ -73,16 +67,6 @@ public class SandWorm extends Mob {
 
 	@Override
 	protected boolean getFurther(int target) { return true; }
-
-	@Override
-	public int damageRoll() { return Random.NormalIntRange(2, 6+BossLoot.infection); }
-
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(0,2);
-	}
-
-	//{ immunities.add( ToxicGas.class ); }
 
 	private class Waiting extends Wandering{}
 

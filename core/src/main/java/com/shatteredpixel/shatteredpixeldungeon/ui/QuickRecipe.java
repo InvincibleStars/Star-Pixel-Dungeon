@@ -30,17 +30,19 @@ import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.AlchemyDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.AlchemyGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.Gem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.GrassGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -72,7 +74,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
@@ -284,17 +285,7 @@ public class QuickRecipe extends Component {
 						return "";
 					}
 				}));
-				result.add(new QuickRecipe( new Dust.GemToDust(), new ArrayList<>(Arrays.asList(new Gem.GemHolder().quantity(2))), new WndBag.Placeholder(ItemSpriteSheet.DUST_HOLDER){
-					@Override
-					public String name() {
-						return Messages.get(Dust.DustHolder.class, "name");
-					}
-
-					@Override
-					public String info() {
-						return "";
-					}
-				}));
+				result.add(new QuickRecipe(new Dust.GemtoDustHolder()));
 
 				return result;
 			case 1:
@@ -336,6 +327,7 @@ public class QuickRecipe extends Component {
 					ArrayList<Item> in = new ArrayList<>(Arrays.asList(pot));
 					result.add(new QuickRecipe( r, in, r.sampleOutput(in)));
 				}
+
 				return result;
 			case 4:
 				r = new ExoticScroll.ScrollToExotic();
@@ -375,10 +367,13 @@ public class QuickRecipe extends Component {
 						new QuickRecipe( new ArcaneResin.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
 						new ArcaneResin()));
+				/*
 				result.add(
 						new QuickRecipe( new AlchemyGem.GemtoScroll(),
 						new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
-						new BlueGem()));
+						new WaterGem()));
+
+				 */
 				return result;
 			case 7:
 				result.add(new QuickRecipe(new AlchemicalCatalyst.Recipe(), new ArrayList<>(Arrays.asList(new Potion.PlaceHolder(), new Plant.Seed.PlaceHolder())), new AlchemicalCatalyst()));
@@ -437,26 +432,41 @@ public class QuickRecipe extends Component {
 				result.add(null);
 				result.add(new QuickRecipe(new AlchemyWeapon.DeadBookRecipe()));
 				result.add(new QuickRecipe(new AlchemyWeapon.ChainRecipe()));
-
+				result.add(null);
+				result.add(new QuickRecipe(new AlchemyWeapon.ToothNailRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.BleedToothRecipe()));
+				result.add(null);;
+				result.add(new QuickRecipe(new AlchemyWeapon.BoneSwordRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.ShellHammerRecipe()));
 				result.add(null);
 				return result;
 
 
 			case 11:
-				result.add(new QuickRecipe(new AlchemyGem.BlueGemtoPotion()));
-				result.add(new QuickRecipe(new AlchemyGem.BlueGemtoScroll()));
-				result.add(new QuickRecipe(new AlchemyGem.RedGemtoPotion()));
-				result.add(new QuickRecipe(new AlchemyGem.RedGemtoScroll()));
-				result.add(new QuickRecipe(new AlchemyGem.GreenGemtoPotion()));
-				result.add(new QuickRecipe(new AlchemyGem.GreenGemtoScroll()));
+				result.add(new QuickRecipe(new GrassGem.GreenGemtoPotion()));
+				result.add(new QuickRecipe(new WaterGem.BlueGemtoPotion()));
+				result.add(new QuickRecipe(new FireGem.RedGemtoPotion()));
 
-				result.add(new QuickRecipe(new AlchemyDust.BlueDusttoPotion()));
-				result.add(new QuickRecipe(new AlchemyDust.BlueDusttoScroll()));
-				result.add(new QuickRecipe(new AlchemyDust.RedDusttoPotion()));
-				result.add(new QuickRecipe(new AlchemyDust.RedDusttoScroll()));
-				result.add(new QuickRecipe(new AlchemyDust.GreenDusttoPotion()));
-				result.add(new QuickRecipe(new AlchemyDust.GreenDusttoScroll()));
+				result.add(new QuickRecipe(new GrassGem.GreenGemtoScroll()));
+				result.add(new QuickRecipe(new WaterGem.BlueGemtoScroll()));
+				result.add(new QuickRecipe(new FireGem.RedGemtoScroll()));
+
 				result.add(null);
+
+				result.add(new QuickRecipe(new GrassDust.GreenDusttoPotion()));
+				result.add(new QuickRecipe(new WaterDust.BlueDusttoScroll()));
+				result.add(new QuickRecipe(new FireDust.RedDusttoPotion()));
+
+				result.add(new QuickRecipe(new GrassDust.GreenDusttoScroll()));
+				result.add(new QuickRecipe(new WaterDust.BlueDusttoScroll()));
+				result.add(new QuickRecipe(new FireDust.RedDusttoScroll()));
+
+				result.add(null);
+
+				result.add(new QuickRecipe(new GrassGem.GrassDustRecipe()));
+				result.add(new QuickRecipe(new WaterGem.WaterDustRecipe()));
+				result.add(new QuickRecipe(new FireGem.FireDustRecipe()));
+				//result.add(new QuickRecipe(new GemToDust.WeaponDustRecipe()));
 
 				return result;
 				//消耗品概述
@@ -466,6 +476,7 @@ public class QuickRecipe extends Component {
 
 			case 13:
 				result.add(null);
+				//result.add(new QuickRecipe( new GemToDust.GrassDustRecipe() ));
 				return result;
 
 		}

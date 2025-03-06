@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.watabou.utils.Bundle;
@@ -18,10 +17,8 @@ public class Rat extends Mob {
     {
         spriteClass = RatSprite.class;
 
-        HP = HT = 17+Random.Int(2+(BossLoot.infection*2));
-        defenseSkill = 6;
-        EXP = 4;
-        maxLvl = 11;
+        hpPole=8;
+        attackPloe=4;
 
        // loot = Generator.Category.POTION;
         lootChance = 0.125f;
@@ -36,9 +33,6 @@ public class Rat extends Mob {
         return super.act();
     }
 
-
-
-
     @Override
     public int attackProc(Char enemy, int damage) {
         damage = super.attackProc( enemy, damage );
@@ -48,23 +42,6 @@ public class Rat extends Mob {
         }
         return damage;
     }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange( 1, 10 + BossLoot.infection );
-    }
-
-    @Override
-    public int attackSkill( Char target ) {
-        return 14;
-    }
-
-    @Override
-    public int drRoll() {
-        return Random.NormalIntRange(0, 4);
-    }
-
-
     private static final String RAT_ALLY = "rat_ally";
 
     @Override

@@ -110,7 +110,7 @@ public class Swiftthistle extends Plant {
 
 			//use 1/1,000 to account for rounding errors
 			if (left < -0.001f){
-				//detach();
+				detach();
 			}
 			
 		}

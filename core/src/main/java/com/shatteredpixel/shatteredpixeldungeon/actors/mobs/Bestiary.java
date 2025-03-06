@@ -21,12 +21,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.BlackCube;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.BlackWorm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.LifeSand;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.RockBug;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandCrab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandScorpion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.TestBug;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.RockBug2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.SandWorm2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Bat;
@@ -34,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.GnollThrow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rattan;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.SplitSlime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.VineDerived;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.WoodenCross;
 import com.watabou.utils.Random;
@@ -56,21 +59,26 @@ public class Bestiary {
 	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ) {
 		switch (depth) {
 
+			//TODO 地牢区域生物设置
+
 			// 荒漠
 			case 0: default:
 				return new ArrayList<>(Arrays.asList(
-						WoodenCross.class
+						//WoodenCross.class
+						//TestBug.class
 				));
 
 			case 1:
 				//2x黑晶虫，1x沙虫
 				return new ArrayList<>(Arrays.asList(
-						BlackWorm.class,BlackWorm.class,
+						BlackCube.class,
+						BlackWorm.class,
 						SandWorm.class
 						));
 			case 2:
 				//2x黑晶虫，2x沙虫，1x甲虫
 				return new ArrayList<>(Arrays.asList(
+						BlackCube.class,
 						BlackWorm.class,BlackWorm.class,
 						SandWorm.class, SandWorm.class,
 						RockBug.class
@@ -79,6 +87,7 @@ public class Bestiary {
 				//2x黑晶虫，1x沙虫，1x甲虫，1x激光蟹，1x流沙
 				return new ArrayList<>(Arrays.asList(
 						SandWorm.class,
+						BlackCube.class,BlackCube.class,
 						BlackWorm.class,
 						RockBug.class,RockBug.class,
 						LifeSand.class,
@@ -87,6 +96,7 @@ public class Bestiary {
 				//1x甲虫，1x沙虫，1x激光蟹，1x蝎子
 				return new ArrayList<>(Arrays.asList(
 						SandWorm.class,
+						BlackCube.class,
 						RockBug.class,
 						SandCrab.class,
 						SandScorpion.class));
@@ -97,12 +107,14 @@ public class Bestiary {
 			case 6:
 				//1x 老鼠, 2x 活化植物, 1x 十字架
 				return new ArrayList<>(Arrays.asList(
+						Rat.class,
 						Rattan.class, Rattan.class,
 						WoodenCross.class));
 			case 7:
 				//1x 活化植物, 2x 老鼠, 1x 近战豺狼，1x 十字架
 				return new ArrayList<>(Arrays.asList(
 						Rattan.class,
+						DM100.class,
 						Rat.class,Rat.class,
 						WoodenCross.class));
 			case 8:
@@ -110,6 +122,7 @@ public class Bestiary {
 				return new ArrayList<>(Arrays.asList(
 						VineDerived.class,
 						Rat.class,
+						DM100.class,
 						Gnoll.class, Gnoll.class,
 						GnollThrow.class,
 						WoodenCross.class));
@@ -118,6 +131,7 @@ public class Bestiary {
 				return new ArrayList<>(Arrays.asList(
 						VineDerived.class,
 						Gnoll.class,
+						DM100.class,
 						GnollThrow.class,
 						SplitSlime.class,
 						WoodenCross.class,
@@ -204,9 +218,14 @@ public class Bestiary {
 			case 24: case 25: case 26:
 				//1x succubus, 2x evil eye, 3x scorpio
 				return new ArrayList<>(Arrays.asList(
+						TestBug.class
+						/*
 						Succubus.class,
 						Eye.class, Eye.class,
-						Scorpio.class, Scorpio.class, Scorpio.class));
+						Scorpio.class, Scorpio.class, Scorpio.class
+						*/
+						));
+
 
 
 
@@ -218,6 +237,8 @@ public class Bestiary {
 	public static void addRareMobs( int depth, ArrayList<Class<?extends Mob>> rotation ){
 		
 		switch (depth){
+
+			//TODO 在区域生成上个区域的生物
 			
 			// Sewers
 			default:
@@ -243,7 +264,7 @@ public class Bestiary {
 		}
 	}
 	
-	//精英怪生成（5%）
+	//TODO 精英怪生成（5%）
 	private static void swapMobAlts(ArrayList<Class<?extends Mob>> rotation){
 		for (int i = 0; i < rotation.size(); i++){
 			if (Random.Int( 19 ) == 0) {
@@ -272,7 +293,7 @@ public class Bestiary {
 		}
 	}
 
-	//替代生成（针对多色灌木等）
+	//TODO 单个生物但多态时替代生成
 	private static void RandomMob(ArrayList<Class<?extends Mob>> rotation){
 		for (int i = 0; i < rotation.size(); i++){
 			if (Random.Int( 2 ) == 0) {

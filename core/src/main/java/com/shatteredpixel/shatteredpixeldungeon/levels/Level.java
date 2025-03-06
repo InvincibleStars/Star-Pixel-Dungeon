@@ -21,7 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.depth;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -57,15 +56,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.levelparticle.SandLevelParticles;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.BlueGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers2;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfIntuition;
@@ -234,6 +236,13 @@ public abstract class Level implements Bundlable {
 
 		if (!(Dungeon.bossLevel())) {
 
+			addItemToSpawn(new SmallRation());
+			addItemToSpawn(new SmallRation());
+
+			addItemToSpawn(new Gold().random());
+			addItemToSpawn(new EnergyCrystal().random());
+			addItemToSpawn(new Embers2().random());
+
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
 
 
@@ -241,18 +250,16 @@ public abstract class Level implements Bundlable {
 				addItemToSpawn( new Torch() );
 			}
 
-			if (Dungeon.posNeeded()) {
+			//升级和力量现在不会在0层和任何能被5整除的BOSS楼层里生成
+			if (Dungeon.posNeeded() && Dungeon.depth%5!=0 && Dungeon.depth!=0) {
 				addItemToSpawn( new PotionOfStrength() );
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
 			}
-			if (Dungeon.souNeeded() && Dungeon.depth%5!=0) {
+			if (Dungeon.souNeeded() && Dungeon.depth%5!=0 && Dungeon.depth!=0) {
 				addItemToSpawn( new ScrollOfUpgrade() );
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
 			}
-			if (Dungeon.updNeeded()) {
-				addItemToSpawn( new BlueGem() );
-				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
-			}
+
 			if (Dungeon.asNeeded()) {
 				addItemToSpawn( new Stylus() );
 				Dungeon.LimitedDrops.ARCANE_STYLI.count++;
@@ -273,12 +280,7 @@ public abstract class Level implements Bundlable {
 				//~7.15% chance for each feeling
 				switch (Random.Int( 14 )) {
 					case 0:
-						if(depth>=11 && depth<=15){
-							feeling = Feeling.GRASS;
-						}else {
-							feeling = Feeling.CHASM;
-						}
-
+						feeling = Feeling.CHASM;
 						break;
 					case 1:
 						feeling = Feeling.WATER;
@@ -432,6 +434,7 @@ public abstract class Level implements Bundlable {
 			if (mob != null) {
 				mobs.add( mob );
 			}
+
 		}
 
 		collection = bundle.getCollection( BLOBS );
@@ -1008,7 +1011,8 @@ public abstract class Level implements Bundlable {
 		if (!ch.flying){
 
 			if ( (map[ch.pos] == Terrain.GRASS || map[ch.pos] == Terrain.EMBERS)
-					&& ch == hero && hero.hasTalent(Talent.REJUVENATING_STEPS)
+					//&& ch == hero && hero.hasTalent(Talent.REJUVENATING_STEPS)
+					&& ch == hero && hero.hasTalent(Talent.GROW_FOOT)
 					&& ch.buff(Talent.RejuvenatingStepsCooldown.class) == null){
 
 				if (hero.buff(LockedFloor.class) != null && !hero.buff(LockedFloor.class).regenOn()){
@@ -1017,10 +1021,10 @@ public abstract class Level implements Bundlable {
 					set(ch.pos, Terrain.FURROWED_GRASS);
 				} else {
 					set(ch.pos, Terrain.HIGH_GRASS);
-					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 3 - hero.pointsInTalent(Talent.REJUVENATING_STEPS));
+					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 3 - hero.pointsInTalent(Talent.GROW_FOOT));
 				}
 				GameScene.updateMap(ch.pos);
-				Buff.affect(ch, Talent.RejuvenatingStepsCooldown.class, 15f - 5f* hero.pointsInTalent(Talent.REJUVENATING_STEPS));
+				Buff.affect(ch, Talent.RejuvenatingStepsCooldown.class, 40f - 10f* hero.pointsInTalent(Talent.GROW_FOOT));
 			}
 
 			if (pit[ch.pos]){
@@ -1250,6 +1254,17 @@ public abstract class Level implements Bundlable {
 			} else if (((Hero) c).hasTalent(Talent.HEIGHTENED_SENSES)) {
 				Hero h = (Hero) c;
 				int range = 1+h.pointsInTalent(Talent.HEIGHTENED_SENSES);
+				for (Mob mob : mobs) {
+					int p = mob.pos;
+					if (!fieldOfView[p] && distance(c.pos, p) <= range) {
+						for (int i : PathFinder.NEIGHBOURS9) {
+							heroMindFov[mob.pos + i] = true;
+						}
+					}
+				}
+			} else if (((Hero) c).hasTalent(Talent.GRASS_EYE)) {
+				Hero h = (Hero) c;
+				int range = 1+h.pointsInTalent(Talent.GRASS_EYE);
 				for (Mob mob : mobs) {
 					int p = mob.pos;
 					if (!fieldOfView[p] && distance(c.pos, p) <= range) {

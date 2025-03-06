@@ -120,6 +120,10 @@ public class HornOfPlenty extends Artifact {
 				GLog.i( Messages.get(this, "eat") );
 
 				if (Dungeon.hero.hasTalent(Talent.IRON_STOMACH)
+						|| Dungeon.hero.hasTalent(Talent.WARRIOR_EAT2)
+						|| Dungeon.hero.hasTalent(Talent.MAGIC_ARMOR)
+						|| Dungeon.hero.hasTalent(Talent.ROUGE_EAT2)
+						|| Dungeon.hero.hasTalent(Talent.HUNTRESS_EAT2)
 						|| Dungeon.hero.hasTalent(Talent.ENERGIZING_MEAL)
 						|| Dungeon.hero.hasTalent(Talent.MYSTICAL_MEAL)
 						|| Dungeon.hero.hasTalent(Talent.INVIGORATING_MEAL)){

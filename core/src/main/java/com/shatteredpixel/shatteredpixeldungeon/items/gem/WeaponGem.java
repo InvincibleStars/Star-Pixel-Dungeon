@@ -21,19 +21,84 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.gem;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.dust.WeaponDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class WeaponGem extends Gem {
 	
 	{
-		image = ItemSpriteSheet.YELLOW_GEM;
+		image = ItemSpriteSheet.WEAPON_GEM;
 
 	}
 
-	//物品的价值
-	@Override
-	public int value() {
-		return quantity * 80;
+
+	public static class WeaponDustRecipe extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WeaponGem.class};
+			inQuantity = new int[]{2};
+			cost=1;
+			outQuantity = 1;
+			output = WeaponDust.class;
+		}
+	}
+
+	public static class WeaponGemToUpdateRecipe extends Recipe.SimpleRecipe {
+		{
+			inputs = new Class[]{WeaponGem.class};
+			inQuantity = new int[]{3};
+			cost=1;
+			outQuantity = 5;
+			output = ScrollOfUpgrade.class;
+		}
+	}
+
+
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
+
+		@Override
+		public boolean testIngredients(ArrayList<Item> ingredients) {
+			for (Item i : ingredients){
+				if (!(i instanceof MeleeWeapon)){
+					return true;
+				}
+			}
+			return !ingredients.isEmpty();
+		}
+
+		@Override
+		public int cost(ArrayList<Item> ingredients) {
+			return 0;
+		}
+
+		@Override
+		public Item brew(ArrayList<Item> ingredients) {
+			Item result = sampleOutput(ingredients);
+
+			for (Item i : ingredients){
+				i.quantity(0);
+			}
+
+			return result;
+		}
+
+		@Override
+		public Item sampleOutput(ArrayList<Item> ingredients) {
+			int metalQuantity = 0;
+
+			for (Item i : ingredients){
+				MeleeWeapon mw = (MeleeWeapon)i;
+				float quantity = mw.quantity()-1;
+				quantity += 1 + mw.level+mw.tier;
+				metalQuantity += quantity;
+			}
+
+			return new WeaponGem().quantity(metalQuantity);
+		}
 	}
 
 

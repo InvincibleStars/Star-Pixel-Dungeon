@@ -33,10 +33,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
@@ -415,6 +417,8 @@ public class GameScene extends PixelScene {
 					//0层
 				case 0:
 					WndStory.showChapter( WndStory.ID_LEVEL_0 );
+					NPC.choose_num=0;
+					NPC.choose=false;
 					break;
 					//沙漠
 				case 1:
@@ -524,7 +528,9 @@ public class GameScene extends PixelScene {
 				GLog.h(Messages.get(this, "return"), Dungeon.depth);
 			}
 
-			if (Dungeon.hero.hasTalent(Talent.ROGUES_FORESIGHT)
+			//if (Dungeon.hero.hasTalent(Talent.ROGUES_FORESIGHT)
+			//
+			if (Dungeon.hero.heroClass==HeroClass.ROGUE
 					&& Dungeon.level instanceof RegularLevel){
 				int reqSecrets = Dungeon.level.feeling == Level.Feeling.SECRETS ? 2 : 1;
 				for (Room r : ((RegularLevel) Dungeon.level).rooms()){
@@ -534,6 +540,10 @@ public class GameScene extends PixelScene {
 				//50%/75% chance, use level's seed so that we get the same result for the same level
 				Random.pushGenerator(Dungeon.seedCurDepth());
 					if (reqSecrets <= 0 && Random.Int(4) <= Dungeon.hero.pointsInTalent(Talent.ROGUES_FORESIGHT)){
+						GLog.p(Messages.get(this, "secret_hint"));
+					}
+
+					if (Dungeon.hero.heroClass==HeroClass.ROGUE){
 						GLog.p(Messages.get(this, "secret_hint"));
 					}
 				Random.popGenerator();

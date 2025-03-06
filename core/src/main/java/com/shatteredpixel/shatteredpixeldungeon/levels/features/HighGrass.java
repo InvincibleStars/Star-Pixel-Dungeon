@@ -25,6 +25,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmoredStatue;
@@ -86,6 +88,22 @@ public class HighGrass {
 			}
 
 
+			if (level.map[pos] == Terrain.HIGH_GRASS
+					&& Dungeon.level.heroFOV[pos]
+					&& Dungeon.hero.hasTalent(Talent.GRASS_ARMOR)
+					&&Dungeon.hero.pointsInTalent(Talent.GRASS_ARMOR)==1){
+				// 3/5 turns based on talent points spent
+				Buff.affect(Dungeon.hero, Barkskin.class).set(4, 1 + 2*(Dungeon.hero.pointsInTalent(Talent.GRASS_ARMOR)));
+			}
+			if (level.map[pos] == Terrain.FURROWED_GRASS
+					&& Dungeon.level.heroFOV[pos]
+					&& Dungeon.hero.hasTalent(Talent.GRASS_ARMOR)
+					&&Dungeon.hero.pointsInTalent(Talent.GRASS_ARMOR)==2){
+				// 3/5 turns based on talent points spent
+				Buff.affect(Dungeon.hero, Barkskin.class).set(4, 1 + 2*(Dungeon.hero.pointsInTalent(Talent.GRASS_ARMOR)));
+			}
+
+
 
 
 
@@ -107,7 +125,7 @@ public class HighGrass {
 				//berries try to drop on floors 2/3/4/6/7/8, to a max of 4/6
 				Talent.NatureBerriesAvailable berries = ch.buff(Talent.NatureBerriesAvailable.class);
 				if (berries != null) {
-					int targetFloor = 2 + 2*((Hero)ch).pointsInTalent(Talent.NATURES_BOUNTY);
+					int targetFloor = 4 + ((Hero)ch).pointsInTalent(Talent.NATURES_BOUNTY);
 					targetFloor -= berries.count();
 					targetFloor += (targetFloor >= 5) ? 3 : 2;
 

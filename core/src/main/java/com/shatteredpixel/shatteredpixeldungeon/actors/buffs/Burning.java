@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -90,9 +91,9 @@ public class Burning extends Buff implements Hero.Doom {
 	public boolean act() {
 		
 		if (target.isAlive() && !target.isImmune(getClass())) {
+			Hero hero2 = new Hero();
 
-
-			int damage = (int) ((Random.NormalIntRange( 1, 3 + Dungeon.depth/4 ))*BurnVest.burndmg);
+			int damage = (int) (Random.NormalIntRange( 1, 3 + Dungeon.depth/4 )*BurnVest.burndmg*(1f-0.25f*hero2.pointsInTalent(Talent.FIRE_PROTECT)));
 			Buff.detach( target, Chill.class);
 
 			if(BurnVest.burnadd<200){
@@ -107,7 +108,7 @@ public class Burning extends Buff implements Hero.Doom {
 				burnIncrement++;
 
 				//at 4+ turns, there is a (turns-3)/3 chance an item burns
-				if (Random.Int(3) < (burnIncrement - 3)){
+				//if (Random.Int(3) < (burnIncrement - 3)){
 					burnIncrement = 0;
 					ArrayList<Item> burnable = new ArrayList<>();
 					//does not reach inside of containers
@@ -131,7 +132,7 @@ public class Burning extends Buff implements Hero.Doom {
 						Heap.burnFX( hero.pos );
 					}
 
-				}
+				//}
 			} else {
 				target.damage( damage, this );
 			}

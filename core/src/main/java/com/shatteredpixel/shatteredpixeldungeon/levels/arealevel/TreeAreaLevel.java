@@ -22,13 +22,11 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.arealevel;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.PrisonPainter;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BurningTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ChillingTrap;
@@ -47,32 +45,32 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.noosa.Group;
 import com.watabou.utils.Random;
 
-import java.util.ArrayList;
-
 public class TreeAreaLevel extends RegularLevel {
 
 	{
 		color1 = 0x6a723d;
 		color2 = 0x88924c;
 	}
-	
+
+	/*
 	@Override
 	protected ArrayList<Room> initRooms() {
 		return Wandmaker.Quest.spawnRoom(super.initRooms());
 	}
+	 */
 
 	@Override
 	protected int standardRooms(boolean forceMax) {
-		if (forceMax) return 6;
+		if (forceMax) return 20;
 		//12-15
 		return 8+Random.chances(new float[]{4,3,2,1});
 	}
 	
 	@Override
 	protected int specialRooms(boolean forceMax) {
-		if (forceMax) return 7;
+		if (forceMax) return 8;
 		//2
-		return 0+Random.chances(new float[]{1, 1, 1});
+		return 1+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override

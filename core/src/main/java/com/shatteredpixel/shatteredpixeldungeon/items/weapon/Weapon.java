@@ -114,6 +114,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public MeleeWeapon meleeWeapon;
 	public boolean curseInfusionBonus = false;
 	public int masteryPotionBonus = 0;
+	public int greatstaff = 0;
 
 	@Override
 	public int proc( Char attacker, Char defender, int damage ) {
@@ -158,6 +159,7 @@ abstract public class Weapon extends KindOfWeapon {
 		bundle.put( AVAILABLE_USES, availableUsesToID );
 		bundle.put( ENCHANTMENT, enchantment );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
+		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
 		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
 		bundle.put( AUGMENT, augment );
 	}

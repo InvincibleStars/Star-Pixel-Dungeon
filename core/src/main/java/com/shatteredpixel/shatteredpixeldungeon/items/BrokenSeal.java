@@ -187,6 +187,9 @@ public class BrokenSeal extends Item {
 		public synchronized boolean act() {
 			if (shielding() < maxShield()) {
 				partialShield += 1/30f;
+				if(Dungeon.hero.hasTalent(Talent.UPDATE_BADGE)){
+					partialShield += Dungeon.hero.pointsInTalent(Talent.UPDATE_BADGE)/30f;
+				}
 			}
 			
 			while (partialShield >= 1){

@@ -48,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
@@ -65,6 +66,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WaitDamage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AttackAdd;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
@@ -98,6 +100,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
+import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
@@ -125,6 +128,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.BoneSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier4.Flail;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -196,8 +200,8 @@ public class Hero extends Char {
 
 
 
-	private int attackSkill = 12;
-	private int defenseSkill = 5;
+	private int attackSkill;
+	private int defenseSkill;
 
 	public boolean ready = false;
 	private boolean damageInterrupt = true;
@@ -218,56 +222,23 @@ public class Hero extends Char {
 	public int exp = 0;
 
 	public int HTBoost = 0;
-	public int HTStart = ABC();
-	public int HTAdd = ABC2();
+	public int HTStart = 15;
+	public int HTAdd = 5;
 
-	public int ABC(){
-		int ayyttuu = 0;
+	/*
+	public int HTStart(){
+		int point = 0;
 		switch (heroClass) {
-			case WARRIOR:
-				ayyttuu=18;
-				break;
+			default: point=15;break;
+		}	return point;	}
 
-			case MAGE:
-				break;
-
-			case ROGUE:
-				break;
-
-			case HUNTRESS:
-				break;
-
-			case STAR:
-				break;
-
-		}
-
-		return ayyttuu;
-	}
-
-	public int ABC2(){
-		int ayyttuu2 = 0;
+	public int HTAdd(){
+		int point = 0;
 		switch (heroClass) {
-			case WARRIOR:
-				ayyttuu2=7;
-				break;
+			default: point=5;break;
+		}	return point;	}
 
-			case MAGE:
-				break;
-
-			case ROGUE:
-				break;
-
-			case HUNTRESS:
-				break;
-
-			case STAR:
-				break;
-
-		}
-
-		return ayyttuu2;
-	}
+	 */
 
 
 	public static final int NONE_HT = 20;
@@ -305,7 +276,7 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 
-		HT =HTBoost+ hero.HTStart + (hero.HTAdd *  lvl * hero.pointsInTalent(Talent.UPDATE_HT));
+		HT = hero.HTStart + (hero.HTAdd *  (lvl+hero.pointsInTalent(Talent.UPDATE_HT)-hero.pointsInTalent(Talent.CONVERSION_POINT)));
 		if (boostHP){
 			HP += Math.max(HT - curHT , 0);
 		}
@@ -330,6 +301,8 @@ public class Hero extends Char {
 	}
 
 
+
+
 	private static final String CLASS       = "class";
 	private static final String SUBCLASS    = "subClass";
 	private static final String ABILITY     = "armorAbility";
@@ -340,6 +313,7 @@ public class Hero extends Char {
 	private static final String LEVEL		= "lvl";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
+
 
 	//经验
 	private static final String PERKS = "perks";
@@ -418,8 +392,31 @@ public class Hero extends Char {
 		}
 		return 0;//0
 	}
+/*
+	@Override
+	public boolean hit(Char attacker, Char defender, boolean magic) {
+		if(this.belongings.weapon instanceof BoneSword){
+			return true;
+		}
+		return super.hit(attacker, defender, magic);
+	}
 
-	public void upgradeTalent( Talent talent ){
+ */
+
+	@Override
+	public boolean hit(Char attacker, Char defender, boolean magic) {
+		return super.hit(attacker, defender, magic);
+	}
+
+	@Override
+	public boolean hit(Char attacker, Char defender, float accMulti) {
+		if(this.belongings.weapon instanceof BoneSword){
+			return true;
+		}
+		return super.hit(attacker, defender, accMulti);
+	}
+
+	public void upgradeTalent(Talent talent ){
 		for (LinkedHashMap<Talent, Integer> tier : talents){
 			for (Talent f : tier.keySet()){
 				if (f == talent) tier.put(talent, tier.get(talent)+1);
@@ -531,7 +528,7 @@ public class Hero extends Char {
 		
 		float accuracy = 1;
 		accuracy *= RingOfAccuracy.accuracyMultiplier( this );
-		
+		/*
 		if (wep instanceof MissileWeapon){
 			if (level.adjacent( pos, target.pos )) {
 				accuracy *= (0.5f + 0.2f*pointsInTalent(Talent.POINT_BLANK));
@@ -539,7 +536,16 @@ public class Hero extends Char {
 				accuracy *= 1.5f;
 			}
 		}
+		 */
 //NEW
+		if (wep instanceof MeleeWeapon){
+			if (level.adjacent( pos, target.pos )) {
+				accuracy *= (0.5f + 0.2f*pointsInTalent(Talent.POINT_BLANK));
+			} else {
+				accuracy *= 1.5f;
+			}
+		}
+
 		if (wep instanceof MeleeWeapon){
 			if (level.adjacent( pos, target.pos )) {
 				accuracy *= (0.5f + 0.2f*pointsInTalent(Talent.POINT_BLANK));
@@ -549,9 +555,9 @@ public class Hero extends Char {
 		}
 		
 		if (wep != null) {
-			return (int)(attackSkill * accuracy * wep.accuracyFactor( this ));
+			return (int)((attackSkill+hero.pointsInTalent(Talent.ATTACK_SKILL) )* accuracy * wep.accuracyFactor( this ));
 		} else {
-			return (int)(attackSkill * accuracy);
+			return (int)((attackSkill+hero.pointsInTalent(Talent.ATTACK_SKILL) )* accuracy);
 		}
 	}
 	
@@ -566,6 +572,8 @@ public class Hero extends Char {
 		}
 		
 		float evasion = defenseSkill;
+
+		evasion += hero.pointsInTalent(Talent.DEFENCE_SKILL);
 		
 		evasion *= RingOfEvasion.evasionMultiplier( this );
 		
@@ -622,7 +630,10 @@ public class Hero extends Char {
 		if (buff(HoldFast.class) != null){
 			//dr += Random.NormalIntRange(0, 2*pointsInTalent(Talent.HOLD_FAST));
 			dr += 1+pointsInTalent(Talent.HOLD_FAST);
+			//提供0-2/3点的护甲
+			dr += Random.NormalIntRange(0, 2+2*pointsInTalent(Talent.STOP_ARMOR));
 		}
+
 		
 		return dr;
 	}
@@ -630,6 +641,7 @@ public class Hero extends Char {
 	@Override
 	public int damageRoll() {
 		KindOfWeapon wep = belongings.weapon();
+		AttackAdd atd = Dungeon.hero.buff(AttackAdd.class);
 		int dmg;
 
 		if (wep != null) {
@@ -639,6 +651,24 @@ public class Hero extends Char {
 			dmg = RingOfForce.damageRoll(this);
 		}
 		if (dmg < 0) dmg = 0;
+
+		if(atd!=null){
+			dmg+=1;
+			atd.left-=1;
+			if(atd.left<=0){
+				atd.detach();
+			}
+		}
+
+		if(hero.hasTalent(Talent.STAR_UPDATE)){
+			dmg+= BossLoot.infection*(0.5+hero.pointsInTalent(Talent.STAR_UPDATE));
+
+		}
+
+		if(hero.hasTalent(Talent.CONVERSION_POINT)){
+			dmg+= 2*hero.pointsInTalent(Talent.CONVERSION_POINT);
+
+		}
 		
 		return dmg;
 	}
@@ -768,17 +798,19 @@ public class Hero extends Char {
 		spend( time );
 		next();
 	}
-	
+
 	@Override
 	public boolean act() {
-		HT = hero.HTStart + (hero.HTAdd *  lvl)+ HTBoost+Dungeon.hero.pointsInTalent(Talent.UPDATE_HT)*5;;
 		updateHT(true);
 		if (hero.buff(MagicImmune.class) == null){Buff.affect(this, WaitDamage.class);}
-
 
 		if (heroClass == STAR&&hero.buff(Combo2.class) == null){
 			Buff.affect( this, Combo2.class);
 		}
+
+		defenseSkill= hero.lvl;
+		attackSkill = hero.lvl+200;
+
 
 		//在这里设置特定区域的限制条件
 		/*
@@ -1335,6 +1367,10 @@ public class Hero extends Char {
 				Buff.affect(this, HoldFast.class).pos = pos;
 			}
 
+			if (hasTalent(Talent.STOP_ARMOR)){
+				Buff.affect(this, HoldFast.class).pos = pos;
+			}
+
 			if (sprite != null) {
 
 				sprite.showStatus(CharSprite.DEFAULT, Messages.get(this, "wait"));
@@ -1392,7 +1428,15 @@ public class Hero extends Char {
 		default:
 		}
 
-		//
+		//判断自身存在状态和天赋
+		if(hero.hasTalent(Talent.ASSIMILATION_ELEMENT)){
+			if(hero.pointsInTalent(Talent.ASSIMILATION_ELEMENT)==1&&buff(Chill.class )!=null){
+				Buff.affect(enemy,Chill.class,7f);
+			}
+			if(hero.pointsInTalent(Talent.ASSIMILATION_ELEMENT)==2&&buff(Burning.class )!=null){
+				Buff.affect(enemy,Burning.class);
+			}
+		}
 		
 		return damage;
 	}
@@ -1476,6 +1520,9 @@ public class Hero extends Char {
 		if (buff(Talent.WarriorFoodImmunity.class) != null){
 			if (pointsInTalent(Talent.IRON_STOMACH) == 1)       dmg = Math.round(dmg*0.25f);
 			else if (pointsInTalent(Talent.IRON_STOMACH) == 2)  dmg = Math.round(dmg*0.00f);
+
+			if (pointsInTalent(Talent.WARRIOR_EAT2) == 1)       dmg = Math.round(dmg*0.25f);
+			else if (pointsInTalent(Talent.WARRIOR_EAT2) == 2)  dmg = Math.round(dmg*0.00f);
 		}
 
 		if (perks.contains(Perks.Perk.NO_ONESHOTS) && dmg >= HT && HP == HT){
@@ -1647,9 +1694,16 @@ public class Hero extends Char {
 		if (step != -1) {
 
 			float delay =1 / speed();
-
+/*
 			if (subClass == HeroSubClass.FREERUNNER){
 				Buff.affect(this, Momentum.class).gainStack();
+			}
+ */
+
+			if(hero.hasTalent(Talent.RAID_KILL)){
+				if(hero.pointsInTalent(Talent.RAID_KILL)>=1){
+					Buff.affect(hero, Momentum.class).gainStack();
+				}
 			}
 
 			float speed = speed();
@@ -1788,35 +1842,23 @@ public class Hero extends Char {
 		}
 		
 		boolean levelUp = false;
+		//TODO 角色升级动作
 		while (this.exp >= maxExp()) {
 			this.exp -= maxExp();
 			if (lvl < MAX_LEVEL) {
-				lvl++;
-				levelUp = true;
-				
-				if (buff(ElixirOfMight.HTBoost.class) != null){
-					buff(ElixirOfMight.HTBoost.class).onLevelUp();
-				}
-
-				HT+=Dungeon.hero.pointsInTalent(Talent.UPDATE_HT)*5;
+				lvl++;	levelUp = true;
+				if (buff(ElixirOfMight.HTBoost.class) != null)	buff(ElixirOfMight.HTBoost.class).onLevelUp();
 				updateHT( true );
-				attackSkill+=2;
-				defenseSkill++;
 				Perks.earnPerk(this);
-
 			} else {
 				Buff.prolong(this, Bless.class, Bless.DURATION);
 				this.exp = 0;
-
 				GLog.newLine();
 				GLog.p( Messages.get(this, "level_cap"));
 				Sample.INSTANCE.play( Assets.Sounds.LEVELUP );
 			}
-			
 		}
-		
 		if (levelUp) {
-			
 			if (sprite != null) {
 				GLog.newLine();
 				GLog.p( Messages.get(this, "new_level") );
@@ -2085,6 +2127,7 @@ public class Hero extends Char {
 		spend( attackDelay() );
 
 		if (hit && heroClass == WARRIOR){
+
 			Buff.affect( this, Combo.class ).hit( enemy );
 		}
 
@@ -2183,9 +2226,15 @@ public class Hero extends Char {
 		
 		boolean smthFound = false;
 
+		/*
 		boolean circular = pointsInTalent(Talent.WIDE_SEARCH) == 1;
 		int distance = heroClass == ROGUE ? 2 : 1;
 		if (hasTalent(Talent.WIDE_SEARCH)) distance++;
+		 */
+
+		boolean circular = pointsInTalent(Talent.EYE_UPDATE) == 1;
+		int distance = heroClass == ROGUE ? 2 : 1;
+		if (hasTalent(Talent.EYE_UPDATE)) distance++;
 
 		
 		boolean foresight = buff(Foresight.class) != null;
@@ -2321,6 +2370,8 @@ public class Hero extends Char {
 		
 		return smthFound;
 	}
+
+
 	
 	public void resurrect() {
 		HP = HT;
@@ -2361,4 +2412,5 @@ public class Hero extends Char {
 	public static interface Doom {
 		public void onDeath();
 	}
+
 }

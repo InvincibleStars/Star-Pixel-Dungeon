@@ -2,15 +2,13 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven{ url 'https://maven.aliyun.com/repository/google' }
-        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+        //maven{ url 'https://maven.aliyun.com/repository/google' }
+        //maven{ url 'https://maven.aliyun.com/repository/jcenter'}
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.1.1'
     }
 }
-
-
 
 allprojects {
 
@@ -19,13 +17,13 @@ allprojects {
         appPackageName = 'com.star.dungeon'
 
         appVersionCode = 588
-        appVersionName = '0.2.x-3'
+        appVersionName = '0.2.7'
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 
-        appAndroidCompileSDK = 31
-        appAndroidMinSDK = 14
-        appAndroidTargetSDK = 31
+        appAndroidCompileSDK = 34
+        appAndroidMinSDK = 19
+        appAndroidTargetSDK = 33
 
         gdxVersion = '1.10.0'
         //robovmVersion = '2.3.14'
@@ -38,8 +36,8 @@ allprojects {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
         maven { url 'https://jitpack.io' }
 
-        maven{ url 'https://maven.aliyun.com/repository/google' }
-        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+        //maven{ url 'https://maven.aliyun.com/repository/google' }
+        //maven{ url 'https://maven.aliyun.com/repository/jcenter'}
     }
 
 }

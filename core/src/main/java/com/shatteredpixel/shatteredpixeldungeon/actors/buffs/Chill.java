@@ -23,6 +23,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -51,7 +53,8 @@ public class Chill extends FlavourBuff {
 
 	//reduces speed by 10% for every turn remaining, capping at 50%
 	public float speedFactor(){
-		return Math.max(0.5f, 1 - cooldown()*0.1f);
+		Hero hero =	new Hero();
+		return Math.max(0.5f-0.125f*(float)(hero.pointsInTalent(Talent.COLD_PROTECT)) , 1 - cooldown()*(0.1f-0.025f*(float)(hero.pointsInTalent(Talent.COLD_PROTECT))));
 	}
 
 	@Override

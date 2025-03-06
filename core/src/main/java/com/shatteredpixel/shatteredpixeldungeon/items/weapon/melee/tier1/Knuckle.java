@@ -42,7 +42,9 @@ public class Knuckle extends MeleeWeapon {
 	int mode = 1;
 
 	@Override
-	public int max(int lvl) { return 5 + lvl * (tier+1) + (masteryPotionBonus*2); }
+	public int max(int lvl) {
+		return Math.round(6f*(tier+1))+lvl*(tier+1)+masteryPotionBonus*2;
+	}
 
 
 }

@@ -38,6 +38,10 @@ public class LockedFloor extends Buff {
 		if (!Dungeon.level.locked)
 			detach();
 
+		if(Dungeon.depth%5!=0){
+			detach();
+		}
+
 		if (left >= 1)
 			left --;
 

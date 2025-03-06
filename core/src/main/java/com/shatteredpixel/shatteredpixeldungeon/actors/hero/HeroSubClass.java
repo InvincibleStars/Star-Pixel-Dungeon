@@ -60,7 +60,8 @@ public enum HeroSubClass {
 
 	public String desc() {
 		//Include the staff effect description in the battlemage's desc if possible
-		if (this == BATTLEMAGE){
+		//if (this == BATTLEMAGE){
+		if (Dungeon.hero.pointsInTalent(Talent.ATTACK_MAGE)>=1){
 			String desc = Messages.get(this, name() + "_desc");
 			if (Game.scene() instanceof GameScene){
 				MagesStaff staff = Dungeon.hero.belongings.getItem(MagesStaff.class);

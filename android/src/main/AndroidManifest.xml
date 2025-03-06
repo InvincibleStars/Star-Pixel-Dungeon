@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:installLocation="auto"
+	android:installLocation="auto"
 	android:targetSandboxVersion="2"
+	xmlns:tools="http://schemas.android.com/tools"
 	xmlns:dist="http://schemas.android.com/apk/distribution">
 
 	<dist:module dist:instant="true" />
@@ -20,6 +22,7 @@
 		android:xlargeScreens="true"/>
 
 	<application
+		tools:replace="android:appComponentFactory"
 		android:icon="@mipmap/ic_launcher"
 		android:label="${appName}"
 		android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -42,6 +45,13 @@
 			android:screenOrientation="nosensor"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize">
 		</activity>
+		<activity
+			android:name=".ErrorActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+			android:exported="false"
+			android:screenOrientation="nosensor"
+			android:theme="@style/DungeonTheme"
+			tools:ignore="DiscouragedApi" />
 
 	</application>
 

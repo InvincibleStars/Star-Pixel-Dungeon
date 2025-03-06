@@ -137,6 +137,8 @@ public abstract class TippedDart extends Dart {
 		
 		use /= (1 + Dungeon.hero.pointsInTalent(Talent.DURABLE_TIPS));
 
+		use /= (1 + Dungeon.hero.pointsInTalent(Talent.DIRT_ADD));
+
 		//checks both destination and source position
 		float lotusPreserve = 0f;
 		if (targetPos != -1){

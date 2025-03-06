@@ -36,6 +36,8 @@ public class FireGlove extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.1f;
 
+		DLY=0.5f;
+
 		tier = 4;
 	}
 

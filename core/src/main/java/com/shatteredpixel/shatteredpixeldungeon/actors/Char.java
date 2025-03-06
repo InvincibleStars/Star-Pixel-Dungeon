@@ -49,7 +49,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -75,7 +74,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WaitDamage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.DamagePotion;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.UnityWithered;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.DeathMark;
@@ -86,6 +88,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
@@ -102,6 +105,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.ShockingDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.tier2.FractalLight;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
@@ -250,9 +254,16 @@ public abstract class Char extends Actor {
 		c.spend( 1 / c.speed() );
 
 		if (c == hero){
+			if(hero.hasTalent(Talent.RAID_KILL)){
+				if(hero.pointsInTalent(Talent.RAID_KILL)>=1){
+					Buff.affect(hero, Momentum.class).gainStack();
+				}
+			}
+			/*
 			if (hero.subClass == HeroSubClass.FREERUNNER){
 				Buff.affect(hero, Momentum.class).gainStack();
 			}
+			 */
 
 			hero.busy();
 		}
@@ -363,16 +374,16 @@ public abstract class Char extends Actor {
 				dmg = damageRoll();
 			}
 
-			dmg = Math.round(dmg*dmgMulti);
+			//dmg = (int) Random.Float(dmgmin,dmgmax);
+
 
 			Berserk berserk = buff(Berserk.class);
 			if (berserk != null) dmg = berserk.damageFactor(dmg);
 
-			if (buff( Fury.class ) != null) {
-				dmg *= 1.5f;
-			}
+			dmg = Math.round(dmg*dmgMulti);
 
 			dmg += dmgBonus;
+
 
 			//friendly endure
 			Endure.EndureTracker endure = buff(Endure.EndureTracker.class);
@@ -384,8 +395,24 @@ public abstract class Char extends Actor {
 				dmg = endure.adjustDamageTaken(dmg);
 			}
 
+			if(enemy.buff(FractalLight.FractalLightMark.class)!=null){
+				dmg *=999999;
+			}
+
 			if (enemy.buff(ScrollOfChallenge.ChallengeArena.class) != null){
 				dmg *= 0.67f;
+			}
+
+			if(enemy.buff(DamagePotion.class)!=null) {
+				dmg *=1.2f;
+			}
+
+			if(enemy.buff(Corrosion.class)!=null){
+				dmg+=enemy.drRoll()*0.66f;
+			}
+			
+			if(enemy.buff(UnityWithered.class)!=null) {
+				dmg += 2*enemy.buff(UnityWithered.class).level;
 			}
 
 			int effectiveDamage = enemy.defenseProc( this, dmg );
@@ -394,6 +421,7 @@ public abstract class Char extends Actor {
 			if ( enemy.buff( Vulnerable.class ) != null){
 				effectiveDamage *= 1.33f;
 			}
+
 
 			if ( enemy.buff( Vulnerable2.class ) != null){
 				effectiveDamage -= 564650;
@@ -471,16 +499,18 @@ public abstract class Char extends Actor {
 	public static int INFINITE_ACCURACY = 1_000_000;
 	public static int INFINITE_EVASION = 1_000_000;
 
-	final public static boolean hit( Char attacker, Char defender, boolean magic ) {
+//	final public static boolean hit( Char attacker, Char defender, boolean magic ) {
+	public boolean hit( Char attacker, Char defender, boolean magic ) {
 		return hit(attacker, defender, magic ? 2f : 1f);
 	}
 
-	public static boolean hit( Char attacker, Char defender, float accMulti ) {
+//	public static boolean hit( Char attacker, Char defender, float accMulti ) {
+	public boolean hit( Char attacker, Char defender, float accMulti ) {
 		float acuStat = attacker.attackSkill( defender );
 		float defStat = defender.defenseSkill( attacker );
 
-		//if accuracy or evasion are large enough, treat them as infinite.
-		//note that infinite evasion beats infinite accuracy
+		//如果准确度或回避度足够大，就把它们视为无限。
+		//请注意，无限的逃避胜过无限的准确性
 		if (defStat >= INFINITE_EVASION){
 			return false;
 		} else if (acuStat >= INFINITE_ACCURACY){
@@ -488,20 +518,25 @@ public abstract class Char extends Actor {
 		}
 
 		float acuRoll = Random.Float( acuStat );
+		//负面buff影响命中
 		if (attacker.buff(Bless.class) != null) acuRoll *= 1.25f;
 		if (attacker.buff(  Hex.class) != null) acuRoll *= 0.8f;
+		//精英
 		for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)){
 			acuRoll *= buff.evasionAndAccuracyFactor();
 		}
 
 		float defRoll = Random.Float( defStat );
+		//负面buff影响闪避
 		if (defender.buff(Bless.class) != null) defRoll *= 1.25f;
 		if (defender.buff(  Hex.class) != null) defRoll *= 0.8f;
+		//精英
 		for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)){
 			defRoll *= buff.evasionAndAccuracyFactor();
 		}
 
 		return (acuRoll * accMulti) >= defRoll;
+		//return true;
 	}
 
 	public int attackSkill( Char target ) { return 10; }
@@ -529,9 +564,11 @@ public abstract class Char extends Actor {
 		if ( buff(Weakness.class) != null ){
 			damage *= 0.67f;
 		}
-		//连击数会增加伤害（三点连击提高一伤害）
+		//连击数会增加伤害
 		for (Combo buff : buffs(Combo.class)){
-			damage += buff.count/4;
+			if(hero.hasTalent(Talent.HIT_DAMAGE)||hero.heroClass== HeroClass.WARRIOR){
+				damage += buff.count/5-hero.pointsInTalent(Talent.HIT_DAMAGE);
+			}
 		}
 
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
@@ -541,7 +578,11 @@ public abstract class Char extends Actor {
 
 		for (WaitDamage buff : buffs(WaitDamage.class)){
 			if (buff.waittime!=0) {
-				damage *=(1+(0.2*buff.waittime));
+				if(hero.hasTalent(Talent.BAR_ADD)){
+					damage *= (1f + (buff.waittime*(0.09f+0.02f*hero.pointsInTalent(Talent.BAR_ADD))));
+				}else {
+					damage *= (1 + (0.1 * buff.waittime));
+				}
 				buff.waittime=-1;
 			}
 			damage *=1;
@@ -567,6 +608,8 @@ public abstract class Char extends Actor {
 		for (Adrenaline2 buff : buffs(Adrenaline2.class)) {
 				speed *= 1+buff.visualcooldown()/10f;
 		}
+		if((buff(CloakOfShadows.cloakStealth.class )!=null)&& hero.hasTalent(Talent.USE_SPEED)){
+			speed*=1.1+(float)(hero.pointsInTalent(Talent.USE_SPEED))/10;}
 		return speed;
 	}
 

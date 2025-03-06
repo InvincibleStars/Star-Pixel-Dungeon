@@ -27,41 +27,42 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.Random;//
 
 
-public class MeleeWeapon extends Weapon {
+public abstract class MeleeWeapon extends Weapon {
 
 	{
-
 			usesTargeting = true;
 			defaultAction = AC_THROW;
-
-
 	}
 
 	protected boolean sticky = true;
 
 	public int tier;
 
+
 	@Override
 	public int min(int lvl) {
 		return  tier +  //base
-				lvl +
-				masteryPotionBonus;    //level scaling
+				lvl+masteryPotionBonus;    //level scaling
 	}
 
 	@Override
 	public int max(int lvl) {
+		int add =0;
+		if(hero.hasTalent(Talent.WARRIOR_UPDATE)){
+			//超过10点的每点力量提高0.5最高伤害
+			add=Math.round(((float)hero.STR-10)*(0.5f*(float) hero.pointsInTalent(Talent.WARRIOR_UPDATE)));
+		}
 		return  5*(tier+1) +    //base
-				lvl*(tier+1) +
-				masteryPotionBonus*2;   //level scaling
+				lvl*(tier+1)+add+masteryPotionBonus*2;   //level scaling
 	}
 
-	//力量
 	public int STRReq(int lvl){
 		return STRReq(tier, lvl);
 	}

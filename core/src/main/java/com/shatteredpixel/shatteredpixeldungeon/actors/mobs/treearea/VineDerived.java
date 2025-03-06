@@ -31,7 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotLasher;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RotHeartSprite;
 import com.watabou.utils.Bundle;
@@ -46,8 +46,7 @@ public class VineDerived extends Mob {
 	{
 		spriteClass = RotHeartSprite.class;
 
-		HP = HT = 30+ Random.Int(2+(BossLoot.infection*2));
-		defenseSkill = 0;
+		hpPole=8;
 
 		EXP = 0;
 
@@ -77,12 +76,13 @@ public class VineDerived extends Mob {
 			regularSummons.add(cls);
 			int spawnPos = -1;
 			for (int i : PathFinder.NEIGHBOURS8){
-				if (Actor.findChar(pos+i) == null){
+				if (Actor.findChar(pos+i) == null&&Dungeon.level.map[pos+i]!=Terrain.WALL){
 					if (spawnPos == -1 ||
 		Dungeon.level.trueDistance(Dungeon.hero.pos, spawnPos) > Dungeon.level.trueDistance(this.pos, pos+i)){
 						spawnPos = pos + i;
 					}}}
-			if (spawnPos != -1) {
+			//生物不会生成在虚空/墙壁内
+			if (spawnPos != -1 && (Dungeon.level.map[spawnPos]!= Terrain.WALL||Dungeon.level.map[spawnPos]!= Terrain.CHASM)) {
 				summon.pos = spawnPos;
 				GameScene.add( summon );
 				Actor.addDelayed( new Pushing( summon, pos, summon.pos ), -1 );

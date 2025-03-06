@@ -21,10 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.STAR;
-
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
 import com.watabou.utils.Random;
@@ -56,7 +55,8 @@ public class Regeneration extends Buff {
 			if (target.HP < regencap() && !((Hero)target).isStarving()) {
 				LockedFloor lock = target.buff(LockedFloor.class);
 				if (target.HP > 0 && (lock == null || lock.regenOn())) {
-					target.HP += 1;
+					//生命回复
+					target.HP += 2;
 					//GameScene.flash(0x0700FF00,true);
 					if (target.HP == regencap()) {
 						((Hero) target).resting = false;
@@ -69,9 +69,9 @@ public class Regeneration extends Buff {
 
 			float delay = 10;
 
-			if(Dungeon.hero.heroClass == STAR){
-				REGENERATION_DELAY=5;
-				delay = 5;
+			if(Dungeon.hero.hasTalent(Talent.FAST_REG)){
+				REGENERATION_DELAY=8-Dungeon.hero.pointsInTalent(Talent.FAST_REG);
+				delay = 8-Dungeon.hero.pointsInTalent(Talent.FAST_REG);
 			}
 
 			//狂热状态

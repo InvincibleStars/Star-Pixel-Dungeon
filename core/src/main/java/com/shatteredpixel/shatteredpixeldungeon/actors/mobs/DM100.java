@@ -40,12 +40,8 @@ public class DM100 extends Mob implements Callback {
 	
 	{
 		spriteClass = DM100Sprite.class;
-		
-		HP = HT = 20;
-		defenseSkill = 8;
-		
-		EXP = 6;
-		maxLvl = 13;
+		hpPole=3;
+		attackPloe=4;
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.25f;
@@ -53,22 +49,7 @@ public class DM100 extends Mob implements Callback {
 		properties.add(Property.ELECTRIC);
 		properties.add(Property.INORGANIC);
 	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 2, 8 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 11;
-	}
-	
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange(0, 4);
-	}
-	
+
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;

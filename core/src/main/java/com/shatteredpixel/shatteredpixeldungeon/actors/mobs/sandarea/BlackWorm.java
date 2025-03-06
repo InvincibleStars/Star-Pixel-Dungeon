@@ -22,12 +22,11 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
-import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Tooth;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
 import com.watabou.utils.Random;
 
@@ -36,55 +35,27 @@ public class BlackWorm extends Mob {
 
 	{
 		spriteClass = BlackWormSprite.class;
-		
-		//HP = HT =  12 + Random.Int(6);
-
-		HP = HT =  8 + Random.Int(4+(BossLoot.infection*2));
-
+		hpPole=4;
+		attackPloe=6;
 		EXP = 1;
+		//loot=Generator.random(Generator.Category.SEED);
+		lootChance = 0.1f;
 
-		defenseSkill = 3;
-		
-		maxLvl = 3;
-
-		//loot = Generator.Category.GOLD;
-		//loot = Generator.Category.POTION;
-		lootChance = 0.001f;
-
-
-	}
-
-	public boolean act() {
-		baseSpeed = Random.Float(1f,1.25f+(BossLoot.infection/2));
-		return super.act();
-	}
-
-
-	@Override
-	public float attackDelay() {
-		return Random.Float(0.7f, 1.1f);
-	}
-
-	@Override
-	public int attackSkill( Char target ) {
-		return 12;
-	}
-
-	@Override
-	public int damageRoll() { return Random.NormalIntRange( 1, 3+BossLoot.infection ); }
-
-	@Override
-	public int drRoll() {
-		return Random.NormalIntRange( 0, 2);
 	}
 
 	@Override
 	protected Item createLoot() {
 		Item loot;
 		float a = Random.Float();
+		float b = Random.Float();
 		if(a<=(1f * ((5f - Dungeon.LimitedDrops.BLACKWORM_LOOT.count) / 5f))){
-			loot = Generator.random(Generator.Category.SEED);
-			Dungeon.LimitedDrops.BLACKWORM_LOOT.count++;
+			if(b<=(1f * ((5f - Dungeon.LimitedDrops.BLACKWORM_LOOT2.count) / 1f))){
+				loot = new Tooth();
+				Dungeon.LimitedDrops.BLACKWORM_LOOT2.count++;
+			}else {
+				loot = Generator.random(Generator.Category.SEED);
+				Dungeon.LimitedDrops.BLACKWORM_LOOT.count++;
+			}
 		} else {
 			loot = new MobLoot();
 		}
