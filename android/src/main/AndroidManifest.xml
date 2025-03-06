@@ -22,7 +22,7 @@
 		android:xlargeScreens="true"/>
 
 	<application
-		tools:replace="android:appComponentFactory"
+<!--		tools:replace="android:appComponentFactory" -->
 		android:icon="@mipmap/ic_launcher"
 		android:label="${appName}"
 		android:theme="@android:style/Theme.Black.NoTitleBar"
