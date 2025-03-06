@@ -6,7 +6,7 @@ buildscript {
         //maven{ url 'https://maven.aliyun.com/repository/jcenter'}
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.1'
+        classpath 'com.android.tools.build:gradle:8.8.0'
     }
 }
 
@@ -19,11 +19,11 @@ allprojects {
         appVersionCode = 588
         appVersionName = '0.2.7'
 
-        appJavaCompatibility = JavaVersion.VERSION_1_8
+        appJavaCompatibility = JavaVersion.VERSION_23
 
-        appAndroidCompileSDK = 34
+        appAndroidCompileSDK = 35
         appAndroidMinSDK = 19
-        appAndroidTargetSDK = 33
+        appAndroidTargetSDK = 35
 
         gdxVersion = '1.10.0'
         //robovmVersion = '2.3.14'
