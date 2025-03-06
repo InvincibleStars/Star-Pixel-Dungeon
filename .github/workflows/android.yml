@@ -2,9 +2,11 @@ name: Android CI
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths:
+       - 'action.on' # 只有 特定 文件的更改才构建
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
 
 jobs:
   build:
@@ -16,7 +18,7 @@ jobs:
     - name: set up JDK 
       uses: actions/setup-java@v4
       with:
-        java-version: '18'
+        java-version: '23'
         distribution: 'temurin'
         cache: gradle
 
