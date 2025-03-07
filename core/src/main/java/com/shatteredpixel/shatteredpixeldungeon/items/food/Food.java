@@ -50,7 +50,7 @@ public class Food extends Item {
 	
 	{
 		stackable = true;
-		image = ItemSpriteSheet.RATION;
+		image = ItemSpriteSheet.NORMALFOOD;
 
 		defaultAction = AC_EAT;
 

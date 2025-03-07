@@ -823,6 +823,10 @@ public class ItemSpriteSheet {
 		assignItemRect(WEAPON_GEM,13,12);
 		assignItemRect(GRASS_GEM,14,12);
 		assignItemRect(WATER_GEM,11,11);
+
+		assignItemRect(WHITE_GEM,15,14);
+		assignItemRect(COLOR_GEM,10,12);
+
 	}
 
 	//星尘-------------------------------------------------------------------------------------
@@ -840,27 +844,37 @@ public class ItemSpriteSheet {
 	}
 	//食物-------------------------------------------------------------------------------------
 	private static final int FOOD = xy(1, 38);
-	public static final int MEAT = FOOD + 0;
-	public static final int STEAK = FOOD + 1;
-	public static final int STEWED = FOOD + 2;
-	public static final int OVERPRICED = FOOD + 3;
-	public static final int CARPACCIO = FOOD + 4;
-	public static final int RATION = FOOD + 5;
+	//生肉
+	public static final int MYSTERY_MEAT = FOOD + 0;
+	//烤肉
+	public static final int CHARGRILLED_MEAT = FOOD + 1;
+	//炖肉
+	public static final int STEWED_MEAT = FOOD + 2;
+	//小包口粮
+	public static final int SMALLRATION = FOOD + 3;
+	//冻肉
+	public static final int FROZEN_CARPACCIO = FOOD + 4;
+	//口粮
+	public static final int NORMALFOOD = FOOD + 5;
+	//肉饼
 	public static final int PASTY = FOOD + 6;
+	//南瓜派
 	public static final int PUMPKIN_PIE = FOOD + 7;
+	//拐杖糖
 	public static final int CANDY_CANE = FOOD + 8;
+	//全肉大饼
 	public static final int MEAT_PIE = FOOD + 9;
 	public static final int BLANDFRUIT = FOOD + 10;
 	public static final int BLAND_CHUNKS = FOOD + 11;
 	public static final int BERRY = FOOD + 12;
 
 	static {
-		assignItemRect(MEAT, 15, 11);
-		assignItemRect(STEAK, 15, 11);
-		assignItemRect(STEWED, 15, 11);
-		assignItemRect(OVERPRICED, 14, 11);
-		assignItemRect(CARPACCIO, 15, 11);
-		assignItemRect(RATION, 16, 12);
+		assignItemRect(MYSTERY_MEAT, 15, 11);
+		assignItemRect(CHARGRILLED_MEAT, 15, 11);
+		assignItemRect(STEWED_MEAT, 15, 11);
+		assignItemRect(SMALLRATION, 14, 11);
+		assignItemRect(FROZEN_CARPACCIO, 15, 11);
+		assignItemRect(NORMALFOOD, 16, 12);
 		assignItemRect(PASTY, 16, 11);
 		assignItemRect(PUMPKIN_PIE, 16, 12);
 		assignItemRect(CANDY_CANE, 13, 16);
@@ -916,14 +930,14 @@ public class ItemSpriteSheet {
 	public static final int AMMO_MINI = OTHER + 0;
 	public static final int AMMO_BOX = OTHER + 1;
 	public static final int GUN= OTHER + 2;
-	public static final int SEETING1= OTHER + 3;
+	public static final int BANSHOU= OTHER + 3;
 	public static final int COLOR= OTHER + 4;
 	public static final int LOCK = OTHER + 5;
 	static {
 		assignItemRect(AMMO_MINI, 7, 16);
 		assignItemRect(AMMO_BOX, 13, 10);
 		assignItemRect(GUN, 12, 16);
-		assignItemRect(SEETING1,   13, 13);
+		assignItemRect(BANSHOU,   13, 13);
 		assignItemRect(COLOR,   12, 11);
 		assignItemRect(LOCK,   10, 11);
 	}

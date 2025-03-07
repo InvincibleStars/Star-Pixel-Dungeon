@@ -26,6 +26,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.depth;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.ExtraShopKeeper;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -61,24 +62,23 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ShopRoom extends SpecialRoom {
+public class ExtraShopRoom extends SpecialRoom {
 	private ArrayList<Item> itemsToSpawn;
 	@Override
 	public int minWidth() {
-		return 7;
+		return 5;
 	}
 	@Override
 	public int minHeight() {
-		return 7;
+		return 5;
 	}
-
 	@Override
 	public int maxWidth() {
-		return 7;
+		return 5;
 	}
 	@Override
 	public int maxHeight() {
-		return 7;
+		return 5;
 	}
 	public int itemCount(){
 		if (itemsToSpawn == null) itemsToSpawn = generateItems();
@@ -95,9 +95,9 @@ public class ShopRoom extends SpecialRoom {
 	}
 	protected void placeShopkeeper( Level level ) {
 		int pos = level.pointToCell(center());
-		Mob shopkeeper = new Shopkeeper();
-		shopkeeper.pos = pos;
-		level.mobs.add( shopkeeper );
+		Mob extraShopKeeper = new ExtraShopKeeper();
+		extraShopKeeper.pos = pos;
+		level.mobs.add( extraShopKeeper );
 	}
 	protected void placeItems( Level level ){
 		if (itemsToSpawn == null){
@@ -135,130 +135,26 @@ public class ShopRoom extends SpecialRoom {
 	protected static ArrayList<Item> generateItems() {
 		ArrayList<Item> itemsToSpawn = new ArrayList<>();
 
-		switch (depth) {
-		default:
-			itemsToSpawn.add( new ClothArmor().identify() );
-			break;
-		case 6:
-			itemsToSpawn.add( new LeatherArmor().identify() );
-			break;
-		case 11:
-			itemsToSpawn.add( new MailArmor().identify() );
-			break;
-		case 16:
-			itemsToSpawn.add( new ScaleArmor().identify() );
-			break;
-		case 20:
-			itemsToSpawn.add( new PlateArmor().identify() );
-			break;
-		}
-
-		//货物添加
-		if(depth>15){
-			itemsToSpawn.add(new Torch());
-		}
-
-		//药水设定（必定有一瓶治疗）
-		for(int i =0; i<=Random.NormalIntRange(1,2);i++){
-			Generator.randomUsingDefaults( Generator.Category.POTION );
-		}
-		itemsToSpawn.add( new PotionOfHealing() );
-
-		//卷轴设定（必定有一张驱散或鉴定+探地）
-		Generator.randomUsingDefaults( Generator.Category.SCROLL );
-		if(Random.Int(1)==0) {
-			itemsToSpawn.add(new ScrollOfIdentify());
-		}else {
-			itemsToSpawn.add(new ScrollOfRemoveCurse());
-		}
-		itemsToSpawn.add( new ScrollOfMagicMapping() );
-
-		//生成近战和远程武器
-		itemsToSpawn.add( Generator.random(Generator.wepTiers[Math.round(depth/5)+1]).identify());
-		itemsToSpawn.add( Generator.random(Generator.misTiers[Math.round(depth/5)+1]).quantity(Random.Int(1,6)).identify());
-
-		//其他生成
-		if(Random.Int(1)==0) {
-			itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.WAND));
-		}else{
-			itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.RING));
-		}
-
-
-		itemsToSpawn.add( TippedDart.randomTipped(2) );
-		itemsToSpawn.add( new Alchemize().quantity(2));
-		itemsToSpawn.add(ChooseBag(Dungeon.hero.belongings));
-
-
-		itemsToSpawn.add( new SmallRation() );
-		itemsToSpawn.add( new SmallRation() );
-		itemsToSpawn.add( new SmallRation() );
-		itemsToSpawn.add( new Bomb() );
-		itemsToSpawn.add( new Bomb() );
-		itemsToSpawn.add( new Honeypot() );
-		itemsToSpawn.add( new StoneOfAugmentation() );
-		TimekeepersHourglass hourglass = Dungeon.hero.belongings.getItem(TimekeepersHourglass.class);
-		//固定包裹
-		if (hourglass != null && hourglass.isIdentified() && !hourglass.cursed){
-			int bags = 0;
-			switch (depth) {
-				case 6:
-					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.20f ); break;
-				case 11:
-					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.25f ); break;
-				case 16:
-					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.50f ); break;
-				case 20: case 21:
-					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.80f ); break;
-			}
-			for(int i = 1; i <= bags; i++){
-				itemsToSpawn.add( new TimekeepersHourglass.sandBag());
-				hourglass.sandBags ++;
+		for(int i =0; i<=Random.NormalIntRange(1,3);i++){
+			if(Random.Int(2)==0){
+				itemsToSpawn.add(Generator.randomUsingDefaults( Generator.Category.POTION ));
+			}else {
+				itemsToSpawn.add(Generator.randomUsingDefaults( Generator.Category.SCROLL ));
 			}
 		}
 
+		if(depth>=10 && Random.Float()<0.6f)	itemsToSpawn.add(new Torch());
+		if(Random.Float()<=0.6f)	itemsToSpawn.add( TippedDart.randomTipped(1) );
+		if(Random.Float()<=0.6f)	itemsToSpawn.add( new Bomb());
+		if(Random.Float()<=0.6f)	itemsToSpawn.add( new Honeypot());
 
-		if (itemsToSpawn.size() > 24)
-			throw new RuntimeException("Shop attempted to carry more than 24 items!");
+
+
+		if (itemsToSpawn.size() > 8)
+			throw new RuntimeException("Shop attempted to carry more than 8 items!");
 		Random.pushGenerator(Random.Long());
 		Random.shuffle(itemsToSpawn);
 		Random.popGenerator();
 		return itemsToSpawn;
-	}
-	protected static Bag ChooseBag(Belongings pack){
-		//generate a hashmap of all valid bags.
-		HashMap<Bag, Integer> bags = new HashMap<>();
-		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new VelvetPouch(), 0);
-		if (!Dungeon.LimitedDrops.SCROLL_HOLDER.dropped()) bags.put(new ScrollHolder(), 0);
-		if (!Dungeon.LimitedDrops.POTION_BANDOLIER.dropped()) bags.put(new PotionBandolier(), 0);
-		if (!Dungeon.LimitedDrops.MAGICAL_HOLSTER.dropped()) bags.put(new MagicalHolster(), 0);
-		if (bags.isEmpty()) return null;
-		//count up items in the main bag
-		for (Item item : pack.backpack.items) {
-			for (Bag bag : bags.keySet()){
-				if (bag.canHold(item)){
-					bags.put(bag, bags.get(bag)+1);
-				}
-			}
-		}
-		//find which bag will result in most inventory savings, drop that.
-		Bag bestBag = null;
-		for (Bag bag : bags.keySet()){
-			if (bestBag == null){
-				bestBag = bag;
-			} else if (bags.get(bag) > bags.get(bestBag)){
-				bestBag = bag;
-			}
-		}
-		if (bestBag instanceof VelvetPouch){
-			Dungeon.LimitedDrops.VELVET_POUCH.drop();
-		} else if (bestBag instanceof ScrollHolder){
-			Dungeon.LimitedDrops.SCROLL_HOLDER.drop();
-		} else if (bestBag instanceof PotionBandolier){
-			Dungeon.LimitedDrops.POTION_BANDOLIER.drop();
-		} else if (bestBag instanceof MagicalHolster){
-			Dungeon.LimitedDrops.MAGICAL_HOLSTER.drop();
-		}
-		return bestBag;
 	}
 }

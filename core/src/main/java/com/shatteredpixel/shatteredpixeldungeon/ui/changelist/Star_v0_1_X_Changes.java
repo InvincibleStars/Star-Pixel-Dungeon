@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -38,9 +39,118 @@ import java.util.ArrayList;
 public class Star_v0_1_X_Changes {
 
 	public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+		add_v0_0_0_Changes(changeInfos);
+		add_v0_2_3_Changes(changeInfos);
 		add_v0_1_1_Changes(changeInfos);
-		add_v0_1_2_Changes(changeInfos);
 	}
+
+	public static void add_v0_0_0_Changes( ArrayList<ChangeInfo> changeInfos ){
+
+		ChangeInfo changes = new ChangeInfo("即将到来&鸣谢", true, "");
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+
+		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.MASTERY, null),  "鸣谢",
+				"感谢ColdMint所制作的新错误界面\n" +
+						"_-_ 感谢Ling、坚果、沐沐、泰勒的代码教学、支持和答疑解惑\n" +
+						"_-_ 感谢_长末_提供的实例化调用解决方案\n"+
+						"_-_ 感谢各位游玩者对本游戏的支持"));
+		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARTIFACT_TOOLKIT, null),  "生物灵魂",
+				"_-_ 玩家可以在之后合成多个生物来进行战斗\n" +
+						"_-_ 由于生物面板更改，因此生物会随着你的深入和辐射强度的深入而逐渐强化\n"+
+						"_-_ 一些特殊生物（例如黏咕）则需要在击杀他后才能获得，当然其他特殊生物也一样\n"+
+						"_-_ 特殊生物的灵魂徽记不会随炼金消耗掉"));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.BUST, 0, 0, 16, 16),"地形交互",
+				"_-_ 0层的元素提取井，以及更多可交互性NPC将会加入\n" +
+						"_-_ 一般而言，与其交互的方式类似于以物易物\n"+
+						"_-_ 这些NPC通常会在一个特定房间内出现\n"+
+						"_-_ 例如：一区会存在一个储水阀门，打爆既可以获得一部分水源"));
+		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "子层",
+				"_-_ 目前已经实现了简陋的子层设定\n" +
+						"_-_ 玩家可以通过子层前往别的区域，不过楼层数会发生变化\n"+
+						"_-_ 为了不影响和正常楼层的设定，因此子层被设置在100层起始或更深的地方"));
+
+	}
+
+	public static void add_v0_2_3_Changes( ArrayList<ChangeInfo> changeInfos ){
+
+		ChangeInfo changes = new ChangeInfo("v0.2-bug", true, "");
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+
+		changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.BLACK_CUBE, 0, 0, 16, 16), "生物",
+				"_-_ 加入了新的生物“碎晶元素”，相较于普通元素而言没有远程能力，且会掉落碎晶等合成素材\n" +
+						"_-_ 二区现在会生成黏咕，但最多生成两个且同时最多存在一个\n"+
+						"_-_ 二区现在会生成DM-100了，不过概率较小\n"+
+						"_-_ 三区加入了信徒组合，拥有三种完全不同的信徒\n"+
+						"_-_ 加入了元素提取井作为npc，可以在一层见到"));
+
+		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "楼层改动",
+				"_-_ 二区现在采用了超大的新地形，且初始玩法得到了改动\n" +
+						"_-_ 补给箱在二层将会给予探地卷轴了\n"+
+						"_-_ 部分区域地形设置更改"));
+
+		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SKULL, null),  "灾荒",
+				"_-_ 灾荒现在会影响2区域的生物，感染了灾荒的生物在死后会扩散感染范围\n" +
+						"_-_ 感染范围现在会呈现红色，玩家踩上去将会有提示消息"));
+
+		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.EXOTIC_NONE, null),  "新的炼金配方",
+				"_-_ 星尘附加需要用到多种消耗品和星尘，造价较贵\n" +
+						"_-_ 星尘附加的产出物通常十分强大，和他们的造价相对应\n" +
+						"_-_ 科技树现在可以被合成了，当然目前仅限药水科技树"));
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.GNOLL, 0, 0, 12, 15), "豺狼商店",
+				"_-_ 豺狼商店现在有10%概率声称在任意常规楼层\n" +
+						"_-_ 小店豺狼不会收购物品，他们只会卖出物品\n"+
+						"_-_ 拥有和商店老板相同的逃跑逻辑\n"+
+						"_-_ 最多售卖总计三瓶药水，一个蜂蜜罐，一个炸弹，一个飞镖，一个火把（10层以后）\n"+
+						""));
+
+		changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+		changes.hardlight(CharSprite.WARNING);
+		changeInfos.add(changes);
+
+		changes.addButton( new ChangeButton(Icons.get(Icons.BUFFS), "效果改动",
+				"_-_ 血腥狂热现在会给予2x的移动速度加成\n" +
+						"_-_ 血腥狂热的出血量现在不会随buff效果绑定，而是和攻击效果绑定\n"+
+						"_-_ 子层基本逻辑已经确定，不过暂时没有实装"));
+
+		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARTIFACT_TOOLKIT, null),  "炼金配方改动",
+				"_-_ 多数新炼金的能量要求减少，这使得他们更容易被制造\n" +
+						"_-_ 消耗品转换现在将同类碎晶/星尘的可转化物归类在了一起\n" +
+						"_-_ 修改了部分炼金书页的描述"
+		));
+
+		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.BANSHOU, null),  "杂项修正",
+				"_-_ 修复了商店进入会报错的问题，优化了商店物品数量\n" +
+						"_-_ 生物的素材现在可以合成了（例如甲壳）\n" +
+						"_-_ 极速的速度加成由错误的20000x修正为2x\n"+
+						"_-_ 修复了生物在创建时因为血量为0而自动死亡的Bug"
+		));
+
+		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+		changes.hardlight(CharSprite.POSITIVE);
+		changeInfos.add(changes);
+
+		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
+		changes.hardlight(CharSprite.NEGATIVE);
+		changeInfos.add(changes);
+
+		changes.addButton( new ChangeButton(Icons.get(Icons.BUFFS), "效果削弱",
+				"_-_ 时间气泡现在时间剩余0回合会消失了\n" +
+						"_-_ 血腥狂热现在只会提供30%固定攻击速度加成"));
+
+		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.BACKPACK, null),  "玩家削弱",
+				"_-_ 移除了初始状态栏介绍，移除了星辰的特殊技能\n" +
+						"_-_ 法杖的初始能量统一为2，即使该法杖初始携带等级\n"+
+						"_-_ 初始的元素碎晶和药水科技树被移除"));
+	}
+
+//-----------------------------------------以完成日志-------------------------------------------------
 	
 	public static void add_v0_1_1_Changes( ArrayList<ChangeInfo> changeInfos ){
 
@@ -48,25 +158,10 @@ public class Star_v0_1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		/*
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
-		changes.hardlight(CharSprite.WARNING);
-		changeInfos.add(changes);
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
-		changeInfos.add(changes);
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
-		changeInfos.add(changes);
 
-		 */
-
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
-		changes.hardlight(Window.TITLE_COLOR);
-		changeInfos.add(changes);
 		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.GRASS_GEM, null), "星尘/碎晶",
 				"_-_ 星辰和碎晶作为独特的物品被加入到地牢里\n" +
 						"_-_ 目前，星尘和碎晶可以用来制造独特的消耗品\n"+
@@ -91,7 +186,7 @@ public class Star_v0_1_X_Changes {
 						"_-_ 多数炼金武器的输出是要偏低的，因为他们的效果可以很好的弥补他们自身的伤害不足\n"+
 						"_-_ 炼金武器和其他武器一样，转换成炼金结晶的数量是一样的\n"+
 						""));
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.BUST, 0, 0, 16, 16), Messages.get(ChangesScene.class, "雕像效果"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.BUST, 0, 0, 16, 16),"雕像效果",
 				"_-_ 零层现在加入了雕像，玩家可以通过开启雕像来体验一场别样的旅途\n" +
 						"_-_ 多数雕像开启后其实是更加危险的，例如杀戮\n"+
 						"_-_ 部分雕像也会改变一些现有的玩法，不过他们仍在开发中\n"+
@@ -139,7 +234,7 @@ public class Star_v0_1_X_Changes {
 						"_-_ 现在，每层的开始位置都会生成一个补给箱，补给箱的物品是随机抽取的，同时也和玩家所在区域有关\n"+
 						"_-_多数区域现在采用全新的布局逻辑，例如，沙地的楼层整体缺水且均为枯草"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RATION, null), "生成改动",
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.NORMALFOOD, null), "生成改动",
 				"_-_ 每层现在将会生成一个口粮和两个小包口粮"));
 
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.HOLDER, null), "生成改动",
@@ -215,22 +310,6 @@ public class Star_v0_1_X_Changes {
 						"_-_ 蓄血圣杯，丰饶之角的回复速度和恢复效果略微降低\n"+
 						"_-_ 露珠提供的治疗效果减少1，露珠ping容量下降\n"+
 						""));
-	}
-
-	public static void add_v0_1_2_Changes( ArrayList<ChangeInfo> changeInfos ){
-
-		ChangeInfo changes = new ChangeInfo("about", true, "about");
-		changes.hardlight(Window.TITLE_COLOR);
-		changeInfos.add(changes);
-
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
-		changes.hardlight(CharSprite.WARNING);
-		changeInfos.add(changes);
-
-		changes.addButton( new ChangeButton(Icons.get(Icons.DEPTH), "鸣谢",
-				"感谢ColdMint所制作的新错误界面\n" +
-						"_-_ 感谢Ling、坚果、沐沐、泰勒的代码教学、支持和答疑解惑"
-		));
 	}
 	
 }

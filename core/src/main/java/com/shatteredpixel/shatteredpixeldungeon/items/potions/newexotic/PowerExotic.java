@@ -19,26 +19,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.food;
+package com.shatteredpixel.shatteredpixeldungeon.items.potions.newexotic;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 
-public class ChargrilledMeat extends Food {
+public class PowerExotic extends ExoticPotionModel {
 
-	{
-		image = ItemSpriteSheet.CHARGRILLED_MEAT;
-		energy = Hunger.HUNGRY/2f;
+	@Override
+	public void execute( Hero hero, String action ) {
+
+		super.execute( hero, action );
+
+		if (action.equals( AC_USE )) {
+			Buff.affect(curUser, Haste.class, 200f);
+			identify();
+		}
 	}
-	
+
+
+	@Override
+	public boolean isUpgradable() {
+		return false;
+	}
+
+	@Override
+	public boolean isIdentified() {
+		return true;
+	}
+
 	@Override
 	public int value() {
-		return 8 * quantity;
-	}
-	
-	public static Food cook( int quantity ) {
-		ChargrilledMeat result = new ChargrilledMeat();
-		result.quantity = quantity;
-		return result;
+		return 80 * quantity;
 	}
 }
+

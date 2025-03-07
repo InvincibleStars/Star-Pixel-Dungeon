@@ -27,7 +27,7 @@ public class ScienceRecipe extends Item {
         {
             inputs = new Class[]{RuleGem.class, MeatPie.class};
             inQuantity = new int[]{1,1};
-            cost = 20;
+            cost = 2000000;
             outQuantity = 1;
             output = FoodLevel.class;
         }
@@ -37,7 +37,7 @@ public class ScienceRecipe extends Item {
         {
             inputs = new Class[]{RuleGem.class, SoulBadge.class};
             inQuantity = new int[]{1,1};
-            cost = 20;
+            cost = 2000000;
             outQuantity = 1;
             output = SummonLevel.class;
         }

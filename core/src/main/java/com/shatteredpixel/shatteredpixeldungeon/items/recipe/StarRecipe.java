@@ -18,9 +18,9 @@ public class StarRecipe extends Item {
 
     public static class ColorGemRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{FireGem.class, WaterGem.class, GrassGem.class, ScrollOfUpgrade.class};
-            inQuantity = new int[]{1,1,1,1};
-            cost = 15;
+            inputs = new Class[]{FireGem.class, WaterGem.class, GrassGem.class};
+            inQuantity = new int[]{1,1,1};
+            cost = 5;
             outQuantity = 1;
             output = ColorGem.class;
         }
@@ -28,11 +28,21 @@ public class StarRecipe extends Item {
 
     public static class RuleGemRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{WhiteGem.class, ColorGem.class};
+            inputs = new Class[]{ColorGem.class, ScrollOfUpgrade.class};
             inQuantity = new int[]{2,1};
-            cost = 5;
+            cost = 15;
             outQuantity = 1;
             output = RuleGem.class;
+        }
+    }
+
+    public static class WhiteGemRecipe extends Recipe.SimpleRecipe {
+        {
+            inputs = new Class[]{Soul.class};
+            inQuantity = new int[]{3};
+            cost = 5;
+            outQuantity = 1;
+            output = WhiteGem.class;
         }
     }
 

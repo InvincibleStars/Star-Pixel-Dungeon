@@ -37,7 +37,7 @@ import com.watabou.utils.Random;
 public class MysteryMeat extends Food {
 
 	{
-		image = ItemSpriteSheet.MEAT;
+		image = ItemSpriteSheet.MYSTERY_MEAT;
 		energy = Hunger.HUNGRY/2f;
 	}
 

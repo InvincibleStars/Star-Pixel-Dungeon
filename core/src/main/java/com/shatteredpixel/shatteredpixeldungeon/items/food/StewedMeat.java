@@ -28,7 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class StewedMeat extends Food {
 	
 	{
-		image = ItemSpriteSheet.STEWED;
+		image = ItemSpriteSheet.STEWED_MEAT;
 		energy = Hunger.HUNGRY/2f;
 	}
 	

@@ -27,6 +27,9 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipe.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.SandBossLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipe.ExoticRecipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipe.ScienceRecipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipe.StarRecipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.FireDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.GrassDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.WaterDust;
@@ -219,6 +222,7 @@ public abstract class Recipe {
 		new GrassDust.GreenDusttoScroll(),
 		new WaterDust.BlueDusttoPotion(),
 		new WaterDust.BlueDusttoScroll(),
+		new StarRecipe.WhiteGemRecipe(),
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -257,6 +261,11 @@ public abstract class Recipe {
 		new FireGem.FireDustRecipe(),
 		new WaterGem.WaterDustRecipe(),
 		new WeaponGem.WeaponDustRecipe(),
+		new StarRecipe.RuleGemRecipe(),
+		new ScienceRecipe.PotionLevelRecipe(),
+
+		new ExoticRecipe.TearExoticRecipe(),
+		new ExoticRecipe.PowerExoticRecipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
@@ -269,11 +278,16 @@ public abstract class Recipe {
 		new AlchemyWeapon.ShellHammerRecipe(),
 		new AlchemyWeapon.GemGloveRecipe(),
 		new WeaponGem.WeaponGemToUpdateRecipe(),
+
+
+		new ExoticRecipe.FlyMindExoticRecipe(),
+		new ExoticRecipe.FrostExoticRecipe(),
 	};
 
 
 	private static Recipe[] fourIngredientRecipes = new Recipe[]{
-			//new AlchemyWeapon.EleoveRecipe(),
+			new AlchemyWeapon.EleoveRecipe(),
+			new StarRecipe.ColorGemRecipe(),
 	};
 
 

@@ -30,7 +30,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipe.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipe.ExoticRecipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.recipe.ScienceRecipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipe.StarRecipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.Dust;
 import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.FireDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.GrassDust;
@@ -289,7 +291,9 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new Dust.GemtoDustHolder()));
 
 				return result;
+
 			case 1:
+				//种子炼制药水
 				Recipe r = new Scroll.ScrollToStone();
 				for (Class<?> cls : Generator.Category.SCROLL.classes){
 					Scroll scroll = (Scroll) Reflection.newInstance(cls);
@@ -299,6 +303,7 @@ public class QuickRecipe extends Component {
 				}
 				return result;
 			case 2:
+				//锻造符石
 				result.add(new QuickRecipe( new StewedMeat.oneMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.twoMeat() ));
 				result.add(new QuickRecipe( new StewedMeat.threeMeat() ));
@@ -419,8 +424,8 @@ public class QuickRecipe extends Component {
 				return result;
 
 
-				//炼金武器
 			case 10:
+				//炼金武器
 				result.add(null);
 				result.add(new QuickRecipe(new AlchemyWeapon.BlueRecipe()));
 				result.add(new QuickRecipe(new AlchemyWeapon.RedRecipe()));
@@ -446,39 +451,50 @@ public class QuickRecipe extends Component {
 
 
 			case 11:
+				//炼制消耗品
 				result.add(new QuickRecipe(new GrassGem.GreenGemtoPotion()));
-				result.add(new QuickRecipe(new WaterGem.BlueGemtoPotion()));
-				result.add(new QuickRecipe(new FireGem.RedGemtoPotion()));
-
 				result.add(new QuickRecipe(new GrassGem.GreenGemtoScroll()));
+				result.add(null);
+				result.add(new QuickRecipe(new WaterGem.BlueGemtoPotion()));
 				result.add(new QuickRecipe(new WaterGem.BlueGemtoScroll()));
+				result.add(null);
+				result.add(new QuickRecipe(new FireGem.RedGemtoPotion()));
 				result.add(new QuickRecipe(new FireGem.RedGemtoScroll()));
-
 				result.add(null);
-
 				result.add(new QuickRecipe(new GrassDust.GreenDusttoPotion()));
-				result.add(new QuickRecipe(new WaterDust.BlueDusttoScroll()));
-				result.add(new QuickRecipe(new FireDust.RedDusttoPotion()));
-
 				result.add(new QuickRecipe(new GrassDust.GreenDusttoScroll()));
-				result.add(new QuickRecipe(new WaterDust.BlueDusttoScroll()));
-				result.add(new QuickRecipe(new FireDust.RedDusttoScroll()));
-
 				result.add(null);
-
+				result.add(new QuickRecipe(new WaterDust.BlueDusttoPotion()));
+				result.add(new QuickRecipe(new WaterDust.BlueDusttoScroll()));
+				result.add(null);
+				result.add(new QuickRecipe(new FireDust.RedDusttoPotion()));
+				result.add(new QuickRecipe(new FireDust.RedDusttoScroll()));
+				result.add(null);
 				result.add(new QuickRecipe(new GrassGem.GrassDustRecipe()));
 				result.add(new QuickRecipe(new WaterGem.WaterDustRecipe()));
 				result.add(new QuickRecipe(new FireGem.FireDustRecipe()));
 				//result.add(new QuickRecipe(new GemToDust.WeaponDustRecipe()));
 
 				return result;
-				//消耗品概述
+
 			case 12:
+				//星尘附加
+				result.add(new QuickRecipe( new ExoticRecipe.PowerExoticRecipe()));
+				result.add(new QuickRecipe( new ExoticRecipe.FlyMindExoticRecipe()));
+				result.add(null);
+				result.add(new QuickRecipe( new ExoticRecipe.FrostExoticRecipe()));
+				result.add(new QuickRecipe( new ExoticRecipe.TearExoticRecipe()));
 				result.add(null);
 				return result;
 
 			case 13:
+				//科技树研究
+				result.add(new QuickRecipe( new StarRecipe.WhiteGemRecipe()));
+				result.add(new QuickRecipe( new StarRecipe.RuleGemRecipe()));
 				result.add(null);
+				result.add(new QuickRecipe( new StarRecipe.ColorGemRecipe()));
+				result.add(null);
+
 				//result.add(new QuickRecipe( new GemToDust.GrassDustRecipe() ));
 				result.add(new QuickRecipe( new ScienceRecipe.FoodLevelRecipe()));
 				result.add(new QuickRecipe( new ScienceRecipe.PotionLevelRecipe()));

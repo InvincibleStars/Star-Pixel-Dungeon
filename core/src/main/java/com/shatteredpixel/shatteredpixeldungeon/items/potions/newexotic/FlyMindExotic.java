@@ -19,20 +19,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.food;
+package com.shatteredpixel.shatteredpixeldungeon.items.potions.newexotic;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 
-public class SmallRation extends Food {
+public class FlyMindExotic extends ExoticPotionModel {
 
-	{
-		image = ItemSpriteSheet.SMALLRATION;
-		energy = Hunger.HUNGRY/2f;
+	@Override
+	public void execute( Hero hero, String action ) {
+
+		super.execute( hero, action );
+
+		if (action.equals( AC_USE )) {
+			Buff.affect(curUser, Levitation.class, 80f);
+			Buff.affect(curUser, MindVision.class, 80f);
+			identify();
+		}
 	}
-	
+
+
+	@Override
+	public boolean isUpgradable() {
+		return false;
+	}
+
+	@Override
+	public boolean isIdentified() {
+		return true;
+	}
+
 	@Override
 	public int value() {
-		return 10 * quantity;
+		return 80 * quantity;
 	}
 }
+

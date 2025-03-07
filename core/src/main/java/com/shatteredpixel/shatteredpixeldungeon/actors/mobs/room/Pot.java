@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PotSprite;
 import com.watabou.utils.Random;
@@ -58,10 +59,6 @@ public class Pot extends NPC {
 	public void beckon(int cell){
 	}
 
-
-
-
-
 	private float chance_one = 0.5f;
 
 	@Override
@@ -76,9 +73,8 @@ public class Pot extends NPC {
 					level.drop(new Gold().quantity(Random.Int(50)), pos).sprite.drop();
 					break;
 				case 6: case 7: case 8: case 9: case 10:
-					level.drop(Generator.randomUsingDefaults(Generator.Category.SEED), pos).sprite.drop();
+					level.drop(new ScrollOfMagicMapping().identify(), pos).sprite.drop();
 					break;
-
 		}
-
-	}}
+	}
+}

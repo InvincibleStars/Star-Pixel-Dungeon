@@ -51,8 +51,8 @@ public class WeaponGem extends Gem {
 		{
 			inputs = new Class[]{WeaponGem.class};
 			inQuantity = new int[]{3};
-			cost=1;
-			outQuantity = 5;
+			cost=5;
+			outQuantity = 1;
 			output = ScrollOfUpgrade.class;
 		}
 	}
