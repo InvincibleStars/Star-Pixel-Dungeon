@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergeBox;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.ItemStatusHandler;
@@ -550,6 +551,7 @@ public class Potion extends Item {
 		//科技树不会被售卖
 
 		PotionLevel pl = Dungeon.hero.belongings.getItem(PotionLevel.class);
+		EnergeBox eb = Dungeon.hero.belongings.getItem(EnergeBox.class);
 
 		if (pl != null) {
 			level = pl.level();

@@ -7,5 +7,5 @@ dependencies {
     api project(':SPD-classes')
     //TODO might be nice to remove this, should decide
     implementation project(':services')
-    implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
+    //implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
 }

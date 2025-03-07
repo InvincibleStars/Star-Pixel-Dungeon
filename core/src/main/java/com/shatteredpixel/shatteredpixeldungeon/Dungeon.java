@@ -39,13 +39,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
+import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.ringstar.RingStar;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -55,6 +60,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level0;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.Temple2AreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
@@ -67,6 +73,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundlable;
@@ -88,20 +95,18 @@ public class Dungeon {
 	//它们都可以是各自独立的数字，但这允许迭代，更适合捆绑/初始化。
 	public static enum LimitedDrops {
 		//自定义全生物特指表
-		SANDWORM_LOOT,
-		BLACKWORM_LOOT,
-		BLACKWORM_LOOT2,
-		ROCKBUG_LOOT,
-		ROCKBUG_LOOT2,
-		SANDSCORPION_LOOT,
+
 		SANDCRAB_LOOT,
 		LIFESAND_LOOT,
-
 
 		RAT_LOOT,
 		RATTAN_LOOT,
 		BLEEDRATTAN_LOOT,
 		WOODENCROSS_LOOT,
+
+
+		GOO_ALL,
+		GOO_KILL,
 
 
 
@@ -215,6 +220,9 @@ public class Dungeon {
 		Potion.initColors();
 		Ring.initGems();
 
+		//随机化词条
+		//RingStar.randomStar();
+
 		SpecialRoom.initForRun();
 		SecretRoom.initForRun();
 
@@ -262,14 +270,7 @@ public class Dungeon {
 
 		//TODO 下楼
 		depth++;
-		/*
-		if(hero.heroClass== HeroClass.WARRIOR){
-			depth+=3;
-		}else{
-			depth++;
-		}
 
-		 */
 		if (depth > Statistics.deepestFloor) {
 			Statistics.deepestFloor = depth;
 
@@ -323,6 +324,77 @@ public class Dungeon {
 				level = new DeadEndLevel();
 				Statistics.deepestFloor--;
 				//level = new SandAreaLevel();
+				break;
+		}
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Level threeNewLevel() {
+
+		Dungeon.level = null;
+		Actor.clear();
+
+		//TODO 下楼
+		depth=6;
+
+
+		new ScrollOfMagicMapping().identify().quantity(5).collect();
+		GLog.n(Messages.get(ScrollOfMagicMapping.class,"free"));
+
+		if (depth > Statistics.deepestFloor) {
+			Statistics.deepestFloor = depth;
+
+			if (Statistics.qualifiedForNoKilling) {
+				Statistics.completedWithNoKilling = true;
+			} else {
+				Statistics.completedWithNoKilling = false;
+			}
+		}
+
+		Level level;
+		switch (depth) {
+			case 0:
+				level = new Level0(); //初始楼层
+				break;
+			case 1: case 2: case 3: case 4: //沙地
+				level = new SandAreaLevel();
+				break;
+			case 5:
+				level = new SandAreaBossLevel2();
+				break;
+			case 6: case 7: case 8: case 9: //森林
+				level = new TreeAreaLevel();
+				break;
+			case 10:
+				level = new TreeAreaBossLevel2();
+				break;
+			case 11: case 12: case 13: case 14:
+			case 15:
+				level = new Temple2AreaLevel();
+				break;
+			case 16: case 17: case 18: case 19:
+			case 20:
+				level = new CityLevel();
+				break;
+			case 21: case 22: case 23: case 24:
+				level = new HallsLevel();
+				break;
+			case 25:
+				level = new LastLevel();
+				break;
+			case 26:case 27: case 28: case 29: //
+				level = new LastLevel();
+				break;
+			case 30:
+				level = new HallsLevel();
+				break;
+			default:
+				level = new DeadEndLevel();
+				//Statistics.deepestFloor--;
 				break;
 		}
 

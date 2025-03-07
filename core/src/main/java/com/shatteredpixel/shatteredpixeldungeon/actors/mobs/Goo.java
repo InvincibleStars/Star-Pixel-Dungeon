@@ -50,7 +50,8 @@ public class Goo extends Mob {
 	{
 		//基础数据
 		//IF
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 120 : 100;
+		hpPole=16;
+		attackPloe=7;
 		EXP = 10;
 		defenseSkill = 8;
 		spriteClass = GooSprite.class;
@@ -284,6 +285,9 @@ public class Goo extends Mob {
 	public void die( Object cause ) {
 		
 		super.die( cause );
+
+		Dungeon.LimitedDrops.GOO_ALL.count--;
+		Dungeon.LimitedDrops.GOO_KILL.count++;
 		
 		Dungeon.level.unseal();
 		

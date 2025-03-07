@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
+import com.shatteredpixel.shatteredpixeldungeon.items.summon.mob.SummonBlackCube;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
@@ -74,8 +74,12 @@ public class ScrollOfMirrorImage extends Scroll {
 		while (nImages > 0 && respawnPoints.size() > 0) {
 			int index = Random.index( respawnPoints );
 			
-			MirrorImage mob = new MirrorImage();
-			mob.duplicate( hero );
+			//MirrorImage mob = new MirrorImage();
+			SummonBlackCube mob = new SummonBlackCube();
+			//mob.duplicate( hero );
+			mob.canInteract( mob );
+			//mob.
+			mob.attack(mob);
 			GameScene.add( mob );
 			ScrollOfTeleportation.appear( mob, respawnPoints.get( index ) );
 			

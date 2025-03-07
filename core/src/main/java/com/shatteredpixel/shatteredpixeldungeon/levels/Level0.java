@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.GoldBust;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.sell.ElementalWell;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.temple.Believer;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -39,7 +40,7 @@ public class Level0 extends Level {
                 return Terrain.EMPTY_WELL;
             case 65:
                 return Terrain.WALL;
-                //return Terrain.ALCHEMY;
+                //return Terrain.DOOR;
             case 81:
                 return Terrain.DOOR;
             case 82:

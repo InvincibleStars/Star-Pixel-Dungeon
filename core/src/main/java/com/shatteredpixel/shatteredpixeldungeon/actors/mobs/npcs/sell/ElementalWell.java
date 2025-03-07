@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers2;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -73,20 +74,26 @@ public class ElementalWell extends NPC {
 					ShatteredPixelDungeon.scene().add(new WndOptionsNo(Icons.get(Icons.WARNING),
 							Messages.get(ElementalWell.class, "warm"),
 							Messages.get(ElementalWell.class, "tip"),
-							Messages.get(ElementalWell.class, TAG_HP),
 							Messages.get(ElementalWell.class, "yes"),
 							Messages.get(ElementalWell.class, "no")) {
 						@Override
 						protected void onSelect(int index) {
-							Embers2 embers2 = hero.belongings.getItem( Embers2.class );
-							if (index == 0) {
-								if(embers2.quantity()>=2){
-									for (int i=0;i<4;i++){
-										embers2.detach(hero.belongings.backpack);
+							if(hero.belongings.getItem(Embers2.class)!=null) {
+								Embers2 embers2 = hero.belongings.getItem(Embers2.class);
+								if (index == 0) {
+									if (embers2.quantity() >= 4) {
+										for (int i = 0; i < 4; i++) {
+											embers2.detach(hero.belongings.backpack);
+										}
+										new AlchemicalCatalyst().quantity(2).collect();
+										GLog.i(Messages.get(ElementalWell.class, "sellyes"));
 									}
+								} else if (index == 1) {
+									hide();
 								}
-							} else if (index == 1) {
+							}else{
 								hide();
+								GLog.i(Messages.get(ElementalWell.class,"noitem"));
 							}
 						}
 					});
@@ -107,7 +114,7 @@ public class ElementalWell extends NPC {
 
 
 	public String desc() {
-		return Messages.get(this, "desc", 75542);
+		return Messages.get(this, "desc");
 	}
 
 

@@ -653,7 +653,7 @@ public class ItemSpriteSheet {
 
 	static {
 		for (int i = POTIONS; i < POTIONS + 32; i++)
-			assignItemRect(i, 15, 15);
+			assignItemRect(i, 16, 16);
 		assignItemRect(POTION_CATALYST, 6, 15);
 		assignItemRect(LIQUID_METAL, 8, 15);
 	}

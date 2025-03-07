@@ -24,7 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Shell;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.RockBugSprite;
@@ -36,29 +36,8 @@ public class RockBug extends Mob {
 		spriteClass = RockBugSprite.class;
 		hpPole=10;
 		attackPloe=4;
-		//loot = Generator.Category.POTION;
-		lootChance = 0.125f;
+		loot = new Shell();
+		lootChance = 0.08f;
 	}
-
-	@Override
-	protected Item createLoot() {
-		Item loot;
-		float a = Random.Float();
-		float b = Random.Float();
-		if(a<=(1f * ((5f - Dungeon.LimitedDrops.ROCKBUG_LOOT.count) / 5f))){
-			if(b<=(1f * ((5f - Dungeon.LimitedDrops.ROCKBUG_LOOT2.count) / 1f))){
-				loot = new Shell();
-				Dungeon.LimitedDrops.ROCKBUG_LOOT2.count++;
-			}else {
-				loot = new PotionOfHealing();
-				Dungeon.LimitedDrops.ROCKBUG_LOOT.count++;
-			}
-		} else {
-			loot = new MobLoot().quantity(Random.Int(1,2));
-		}
-		return loot;
-	}
-
-
 
 }

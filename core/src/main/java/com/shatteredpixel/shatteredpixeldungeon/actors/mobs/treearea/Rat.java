@@ -1,15 +1,21 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Rat extends Mob {
@@ -68,4 +74,14 @@ public class Rat extends Mob {
         }
         return loot;
     }
+
+    @Override
+    public void die( Object cause ) {
+
+        super.die( true );
+
+        //Dungeon.LimitedDrops.TEST_NUM.count--;
+    }
+
+
 }

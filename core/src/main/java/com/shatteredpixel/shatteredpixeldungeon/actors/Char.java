@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -91,7 +92,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
+import com.shatteredpixel.shatteredpixeldungeon.items.ringstar.RingStarModel;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
@@ -163,12 +166,13 @@ public abstract class Char extends Actor {
 	@Override
 	protected boolean act() {
 		/*
-		if(Dungeon.level.water[pos] &&( Dungeon.depth>15 && Dungeon.depth<=20)){
+		if(Dungeon.level.water[pos] &&( Dungeon.depth>15 && Dungeon.depth<=20)){f
 			Buff.prolong(this, Blindness.class, BuffWait.T10);
 			//hero.sprite.showStatus(CharSprite.POSITIVE, "请离开水源方块");
 		}
 
 		 */
+
 
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
 			fieldOfView = new boolean[Dungeon.level.length()];
@@ -561,6 +565,12 @@ public abstract class Char extends Actor {
 	// atm attack is always post-armor and defence is already pre-armor
 
 	public int attackProc( Char enemy, int damage ) {
+
+		if (this.buff(Adrenaline2.class) != null){
+			Buff.affect(this, Bleeding.class).set(Random.Float(1,4));
+		}
+
+
 		if ( buff(Weakness.class) != null ){
 			damage *= 0.67f;
 		}
@@ -599,6 +609,7 @@ public abstract class Char extends Actor {
 	public float speed() {
 		//float speed = (baseSpeed-0.5f)+Random.Float(0.3f,0.8f);
 		float speed =1f;
+		if ( buff( Adrenaline2.class ) != null) speed *= 2f;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
@@ -768,6 +779,18 @@ public abstract class Char extends Actor {
 		if (this.buff(Doom.class) != null && !isImmune(Doom.class)){
 			dmg *= 2;
 		}
+
+		if(this.buff(RingStarModel.RandomStarBuff.class)!=null){
+			RingStarModel.RandomStarBuff randomStarBuff = this.buff(RingStarModel.RandomStarBuff.class);
+			if(randomStarBuff.rsm.depth1==1){
+					dmg*=randomStarBuff.rsm.outSlot1(this);
+			}else if (randomStarBuff.rsm.depth2==1){
+				dmg*=randomStarBuff.rsm.outSlot2(this);
+			}
+
+
+		}
+
 		if (alignment != Alignment.ALLY && this.buff(DeathMark.DeathMarkTracker.class) != null){
 			dmg *= 1.25f;
 		}
@@ -887,7 +910,10 @@ public abstract class Char extends Actor {
 			timeScale *= buff( Chill.class ).speedFactor();
 		}
 		if (buff( Speed.class ) != null) {
-			timeScale *= 20000.0f;
+			timeScale *= 2.0f;
+		}
+		if (buff( Adrenaline2.class ) != null) {
+			timeScale *= 2.0f;
 		}
 
 		super.spend( time / timeScale );

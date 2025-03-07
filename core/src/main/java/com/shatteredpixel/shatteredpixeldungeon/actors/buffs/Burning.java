@@ -102,13 +102,13 @@ public class Burning extends Buff implements Hero.Doom {
 			}
 
 			if (target instanceof Hero) {
-				
-				Hero hero = (Hero)target;
-				hero.damage( damage, this );
+
+				Hero hero = (Hero) target;
+				hero.damage(damage, this);
 				burnIncrement++;
 
 				//at 4+ turns, there is a (turns-3)/3 chance an item burns
-				//if (Random.Int(3) < (burnIncrement - 3)){
+				if (Random.Int(3) < (burnIncrement - 3)) {
 					burnIncrement = 0;
 					ArrayList<Item> burnable = new ArrayList<>();
 					//does not reach inside of containers
@@ -120,21 +120,22 @@ public class Burning extends Buff implements Hero.Doom {
 						}
 					}
 
-					if (!burnable.isEmpty()){
+					if (!burnable.isEmpty()) {
 						Item toBurn = Random.element(burnable).detach(hero.belongings.backpack);
-						GLog.w( Messages.get(this, "burnsup", Messages.capitalize(toBurn.toString())) );
-						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio){
+						GLog.w(Messages.get(this, "burnsup", Messages.capitalize(toBurn.toString())));
+						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio) {
 							ChargrilledMeat steak = new ChargrilledMeat();
-							if (!steak.collect( hero.belongings.backpack )) {
-								Dungeon.level.drop( steak, hero.pos ).sprite.drop();
+							if (!steak.collect(hero.belongings.backpack)) {
+								Dungeon.level.drop(steak, hero.pos).sprite.drop();
 							}
 						}
-						Heap.burnFX( hero.pos );
+						Heap.burnFX(hero.pos);
 					}
 
-				//}
-			} else {
-				target.damage( damage, this );
+					//}
+				} else {
+					target.damage(damage, this);
+				}
 			}
 
 			if (target instanceof Thief && ((Thief) target).item != null) {
@@ -156,7 +157,7 @@ public class Burning extends Buff implements Hero.Doom {
 		}
 		
 		if (Dungeon.level.flamable[target.pos] && Blob.volumeAt(target.pos, Fire.class) == 0) {
-			GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
+			GameScene.add( Blob.seed( target.pos, 0, Fire.class ) );
 		}
 		
 		spend( TICK );

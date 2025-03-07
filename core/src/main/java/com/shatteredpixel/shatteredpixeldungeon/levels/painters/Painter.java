@@ -346,21 +346,4 @@ public abstract class Painter {
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

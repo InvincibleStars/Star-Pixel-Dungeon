@@ -32,6 +32,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpectralBlades;
@@ -47,6 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergeBox;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.NoDeath;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
@@ -55,24 +58,21 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.TechTree;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.newitem.ammo.Ammo;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers2;
-import com.shatteredpixel.shatteredpixeldungeon.items.science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Gun;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Gloves;
@@ -82,6 +82,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornSho
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.gem.FireGem;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 
 public enum HeroClass {
 
@@ -113,24 +115,15 @@ public enum HeroClass {
 		NoDeath.noDeath=0;
 		NPC.choose_num=0;
 
-		new TechTree().quantity(1).identify().collect();
+		//new FireGem().quantity(5).identify().collect();
 
-		new PotionLevel().quantity(1).identify().collect();
+		//Buff.affect(hero, MindVision.class,800f);
+
+		//new PotionLevel().quantity(1).identify().collect();
 
 		new Food().quantity(3).identify().collect();
 
-		new PotionOfLiquidFlame().quantity(1).identify().collect();
-		new ScrollOfMagicMapping().quantity(3000000).identify().collect();
 
-		/*
-		Weapon randomWeapon;
-		randomWeapon = (Weapon) Generator.random(Generator.Category.WEP_T2);
-		randomWeapon.quantity();
-		randomWeapon.level(6);
-		randomWeapon.cursed=false;
-		randomWeapon.enchantment=null;
-		randomWeapon.identify().collect();
-		 */
 
 		//检测挑战
 		if (Dungeon.isChallenged(NO_FOOD)){

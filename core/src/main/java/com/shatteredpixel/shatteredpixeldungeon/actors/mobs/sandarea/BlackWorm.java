@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Tooth;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackWormSprite;
 import com.watabou.utils.Random;
@@ -38,30 +38,11 @@ public class BlackWorm extends Mob {
 		hpPole=4;
 		attackPloe=6;
 		EXP = 1;
-		//loot=Generator.random(Generator.Category.SEED);
-		lootChance = 0.1f;
 
-	}
+		loot = Generator.random(Generator.Category.SEED);
+		lootChance = 0.08f;
 
-	@Override
-	protected Item createLoot() {
-		Item loot;
-		float a = Random.Float();
-		float b = Random.Float();
-		if(a<=(1f * ((5f - Dungeon.LimitedDrops.BLACKWORM_LOOT.count) / 5f))){
-			if(b<=(1f * ((5f - Dungeon.LimitedDrops.BLACKWORM_LOOT2.count) / 1f))){
-				loot = new Tooth();
-				Dungeon.LimitedDrops.BLACKWORM_LOOT2.count++;
-			}else {
-				loot = Generator.random(Generator.Category.SEED);
-				Dungeon.LimitedDrops.BLACKWORM_LOOT.count++;
-			}
-		} else {
-			loot = new MobLoot();
-		}
-		return loot;
 	}
 
 		//Camera.main.shake( 1, 3f );
-
 }

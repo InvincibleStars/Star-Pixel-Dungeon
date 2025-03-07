@@ -2,7 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.plants.newplants;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.gem.WaterGem;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.utils.PathFinder;

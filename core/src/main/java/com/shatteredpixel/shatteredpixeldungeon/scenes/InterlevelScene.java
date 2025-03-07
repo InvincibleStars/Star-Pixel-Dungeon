@@ -71,7 +71,7 @@ public class InterlevelScene extends PixelScene {
 	private static float fadeTime;
 
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE
+		DESCEND, THREEDEPTH,  ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE
 	}
 	public static Mode mode;
 
@@ -127,6 +127,21 @@ public class InterlevelScene extends PixelScene {
 						fadeTime = FAST_FADE;
 					} else if (loadingDepth == 6 || loadingDepth == 11
 							|| loadingDepth == 16 || loadingDepth == 21) {
+						fadeTime = SLOW_FADE;
+					}
+				}
+				scrollSpeed = 5;
+				break;
+			case THREEDEPTH:
+				if (Dungeon.hero == null){
+					loadingDepth = 5;
+					fadeTime = SLOW_FADE;
+				} else {
+					loadingDepth = Dungeon.depth-2;
+					//控制动画速度
+					if (!(Statistics.deepestFloor < loadingDepth)) {
+						fadeTime = FAST_FADE;
+					} else if (loadingDepth == 6 || loadingDepth == 11 || loadingDepth == 16 || loadingDepth == 21) {
 						fadeTime = SLOW_FADE;
 					}
 				}
@@ -260,6 +275,9 @@ public class InterlevelScene extends PixelScene {
 						switch (mode) {
 							case DESCEND:
 								descend();
+								break;
+							case THREEDEPTH:
+								threedepth();
 								break;
 							case ASCEND:
 								ascend();
@@ -396,6 +414,36 @@ public class InterlevelScene extends PixelScene {
 		}
 		Dungeon.switchLevel( level, level.entrance );
 	}
+
+
+	private void threedepth() throws IOException {
+
+		if (Dungeon.hero == null) {
+			Mob.clearHeldAllies();
+			Dungeon.init();
+			if (noStory) {
+				Dungeon.chapters.add( WndStory.ID_SAND );
+				noStory = false;
+			}
+			GameLog.wipe();
+		} else {
+			Mob.holdAllies( Dungeon.level );
+			Dungeon.saveAll();
+		}
+
+		Level level;
+		if (Dungeon.depth >= Statistics.deepestFloor) {
+			level = Dungeon.threeNewLevel();
+		} else {
+			Dungeon.depth+=8;
+			level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		}
+		Dungeon.switchLevel( level, level.entrance );
+	}
+
+
+
+
 
 	private void fall() throws IOException {
 

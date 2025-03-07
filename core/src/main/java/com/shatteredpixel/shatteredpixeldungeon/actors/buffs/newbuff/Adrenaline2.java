@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -34,27 +36,7 @@ public class Adrenaline2 extends FlavourBuff {
 		announced = true;
 	}
 	
-	public static final float DURATION	= 30f;
-
-
-
-	public int A = 4;
-
-	//public int CIURFGH = Integer.parseInt(dispTurns());
-	
-
-	/*
-	@Override
-	protected String dispTurns() {
-		Integer.parseInt(String ,dispTurns());
-		return dispTurns(visualcooldown());
-	}
-
-	 */
-
-
-
-
+	public static final float DURATION	= 3f;
 
 	@Override
 	public int icon() {
@@ -71,15 +53,9 @@ public class Adrenaline2 extends FlavourBuff {
 		return Messages.get(this, "name");
 	}
 
-
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc")
-				+"\n"
-				//剩余回合计数（保留两位小数）
-				+Messages.get( this,"time") +(int)visualcooldown() +Messages.get( this,"turn")
-				//攻击速度加成值
-				+Messages.get( this,"add")+(int)(visualcooldown()*10)+Messages.get( this,"speed");
+		return Messages.get(this, "desc", (int)(visualcooldown()), (int)(visualcooldown()*10));
 	}
 	
 }

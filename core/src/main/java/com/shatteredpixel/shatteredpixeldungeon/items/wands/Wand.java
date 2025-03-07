@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergeBox;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -91,7 +92,7 @@ public abstract class Wand extends Item {
 		usesTargeting = true;
 		bones = true;
 	}
-	
+
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
@@ -545,6 +546,8 @@ public abstract class Wand extends Item {
 		public void onSelect( Integer target ) {
 			
 			if (target != null) {
+
+
 				
 				//FIXME this safety check shouldn't be necessary
 				//it would be better to eliminate the curItem static variable.
@@ -611,6 +614,28 @@ public abstract class Wand extends Item {
 					curWand.cursedKnown = true;
 					
 				}
+
+				EnergeBox energeBox = Dungeon.hero.belongings.getItem(EnergeBox.class);
+				if(Dungeon.hero!=null) {
+					if (energeBox != null) {
+						if (curWand.curCharges < curWand.maxCharges && energeBox.energe > 0) {
+							if(energeBox.energe>=curWand.maxCharges- curWand.curCharges){
+								energeBox.energe-=(curWand.maxCharges- curWand.curCharges);
+								curWand.curCharges=curWand.maxCharges;
+							} else {
+								curWand.curCharges+=energeBox.energe;
+								energeBox.energe=0;
+							}
+							energeBox.serLevel();
+							updateQuickslot();
+
+						}
+					}
+				}
+
+
+
+
 				
 			}
 		}
@@ -640,17 +665,19 @@ public abstract class Wand extends Item {
 		
 		@Override
 		public boolean act() {
-			if (curCharges < maxCharges)
+
+
+			//if (curCharges < maxCharges)
 				recharge();
 			
-			while (partialCharge >= 1 && curCharges < maxCharges) {
+			while (partialCharge >= 1 && curCharges <= maxCharges) {
 				partialCharge--;
 				curCharges++;
 				updateQuickslot();
 			}
 			
 			if (curCharges == maxCharges){
-				partialCharge = 0;
+				//partialCharge = 0;
 			}
 			
 			spend( TICK );
@@ -658,7 +685,7 @@ public abstract class Wand extends Item {
 			return true;
 		}
 
-		private void recharge(){
+		private void recharge() {
 			int missingCharges = maxCharges - curCharges;
 			missingCharges = Math.max(0, missingCharges);
 
@@ -667,13 +694,32 @@ public abstract class Wand extends Item {
 
 			LockedFloor lock = target.buff(LockedFloor.class);
 			if (lock == null || lock.regenOn())
-				partialCharge += (1f/turnsToCharge) * RingOfEnergy.wandChargeMultiplier(target);
+				partialCharge += (1f / turnsToCharge) * RingOfEnergy.wandChargeMultiplier(target);
 
-			for (Recharging bonus : target.buffs(Recharging.class)){
+			for (Recharging bonus : target.buffs(Recharging.class)) {
 				if (bonus != null && bonus.remainder() > 0f) {
 					partialCharge += CHARGE_BUFF_BONUS * bonus.remainder();
 				}
 			}
+
+			EnergeBox energeBox = Dungeon.hero.belongings.getItem(EnergeBox.class);
+
+			//充能修正(非空判定)
+			if (energeBox != null) {
+				if (curCharges > maxCharges) {
+					//额外充能效率降低90%
+					energeBox.energe += (float)((curCharges - maxCharges));
+					energeBox.serLevel();
+					//curCharges = maxCharges;
+					//GLog.i(Messages.get(EnergeBox.class, "full"));
+				}
+			}
+
+			if(curCharges>=maxCharges) {
+				curCharges = maxCharges;
+			}
+
+			updateQuickslot();
 		}
 		
 		public Wand wand(){

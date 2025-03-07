@@ -212,6 +212,8 @@ public class StatusPane extends Component {
 
         int assn = (Dungeon.depth % 5);
 
+        info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "areaerror") +assn +Messages.get(StatusPane.class, "depth"), 6);
+
         if(Dungeon.depth == 0){
             info = PixelScene.renderTextBlock(Messages.get(StatusPane.class, "area0") +assn +Messages.get(StatusPane.class, "depth"), 6);
         }else if(Dungeon.depth>=1 && Dungeon.depth<=5){

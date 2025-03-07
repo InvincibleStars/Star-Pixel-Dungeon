@@ -69,6 +69,12 @@ public class HeroAction {
 			this.dst = stairs;
 		}
 	}
+
+	public static class ThreeDepth extends HeroAction {
+		public ThreeDepth( int stairs ) {
+			this.dst = stairs;
+		}
+	}
 	
 	public static class Ascend extends HeroAction {
 		public Ascend( int stairs ) {

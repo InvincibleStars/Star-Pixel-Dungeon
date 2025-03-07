@@ -137,6 +137,7 @@ public enum Document {
 	static {
 		boolean debug = DeviceCompat.isDebug();
 		//hero starts with these
+		//炼金手册页码
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_INTRO,          debug ? READ : FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_EXAMINING,      debug ? READ : FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SURPRISE_ATKS,  debug ? READ : FOUND);
@@ -164,11 +165,14 @@ public enum Document {
 		ALCHEMY_GUIDE.pagesStates.put("Catalysts",            debug ? READ : FOUND);
 		ALCHEMY_GUIDE.pagesStates.put("Brews_Elixirs",        debug ? READ : FOUND);
 		ALCHEMY_GUIDE.pagesStates.put("Spells",               debug ? READ : FOUND);
-		ALCHEMY_GUIDE.pagesStates.put("Gem",               debug ? READ : FOUND);
-		ALCHEMY_GUIDE.pagesStates.put("Dust",               debug ? READ : FOUND);
-		ALCHEMY_GUIDE.pagesStates.put("Paper2",               debug ? READ : FOUND);
-		ALCHEMY_GUIDE.pagesStates.put("Paper3",               debug ? READ : FOUND);
-		ALCHEMY_GUIDE.pagesStates.put("Paper4",               debug ? READ : FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("GemToWeapon",               debug ? READ : FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("GemAndDustRecipe",               debug ? READ : FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("DustToScrollAndPotion",               debug ? READ : FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("ScienceItem",               debug ? READ : FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("MobSoul",               debug ? READ : FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("EndRecipe",               debug ? READ : FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("Paper6",               debug ? READ : FOUND);
+		ALCHEMY_GUIDE.pagesStates.put("Paper7",               debug ? READ : FOUND);
 		//ALCHEMY_GUIDE.pagesStates.put("Paper4",               debug ? READ : NOT_FOUND);
 
 	}

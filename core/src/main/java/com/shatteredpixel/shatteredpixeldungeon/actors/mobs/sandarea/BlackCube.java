@@ -46,15 +46,12 @@ public class BlackCube extends Mob {
 	protected Item createLoot() {
 		Item loot;
 		loot = Generator.random(Generator.Category.SEED);
-		if(Random.Float()<0.1f){
-			switch (Random.Int(3)){
-				case 0:
-					loot= new GooBlob();
-					break;
-				case 1:
+		if(Random.Float()<0.15f){
+			switch (Random.Int(2)){
+				default:
 					loot= new MetalShard();
 					break;
-				case 2:
+				case 1:
 					loot=new DarkGold();
 					break;
 			}

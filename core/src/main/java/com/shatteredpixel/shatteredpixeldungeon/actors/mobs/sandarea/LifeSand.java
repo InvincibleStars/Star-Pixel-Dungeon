@@ -29,7 +29,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.LifeSandSprite;
 import com.watabou.utils.Random;
 
@@ -42,7 +43,7 @@ public class LifeSand extends Mob {
 
 
 		//loot = Generator.Category.WEAPON;
-		lootChance = 0.25f;
+		lootChance = 0.12f;
 	}
 
 	@Override
@@ -59,12 +60,11 @@ public class LifeSand extends Mob {
 	@Override
 	protected Item createLoot() {
 		Item loot;
-		float a = Random.Float();
-		if(a<=(0.4f * ((1f - Dungeon.LimitedDrops.LIFESAND_LOOT.count) / 1f))){
+		if(Random.Float()<0.2f&&Dungeon.LimitedDrops.LIFESAND_LOOT.count!=0){
 			loot = Generator.random(Generator.Category.RING);
 			Dungeon.LimitedDrops.LIFESAND_LOOT.count++;
-		} else {
-			loot = new MobLoot().quantity(Random.Int(1,4));
+		}else{
+			loot=null;
 		}
 		return loot;
 	}

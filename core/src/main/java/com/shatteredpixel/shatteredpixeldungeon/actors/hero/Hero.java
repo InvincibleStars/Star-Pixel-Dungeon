@@ -24,7 +24,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.ROGUE;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.STAR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass.WARRIOR;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.BERSERKER;
 import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
@@ -44,27 +43,23 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AnkhInvulnerability
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WaitDamage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AttackAdd;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
@@ -744,9 +739,7 @@ public class Hero extends Char {
 
 			//判断效果存在
 			if ( buff(Adrenaline2.class) != null) {
-				//return 1f/DURATION;
-				//Buff.affect( this, Bleeding.class ).set( Math.round(2) );
-				return belongings.weapon().delayFactor( this )/(float) (Adrenaline2.DURATION*0.1+1);
+				return belongings.weapon().delayFactor( this )/1.3f;
 			}
 			
 			return belongings.weapon().delayFactor( this );
@@ -758,9 +751,7 @@ public class Hero extends Char {
 
 			//判断效果存在
 			if ( buff(Adrenaline2.class) != null) {
-				//return 1f/DURATION;
-				//Buff.affect( this, Bleeding.class ).set( Math.round(2) );
-				return 1f/(float) (Adrenaline2.DURATION*0.1+1)/RingOfFuror.attackSpeedMultiplier(this);
+				return 1f/1.3f/RingOfFuror.attackSpeedMultiplier(this);
 			}
 			return 1f/RingOfFuror.attackSpeedMultiplier(this);
 		}
@@ -802,14 +793,11 @@ public class Hero extends Char {
 	@Override
 	public boolean act() {
 		updateHT(true);
-		if (hero.buff(MagicImmune.class) == null){Buff.affect(this, WaitDamage.class);}
+		//if (hero.buff(MagicImmune.class) == null){
+			//Buff.affect(this, WaitDamage.class);
+		//}
 
-		if (heroClass == STAR&&hero.buff(Combo2.class) == null){
-			Buff.affect( this, Combo2.class);
-		}
-
-		defenseSkill= hero.lvl;
-		attackSkill = hero.lvl+200;
+		//Buff.affect(this, Viscosity.DeferedDamage.class).prolong(1);
 
 
 		//在这里设置特定区域的限制条件
@@ -900,6 +888,9 @@ public class Hero extends Char {
 				
 			} else if (curAction instanceof HeroAction.Descend) {
 				actResult = actDescend( (HeroAction.Descend)curAction );
+
+			} else if (curAction instanceof HeroAction.ThreeDepth) {
+				actResult = actThreeDepth( (HeroAction.ThreeDepth)curAction );
 				
 			} else if (curAction instanceof HeroAction.Ascend) {
 				actResult = actAscend( (HeroAction.Ascend)curAction );
@@ -938,9 +929,10 @@ public class Hero extends Char {
 	}
 	
 	public void interrupt() {
-		if (isAlive() && curAction != null &&
-			((curAction instanceof HeroAction.Move && curAction.dst != pos) ||
-			(curAction instanceof HeroAction.Ascend || curAction instanceof HeroAction.Descend))) {
+		if (isAlive() && curAction != null && ((curAction instanceof HeroAction.Move && curAction.dst != pos) || (curAction instanceof HeroAction.Ascend || curAction instanceof HeroAction.Descend))) {
+			lastAction = curAction;
+		}
+		if (isAlive() && curAction != null && ((curAction instanceof HeroAction.Move && curAction.dst != pos) || curAction instanceof HeroAction.ThreeDepth)) {
 			lastAction = curAction;
 		}
 		curAction = null;
@@ -1254,6 +1246,38 @@ public class Hero extends Char {
 			return false;
 		}
 	}
+
+	private boolean actThreeDepth(HeroAction.ThreeDepth action ) {
+		int stairs = action.dst;
+
+		if (rooted) {
+			Camera.main.shake(10, 1f);
+			ready();
+			return false;
+
+		} else if (level.map[pos] == Terrain.THREEEXIT) {
+
+			curAction = null;
+
+			TimekeepersHourglass.timeFreeze timeFreeze = buff(TimekeepersHourglass.timeFreeze.class);
+			if (timeFreeze != null) timeFreeze.disarmPressedTraps();
+			Swiftthistle.TimeBubble timeBubble = buff(Swiftthistle.TimeBubble.class);
+			if (timeBubble != null) timeBubble.disarmPressedTraps();
+
+			InterlevelScene.mode = InterlevelScene.Mode.THREEDEPTH;
+			Game.switchScene( InterlevelScene.class );
+
+			return false;
+
+		} else if (getCloser( stairs )) {
+
+			return true;
+
+		} else {
+			ready();
+			return false;
+		}
+	}
 	
 	private boolean actAscend( HeroAction.Ascend action ) {
 		int stairs = action.dst;
@@ -1387,11 +1411,6 @@ public class Hero extends Char {
 		KindOfWeapon wep = belongings.weapon();
 
 		if (wep != null) damage = wep.proc( this, enemy, damage );
-
-		//判断是否带有buff和是否使用武器进行更新
-		if ( buff(Adrenaline2.class) != null && wep instanceof MeleeWeapon) {
-			Buff.affect( this, Bleeding.class ).set( Math.round(2) );
-		}
 
 		if (buff(Talent.SpiritBladesTracker.class) != null
 				&& Random.Int(10) < 3*pointsInTalent(Talent.SPIRIT_BLADES)){
@@ -1788,9 +1807,14 @@ public class Hero extends Char {
 			
 		} else if ((cell == level.exit || level.map[cell] == Terrain.EXIT || level.map[cell] == Terrain.UNLOCKED_EXIT)
 				&& Dungeon.depth < 26) {
-			
+
 			curAction = new HeroAction.Descend( cell );
-			
+
+		} else if ((level.map[cell] == Terrain.THREEEXIT)
+				&& Dungeon.depth < 26) {
+
+			curAction = new HeroAction.ThreeDepth( cell );
+
 		} else if (cell == level.entrance || level.map[cell] == Terrain.ENTRANCE) {
 			
 			curAction = new HeroAction.Ascend( cell );
@@ -2107,12 +2131,6 @@ public class Hero extends Char {
 				Sample.INSTANCE.play( Assets.Sounds.STEP, 1, Random.Float( 0.96f, 1.05f ) );
 			}
 		}
-/*
-		if(Dungeon.level.water[pos]){
-			Buff.affect(hero, Speed.class, BuffWait.T10);
-		}
-
- */
 
 	}
 	

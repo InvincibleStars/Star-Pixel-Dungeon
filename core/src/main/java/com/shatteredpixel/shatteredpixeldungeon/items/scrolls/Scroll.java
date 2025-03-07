@@ -56,6 +56,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ import java.util.HashSet;
 public abstract class Scroll extends Item {
 	//发光颜色，速度
 	private static ItemSprite.Glowing WRITE = new ItemSprite.Glowing( 0xFFFFFF ,3.5f);
+	//private static ItemSprite.Glowing WRITE = new ItemSprite.Glowing(Random.Int(16777215),3f);
 	//使用发光颜色
 	public ItemSprite.Glowing glowing() {
 		return WRITE;

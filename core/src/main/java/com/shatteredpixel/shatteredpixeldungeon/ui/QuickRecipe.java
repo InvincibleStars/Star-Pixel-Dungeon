@@ -28,21 +28,22 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
-import com.shatteredpixel.shatteredpixeldungeon.items.alchemyrecipe.AlchemyWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipe.AlchemyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.Dust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.FireDust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.GrassDust;
-import com.shatteredpixel.shatteredpixeldungeon.items.dust.WaterDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.recipe.ScienceRecipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.Dust;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.FireDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.GrassDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.WaterDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.FireGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.GrassGem;
-import com.shatteredpixel.shatteredpixeldungeon.items.gem.WaterGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.gem.FireGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.gem.GrassGem;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.gem.WaterGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -439,6 +440,8 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new AlchemyWeapon.BoneSwordRecipe()));
 				result.add(new QuickRecipe(new AlchemyWeapon.ShellHammerRecipe()));
 				result.add(null);
+				//result.add(new QuickRecipe(new AlchemyWeapon.BurinRecipe()));
+				//result.add(new QuickRecipe(new AlchemyWeapon.WandToothRecipe()));
 				return result;
 
 
@@ -477,6 +480,10 @@ public class QuickRecipe extends Component {
 			case 13:
 				result.add(null);
 				//result.add(new QuickRecipe( new GemToDust.GrassDustRecipe() ));
+				result.add(new QuickRecipe( new ScienceRecipe.FoodLevelRecipe()));
+				result.add(new QuickRecipe( new ScienceRecipe.PotionLevelRecipe()));
+				result.add(new QuickRecipe( new ScienceRecipe.SummonLevelRecipe() ));
+
 				return result;
 
 		}

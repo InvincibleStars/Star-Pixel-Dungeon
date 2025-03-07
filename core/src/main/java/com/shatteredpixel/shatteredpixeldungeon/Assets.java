@@ -324,6 +324,10 @@ public class Assets {
 		public static final String ANGRY_VINE= "sprites/newsprites/tree/angryvine.png";
 		public static final String WOOD_ANKH= "sprites/newsprites/tree/woodankh.png";
 
+		//
+		public static final String BELIEVER= "sprites/newsprites/temp/believer.png";
+
+
 
 
 

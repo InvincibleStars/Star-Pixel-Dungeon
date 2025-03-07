@@ -22,8 +22,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class WornShortsword extends MeleeWeapon {
 
@@ -36,5 +42,12 @@ public class WornShortsword extends MeleeWeapon {
 		
 		bones = false;
 	}
+//
+//
+//	private static ItemSprite.Glowing WRITE = new ItemSprite.Glowing(Random.Int(16777215),3f);
+//	public ItemSprite.Glowing glowing() {
+//		return WRITE;
+//	}
+
 
 }

@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.levels.painters.PrisonPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ToxicTrap;
@@ -52,9 +53,9 @@ public class SandAreaLevel extends RegularLevel {
 	
 	@Override
 	protected int standardRooms(boolean forceMax) {
-		if (forceMax) return 11;
-		//7
-		return 1700000 + Random.chances(new float[]{1, 1, 1});
+		if (forceMax) return 51;
+		//7-10
+		return 7 + Random.chances(new float[]{3, 2, 1});
 	}
 	
 	@Override
@@ -62,9 +63,10 @@ public class SandAreaLevel extends RegularLevel {
 
 		if (forceMax) return 4;
 		//0-3个特殊房间
-		return 5+Random.chances(new float[]{3, 2, 1});
+		return 0+Random.chances(new float[]{3, 2, 1});
 	}
-	
+
+
 	@Override
 	protected Painter painter() {
 		return new SewerPainter()
@@ -75,7 +77,7 @@ public class SandAreaLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_TREE;
+		return Assets.Environment.TILES_SAND;
 	}
 	
 	@Override
@@ -113,7 +115,8 @@ public class SandAreaLevel extends RegularLevel {
 			}
 		}
 	}
-	
+
+	/*
 	@Override
 	public String tileName( int tile ) {
 		switch (tile) {
@@ -161,6 +164,8 @@ public class SandAreaLevel extends RegularLevel {
 				return super.tileDesc( tile );
 		}
 	}
+
+	 */
 	
 	private static class Sink extends Emitter {
 		

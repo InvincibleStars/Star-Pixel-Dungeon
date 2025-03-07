@@ -30,7 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BuffWait;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AnkhBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
-import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Stick;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.NoCruseWood;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -50,7 +50,7 @@ public class WoodenCross extends Mob {
 		state = PASSIVE;
 		baseSpeed=0;
 
-		loot = Stick.class;
+		loot = NoCruseWood.class;
 		lootChance = 1f;
 
 		//loot = Ankh.class;

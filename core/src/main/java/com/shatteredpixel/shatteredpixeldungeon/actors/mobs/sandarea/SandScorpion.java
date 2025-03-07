@@ -25,7 +25,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Shell;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Tooth;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandScorpionSprite;
 import com.watabou.utils.Random;
 
@@ -39,8 +41,7 @@ public class SandScorpion extends Mob {
 		
 		maxLvl = 6;
 
-		//loot = Generator.Category.SCROLL;
-		lootChance = 0.125f;
+		lootChance = 0.12f;
 	}
 
 	//行动逻辑
@@ -52,12 +53,10 @@ public class SandScorpion extends Mob {
 	@Override
 	protected Item createLoot() {
 		Item loot;
-		float a = Random.Float();
-		if(a<=(1f * ((6f - Dungeon.LimitedDrops.SANDSCORPION_LOOT.count) / 6f))){
+		if(Random.Float()<0.75f){
 			loot = Generator.random(Generator.Category.SCROLL);
-			Dungeon.LimitedDrops.SANDSCORPION_LOOT.count++;
 		} else {
-			loot = new MobLoot().quantity(Random.Int(1,4));
+			loot = new Shell();
 		}
 		return loot;
 	}

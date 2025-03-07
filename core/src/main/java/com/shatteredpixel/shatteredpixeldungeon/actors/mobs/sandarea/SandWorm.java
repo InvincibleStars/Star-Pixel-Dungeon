@@ -25,7 +25,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Tooth;
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.SandWormSprite;
 import com.watabou.utils.Random;
@@ -39,16 +40,10 @@ public class SandWorm extends Mob {
 		attackPloe=8;
 
 		//loot = new MobLoot();
-		lootChance = 0.125f;
+		lootChance = 0.12f;
 
 		state = WANDERING = new Waiting();
 	}
-
-
-
-	public int cooldown = 5;
-
-
 
 	@Override
 	protected boolean act() {
@@ -73,12 +68,10 @@ public class SandWorm extends Mob {
 	@Override
 	protected Item createLoot() {
 		Item loot;
-		float a = Random.Float();
-		if(a<=(1f * ((6f - Dungeon.LimitedDrops.SANDWORM_LOOT.count) / 6f))){
-			loot = Generator.random(Generator.Category.POTION);
-			Dungeon.LimitedDrops.SANDWORM_LOOT.count++;
+		if(Random.Float()<0.25){
+			loot = new Tooth();
 		} else {
-			loot = new MobLoot().quantity(Random.Int(1,2));
+			loot = Generator.random(Generator.Category.POTION);
 		}
 		return loot;
 	}

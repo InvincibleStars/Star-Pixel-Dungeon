@@ -44,6 +44,7 @@ public class Terrain {
 	public static final int FURROWED_GRASS	= 30;
 
 	public static final int DEADEMPTY	=32;
+	public static final int THREEEXIT			= 33;
 
 	public static final int SECRET_DOOR	    = 16;
 	public static final int SECRET_TRAP     = 17;
@@ -84,6 +85,7 @@ public class Terrain {
 		flags[OPEN_DOOR]	= PASSABLE | FLAMABLE;
 		flags[ENTRANCE]		= PASSABLE | SOLID;
 		flags[EXIT]			= PASSABLE;
+		flags[THREEEXIT]	= PASSABLE;
 		flags[EMBERS]		= PASSABLE;
 		flags[LOCKED_DOOR]	= LOS_BLOCKING | SOLID;
 		flags[CRYSTAL_DOOR]	= SOLID;

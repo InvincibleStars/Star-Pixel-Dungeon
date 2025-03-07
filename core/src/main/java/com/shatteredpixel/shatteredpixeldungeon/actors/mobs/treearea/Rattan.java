@@ -24,7 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.MobLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Silme;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.LifePlantSprite;
 import com.watabou.utils.Random;

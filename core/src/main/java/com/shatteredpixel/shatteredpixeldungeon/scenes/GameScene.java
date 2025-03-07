@@ -412,6 +412,7 @@ public class GameScene extends PixelScene {
 				ScrollOfTeleportation.appear(  Dungeon.hero, Dungeon.hero.pos );
 				break;
 			case DESCEND:
+			case THREEDEPTH:
 			case FALL:
 				switch (Dungeon.depth) {
 					//0层
@@ -472,7 +473,7 @@ public class GameScene extends PixelScene {
 		Dungeon.hero.next();
 
 		switch (InterlevelScene.mode){
-			case FALL: case DESCEND: case CONTINUE:
+			case FALL: case DESCEND: case THREEDEPTH: case CONTINUE:
 				Camera.main.snapTo(hero.center().x, hero.center().y - DungeonTilemap.SIZE * (defaultZoom/Camera.main.zoom));
 				break;
 			case ASCEND:
@@ -485,7 +486,7 @@ public class GameScene extends PixelScene {
 
 		if (InterlevelScene.mode != InterlevelScene.Mode.NONE) {
 			if (Dungeon.depth == Statistics.deepestFloor
-					&& (InterlevelScene.mode == InterlevelScene.Mode.DESCEND || InterlevelScene.mode == InterlevelScene.Mode.FALL)) {
+					&& (InterlevelScene.mode == InterlevelScene.Mode.DESCEND || InterlevelScene.mode == InterlevelScene.Mode.THREEDEPTH || InterlevelScene.mode == InterlevelScene.Mode.FALL)) {
 				GLog.h(Messages.get(this, "descend"), Dungeon.depth);
 				//在此插入的一些数据可以在每次下楼的时候更新
 				Sample.INSTANCE.play(Assets.Sounds.DESCEND);

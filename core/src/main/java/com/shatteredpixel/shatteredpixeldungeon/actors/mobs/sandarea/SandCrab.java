@@ -25,12 +25,14 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.MobLoot;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -38,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CrabSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.sun.org.apache.bcel.internal.generic.LOOKUPSWITCH;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -50,7 +53,7 @@ public class SandCrab extends Mob {
 
 		viewDistance = Light.DISTANCE;
 
-		lootChance = 0.25f;
+		lootChance = 0.12f;
 	}
 	
 	private Ballistica beam;
@@ -164,9 +167,6 @@ public class SandCrab extends Mob {
 			}
 
 			if (hit( this, ch, true )) {
-				//挑战开启失明
-				//Buff.prolong( ch, Blindness.class, BuffWait.T5 );
-				//Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
 				ch.damage( Random.NormalIntRange( this.damageRoll()/3,this.damageRoll()/2), new SandCrab.DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
@@ -214,35 +214,21 @@ public class SandCrab extends Mob {
 		beamCharged = bundle.getBoolean(BEAM_CHARGED);
 	}
 
+	/*
 	{
 		resistances.add( WandOfDisintegration.class );
+		immunities.add( Terror.class );
 	}
-
-	{
-		//immunities.add( Terror.class );
-	}
-
-	private class Hunting extends Mob.Hunting{
-		@Override
-		public boolean act(boolean enemyInFOV, boolean justAlerted) {
-			//even if enemy isn't seen, attack them if the beam is charged
-			if (beamCharged && enemy != null && canAttack(enemy)) {
-				enemySeen = enemyInFOV;
-				return doAttack(enemy);
-			}
-			return super.act(enemyInFOV, justAlerted);
-		}
-	}
+	 */
 
 	@Override
 	protected Item createLoot() {
 		Item loot;
-		float a = Random.Float();
-		if(a<=(0.4f * ((1f - Dungeon.LimitedDrops.SANDCRAB_LOOT.count) / 1f))){
+		if(Random.Float()<0.2f&&Dungeon.LimitedDrops.SANDCRAB_LOOT.count!=0){
 			loot = Generator.random(Generator.Category.WAND);
 			Dungeon.LimitedDrops.SANDCRAB_LOOT.count++;
-		} else {
-			loot = new MobLoot().quantity(Random.Int(4));
+		}else{
+			loot = new MysteryMeat();
 		}
 		return loot;
 	}

@@ -23,25 +23,14 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.Char.Alignment.ALLY;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.Char.Alignment.ALLY2;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.Char.Alignment.ENEMY;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.AbstractClass.InvisibleHP;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.mobtag.InvisibleHP;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WraithSprite;
-import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
-import com.watabou.utils.Reflection;
 
 public class BossCall extends InvisibleHP {
 
@@ -49,8 +38,10 @@ public class BossCall extends InvisibleHP {
 		spriteClass = WraithSprite.class;
 		HP = HT = 1;
 		properties.add(Property.NOHP);
-		attackskill = 50;defenseSkill = 0;
-		baseSpeed = 1f;flying = true;
+		attackskill = 50;
+		defenseSkill = 0;
+		baseSpeed = 1f;
+		flying = true;
 
 	}
 

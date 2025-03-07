@@ -6,6 +6,7 @@ public class AreaItemModel extends Item {
 
     {
         unique = true;
+        stackable = true;
     }
 
     @Override

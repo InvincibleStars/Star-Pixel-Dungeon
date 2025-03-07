@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AnkhInvulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
@@ -59,7 +60,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourg
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
+import com.shatteredpixel.shatteredpixeldungeon.items.science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
+import com.shatteredpixel.shatteredpixeldungeon.items.summon.item.Soul;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
@@ -122,7 +125,7 @@ public abstract class Mob extends Char {
 	public int drroll = 1;
 
 	public int defencePloe;
-	public int hpPole = Random.Int(3, 10);
+	public int hpPole =Random.Int(3, 10);
 
 	public int EXP = 1 + Dungeon.depth / 2;
 	public int maxLvl = Hero.MAX_LEVEL;
@@ -188,7 +191,7 @@ public abstract class Mob extends Char {
 		return Reflection.newInstance(spriteClass);
 	}
 
-	public int attackPloe = Random.Int(2, 8);
+	public int attackPloe = Random.Int(6, 8);
 
 	public float factor = Dungeon.depth * Random.Float(0.50f, 1.60f);
 
@@ -619,13 +622,14 @@ public abstract class Mob extends Char {
 
 	@Override
 	public int defenseSkill(Char enemy) {
-		if (!surprisedBy(enemy)
-				&& paralysed == 0
-				&& !(alignment == Alignment.ALLY && enemy == Dungeon.hero)) {
-			return this.defenseSkill;
-		} else {
-			return 0;
-		}
+		return 0;
+//		if (!surprisedBy(enemy)
+//				&& paralysed == 0
+//				&& !(alignment == Alignment.ALLY && enemy == Dungeon.hero)) {
+//			return this.defenseSkill;
+//		} else {
+//			return 0;
+//		}
 	}
 
 	protected boolean hitWithRanged = false;
@@ -738,17 +742,16 @@ public abstract class Mob extends Char {
 	}
 
 	@Override
+	public boolean isInvulnerable(Class effect) {
+		return buff(AnkhInvulnerability.class) != null;
+	}
+
+	@Override
 	public void die(Object cause) {
 
-
-		reward = Random.Int(0, 2);
-		for (int i = 1; i <= reward; i++) {
-			if (Random.Float() < 0.2f) {
-
-			}
-
+		if(Random.Float()<=0.25f) {
+			Dungeon.level.drop(new Soul(), pos).sprite.drop();
 		}
-
 
 		if (cause == Chasm.class) {
 			//50% chance to round up, 50% to round down
@@ -1254,6 +1257,6 @@ public abstract class Mob extends Char {
 		int dmgdepth = ((1 / 3 + (3 * Dungeon.depth / 40)) / 4);
 		int dmgmax = 4 + (int) Random.Float((factor * 3 + maxPotion()) * dmgdepth);
 		int dmgmin = 1 + (int) Random.Float((factor + minPotion()) * dmgdepth);
-		return Random.NormalIntRange( minPotion(), maxPotion() );
+		return Random.NormalIntRange( dmgmin, dmgmax );
 	}
 }

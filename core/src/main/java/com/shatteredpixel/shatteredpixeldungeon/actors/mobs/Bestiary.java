@@ -21,6 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Air;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.publicmob.GemElemental;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.BlackCube;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.BlackWorm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.LifeSand;
@@ -31,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandWorm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.TestBug;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.RockBug2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.update.SandWorm2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.temple.Believer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Bat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.GnollThrow;
@@ -39,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.SplitSlime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.VineDerived;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.WoodenCross;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Wsddc;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -52,6 +58,9 @@ public class Bestiary {
 		swapMobAlts(mobs);
 		RandomMob(mobs);
 		Random.shuffle(mobs);
+
+		MobCount(mobs);
+
 		return mobs;
 	}
 	
@@ -62,18 +71,18 @@ public class Bestiary {
 			//TODO 地牢区域生物设置
 
 			// 荒漠
-			case 0: default:
+			default:
 				return new ArrayList<>(Arrays.asList(
-						//WoodenCross.class
-						//TestBug.class
+						WoodenCross.class,
+						TestBug.class
 				));
 
 			case 1:
 				//2x黑晶虫，1x沙虫
 				return new ArrayList<>(Arrays.asList(
-						BlackCube.class,
-						BlackWorm.class,
-						SandWorm.class
+						BlackCube.class, BlackWorm.class, SandWorm.class
+						//Guard.class
+						//Rat.class, Rat.class,Rat.class, Rat.class
 						));
 			case 2:
 				//2x黑晶虫，2x沙虫，1x甲虫
@@ -107,12 +116,14 @@ public class Bestiary {
 			case 6:
 				//1x 老鼠, 2x 活化植物, 1x 十字架
 				return new ArrayList<>(Arrays.asList(
+						Goo.class,
 						Rat.class,
 						Rattan.class, Rattan.class,
 						WoodenCross.class));
 			case 7:
 				//1x 活化植物, 2x 老鼠, 1x 近战豺狼，1x 十字架
 				return new ArrayList<>(Arrays.asList(
+						Goo.class,
 						Rattan.class,
 						DM100.class,
 						Rat.class,Rat.class,
@@ -120,6 +131,7 @@ public class Bestiary {
 			case 8:
 				//1x 活化植物, 1x 老鼠, 2x 近战豺狼, 1x 豺狼飞槌手, 1x 十字架
 				return new ArrayList<>(Arrays.asList(
+						Goo.class,
 						VineDerived.class,
 						Rat.class,
 						DM100.class,
@@ -129,6 +141,7 @@ public class Bestiary {
 			case 9: case 10:
 				//2x 豺狼, 2x 豺狼飞槌手, 1x 丛林史莱姆, 1x 十字架, 1x 蝙蝠
 				return new ArrayList<>(Arrays.asList(
+						Goo.class,
 						VineDerived.class,
 						Gnoll.class,
 						DM100.class,
@@ -142,31 +155,25 @@ public class Bestiary {
 				//3x bat, 1x brute, 1x shaman
 				return new ArrayList<>(Arrays.asList(
 						Bat.class, Bat.class, Bat.class,
-						Brute.class,
-						Shaman.random()));
+						GemElemental.random(),
+						Believer.random()));
 			case 12:
 				//2x bat, 2x brute, 1x shaman, 1x spinner
 				return new ArrayList<>(Arrays.asList(
-						Bat.class, Bat.class,
-						Brute.class, Brute.class,
-						Shaman.random(),
-						Spinner.class));
+						GemElemental.random(),
+						Believer.random(),Believer.random()));
 			case 13:
 				//1x bat, 2x brute, 2x shaman, 2x spinner, 1x DM-200
 				return new ArrayList<>(Arrays.asList(
-						Bat.class,
-						Brute.class, Brute.class,
-						Shaman.random(), Shaman.random(),
-						Spinner.class, Spinner.class,
-						DM200.class));
+						DM100.class,
+						ArmoredBrute.class,
+						Believer.random()));
 			case 14: case 15:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
-						Bat.class,
-						Brute.class,
-						Shaman.random(), Shaman.random(),
-						Spinner.class, Spinner.class,
-						DM200.class, DM200.class));
+						Guard.class,
+						ArmoredBrute.class,
+						Believer.random()));
 				
 			// City
 			case 16:
@@ -264,10 +271,10 @@ public class Bestiary {
 		}
 	}
 	
-	//TODO 精英怪生成（5%）
+	//TODO 精英怪生成（2%）
 	private static void swapMobAlts(ArrayList<Class<?extends Mob>> rotation){
 		for (int i = 0; i < rotation.size(); i++){
-			if (Random.Int( 19 ) == 0) {
+			if (Random.Int( 30 ) == 0) {
 				Class<? extends Mob> cl = rotation.get(i);
 				if (cl == RockBug.class) {
 				    cl = RockBug2.class;
@@ -293,20 +300,30 @@ public class Bestiary {
 		}
 	}
 
-	//TODO 单个生物但多态时替代生成
-	private static void RandomMob(ArrayList<Class<?extends Mob>> rotation){
-		for (int i = 0; i < rotation.size(); i++){
-			if (Random.Int( 2 ) == 0) {
+	//TODO 元素生物全局替换（9%）
+	private static void RandomMob(ArrayList<Class<? extends Mob>> rotation) {
+		for (int i = 0; i < rotation.size(); i++) {
+			Class<? extends Mob> cl = rotation.get(i);
+            if (Random.Float() < 0.09f) {
+				cl = GemElemental.random();
+			}
+			rotation.set(i, cl);
+        }
+	}
+
+	//精英怪物限制生成
+	private static void MobCount(ArrayList<Class<?extends Mob>> rotation){
+			for (int i = 0; i < rotation.size(); i++) {
 				Class<? extends Mob> cl = rotation.get(i);
-				if (cl == RockBug.class) {
-					if (Random.Int( 1 ) == 0) {
-						cl = RockBug.class;
-					}
-				} else if (cl == Scorpio.class)
-				{ cl = Scorpio.class;
+				if (cl == Goo.class&&Dungeon.LimitedDrops.GOO_KILL.count<2&&Dungeon.LimitedDrops.GOO_ALL.count<1) {
+					cl = Goo.class;
+					Dungeon.LimitedDrops.GOO_ALL.count++;
+				} else if (cl == Goo.class&&Dungeon.LimitedDrops.GOO_ALL.count>=1) {
+					cl = Air.class;
 				}
 				rotation.set(i, cl);
 			}
 		}
-	}
+
+
 }

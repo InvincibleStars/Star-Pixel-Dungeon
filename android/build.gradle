@@ -15,6 +15,7 @@ android {
 
         versionCode appVersionCode
         versionName appVersionName
+        multiDexEnabled true
 
         //noinspection MinSdkTooLow
         minSdkVersion appAndroidMinSDK

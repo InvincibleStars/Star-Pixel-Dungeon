@@ -52,7 +52,7 @@ public class WndInfoMob extends WndTitledMessage {
 		
 		public MobTitle( Mob mob ) {
 			//设定标题栏需要干什么
-			name = PixelScene.renderTextBlock( Messages.titleCase( mob.name()+"-["+mob.HP+"/"+mob.HT+"]"), 7 );
+			name = PixelScene.renderTextBlock( Messages.titleCase( mob.name()+"\n"+"["+mob.HP+"/"+mob.HT+"]"), 7 );
 			name.hardlight( TITLE_COLOR );
 			add( name );
 			

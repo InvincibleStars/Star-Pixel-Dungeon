@@ -59,28 +59,6 @@ public class BurnVest extends Buff {
 		return true;
 	}
 
-	//显示
-	@Override
-	public int icon() {
-			return BuffIndicator.BURNVEST;
-	}
-
-	@Override
-	public String toString() {
-	return Messages.get(this, "title");
-	}
-
-	//@Override
-	public String desc() {
-		String result;
-		//result = Messages.get(this, "desc", burnadd , cooladd);
-		result = Messages.get(this, "desc", burnadd , cooladd);
-		return result;
-	}
-
-
-	//保存
-
 	private static final String BURNADD = "burnadd";
 	private static final String COOLADD = "cooladd";
 
