@@ -10,6 +10,8 @@ android {
     sourceSets.main.assets.srcDirs = [new File(project(':core').projectDir, "/src/main/assets")]
 
     defaultConfig {
+multiDexEnabled true
+
         manifestPlaceholders = [appName:appName]
         applicationId appPackageName
 
