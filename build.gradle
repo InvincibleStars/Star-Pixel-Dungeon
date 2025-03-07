@@ -22,7 +22,7 @@ allprojects {
         appJavaCompatibility = JavaVersion.VERSION_23
 
         appAndroidCompileSDK = 35
-        appAndroidMinSDK = 19
+        appAndroidMinSDK = 21 //19
         appAndroidTargetSDK = 35
 
         gdxVersion = '1.10.0'
