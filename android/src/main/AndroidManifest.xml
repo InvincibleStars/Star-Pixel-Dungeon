@@ -21,8 +21,10 @@
 		android:largeScreens="true"
 		android:xlargeScreens="true"/>
 
-	<application
 <!--		tools:replace="android:appComponentFactory" -->
+<!-- org foraplct under   -->
+	<application
+
 		android:icon="@mipmap/ic_launcher"
 		android:label="${appName}"
 		android:theme="@android:style/Theme.Black.NoTitleBar"
