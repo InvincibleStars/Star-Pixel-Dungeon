@@ -22,6 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -43,4 +45,13 @@ public class Spear extends MeleeWeapon {
 				lvl*Math.round(1.33f*(tier+1)); //+4 per level, up from +3
 	}
 
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		int distance = Dungeon.level.distance(attacker.pos, defender.pos);
+		if(distance<=1){
+			DLY = 1f;
+			damage*=0.75f;
+		}
+		return super.proc(attacker, defender, damage);
+	}
 }

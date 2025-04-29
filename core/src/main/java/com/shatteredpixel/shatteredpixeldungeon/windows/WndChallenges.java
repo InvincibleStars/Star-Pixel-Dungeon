@@ -73,19 +73,31 @@ public class WndChallenges extends Window {
 			cb.checked((checked & Challenges.MASKS[i]) != 0);
 			cb.active = editable;
 			//满足成就后开启某项挑战
-			if (Challenges.NAME_IDS[i].equals(("darkness"))){
-				if(Badges.isUnlocked(Badges.Badge.ALL_POTIONS_IDENTIFIED)||Badges.isUnlocked(Badges.Badge.ALL_SCROLLS_IDENTIFIED)){
+			if (Challenges.NAME_IDS[i].equals(("safe"))){
+				cb.alpha(1f);
+				if(Badges.isUnlocked(Badges.Badge.ALL_ALL)){
 					cb.active = true;
 					cb.checked(true);
-					cb.visible = true;
-					cb.alpha(0.4f);
 				}else {
 					cb.active = false;
 					cb.checked(false);
-					cb.visible = true;
 					cb.alpha(0.4f);
 				}
-		}
+				cb.visible = true;
+			}
+
+			if (Challenges.NAME_IDS[i].equals(("degenerate"))){
+				cb.alpha(1f);
+				if(Badges.isUnlocked(Badges.Badge.ALL_ALL)){
+					cb.active = true;
+					cb.checked(true);
+				}else {
+					cb.active = false;
+					cb.checked(false);
+					cb.alpha(0.4f);
+				}
+				cb.visible = true;
+			}
 
 
 

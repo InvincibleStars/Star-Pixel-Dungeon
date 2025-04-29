@@ -44,12 +44,6 @@ public class WndStory extends Window {
 	private static final float bgB	= 0.62f;
 	
 	public static final int ID_SAND		= 0;
-	public static final int ID_SAND_BOSS		= 1;
-	public static final int ID_TREE			= 2;
-	public static final int ID_PRISON		= 11;
-	public static final int ID_CAVES		= 12;
-	public static final int ID_CITY     	= 13;
-	public static final int ID_HALLS		= 14;
 
 
 
@@ -64,7 +58,6 @@ public class WndStory extends Window {
 		CHAPTERS.put( ID_ERROR, "error" );
 		CHAPTERS.put( ID_LEVEL_0, "level0" );
 		CHAPTERS.put( ID_SAND, "sand" );
-		CHAPTERS.put( ID_SAND_BOSS, "sandboss" );
 
 	}
 

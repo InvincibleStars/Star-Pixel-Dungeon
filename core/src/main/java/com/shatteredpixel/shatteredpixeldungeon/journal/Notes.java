@@ -74,7 +74,7 @@ public class Notes {
 		SHOP,
 		
 		GHOST,
-		WANDMAKER,
+		//WANDMAKER,
 		TROLL,
 		IMP;
 		

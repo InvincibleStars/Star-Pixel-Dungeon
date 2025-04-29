@@ -63,7 +63,7 @@ public class AlchemyWeapon extends Item {
 
     public static class BurinRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{Burin.class, Bones.class};
+            inputs = new Class[]{Burin.class, Bone.class};
             inQuantity = new int[]{2, 1};
             cost = 5;
             outQuantity = 1;
@@ -141,8 +141,8 @@ public class AlchemyWeapon extends Item {
 
     public static class EleoveRecipe extends Recipe.SimpleRecipe {
         {
-            inputs = new Class[]{GemGlove.class, ColorGem.class, WeaponGem.class, WeaponDust.class};
-            inQuantity = new int[]{1, 1, 1, 1};
+            inputs = new Class[]{GemGlove.class, ColorGem.class, WeaponGem.class};
+            inQuantity = new int[]{1, 1, 1};
             cost = 8;
             outQuantity = 1;
             output = Eleove.class;

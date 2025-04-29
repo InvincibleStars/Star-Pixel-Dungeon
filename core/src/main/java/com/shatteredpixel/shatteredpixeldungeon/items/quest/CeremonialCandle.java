@@ -64,6 +64,7 @@ public class CeremonialCandle extends Item {
 		return true;
 	}
 
+	/*
 	@Override
 	public void doDrop(Hero hero) {
 		super.doDrop(hero);
@@ -126,4 +127,5 @@ public class CeremonialCandle extends Item {
 		}
 
 	}
+	 */
 }

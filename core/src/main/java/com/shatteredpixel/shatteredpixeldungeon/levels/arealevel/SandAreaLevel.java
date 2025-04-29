@@ -53,7 +53,7 @@ public class SandAreaLevel extends RegularLevel {
 	
 	@Override
 	protected int standardRooms(boolean forceMax) {
-		if (forceMax) return 51;
+		if (forceMax) return 9;
 		//7-10
 		return 7 + Random.chances(new float[]{3, 2, 1});
 	}
@@ -61,7 +61,7 @@ public class SandAreaLevel extends RegularLevel {
 	@Override
 	protected int specialRooms(boolean forceMax) {
 
-		if (forceMax) return 4;
+		if (forceMax) return 1;
 		//0-3个特殊房间
 		return 0+Random.chances(new float[]{3, 2, 1});
 	}
@@ -87,7 +87,8 @@ public class SandAreaLevel extends RegularLevel {
 
 	@Override //陷阱生成
 	protected Class<?>[] trapClasses() {
-		return Dungeon.depth == 1 ? new Class<?>[]{ ToxicTrap.class } : new Class<?>[]{ToxicTrap.class, AlarmTrap.class,};
+		return Dungeon.depth == 1 ? new Class<?>[]{ ToxicTrap.class } : new Class<?>[]{
+				ToxicTrap.class, AlarmTrap.class};
 	}
 
 	@Override //生成权重
@@ -116,57 +117,6 @@ public class SandAreaLevel extends RegularLevel {
 		}
 	}
 
-	/*
-	@Override
-	public String tileName( int tile ) {
-		switch (tile) {
-			case Terrain.WATER:
-				return Messages.get(SandAreaLevel.class, "water_name");
-			case Terrain.DOOR:
-				return Messages.get(SandAreaLevel.class, "door_name");
-			case Terrain.ENTRANCE:
-				return Messages.get(SandAreaLevel.class, "entrance_name");
-			case Terrain.EXIT:
-				return Messages.get(SandAreaLevel.class, "exit_name");
-			case Terrain.GRASS:
-				return Messages.get(SandAreaLevel.class, "grass_name");
-			case Terrain.HIGH_GRASS:
-				return Messages.get(SandAreaLevel.class, "high_grass_name");
-			case Terrain.WALL:
-				return Messages.get(SandAreaLevel.class, "wall_name");
-			default:
-				return super.tileName( tile );
-		}
-	}
-	
-	@Override
-	public String tileDesc(int tile) {
-		switch (tile) {
-			case Terrain.EMPTY_DECO:
-				return Messages.get(SandAreaLevel.class, "empty_deco_desc");
-			case Terrain.BOOKSHELF:
-				return Messages.get(SandAreaLevel.class, "bookshelf_desc");
-			case Terrain.DOOR:
-				return Messages.get(SandAreaLevel.class, "door_desc");
-			case Terrain.WATER:
-				return Messages.get(SandAreaLevel.class, "water_desc");
-			case Terrain.ENTRANCE:
-				return Messages.get(SandAreaLevel.class, "entrance_desc");
-			case Terrain.EXIT:
-				return Messages.get(SandAreaLevel.class, "exit_desc");
-			case Terrain.GRASS:
-				return Messages.get(SandAreaLevel.class, "grass_desc");
-			case Terrain.HIGH_GRASS:
-				return Messages.get(SandAreaLevel.class, "high_grass_desc");
-			case Terrain.WALL:
-				return Messages.get(SandAreaLevel.class, "wall_desc");
-			default:
-				return super.tileDesc( tile );
-		}
-	}
-
-	 */
-	
 	private static class Sink extends Emitter {
 		
 		private int pos;

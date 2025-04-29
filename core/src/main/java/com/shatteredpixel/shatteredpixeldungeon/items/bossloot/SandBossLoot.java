@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.bossloot;
 
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -43,6 +44,7 @@ public class SandBossLoot extends BossLoot {
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {
 		if(a!=1){
+			//SPDSettings.kuaijielanNum(5000);
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {

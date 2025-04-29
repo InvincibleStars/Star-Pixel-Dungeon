@@ -177,7 +177,7 @@ public enum Talent {
 	//T1
 	STAR_EAT1(256,2),WEAPON_KNOW(257,2),SLOW_BLUE(258,2),FAST_REG(259,2),
 	//T2
-	STAR_EAT2(260,2),STAR_UPDATE(261,2),FIRE_PROTECT(263,2),COLD_PROTECT(264,2),ASSIMILATION_ELEMENT(265,2),CONVERSION_POINT(266,2),
+	STAR_EAT2(260,1),STAR_UPDATE(261,2),FIRE_PROTECT(263,2),COLD_PROTECT(264,2),ASSIMILATION_ELEMENT(265,2),CONVERSION_POINT(266,2),
 
 	//共用天赋
 	ATTACK_SKILL(288, 2),
@@ -293,7 +293,7 @@ public enum Talent {
 		}
 		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 2){
 			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.identify();
-			if (hero.belongings.misc instanceof Ring) hero.belongings.misc.identify();
+			//if (hero.belongings.misc instanceof Ring) hero.belongings.misc.identify();
 			for (Item item : Dungeon.hero.belongings){
 				if (item instanceof Ring){
 					((Ring) item).setKnown();
@@ -302,7 +302,7 @@ public enum Talent {
 		}
 		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 1){
 			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.setKnown();
-			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
+			//if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
 		}
 
 		if (talent == LIGHT_CLOAK && hero.pointsInTalent(LIGHT_CLOAK) == 1){
@@ -409,20 +409,11 @@ public enum Talent {
 		if (hero.hasTalent(HUNTRESS_EAT2)){
 			//effectively 1/2 turns of haste
 			Buff.prolong( hero, Haste.class, 1.67f+hero.pointsInTalent(HUNTRESS_EAT2));
+			ScrollOfRecharging.charge( hero );
 		}
 
-		if (hero.hasTalent(STAR_EAT1)){
-			if(BurnVest.cooladd+1+2*hero.pointsInTalent(STAR_EAT2)>=BurnVest.burnadd
-					||BurnVest.burnadd+1+2*hero.pointsInTalent(STAR_EAT2)>=BurnVest.cooladd){
-				//差距过小自动均衡
-				BurnVest.cooladd=BurnVest.burnadd=100;
-			} else if (BurnVest.burnadd+1+2*hero.pointsInTalent(STAR_EAT2)<BurnVest.cooladd) {
-				BurnVest.burnadd+=1+2*hero.pointsInTalent(STAR_EAT2);
-				BurnVest.cooladd=200-BurnVest.burnadd;
-			} else if (BurnVest.cooladd+1+2*hero.pointsInTalent(STAR_EAT2)<BurnVest.burnadd) {
-				BurnVest.cooladd += 1 + 2 * hero.pointsInTalent(STAR_EAT2);
-				BurnVest.burnadd=200-BurnVest.cooladd;
-			}
+		if (hero.hasTalent(STAR_EAT2)){
+			ScrollOfRecharging.charge( hero );
 		}
 
 

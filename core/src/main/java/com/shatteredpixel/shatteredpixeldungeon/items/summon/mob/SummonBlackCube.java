@@ -28,16 +28,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.BlackCubeSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.sand.CubeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class SummonBlackCube extends Mob {
 	
 	{
-		spriteClass = BlackCubeSprite.class;
+		spriteClass = CubeSprite.class;
 		alignment = Alignment.ALLY;
 		state = HUNTING;
-		hpPole=35;
 	}
 
 	@Override

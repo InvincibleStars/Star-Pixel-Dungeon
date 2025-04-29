@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.COLD_PROTECT;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -33,7 +36,7 @@ import java.text.DecimalFormat;
 
 public class Chill extends FlavourBuff {
 
-	public static final float DURATION = 10f+ BurnVest.cooldmg*5;
+	public static final float DURATION = 5f + ( 1 - BurnVest.burnvest)*5;
 
 	{
 		type = buffType.NEGATIVE;
@@ -43,18 +46,22 @@ public class Chill extends FlavourBuff {
 	@Override
 	public boolean attachTo(Char target) {
 		Buff.detach( target, Burning.class );
-		if(BurnVest.cooladd>=199){
-			BurnVest.burnadd=0;	BurnVest.cooladd=200;
+		if(BurnVest.burnvest-0.01f<=0){
+			BurnVest.burnvest=0;
 		}else{
-			BurnVest.burnadd-=1;	BurnVest.cooladd+=1;
+			BurnVest.burnvest-=0.01f;
 		}
 		return super.attachTo(target);
 	}
 
 	//reduces speed by 10% for every turn remaining, capping at 50%
 	public float speedFactor(){
-		Hero hero =	new Hero();
-		return Math.max(0.5f-0.125f*(float)(hero.pointsInTalent(Talent.COLD_PROTECT)) , 1 - cooldown()*(0.1f-0.025f*(float)(hero.pointsInTalent(Talent.COLD_PROTECT))));
+		float speed = Math.max(0.5f, 1 - cooldown()*0.1f);
+		if(!(hero.hasTalent(COLD_PROTECT))){
+			speed *= (1-0.25f*hero.pointsInTalent(COLD_PROTECT));
+		}
+
+		return speed;
 	}
 
 	@Override

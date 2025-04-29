@@ -678,7 +678,7 @@ public class WndSettings extends WndTabbed {
 			add(chkMusicMute);
 
 /////////////////////////////
-			quickNum = new OptionSlider(Messages.get(this, "slotnum"), "4", "20", 4, 20) {
+			quickNum = new OptionSlider(Messages.get(this, "slotnum"), "4", "8", 4, 8) {
 				@Override
 				protected void onChange() {
 					SPDSettings.kuaijielanNum(getSelectedValue());

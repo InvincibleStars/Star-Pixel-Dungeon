@@ -132,23 +132,7 @@ public class InterlevelScene extends PixelScene {
 				}
 				scrollSpeed = 5;
 				break;
-			case THREEDEPTH:
-				if (Dungeon.hero == null){
-					loadingDepth = 5;
-					fadeTime = SLOW_FADE;
-				} else {
-					loadingDepth = Dungeon.depth-2;
-					//控制动画速度
-					if (!(Statistics.deepestFloor < loadingDepth)) {
-						fadeTime = FAST_FADE;
-					} else if (loadingDepth == 6 || loadingDepth == 11 || loadingDepth == 16 || loadingDepth == 21) {
-						fadeTime = SLOW_FADE;
-					}
-				}
-				scrollSpeed = 5;
-				break;
 			case FALL:
-
 				loadingDepth = Dungeon.depth+1;
 				scrollSpeed = 5;
 				break;
@@ -421,10 +405,6 @@ public class InterlevelScene extends PixelScene {
 		if (Dungeon.hero == null) {
 			Mob.clearHeldAllies();
 			Dungeon.init();
-			if (noStory) {
-				Dungeon.chapters.add( WndStory.ID_SAND );
-				noStory = false;
-			}
 			GameLog.wipe();
 		} else {
 			Mob.holdAllies( Dungeon.level );

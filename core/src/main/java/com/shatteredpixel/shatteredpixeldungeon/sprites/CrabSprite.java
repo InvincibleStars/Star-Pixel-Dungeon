@@ -24,7 +24,6 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.sandarea.SandCrab;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
@@ -76,7 +75,7 @@ public class CrabSprite extends MobSprite {
 		chargeParticles.pour(MagicMissile.MagicParticle.ATTRACTING, 0.05f);
 		chargeParticles.on = false;
 
-		if (((SandCrab)ch).beamCharged) play(charging);
+		//if (((SaCrab)ch).beamCharged) play(charging);
 	}
 
 	@Override
@@ -133,7 +132,7 @@ public class CrabSprite extends MobSprite {
 			} else {
 				parent.add(new Beam.DeathRay(center(), DungeonTilemap.raisedTileCenterToWorld(zapPos)));
 			}
-			((SandCrab)ch).deathGaze();
+			//((RedCrystal)ch).deathGaze();
 			ch.next();
 		} else if (anim == die){
 			chargeParticles.killAndErase();

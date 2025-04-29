@@ -32,7 +32,8 @@ import java.util.LinkedHashMap;
 public enum Document {
 	
 	ADVENTURERS_GUIDE(ItemSpriteSheet.GUIDE_PAGE),
-	ALCHEMY_GUIDE(ItemSpriteSheet.ALCH_PAGE);
+	ALCHEMY_GUIDE(ItemSpriteSheet.ALCH_PAGE),
+	TENGU_BOMB(ItemSpriteSheet.TENGU_BOMB);
 	
 	Document( int sprite ){
 		pageSprite = sprite;
@@ -174,6 +175,8 @@ public enum Document {
 		ALCHEMY_GUIDE.pagesStates.put("Paper6",               debug ? READ : FOUND);
 		ALCHEMY_GUIDE.pagesStates.put("Paper7",               debug ? READ : FOUND);
 		//ALCHEMY_GUIDE.pagesStates.put("Paper4",               debug ? READ : NOT_FOUND);
+
+		TENGU_BOMB.pagesStates.put("paper1",          debug ? READ : FOUND);
 
 	}
 	

@@ -22,7 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.room.Pot;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.room.ItemBox;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.GuidePage;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
@@ -57,7 +57,7 @@ public class EntranceRoom extends StandardRoom {
 	//生成罐子
 	protected void placePot(Level level) {
 		int pos = level.pointToCell(center());
-			NPC pot = new Pot();
+			NPC pot = new ItemBox();
 			pot.pos = pos;
 			level.mobs.add(pot);
 		}

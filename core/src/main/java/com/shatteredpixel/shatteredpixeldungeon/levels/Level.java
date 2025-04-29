@@ -21,7 +21,16 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.depth;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.EMPTY;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.EMPTY_SP;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.ENTRANCE;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.EXIT;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.HIGH_GRASS;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.WALL;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.WATER;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -67,6 +76,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers2;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
@@ -79,6 +89,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.features.DeadEmpty;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MassGraveRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -144,29 +155,9 @@ public abstract class Level implements Bundlable {
 		return foundview;
 	}
 
-	private int lesshp() {
-		int lesshp = 0;
-		if (hero.HP <= (hero.HT) / 5) {
-			//重度失血通常会使得我们的视野变得模糊
-			lesshp = 2;
-		}else if (hero.HP <= (hero.HT) / 8) {
-			lesshp = 3;
-
-		}
-		return lesshp;
-	}
-
-	private int fullhp() {
-		int fullhp = 0;
-		if (hero.HP >= ((hero.HT) * 4) / 5) {
-			//健康将获得更大的视野
-			fullhp = 1;
-		}
-		return fullhp;
-	}
 
 	//视野计算为：8 - 挑战视野 - 低生命视野惩罚 + 健康额外视野
-	public int viewShort = 8 - foundview() - lesshp() + fullhp();
+	public int viewShort = 8 - foundview();
 
 	//上者起到暂存作用
 	public int viewDistance = viewShort;
@@ -238,7 +229,6 @@ public abstract class Level implements Bundlable {
 
 			addItemToSpawn(new SmallRation());
 			addItemToSpawn(new SmallRation());
-
 			addItemToSpawn(new Gold().random());
 			addItemToSpawn(new EnergyCrystal().random());
 			addItemToSpawn(new Embers2().random());
@@ -319,12 +309,23 @@ public abstract class Level implements Bundlable {
 			customWalls = new HashSet<>();
 
 		} while (!build());
+		if(depth>5&&depth<11){
+			templewall();
+			treedoor();
+			treebianyuan();
+			wuran();
+			randomGrass();
+			randomWall();
+		}
 
 		buildFlagMaps();
+
 		cleanWalls();
 
 		createMobs();
 		createItems();
+
+
 
 		Random.popGenerator();
 	}
@@ -336,6 +337,7 @@ public abstract class Level implements Bundlable {
 		length = w * h;
 
 		map = new int[length];
+		//1234
 		Arrays.fill( map, feeling == Level.Feeling.CHASM ? Terrain.CHASM : Terrain.WALL );
 
 		visited     = new boolean[length];
@@ -801,6 +803,72 @@ public abstract class Level implements Bundlable {
 		}
 	}
 
+	public void templewall(){
+		int c =height*width;
+		for(int i=0;i<c;i++){
+			if(map[i]==Terrain.WALL){
+				map[i]=Terrain.EMPTY;
+			}
+		}
+	}
+
+	public void treedoor(){
+		int c =height*width;
+		for(int i=0;i<c;i++){
+			if(map[i]==Terrain.DOOR){
+				map[i]=Terrain.EMPTY;
+			}
+		}
+	}
+
+	public void treebianyuan(){
+		int c =height*width;
+		for(int i=0;i<c;i++){
+			if(i % width == width-1 || i % width ==0 || i<=width||i>=c-width){
+				map[i]=Terrain.WALL;
+			}
+		}
+	}
+
+	public void wuran(){
+		int point = 0;
+		int c;
+		while (point<2){
+			c =Random.Int(height()*width());
+			if(map[c]==Terrain.EMPTY){
+				map[c]=Terrain.DEADEMPTY;
+				point++;
+			}
+		}
+	}
+
+	private void randomGrass() {
+		int model = (width() * height())/2;
+		for(int c =0;c<model;c++){
+			if (map[c] == EMPTY && Random.Int(4)==0) {
+				if(Random.Float()>=0.40f) {
+					map[c] = HIGH_GRASS;
+				}else {
+					map[c] = WATER;
+				}
+			}
+		}
+		GameScene.updateMap();
+	}
+
+	private void randomWall() {
+		int model = width() * height();
+		for (int c = 0; c < model; c++) {
+			int d = Random.Int(5, 30);
+			Heap heap = heaps.get( c );
+			if ((c % d == 0 )&& heap==null && map[c] != Terrain.EXIT && map[c] != EMPTY_SP && map[c] != Terrain.ENTRANCE) {
+				map[c]= WALL;
+			}
+		}
+		GameScene.updateMap();
+	}
+
+
 	public static void set( int cell, int terrain ){
 		set( cell, terrain, Dungeon.level );
 	}
@@ -1068,7 +1136,7 @@ public abstract class Level implements Bundlable {
 			case Terrain.TRAP:
 				trap = traps.get( cell );
 				break;
-//
+
 			case Terrain.HIGH_GRASS:
 			case Terrain.FURROWED_GRASS:
 				HighGrass.trample( this, cell);
@@ -1190,9 +1258,6 @@ public abstract class Level implements Bundlable {
 		if (c.isAlive() && c == hero) {
 			for (Buff b : c.buffs( MindVision.class )) {
 				sense = Math.max( ((MindVision)b).distance, sense );
-			}
-			for (Buff b : c.buffs( Burning.class )) {
-				sense = Math.max( ((Burning)b).distance2, sense );
 			}
 			if (c.buff(MagicalSight.class) != null){
 				sense = Math.max( MagicalSight.DISTANCE, sense );

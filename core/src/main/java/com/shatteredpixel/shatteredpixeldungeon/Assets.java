@@ -308,15 +308,15 @@ public class Assets {
 
 
 		//沙区
-		public static final String SAND_WORM= "sprites/newsprites/sand/sand_worm.png";
-		public static final String SAND_WORM2= "sprites/newsprites/sand/sand_worm2.png";
-		public static final String ROCK_BUG= "sprites/newsprites/sand/rock_bug.png";
-		public static final String ROCK_BUG2= "sprites/newsprites/sand/rock_bug2.png";
-		public static final String BLACK_WORM= "sprites/newsprites/sand/black_worm.png";
-		public static final String BLACK_CUBE= "sprites/newsprites/sand/black_cube.png";
-		public static final String SAND_CRAB= "sprites/newsprites/sand/sand_crab.png";
-		public static final String SAND_SCORPION= "sprites/newsprites/sand/killrock.png";
-		public static final String LIFE_SAND= "sprites/newsprites/sand/sand.png";
+		public static final String WORM= "sprites/newsprites/sand/worm.png";
+		public static final String WITHERED_WORM= "sprites/newsprites/sand/witheredworm.png";
+		public static final String BEETLE= "sprites/newsprites/sand/beetle.png";
+		public static final String ARMOR_BEETLE= "sprites/newsprites/sand/armorbeetle.png";
+		public static final String EMPTY_SHELL= "sprites/newsprites/sand/emptyshell.png";
+		public static final String CUBE= "sprites/newsprites/sand/cube.png";
+		public static final String SPIDER= "sprites/newsprites/sand/spider.png";
+		public static final String RED_CRYSTAL= "sprites/newsprites/sand/redcrystal.png";
+		public static final String BONE_HEAD= "sprites/newsprites/sand/bonehead.png";
 
 		//林地
 		public static final String LIFE_PLANT= "sprites/newsprites/tree/lifeplant.png";
@@ -333,6 +333,7 @@ public class Assets {
 
 		//盒子
 		public static final String POT= "sprites/newsprites/other/pot.png";
+		public static final String BONEBOX= "sprites/newsprites/temp/bone.png";
 		//雕像
 		public static final String BUST= "sprites/newsprites/other/bust.png";
 

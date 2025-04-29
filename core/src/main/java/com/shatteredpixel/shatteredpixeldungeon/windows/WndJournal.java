@@ -64,6 +64,7 @@ public class WndJournal extends WndTabbed {
 	
 	private GuideTab guideTab;
 	private AlchemyTab alchemyTab;
+	private WordA wordA;
 	private NotesTab notesTab;
 	private CatalogTab catalogTab;
 	
@@ -84,6 +85,11 @@ public class WndJournal extends WndTabbed {
 		alchemyTab = new AlchemyTab();
 		add(alchemyTab);
 		alchemyTab.setRect(0, 0, width, height);
+
+		wordA = new WordA();
+		add(wordA);
+		wordA.setRect(0, 0, width, height);
+		wordA.updateList();
 		
 		notesTab = new NotesTab();
 		add(notesTab);
@@ -108,6 +114,13 @@ public class WndJournal extends WndTabbed {
 						super.select( value );
 						alchemyTab.active = alchemyTab.visible = value;
 						if (value) last_index = 1;
+					}
+				},
+				new IconTab( new ItemSprite(ItemSpriteSheet.GUIDE_PAGE, null) ) {
+					protected void select( boolean value ) {
+						super.select( value );
+						wordA.active = wordA.visible = value;
+						if (value) last_index = 0;
 					}
 				},
 				new IconTab( Icons.get(Icons.DEPTH) ) {
@@ -541,7 +554,115 @@ public class WndJournal extends WndTabbed {
 			list.scrollTo(0, 0);
 		}
 	}
-	
+
+	//------------------------------------------------------------
+	public static class WordA extends Component {
+
+		private ScrollPane list;
+		private ArrayList<WoodAItem> pages = new ArrayList<>();
+
+		@Override
+		protected void createChildren() {
+			list = new ScrollPane( new Component() ){
+				@Override
+				public void onClick( float x, float y ) {
+					int size = pages.size();
+					for (int i=0; i < size; i++) {
+						if (pages.get( i ).onClick( x, y )) {
+							break;
+						}
+					}
+				}
+			};
+			add( list );
+		}
+
+		@Override
+		protected void layout() {
+			super.layout();
+			list.setRect( 0, 0, width, height);
+		}
+
+		private void updateList(){
+			Component content = list.content();
+
+			float pos = 0;
+
+			ColorBlock line = new ColorBlock( width(), 1, 0xFF222222);
+			line.y = pos;
+			content.add(line);
+
+			RenderedTextBlock title2 = PixelScene.renderTextBlock(Document.TENGU_BOMB.title(), 9);
+			title2.hardlight(TITLE_COLOR);
+			title2.maxWidth( (int)width() - 2 );
+			title2.setPos( (width() - title2.width())/2f, pos + 1 + ((ITEM_HEIGHT) - title2.height())/2f);
+			PixelScene.align(title2);
+			content.add(title2);
+
+			pos += Math.max(ITEM_HEIGHT, title2.height());
+
+			for (String page : Document.TENGU_BOMB.pageNames()){
+				WoodAItem item = new WoodAItem( page );
+
+				item.setRect( 0, pos, width(), ITEM_HEIGHT );
+				content.add( item );
+
+				pos += item.height();
+				pages.add(item);
+			}
+
+			content.setSize( width(), pos );
+			list.setSize( list.width(), list.height() );
+		}
+
+		private static class WoodAItem extends ListItem {
+
+			private boolean found = false;
+			private String page;
+
+			public WoodAItem( String page ){
+				super( iconForPage(page), Messages.titleCase(Document.TENGU_BOMB.pageTitle(page)));
+
+				this.page = page;
+				found = Document.TENGU_BOMB.isPageFound(page);
+
+				if (!found) {
+					icon.hardlight( 0.5f, 0.5f, 0.5f);
+					label.text( Messages.titleCase(Messages.get( this, "missing" )));
+					label.hardlight( 0x999999 );
+				}
+
+			}
+
+			public boolean onClick( float x, float y ) {
+				if (inside( x, y ) && found) {
+					GameScene.show( new WndStory( iconForPage(page),
+							Document.TENGU_BOMB.pageTitle(page),
+							Document.TENGU_BOMB.pageBody(page) ));
+					Document.TENGU_BOMB.readPage(page);
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+		}
+
+		//TODO might just want this to be part of the Document class
+		public static Image iconForPage( String page ){
+			if (!Document.TENGU_BOMB.isPageFound(page)){
+				return new ItemSprite( ItemSpriteSheet.TENGU_BOMB );
+			}
+			switch (page){
+				default:
+					return new ItemSprite(ItemSpriteSheet.TENGU_BOMB);
+			}
+		}
+
+	}
+
+	//---------------------------------------------------------------------------------------------
+
 	private static class NotesTab extends Component {
 		
 		private ScrollPane list;

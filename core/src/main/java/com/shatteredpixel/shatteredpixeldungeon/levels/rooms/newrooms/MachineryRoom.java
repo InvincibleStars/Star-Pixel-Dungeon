@@ -20,21 +20,16 @@
  */
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.newrooms;
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
 import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.DOOR;
 import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.EMPTY;
 import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.EMPTY_SP;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.ENTRANCE;
 import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.EXIT;
+import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.HIGH_GRASS;
 import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.LOCKED_DOOR;
 import static com.shatteredpixel.shatteredpixeldungeon.levels.Terrain.WALL;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier3.Sword;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -46,29 +41,15 @@ public class MachineryRoom extends StandardRoom {
 
 	@Override
 	public void paint(Level level) {
-		//Painter.fill(level, this, Terrain.DOOR, 8);
-		//Painter.drawVerticalLine(level, center(), 18, Terrain.EMPTY_SP);
-		Painter.drawCircle(level, center(), height()/2, Terrain.EMPTY_SP);
-		randomTerrain(level);
 		randomGrass(level);
 		randomWall(level);
 	}
 
-	private void randomTerrain(Level level) {
-		for(int a =0;a<level.width()*level.height();a++){
-			int c = com.watabou.utils.Random.Int(level.width(),level.height()* (level.width()));
-			if (level.map[a] == WALL||level.map[a] == DOOR||level.map[a] == LOCKED_DOOR) {
-				Painter.set(level, a, Terrain.EMPTY);
-			}
-		}
-		GameScene.updateMap();
-	}
-
 	private void randomGrass(Level level) {
-		for(int b =0;b<level.width()*level.height();b++){
-			int c = com.watabou.utils.Random.Int(level.width(),level.height()* (level.width()));
-			if (level.map[b] == EMPTY) {
-				Painter.set(level, b, EMPTY);
+		int model = level.width() * level.height();
+		for(int c =0;c<model;c++){
+			if (level.map[c] == EMPTY&&Random.Int(5)==0) {
+				Painter.set(level, c, HIGH_GRASS);
 			}
 		}
 		GameScene.updateMap();
@@ -76,10 +57,10 @@ public class MachineryRoom extends StandardRoom {
 
 	private void randomWall(Level level) {
 		int model = level.width() * level.height();
-
 		for (int c = 0; c < model; c++) {
-			int d = Random.Int(1, 30);
-			if ((c < level.width() || c > level.width() * level.height() - level.width() || c % d == 0) && level.map[c] != EXIT) {
+			int d = Random.Int(5, 30);
+			Heap heap = level.heaps.get( c );
+			if ((c % d == 0 )&& heap==null && level.map[c] != EXIT && level.map[c] != EMPTY_SP && level.map[c] != ENTRANCE) {
 				Painter.set(level, c, WALL);
 			}
 		}

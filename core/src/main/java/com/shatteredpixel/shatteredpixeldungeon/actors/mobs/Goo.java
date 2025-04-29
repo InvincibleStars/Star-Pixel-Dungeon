@@ -50,8 +50,6 @@ public class Goo extends Mob {
 	{
 		//基础数据
 		//IF
-		hpPole=16;
-		attackPloe=7;
 		EXP = 10;
 		defenseSkill = 8;
 		spriteClass = GooSprite.class;

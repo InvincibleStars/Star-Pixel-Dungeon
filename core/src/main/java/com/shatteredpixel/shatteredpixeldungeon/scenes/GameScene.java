@@ -415,7 +415,8 @@ public class GameScene extends PixelScene {
 			case THREEDEPTH:
 			case FALL:
 				switch (Dungeon.depth) {
-					//0层
+				default:
+					break;
 				case 0:
 					WndStory.showChapter( WndStory.ID_LEVEL_0 );
 					NPC.choose_num=0;
@@ -424,8 +425,6 @@ public class GameScene extends PixelScene {
 					//沙漠
 				case 1:
 					WndStory.showChapter( WndStory.ID_SAND );
-					break;
-				case 5: WndStory.showChapter( WndStory.ID_SAND_BOSS );
 					break;
 				}
 				if (Dungeon.hero.isAlive() && Dungeon.depth>=2) {

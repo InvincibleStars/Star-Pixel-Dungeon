@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.bossloot;
 
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.watabou.utils.Bundle;
@@ -43,7 +44,6 @@ public class BossLoot extends Item {
 		//actions.remove(AC_THROW);
 		return actions;
 	}
-
 
 
 	@Override

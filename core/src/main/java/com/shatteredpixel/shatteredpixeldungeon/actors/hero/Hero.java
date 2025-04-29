@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -60,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WaitDamage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AttackAdd;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
@@ -144,9 +146,11 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndChallenges;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
@@ -195,8 +199,8 @@ public class Hero extends Char {
 
 
 
-	private int attackSkill;
-	private int defenseSkill;
+	private int attackSkill=1;
+	private int defenseSkill=2;
 
 	public boolean ready = false;
 	private boolean damageInterrupt = true;
@@ -535,19 +539,13 @@ public class Hero extends Char {
 //NEW
 		if (wep instanceof MeleeWeapon){
 			if (level.adjacent( pos, target.pos )) {
-				accuracy *= (0.5f + 0.2f*pointsInTalent(Talent.POINT_BLANK));
+				accuracy *= (0.5f + 0.2f*pointsInTalent(Talent.ACCURATE_BOW));
 			} else {
 				accuracy *= 1.5f;
 			}
 		}
 
-		if (wep instanceof MeleeWeapon){
-			if (level.adjacent( pos, target.pos )) {
-				accuracy *= (0.5f + 0.2f*pointsInTalent(Talent.POINT_BLANK));
-			} else {
-				accuracy *= 1.5f;
-			}
-		}
+
 		
 		if (wep != null) {
 			return (int)((attackSkill+hero.pointsInTalent(Talent.ATTACK_SKILL) )* accuracy * wep.accuracyFactor( this ));
@@ -737,9 +735,8 @@ public class Hero extends Char {
 
 		if (belongings.weapon() != null) {
 
-			//判断效果存在
 			if ( buff(Adrenaline2.class) != null) {
-				return belongings.weapon().delayFactor( this )/1.3f;
+				return belongings.weapon().delayFactor( this )*0.7f;
 			}
 			
 			return belongings.weapon().delayFactor( this );
@@ -792,10 +789,18 @@ public class Hero extends Char {
 
 	@Override
 	public boolean act() {
+
+		defenseSkill = this.lvl;
+		attackSkill=this.lvl*2;
+
+
 		updateHT(true);
-		//if (hero.buff(MagicImmune.class) == null){
-			//Buff.affect(this, WaitDamage.class);
-		//}
+		if (hero.buff(WaitDamage.class) == null){
+			Buff.affect(this, WaitDamage.class);
+		}
+
+
+		GLog.n();
 
 		//Buff.affect(this, Viscosity.DeferedDamage.class).prolong(1);
 
@@ -889,10 +894,7 @@ public class Hero extends Char {
 			} else if (curAction instanceof HeroAction.Descend) {
 				actResult = actDescend( (HeroAction.Descend)curAction );
 
-			} else if (curAction instanceof HeroAction.ThreeDepth) {
-				actResult = actThreeDepth( (HeroAction.ThreeDepth)curAction );
-				
-			} else if (curAction instanceof HeroAction.Ascend) {
+			}else if (curAction instanceof HeroAction.Ascend) {
 				actResult = actAscend( (HeroAction.Ascend)curAction );
 				
 			} else if (curAction instanceof HeroAction.Attack) {
@@ -1233,38 +1235,6 @@ public class Hero extends Char {
 			if (timeBubble != null) timeBubble.disarmPressedTraps();
 			
 			InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
-			Game.switchScene( InterlevelScene.class );
-
-			return false;
-
-		} else if (getCloser( stairs )) {
-
-			return true;
-
-		} else {
-			ready();
-			return false;
-		}
-	}
-
-	private boolean actThreeDepth(HeroAction.ThreeDepth action ) {
-		int stairs = action.dst;
-
-		if (rooted) {
-			Camera.main.shake(10, 1f);
-			ready();
-			return false;
-
-		} else if (level.map[pos] == Terrain.THREEEXIT) {
-
-			curAction = null;
-
-			TimekeepersHourglass.timeFreeze timeFreeze = buff(TimekeepersHourglass.timeFreeze.class);
-			if (timeFreeze != null) timeFreeze.disarmPressedTraps();
-			Swiftthistle.TimeBubble timeBubble = buff(Swiftthistle.TimeBubble.class);
-			if (timeBubble != null) timeBubble.disarmPressedTraps();
-
-			InterlevelScene.mode = InterlevelScene.Mode.THREEDEPTH;
 			Game.switchScene( InterlevelScene.class );
 
 			return false;
@@ -1810,12 +1780,7 @@ public class Hero extends Char {
 
 			curAction = new HeroAction.Descend( cell );
 
-		} else if ((level.map[cell] == Terrain.THREEEXIT)
-				&& Dungeon.depth < 26) {
-
-			curAction = new HeroAction.ThreeDepth( cell );
-
-		} else if (cell == level.entrance || level.map[cell] == Terrain.ENTRANCE) {
+		}else if (cell == level.entrance || level.map[cell] == Terrain.ENTRANCE) {
 			
 			curAction = new HeroAction.Ascend( cell );
 			
@@ -1878,6 +1843,8 @@ public class Hero extends Char {
 				Buff.prolong(this, Bless.class, Bless.DURATION);
 				this.exp = 0;
 				GLog.newLine();
+				//定义玩家attackskill
+				attackSkill=defenseSkill=this.lvl;
 				GLog.p( Messages.get(this, "level_cap"));
 				Sample.INSTANCE.play( Assets.Sounds.LEVELUP );
 			}

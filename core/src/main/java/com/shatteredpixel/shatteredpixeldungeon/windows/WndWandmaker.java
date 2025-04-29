@@ -21,29 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Chrome;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Rotberry;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ItemSlot;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.noosa.NinePatch;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.noosa.ui.Component;
 
 public class WndWandmaker extends Window {
-
+/*
 	private static final int WIDTH		= 120;
 	private static final int BTN_SIZE	= 32;
 	private static final int BTN_GAP	= 5;
@@ -79,15 +60,15 @@ public class WndWandmaker extends Window {
 		message.setPos(0, titlebar.bottom() + GAP);
 		add( message );
 		
-		RewardButton btnWand1 = new RewardButton( Wandmaker.Quest.wand1 );
-		btnWand1.setRect( (WIDTH - BTN_GAP) / 2 - BTN_SIZE, message.top() + message.height() + BTN_GAP, BTN_SIZE, BTN_SIZE );
-		add( btnWand1 );
+		//RewardButton btnWand1 = new RewardButton( Wandmaker.Quest.wand1 );
+		//btnWand1.setRect( (WIDTH - BTN_GAP) / 2 - BTN_SIZE, message.top() + message.height() + BTN_GAP, BTN_SIZE, BTN_SIZE );
+		//add( btnWand1 );
 		
-		RewardButton btnWand2 = new RewardButton( Wandmaker.Quest.wand2 );
-		btnWand2.setRect( btnWand1.right() + BTN_GAP, btnWand1.top(), BTN_SIZE, BTN_SIZE );
-		add(btnWand2);
-		
-		resize(WIDTH, (int) btnWand2.bottom());
+		//RewardButton btnWand2 = new RewardButton( Wandmaker.Quest.wand2 );
+		//btnWand2.setRect( btnWand1.right() + BTN_GAP, btnWand1.top(), BTN_SIZE, BTN_SIZE );
+		//add(btnWand2);
+
+		//resize(WIDTH, (int) btnWand2.bottom());
 	}
 	
 	private void selectReward( Item reward ) {
@@ -112,7 +93,7 @@ public class WndWandmaker extends Window {
 		
 		wandmaker.sprite.die();
 		
-		Wandmaker.Quest.complete();
+		//Wandmaker.Quest.complete();
 	}
 
 	public class RewardButton extends Component {
@@ -186,5 +167,7 @@ public class WndWandmaker extends Window {
 			resize(width, (int)btnCancel.bottom());
 		}
 	}
+
+ */
 
 }

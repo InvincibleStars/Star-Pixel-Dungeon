@@ -21,8 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -31,27 +33,20 @@ import com.watabou.utils.Bundle;
 
 public class BurnVest extends Buff {
 
-	//数据
-
+	//学习天赋后每等级-25回合
 	private static final float STEP	= 75f;
-	public static int burnadd = 100;
-	public static int cooladd = 100;
-	public static float burndmg = (float)((((Math.round(burnadd))/100)*2)-1);
-	public static float cooldmg = (float)((((Math.round(cooladd))/100)*2)-1);
+	public static float burnvest = 1;
 
 	@Override
 	public boolean act() {
-		if (target.isAlive() && target instanceof Hero) {
+		if (target.isAlive() && Dungeon.hero.hasTalent(Talent.QUIET_ELEMENT)) {
 
-			Hero hero = (Hero) target;
-			if(burnadd>100){
-				BurnVest.burnadd--;
+			//Hero hero = (Hero) target;
+			if(burnvest>1){
+				BurnVest.burnvest-=0.02f;
 			}else{
-				BurnVest.burnadd++;
+				BurnVest.burnvest+=0.02f;
 			}
-			BurnVest.cooladd=200-BurnVest.burnadd;
-			BurnVest.burndmg = (float)((Math.round(burnadd))/100)*2;
-			BurnVest.cooldmg = (float)((Math.round(cooladd))/100)*2;
 			spend(STEP);
 		}else {
 			diactivate();
@@ -59,21 +54,18 @@ public class BurnVest extends Buff {
 		return true;
 	}
 
-	private static final String BURNADD = "burnadd";
-	private static final String COOLADD = "cooladd";
+	private static final String BURNVEST = "burnvest";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
-		bundle.put( BURNADD, burnadd );
-		bundle.put( COOLADD, cooladd );
+		bundle.put( BURNVEST, burnvest );
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
-		burnadd = bundle.getInt(BURNADD);
-		burnadd = bundle.getInt(COOLADD);
+		burnvest = bundle.getInt(BURNVEST);
 	}
 
 

@@ -50,25 +50,41 @@ import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.NoDeath;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
+import com.shatteredpixel.shatteredpixeldungeon.items.areaitem.Bone;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.InvertArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHormone;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMagicalSight;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers2;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
+import com.shatteredpixel.shatteredpixeldungeon.items.ringstar.RingStarModel;
+import com.shatteredpixel.shatteredpixeldungeon.items.science.PotionLevel;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.newexotic.FlyMindExotic;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.newexotic.FrostExotic;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.newexotic.TearExotic;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.dust.FireDust;
+import com.shatteredpixel.shatteredpixeldungeon.items.star.gem.FireGem;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Dagger;
@@ -76,6 +92,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.Knuckle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier2.Eleove;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -110,21 +127,7 @@ public enum HeroClass {
 		NoDeath.noDeath=0;
 		NPC.choose_num=0;
 
-		//new FireGem().quantity(5).identify().collect();
-
-		//Buff.affect(hero, MindVision.class,800f);
-
-		//new PotionLevel().quantity(1).identify().collect();
-
-		new Food().quantity(3).identify().collect();
-
-		new FrostExotic().quantity(3).identify().collect();
-		new TearExotic().quantity(3).identify().collect();
-
-		new FlyMindExotic().quantity(1).collect();
-
-
-
+		//new ScrollOfMagicMapping().quantity(1).identify().collect();
 
 		//检测挑战
 		if (Dungeon.isChallenged(NO_FOOD)){
@@ -139,10 +142,8 @@ public enum HeroClass {
 		waterskin.collect();
 
 		//TODO 初始鉴定的物品（所有职业）
-		//new ScrollOfIdentify().identify();
-
+		new ScrollOfIdentify().identify();
 		switch (this) {
-
 			case WARRIOR:
 				initWarrior(hero);
 				Dungeon.hero.STR++;
@@ -168,11 +169,10 @@ public enum HeroClass {
 				initStar(hero);
 				hero.updateHT( true );
 				break;
-
 		}
 
-		for (int s = 0; s < QuickSlot.SIZE; s++) {
-			//快捷栏
+		QuickSlot quickSlot = new QuickSlot();
+		for (int s = 0; s < quickSlot.SIZE; s++) {
 			if (Dungeon.quickslot.getItem(s) == null) {
 				Dungeon.quickslot.setSlot(s++, waterskin);
 				break;
@@ -181,7 +181,7 @@ public enum HeroClass {
 
 	}
 
-	public Badges.Badge masteryBadge() {
+	/* public Badges.Badge masteryBadge() {
 		switch (this) {
 			case WARRIOR:
 				return Badges.Badge.MASTERY_WARRIOR;
@@ -195,7 +195,7 @@ public enum HeroClass {
 				return Badges.Badge.MASTERY_WARRIOR;
 		}
 		return null;
-	}
+	} */
 
 	private static void initWarrior(Hero hero) {
 		(hero.belongings.weapon = new WornShortsword()).identify();
@@ -211,7 +211,6 @@ public enum HeroClass {
 		}
 
 		new PotionOfHealing().identify();
-		new ScrollOfUpgrade().identify();
 		new ScrollOfRage().identify();
 	}
 
@@ -226,7 +225,6 @@ public enum HeroClass {
 
 		Dungeon.quickslot.setSlot(1, staff);
 
-		new ScrollOfUpgrade().identify();
 		new PotionOfLiquidFlame().identify();
 		new ScrollOfEnchantment().identify();
 
@@ -249,7 +247,6 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(1, knives);
 
 		new ScrollOfMagicMapping().identify();
-		new ScrollOfUpgrade().identify();
 		new PotionOfInvisibility().identify();
 
 		hero.subClass=FREERUNNER;
@@ -264,7 +261,6 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(0, bow);
 
 		new PotionOfMindVision().identify();
-		new ScrollOfUpgrade().identify();
 		new ScrollOfLullaby().identify();
 	}
 
@@ -275,11 +271,7 @@ public enum HeroClass {
 		}
 
 		(hero.belongings.weapon = new Knuckle()).identify();
-		//SpiritBow bow = new SpiritBow();
-		//bow.identify().collect();
 		new VelvetPouch().quantity(1).collect();
-
-		//Dungeon.quickslot.setSlot(0, bow);
 
 	}
 
@@ -391,7 +383,14 @@ public enum HeroClass {
 	}
 
 	public boolean isUnlocked() {
-		return true;
+		switch (this) {
+			default:
+				return true;
+			case STAR:
+				return Badges.isUnlocked(Badges.Badge.UNLOCK_STAR);
+		}
+
+		//return true;
 		/*
 		//always unlock on debug builds
 		if (DeviceCompat.isDebug()) return true;
@@ -423,6 +422,8 @@ public enum HeroClass {
 				return Messages.get(HeroClass.class, "rogue_unlock");
 			case HUNTRESS:
 				return Messages.get(HeroClass.class, "huntress_unlock");
+			case STAR:
+				return Messages.get(HeroClass.class, "star_unlock");
 		}
 		}
 

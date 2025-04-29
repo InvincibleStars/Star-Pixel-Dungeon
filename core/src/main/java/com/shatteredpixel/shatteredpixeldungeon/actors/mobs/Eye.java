@@ -252,10 +252,6 @@ public class Eye extends Mob {
 	{
 		resistances.add( WandOfDisintegration.class );
 	}
-	
-	{
-		//immunities.add( Terror.class );
-	}
 
 	private class Hunting extends Mob.Hunting{
 		@Override

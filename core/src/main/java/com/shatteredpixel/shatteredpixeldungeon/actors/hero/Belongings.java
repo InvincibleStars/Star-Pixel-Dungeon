@@ -70,7 +70,7 @@ public class Belongings implements Iterable<Item> {
 	public KindOfWeapon weapon = null;
 	public Armor armor = null;
 	public Artifact artifact = null;
-	public KindofMisc misc = null;
+	//public KindofMisc misc = null;
 	public Ring ring = null;
 
 	//used when thrown weapons temporary become the current weapon
@@ -110,6 +110,7 @@ public class Belongings implements Iterable<Item> {
 		}
 	}
 
+	/*
 	public KindofMisc misc(){
 		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
 		if (!lostInvent || (misc != null && misc.keptThoughLostInvent)){
@@ -119,6 +120,8 @@ public class Belongings implements Iterable<Item> {
 		}
 	}
 
+	 */
+
 	public Ring ring(){
 		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
 		if (!lostInvent || (artifact != null && artifact.keptThoughLostInvent)){
@@ -127,18 +130,6 @@ public class Belongings implements Iterable<Item> {
 			return null;
 		}
 	}
-
-	/*
-	public Ring ring(){
-		boolean lostInvent = owner != null && owner.buff(LostInventory.class) != null;
-		if (!lostInvent || (ring != null && ring.keptThoughLostInvent)){
-			return ring;
-		} else {
-			return null;
-		}
-	}
-
-	 */
 
 	// ***
 
@@ -155,7 +146,7 @@ public class Belongings implements Iterable<Item> {
 		bundle.put( WEAPON, weapon );
 		bundle.put( ARMOR, armor );
 		bundle.put( ARTIFACT, artifact );
-		bundle.put( MISC, misc );
+		//bundle.put( MISC, misc );
 		bundle.put( RING, ring );
 	}
 
@@ -173,8 +164,8 @@ public class Belongings implements Iterable<Item> {
 		artifact = (Artifact) bundle.get(ARTIFACT);
 		if (artifact() != null)     artifact().activate(owner);
 
-		misc = (KindofMisc) bundle.get(MISC);
-		if (misc() != null)         misc().activate( owner );
+		//misc = (KindofMisc) bundle.get(MISC);
+		//if (misc() != null)         misc().activate( owner );
 
 		ring = (Ring) bundle.get(RING);
 		if (ring() != null)         ring().activate( owner );
@@ -306,10 +297,13 @@ public class Belongings implements Iterable<Item> {
 			artifact().identify();
 			Badges.validateItemLevelAquired(artifact());
 		}
+		/*
 		if (misc() != null) {
 			misc().identify();
 			Badges.validateItemLevelAquired(misc());
 		}
+
+		 */
 		if (ring() != null) {
 			ring().identify();
 			Badges.validateItemLevelAquired(ring());
@@ -323,7 +317,9 @@ public class Belongings implements Iterable<Item> {
 	}
 
 	public void uncurseEquipped() {
-		ScrollOfRemoveCurse.uncurse( owner, armor(), weapon(), artifact(), misc(), ring());
+		//ScrollOfRemoveCurse.uncurse( owner, armor(), weapon(), artifact(), misc(), ring());
+		ScrollOfRemoveCurse.uncurse( owner, armor(), weapon(), artifact(), ring());
+
 	}
 
 	public Item randomUnequipped() {
@@ -367,7 +363,8 @@ public class Belongings implements Iterable<Item> {
 
 		private Iterator<Item> backpackIterator = backpack.iterator();
 
-		private Item[] equipped = {weapon, armor, artifact, misc, ring};
+		//private Item[] equipped = {weapon, armor, artifact, misc, ring};
+		private Item[] equipped = {weapon, armor, artifact, ring};
 		private int backpackIndex = equipped.length;
 
 		@Override
@@ -407,11 +404,13 @@ public class Belongings implements Iterable<Item> {
 				case 2:
 					equipped[2] = artifact = null;
 					break;
+				/*
 				case 3:
 					equipped[3] = misc = null;
 					break;
-				case 4:
-					equipped[4] = ring = null;
+				 */
+				case 3:
+					equipped[3] = ring = null;
 					break;
 				default:
 					backpackIterator.remove();

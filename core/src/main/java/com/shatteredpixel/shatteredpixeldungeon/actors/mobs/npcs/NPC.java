@@ -21,6 +21,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.watabou.utils.Bundle;
 
@@ -70,6 +78,18 @@ public abstract class NPC extends Mob {
 	}
 
 
+	{
+		immunities.add( Paralysis.class );
+		immunities.add( Amok.class );
+		immunities.add( Sleep.class );
+		immunities.add( Dread.class );
+		immunities.add( Terror.class );
+		immunities.add( Vertigo.class );
+		immunities.add( Burning.class );
+		immunities.add( Bleeding.class );
+	}
 
-	
+
+
+
 }

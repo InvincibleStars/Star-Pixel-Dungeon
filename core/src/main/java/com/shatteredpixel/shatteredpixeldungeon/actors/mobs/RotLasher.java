@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.VineDerived;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.room.ItemBox;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RotLasherSprite;
 import com.watabou.utils.Random;
@@ -115,6 +115,6 @@ public class RotLasher extends Mob {
 	@Override
 	public void die( Object cause ) {
 		super.die( cause );
-		VineDerived.NUM-=1;
+		ItemBox.VineDerived.NUM-=1;
 	}
 }

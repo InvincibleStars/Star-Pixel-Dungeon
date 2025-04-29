@@ -51,18 +51,9 @@ import java.util.ArrayList;
 public abstract class Elemental extends Mob {
 
 	{
-		HP = HT = 60;
-		defenseSkill = 20;
-		
-		EXP = 10;
 		maxLvl = 20;
 		
 		flying = true;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 20, 25 );
 	}
 	
 	@Override
@@ -176,7 +167,7 @@ public abstract class Elemental extends Mob {
 			spriteClass = ElementalSprite.Fire.class;
 			
 			loot = new PotionOfLiquidFlame();
-			lootChance = 1/8f;
+			lootChance = 0.125f;
 			
 			properties.add( Property.FIERY );
 			
@@ -202,6 +193,7 @@ public abstract class Elemental extends Mob {
 	}
 	
 	//used in wandmaker quest
+	/*
 	public static class NewbornFireElemental extends FireElemental {
 		
 		{
@@ -232,9 +224,36 @@ public abstract class Elemental extends Mob {
 		}
 		
 	}
+*/
+
+
+	public static class CKKBB extends FireElemental {
+
+		{
+			spriteClass = ElementalSprite.NewbornFire.class;
+
+
+			properties.add(Property.MINIBOSS);
+
+			//newborn elementals do not have ranged attacks
+			rangedCooldown = Integer.MAX_VALUE;
+		}
+
+		@Override
+		public void die(Object cause) {
+			super.die(cause);
+			if (alignment == Alignment.ENEMY) Dungeon.level.drop( new Embers(), pos ).sprite.drop();
+		}
+
+		@Override
+		public boolean reset() {
+			return true;
+		}
+
+	}
 
 	//not a miniboss, otherwise a newborn elemental
-	public static class AllyNewBornElemental extends NewbornFireElemental {
+	public static class AllyNewBornElemental extends CKKBB {
 
 		{
 			properties.remove(Property.MINIBOSS);
@@ -253,7 +272,7 @@ public abstract class Elemental extends Mob {
 			spriteClass = ElementalSprite.Frost.class;
 			
 			loot = new PotionOfFrost();
-			lootChance = 1/8f;
+			lootChance = 0.125f;
 			
 			properties.add( Property.ICY );
 			
@@ -281,7 +300,7 @@ public abstract class Elemental extends Mob {
 			spriteClass = ElementalSprite.Shock.class;
 			
 			loot = new ScrollOfRecharging();
-			lootChance = 1/4f;
+			lootChance = 0.25f;
 			
 			properties.add( Property.ELECTRIC );
 		}

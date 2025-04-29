@@ -9,13 +9,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.RchAddBy2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollTricksterSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class Scavenger extends Mob {
     {
-        spriteClass = GnollTricksterSprite.class;
-        HT=HP = 100;
+        spriteClass = GuardSprite.class;
         baseSpeed = 1.0f;
 
     }
@@ -43,15 +43,16 @@ public class Scavenger extends Mob {
             Sample.INSTANCE.play( Assets.Sounds.ATK_SPIRITBOW, 1, Random.Float(0.87f, 1.15f) );
             zap = true;
             skill = false;
-
-            //enemy.damage( Random.Int(damageRoll()),attack);
+            enemy.damage( Random.Int(damageRoll()),attack);
             return true;
         }else if(skill == false && Dungeon.level.trueDistance(this.pos,enemy.pos)<2) {
             return true;
-        }else {
-            return false;
+        }else{
+            return super.canAttack(enemy);
         }
+
     }
+
 
     @Override
     public int attackProc( Char enemy, int damage ) {
@@ -68,11 +69,6 @@ public class Scavenger extends Mob {
         }
 
         return damage;
-    }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange( 0, 0 );
     }
 
 }

@@ -31,12 +31,12 @@ public class Gem extends Item {
 		unique = true;
 	}
 
-	@Override
-	public String info() {
-		String info = desc();
-		info += "\n\n" + Messages.get(Gem.class, "know");
-		return info;
-	}
+//	@Override
+//	public String info() {
+//		String info = desc();
+//		info += "\n\n" + Messages.get(Gem.class, "know");
+//		return info;
+//	}
 
 	public boolean unique() {
 		return false;

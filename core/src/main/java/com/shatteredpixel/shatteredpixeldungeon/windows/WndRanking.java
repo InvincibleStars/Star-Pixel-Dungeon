@@ -279,9 +279,12 @@ public class WndRanking extends WndTabbed {
 			if (stuff.artifact != null) {
 				addItem( stuff.artifact );
 			}
+			/*
 			if (stuff.misc != null) {
 				addItem( stuff.misc );
 			}
+
+			 */
 			if (stuff.ring != null) {
 				addItem( stuff.ring );
 			}

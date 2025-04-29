@@ -45,6 +45,9 @@ public class SummonElemental extends Spell {
 		image = ItemSpriteSheet.SUMMON_ELE;
 	}
 
+
+	//private Class<? extends Elemental> summonClass = Elemental.AllyNewBornElemental.class;
+
 	private Class<? extends Elemental> summonClass = Elemental.AllyNewBornElemental.class;
 
 	@Override

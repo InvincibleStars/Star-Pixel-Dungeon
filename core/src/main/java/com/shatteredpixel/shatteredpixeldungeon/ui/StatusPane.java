@@ -416,9 +416,9 @@ public class StatusPane extends Component {
 
 
         //元素浓度可视化
-        BurnVest burnVest = hero.buff(BurnVest.class);
-        if(burnVest != null){
-            element.scale.x = (.01f * burnVest.burnadd)/2;
+        BurnVest bv = hero.buff(BurnVest.class);
+        if(bv != null){
+            element.scale.x = (.01f * bv.burnvest)*50;
         } else if (hero.isAlive()) {
             element.scale.x = 1f;
         }

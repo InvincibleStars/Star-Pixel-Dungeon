@@ -51,8 +51,15 @@ public abstract class GemElemental extends Mob {
 
 	{
 		flying = true;
+		state=HUNTING;
+		HP = HT = 8 + Dungeon.depth * 2;
 	}
-	
+
+	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange( 1, 4 + Dungeon.depth * 2);
+	}
+
 	@Override
 	public int attackProc( Char enemy, int damage ) {
 		damage = super.attackProc( enemy, damage );

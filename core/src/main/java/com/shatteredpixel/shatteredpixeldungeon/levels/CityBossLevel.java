@@ -78,7 +78,7 @@ public class CityBossLevel extends Level {
 		pedestals[3] = c.x-3 + (c.y+3) * WIDTH;
 	}
 
-	private ImpShopRoom impShop;
+	//private ImpShopRoom impShop;
 
 	@Override
 	public String tilesTex() {
@@ -95,16 +95,16 @@ public class CityBossLevel extends Level {
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
-		bundle.put( IMP_SHOP, impShop );
+		//bundle.put( IMP_SHOP, impShop );
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
-		impShop = (ImpShopRoom) bundle.get( IMP_SHOP );
-		if (map[topDoor] != Terrain.LOCKED_DOOR && Imp.Quest.isCompleted() && !impShop.shopSpawned()){
-			spawnShop();
-		}
+		//impShop = (ImpShopRoom) bundle.get( IMP_SHOP );
+		//if (map[topDoor] != Terrain.LOCKED_DOOR && Imp.Quest.isCompleted() && !impShop.shopSpawned()){
+			//spawnShop();
+		//}
 	}
 
 	@Override
@@ -157,12 +157,14 @@ public class CityBossLevel extends Level {
 		Painter.fill(this, end.left+4, end.top+5, 7, 4, Terrain.EXIT);
 		exit = end.left+7 + (end.top+8)*width();
 
+		/*
 		impShop = new ImpShopRoom();
 		impShop.set(end.left+3, end.top+12, end.left+11, end.top+20);
 		Painter.set(this, impShop.center(), Terrain.PEDESTAL);
 
 		Painter.set(this, impShop.left+2, impShop.top, Terrain.STATUE);
 		Painter.set(this, impShop.left+6, impShop.top, Terrain.STATUE);
+		 */
 
 		Painter.fill(this, end.left+5, end.bottom+1, 5, 1, Terrain.EMPTY);
 		Painter.fill(this, end.left+6, end.bottom+2, 3, 1, Terrain.EMPTY);
@@ -302,18 +304,23 @@ public class CityBossLevel extends Level {
 		set( topDoor, Terrain.DOOR );
 		GameScene.updateMap( topDoor );
 
+		/*
 		if (Imp.Quest.isCompleted()) {
 			spawnShop();
 		}
+		 */
 		Dungeon.observe();
 	}
 
+	/*
 	private void spawnShop(){
 		while (impShop.itemCount() >= 7*(impShop.height()-2)){
 			impShop.bottom++;
 		}
 		impShop.spawnShop(this);
 	}
+
+	 */
 
 	@Override
 	public String tileName( int tile ) {

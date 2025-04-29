@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.newboss.Level1Boss;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.boss.GateKeeper;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 
@@ -34,41 +34,63 @@ public class SandAreaBossLevel2 extends Level {
 		color1 = 0x48763c;
 		color2 = 0x59994a;
 	}
+
 	private int mapToTerrain(int code){switch (code){
-			case 1: default: return Terrain.EMPTY;
-			case 65: return Terrain.WALL;
-			case 83: return Terrain.LOCKED_DOOR;
-			case 81: return Terrain.DOOR;
-			case 17: return Terrain.ENTRANCE;
-			case 18: return Terrain.EXIT;}}
+			case 1:
+				default: return Terrain.EMPTY;
+			case 5:
+				return Terrain.EMPTY_SP;
+			case 113:
+				return Terrain.WALL;
+			case 83:
+				return Terrain.LOCKED_DOOR;
+				//return Terrain.DOOR;
+			case 81:
+				return Terrain.DOOR;
+			case 17:
+				return Terrain.ENTRANCE;
+			case 18:
+				return Terrain.EXIT;}}
 	private static final int[] pre_map = {
-			65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,
-			65,65,65,65,65,1,1,18,1,1,65,65,65,65,65,
-			65,65,65,65,65,1,1,1,1,1,65,65,65,65,65,
-			65,65,65,65,65,65,1,1,1,65,65,65,65,65,65,
-			65,65,65,1,1,1,1,1,1,1,1,1,65,65,65,
-			65,65,65,1,1,1,1,1,1,1,1,1,65,65,65,
-			65,1,1,1,1,65,1,1,1,65,1,1,1,1,65,
-			65,1,1,1,1,1,1,1,1,1,1,1,1,1,65,
-			65,1,1,65,1,1,1,65,1,1,1,65,1,1,65,
-			65,1,1,1,1,1,1,1,1,1,1,1,1,1,65,
-			65,1,1,1,1,65,1,1,1,65,1,1,1,1,65,
-			65,65,65,1,1,1,1,1,1,1,1,1,65,65,65,
-			65,65,65,1,1,1,1,1,1,1,1,1,65,65,65,
-			65,65,65,65,65,65,65,81,65,65,65,65,65,65,65,
-			65,65,65,65,65,1,1,1,1,1,65,65,65,65,65,
-			65,65,65,65,65,1,1,17,1,1,65,65,65,65,65,
-			65,65,65,65,65,65,65,65,65,65,65,65,65,65,65};
+			113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,
+			113,5,5,5,113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,5,18,5,83,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,1,1,113,
+			113,5,5,5,113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,113,113,113,113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,
+			113,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,113,81,113,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,5,5,5,113,
+			113,1,1,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,1,1,113,1,1,1,113,5,17,5,113,
+			113,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,113,5,5,5,113,
+			113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113};
 	@Override
 	public String tilesTex() {return Assets.Environment.TILES_SAND;}
 	@Override
 	public String waterTex() {return Assets.Environment.WATER_SEWERS;}
-	private static final int WIDTH = 15;
-	private static final int HEIGHT = 17;
+	private static final int WIDTH = 29;
+	private static final int HEIGHT = 29;
 	@Override
 	protected boolean build() {setSize(WIDTH, HEIGHT);
-		entrance = WIDTH*15+8;
-		exit =WIDTH*15+9 ;
+		entrance = WIDTH*26+26;
+		exit =WIDTH*2+2 ;
 		for (int map = 0; map < this.map.length; map++) this.map[map] = mapToTerrain(pre_map[map]);return true;};
 	@Override
 	public Mob createMob() {
@@ -76,7 +98,10 @@ public class SandAreaBossLevel2 extends Level {
 	}
 	@Override
 	protected void createMobs() {
-            Level1Boss i= new Level1Boss();		i.pos = 85;		mobs.add(i);}
+            GateKeeper i= new GateKeeper();
+			i.pos = 333;
+			mobs.add(i);
+	}
 	public Actor addRespawner() {return null;}
 	@Override
 	protected void createItems() {}

@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -49,7 +51,7 @@ import java.util.ArrayList;
 
 public class Burning extends Buff implements Hero.Doom {
 	
-	private static final float DURATION = 8f * (BurnVest.burndmg-1);
+	private static final float DURATION = 5f + BurnVest.burnvest * 3;
 	
 	private float left;
 	
@@ -58,7 +60,6 @@ public class Burning extends Buff implements Hero.Doom {
 	
 	private static final String LEFT	= "left";
 	private static final String BURN	= "burnIncrement";
-	public int distance2 = 2;
 
 	{
 		type = buffType.NEGATIVE;
@@ -89,27 +90,33 @@ public class Burning extends Buff implements Hero.Doom {
 
 	@Override
 	public boolean act() {
-		
-		if (target.isAlive() && !target.isImmune(getClass())) {
-			Hero hero2 = new Hero();
 
-			int damage = (int) (Random.NormalIntRange( 1, 3 + Dungeon.depth/4 )*BurnVest.burndmg*(1f-0.25f*hero2.pointsInTalent(Talent.FIRE_PROTECT)));
+		if (target.isAlive() && !target.isImmune(getClass())) {
+
+
+			int damage = (int) (Random.NormalIntRange( 1, 3 + Dungeon.depth/4 ) * BurnVest.burnvest);
+			if(hero.hasTalent(Talent.FIRE_PROTECT)){
+				damage *= 1f - (0.25f * hero.pointsInTalent(Talent.FIRE_PROTECT));
+			}
 			Buff.detach( target, Chill.class);
 
-			if(BurnVest.burnadd<200){
-				BurnVest.burnadd++;
-				BurnVest.cooladd--;
+			if(BurnVest.burnvest+0.01f>=2f) {
+				BurnVest.burnvest = 2f;
+			}else {
+				BurnVest.burnvest += 0.01f;
 			}
 
 			if (target instanceof Hero) {
 
-				Hero hero = (Hero) target;
-				hero.damage(damage, this);
+				Hero hero = (Hero)target;
+
+				hero.damage( damage, this );
 				burnIncrement++;
 
 				//at 4+ turns, there is a (turns-3)/3 chance an item burns
-				if (Random.Int(3) < (burnIncrement - 3)) {
+				if (Random.Int(3) < (burnIncrement - 3)){
 					burnIncrement = 0;
+
 					ArrayList<Item> burnable = new ArrayList<>();
 					//does not reach inside of containers
 					if (hero.buff(LostInventory.class) == null) {
@@ -120,22 +127,21 @@ public class Burning extends Buff implements Hero.Doom {
 						}
 					}
 
-					if (!burnable.isEmpty()) {
+					if (!burnable.isEmpty()){
 						Item toBurn = Random.element(burnable).detach(hero.belongings.backpack);
-						GLog.w(Messages.get(this, "burnsup", Messages.capitalize(toBurn.toString())));
-						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio) {
+						GLog.w( Messages.get(this, "burnsup", Messages.capitalize(toBurn.toString())) );
+						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio){
 							ChargrilledMeat steak = new ChargrilledMeat();
-							if (!steak.collect(hero.belongings.backpack)) {
-								Dungeon.level.drop(steak, hero.pos).sprite.drop();
+							if (!steak.collect( hero.belongings.backpack )) {
+								Dungeon.level.drop( steak, hero.pos ).sprite.drop();
 							}
 						}
-						Heap.burnFX(hero.pos);
+						Heap.burnFX( hero.pos );
 					}
-
-					//}
-				} else {
-					target.damage(damage, this);
 				}
+
+			} else {
+				target.damage( damage, this );
 			}
 
 			if (target instanceof Thief && ((Thief) target).item != null) {
@@ -153,47 +159,44 @@ public class Burning extends Buff implements Hero.Doom {
 			}
 
 		} else {
+
 			detach();
 		}
-		
+
 		if (Dungeon.level.flamable[target.pos] && Blob.volumeAt(target.pos, Fire.class) == 0) {
-			GameScene.add( Blob.seed( target.pos, 0, Fire.class ) );
+			GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
 		}
-		
+
 		spend( TICK );
 		left -= TICK;
-		
+
 		if (left <= 0 ||
-			(Dungeon.level.water[target.pos] && !target.flying)) {
-			
+				(Dungeon.level.water[target.pos] && !target.flying)) {
+
 			detach();
 		}
-		
+
 		return true;
 	}
 
-	//重新燃烧逻辑
 	public void reignite( Char ch ) {
 		reignite( ch, DURATION );
 	}
-	
+
 	public void reignite( Char ch, float duration ) {
 		left = duration;
 	}
 
-	//图标
 	@Override
 	public int icon() {
 		return BuffIndicator.FIRE;
 	}
 
-	//图标淡入百分比
 	@Override
 	public float iconFadePercent() {
 		return Math.max(0, (DURATION - left) / DURATION);
 	}
 
-	//音效
 	@Override
 	public void fx(boolean on) {
 		if (on) target.sprite.add(CharSprite.State.BURNING);
@@ -202,7 +205,7 @@ public class Burning extends Buff implements Hero.Doom {
 
 	@Override
 	public String heroMessage() {
-			return Messages.get(this, "heromsg");
+		return Messages.get(this, "heromsg");
 	}
 
 	@Override
@@ -217,9 +220,9 @@ public class Burning extends Buff implements Hero.Doom {
 
 	@Override
 	public void onDeath() {
-		
+
 		Badges.validateDeathFromFire();
-		
+
 		Dungeon.fail( getClass() );
 		GLog.n( Messages.get(this, "ondeath") );
 	}

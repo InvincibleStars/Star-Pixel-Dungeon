@@ -82,7 +82,7 @@ public class Star_v0_1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.BLACK_CUBE, 0, 0, 16, 16), "生物",
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.CUBE, 0, 0, 16, 16), "生物",
 				"_-_ 加入了新的生物“碎晶元素”，相较于普通元素而言没有远程能力，且会掉落碎晶等合成素材\n" +
 						"_-_ 二区现在会生成黏咕，但最多生成两个且同时最多存在一个\n"+
 						"_-_ 二区现在会生成DM-100了，不过概率较小\n"+
@@ -127,10 +127,27 @@ public class Star_v0_1_X_Changes {
 
 		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.BANSHOU, null),  "杂项修正",
 				"_-_ 修复了商店进入会报错的问题，优化了商店物品数量\n" +
-						"_-_ 生物的素材现在可以合成了（例如甲壳）\n" +
+						"_-_ 生物的素材现在可以堆叠了（例如甲壳）\n" +
 						"_-_ 极速的速度加成由错误的20000x修正为2x\n"+
 						"_-_ 修复了生物在创建时因为血量为0而自动死亡的Bug"
 		));
+
+		changes.addButton( new ChangeButton(new TalentIcon(Talent.QUIET_ELEMENT.icon()), "元素浓度修正",
+				"_燃烧_\n_-_ 燃烧持续时间由0-16T调整至5-11T，基础为8和破碎一致\n"+
+				"_-_ 燃烧持续时间由4回合降低到了0-3回合，基础和破碎一致\n"+
+				"_-_ 星辰的火焰适应性现在最后计算并生效\n"+
+				"_-_ 修复了生物不会受到火焰伤害的bug\n\n"+
+				"_冰霜_\n_-_ 冰霜持续时间由10-20回合降低至5-15回合，基础为10\n"+
+				"_-_ 星辰的冰霜适应性现在对冰霜速度计算整体生效\n"+
+				"_-_ 现在元素浓度不会主动下降，必须需要学习天赋才可以下降\n"+
+				"_-_ 元素浓度下降所需的回合减少25回合，现在变为50/25回合缩减一次\n"+
+				"_-_ 元素平衡量由每一定回合回复1%提升到每一定回合回复2%"
+		));
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+
+				"_-_ 修复了一些奇奇怪怪的bug\n" +
+						""));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
 		changes.hardlight(CharSprite.POSITIVE);
@@ -142,7 +159,9 @@ public class Star_v0_1_X_Changes {
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.BUFFS), "效果削弱",
 				"_-_ 时间气泡现在时间剩余0回合会消失了\n" +
-						"_-_ 血腥狂热现在只会提供30%固定攻击速度加成"));
+						"_-_ 血腥狂热现在只会提供30%固定攻击速度加成\n" +
+				"_-_ 血腥狂热现在攻击速度增加由300%下调至30%\n"
+				));
 
 		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.BACKPACK, null),  "玩家削弱",
 				"_-_ 移除了初始状态栏介绍，移除了星辰的特殊技能\n" +
@@ -265,7 +284,7 @@ public class Star_v0_1_X_Changes {
 						"_-_ 移除生物的随机移动速度,生物的随机攻速调整至0.75x-1.20x\n"+
 						"_-_ 新的生物词条出现，修改生物的睡眠率（现在更多生物时开局醒来的了）\n"+
 						""));
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "Bug修复"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"_-_ 修复了一些奇奇怪怪的bug\n" +
 						""));
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);

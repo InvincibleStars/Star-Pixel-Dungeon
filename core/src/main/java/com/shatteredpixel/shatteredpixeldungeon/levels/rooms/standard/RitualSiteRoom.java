@@ -60,12 +60,15 @@ public class RitualSiteRoom extends StandardRoom {
 		
 		Painter.fill(level, c.x-1, c.y-1, 3, 3, Terrain.EMPTY_DECO);
 
+		/*
 		level.addItemToSpawn(new CeremonialCandle());
 		level.addItemToSpawn(new CeremonialCandle());
 		level.addItemToSpawn(new CeremonialCandle());
 		level.addItemToSpawn(new CeremonialCandle());
 
 		CeremonialCandle.ritualPos = c.x + (level.width() * c.y);
+
+		 */
 	}
 
 	public static class RitualMarker extends CustomTilemap {

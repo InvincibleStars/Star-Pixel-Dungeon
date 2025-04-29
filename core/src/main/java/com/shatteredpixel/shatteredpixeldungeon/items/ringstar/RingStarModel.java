@@ -21,21 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.ringstar;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
-
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.EnhancedRings;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
-import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -47,7 +36,6 @@ public class RingStarModel extends RingStar {
 	public int depth2 = 0;
 	public float getDepth1 = 0;
 	public float getDepth2 = 0;
-
 	public boolean slot1=false;
 	public boolean slot2=false;
 
@@ -55,13 +43,12 @@ public class RingStarModel extends RingStar {
 	public boolean doPickUp(Hero hero, int pos) {
 		if (super.doPickUp(hero, pos)){
 			if(slot1!=true){
-				depth1=Random.Int(1,5);
+				depth1=Random.NormalIntRange(1,5);
 				getDepth1=Random.Float(0.3f,6f);
 				slot1=true;
 			}
-
-			if(this.level>=3&&slot2!=true){
-				depth2=Random.Int(1,5);
+			if(this.level>=3 && slot2==false){
+				depth2=Random.NormalIntRange(1,5);
 				getDepth2=Random.Float(0.3f,6f);
 				slot2=true;
 			}
@@ -120,8 +107,8 @@ public class RingStarModel extends RingStar {
 	private static final String GETDEPTH1    = "getdepth1";
 	private static final String GETDEPTH2    = "getdepth2";
 
-	private static final String SLOT1    = "slot";
-	private static final String SLOT2    = "slot";
+	private static final String SLOT1    = "slot1";
+	private static final String SLOT2    = "slot2";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -146,4 +133,115 @@ public class RingStarModel extends RingStar {
 		slot2 = bundle.getBoolean( SLOT2 );
 
 	}
+//------------------------------------------额外提示信息----------------------------------------------
+	public String slotone;
+	public String slottwo;
+
+	public String setSlotone(){
+		String i;
+		int a = depth1;
+		switch (a){
+			default:
+				i = Messages.get(RingStarModel.class, "none");
+				break;
+			case 1:
+				i = Messages.get(RingStarModel.class, "one");
+				break;
+			case 2:
+				i = Messages.get(RingStarModel.class, "two");
+				break;
+			case 3:
+				i = Messages.get(RingStarModel.class, "three");
+				break;
+			case 4:
+				i = Messages.get(RingStarModel.class, "four");
+				break;
+			case 5:
+				i = Messages.get(RingStarModel.class, "five");
+				break;
+		}
+		return i;
+	}
+
+	public String setSlottwo(){
+		String ii;
+		int b =depth2;
+		switch (b){
+			default:
+				ii = Messages.get(RingStarModel.class, "none");
+				break;
+			case 1:
+				ii = Messages.get(RingStarModel.class, "one");
+				break;
+			case 2:
+				ii = Messages.get(RingStarModel.class, "two");
+				break;
+			case 3:
+				ii = Messages.get(RingStarModel.class, "three");
+				break;
+			case 4:
+				ii = Messages.get(RingStarModel.class, "four");
+				break;
+			case 5:
+				ii = Messages.get(RingStarModel.class, "five");
+				break;
+		}
+		return ii;
+	}
+
+
+
+	@Override
+	public String name() {
+		String name;
+		slotone = setSlotone();
+		slottwo = setSlottwo();
+			name = Messages.get(RingStarModel.class, "name", slotone, slottwo);
+		return name;
+	}
+
+	@Override
+	public String info() {
+		String info = desc();
+
+		slotone = setSlotone();
+		slottwo = setSlottwo();
+
+
+		info += "\n\n" + Messages.get(RingStarModel.class, "info", slotone, getDepth1, slot1, slottwo ,getDepth2, slot2);
+
+		if(slot1==false){
+			info += "\n\n" + Messages.get(RingStarModel.class, "faile");
+		}
+
+		return info;
+	}
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

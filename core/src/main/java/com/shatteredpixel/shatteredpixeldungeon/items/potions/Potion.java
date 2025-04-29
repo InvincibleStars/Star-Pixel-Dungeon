@@ -551,7 +551,6 @@ public class Potion extends Item {
 		//科技树不会被售卖
 
 		PotionLevel pl = Dungeon.hero.belongings.getItem(PotionLevel.class);
-		EnergeBox eb = Dungeon.hero.belongings.getItem(EnergeBox.class);
 
 		if (pl != null) {
 			level = pl.level();
@@ -562,6 +561,26 @@ public class Potion extends Item {
 		}
 
 		return level;
+	}
+
+	@Override
+	public boolean doPickUp(Hero hero, int pos, float time) {
+		if (collect( hero.belongings.backpack )) {
+			PotionLevel pl = Dungeon.hero.belongings.getItem(PotionLevel.class);
+			if (pl != null) {
+				level = pl.level();
+			}
+
+			GameScene.pickUp( this, pos );
+			Sample.INSTANCE.play( Assets.Sounds.ITEM );
+			hero.spendAndNext( TIME_TO_PICK_UP );
+			if (time > 0f)
+				hero.spendAndNext( time );
+			return true;
+
+		} else {
+			return false;
+		}
 	}
 
 

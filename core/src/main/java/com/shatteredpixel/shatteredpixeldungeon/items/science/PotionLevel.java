@@ -23,7 +23,9 @@ package com.shatteredpixel.shatteredpixeldungeon.items.science;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.tier1.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -35,6 +37,7 @@ public class PotionLevel extends Science {
     }
 
 
+    /*
     public boolean isUpgradable() {
         if(hero.belongings.getItem(ClothArmor.class) == null&&hero.belongings.getItem(WornShortsword.class) == null){
             return false;
@@ -42,6 +45,7 @@ public class PotionLevel extends Science {
             return true;
         }
     }
+     */
 
     @Override
     public int level(){
@@ -49,4 +53,10 @@ public class PotionLevel extends Science {
     }
 
 
+    @Override
+    public Item upgrade() {
+        Potion potion = new Potion();
+        potion.level = level;
+        return super.upgrade();
+    }
 }

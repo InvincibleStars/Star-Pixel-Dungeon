@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.temple;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -41,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BelieverSprite;
@@ -56,7 +59,6 @@ import java.util.ArrayList;
 public abstract class Believer extends Mob {
 	{
 		spriteClass = ThiefSprite.class;
-		hpPole=12;
 	}
 
 	protected int Cooldown = Random.NormalIntRange( 5, 10 );
@@ -75,7 +77,6 @@ public abstract class Believer extends Mob {
 		
 		{
 			spriteClass= BelieverSprite.Ankh.class;
-			hpPole=8;
 		}
 
 		public int skill = 2;
@@ -90,10 +91,9 @@ public abstract class Believer extends Mob {
 		@Override
 		public void die(Object cause) {
 			//super.die(cause);
-			if(skill!=0){
+			if(skill!=0&&level.map[this.pos] != Terrain.CHASM){
 				this.HT= (int) (this.HT*1.2f);
 				HP=HT;
-				attackPloe+=1;
 				skill-=1;
 				Buff.affect(this, AnkhInvulnerability.class, 3f);
 				Cooldown=Random.Int(5,10);
@@ -112,8 +112,6 @@ public abstract class Believer extends Mob {
 			//spriteClass = ElementalSprite.Shock.class;
 			spriteClass= BelieverSprite.Fun.class;
 
-			hpPole=12;
-			attackPloe=Random.Int(4,11);
 
 
 		}
@@ -122,7 +120,7 @@ public abstract class Believer extends Mob {
 		@Override
 		protected void skill() {
 			if(cooldown()<=0){
-				Buff.prolong(this, Adrenaline2.class,200f);
+				Buff.prolong(this, Adrenaline2.class,5f);
 			}
 		}
 	}
@@ -133,7 +131,6 @@ public abstract class Believer extends Mob {
 			//spriteClass = ElementalSprite.Chaos.class;
 			spriteClass= BelieverSprite.Normal.class;
 
-			hpPole=12;
 
 		}
 
@@ -144,19 +141,15 @@ public abstract class Believer extends Mob {
 	}
 	
 	public static Class<? extends Believer> random(){
-		/*
 		if (Random.Int( 50 ) == 0){
-			return ChaosElemental.class;
-		}
-		 */
-		
-		float roll = Random.Float();
-		if (roll < 0.4f){
-			return FunVariant.class;
-		} else if (roll < 0.8f){
 			return AnkhVariant.class;
-		} else {
-			return NormalVariant.class;
+		}else {
+			float roll = Random.Float();
+			if (roll < 0.3f) {
+				return FunVariant.class;
+			} else {
+				return NormalVariant.class;
+			}
 		}
 	}
 }

@@ -93,7 +93,6 @@ public class ElementalWell extends NPC {
 								}
 							}else{
 								hide();
-								GLog.i(Messages.get(ElementalWell.class,"noitem"));
 							}
 						}
 					});

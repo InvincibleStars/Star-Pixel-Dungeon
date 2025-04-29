@@ -79,10 +79,9 @@ public abstract class SpecialRoom extends Room {
 		}
 	}
 
-	//special rooms which give an equipment reward
-	//装备房间（还有一个战利品房间共同控制）
+	//提供消耗品的特殊房间
 	private static final ArrayList<Class<? extends SpecialRoom>> EQUIP_SPECIALS = new ArrayList<>( Arrays.asList(
-			WeakFloorRoom.class,
+			//WeakFloorRoom.class,
 			CryptRoom.class,
 			PoolRoom.class,
 			ArmoryRoom.class,
@@ -93,8 +92,7 @@ public abstract class SpecialRoom extends Room {
 
 	));
 
-	//special rooms which give a consumable reward
-	//note that alchemy rooms are spawned separately
+	//提供消耗品的特殊房间
 	private static final ArrayList<Class<? extends SpecialRoom>> CONSUMABLES_SPECIALS = new ArrayList<>( Arrays.asList(
 			RunestoneRoom.class,
 			GardenRoom.class,

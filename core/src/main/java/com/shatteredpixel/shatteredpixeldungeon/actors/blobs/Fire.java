@@ -37,40 +37,28 @@ public class Fire extends Blob {
 
 	@Override
 	protected void evolve() {
-
 		boolean[] flamable = Dungeon.level.flamable;
 		int cell;
 		int fire;
-		
 		Freezing freeze = (Freezing)Dungeon.level.blobs.get( Freezing.class );
-
 		boolean observe = false;
-
 		for (int i = area.left-1; i <= area.right; i++) {
 			for (int j = area.top-1; j <= area.bottom; j++) {
 				cell = i + j*Dungeon.level.width();
 				if (cur[cell] > 0) {
-					
 					if (freeze != null && freeze.volume > 0 && freeze.cur[cell] > 0){
 						freeze.clear(cell);
 						off[cell] = cur[cell] = 0;
 						continue;
 					}
-
 					burn( cell );
-
 					fire = cur[cell] - 1;
 					if (fire <= 0 && flamable[cell]) {
-
 						Dungeon.level.destroy( cell );
-
 						observe = true;
 						GameScene.updateMap( cell );
-
 					}
-
 				} else if (freeze == null || freeze.volume <= 0 || freeze.cur[cell] <= 0) {
-
 					if (flamable[cell]
 							&& (cur[cell-1] > 0
 							|| cur[cell+1] > 0
@@ -82,7 +70,6 @@ public class Fire extends Blob {
 					} else {
 						fire = 0;
 					}
-
 				} else {
 					fire = 0;
 				}

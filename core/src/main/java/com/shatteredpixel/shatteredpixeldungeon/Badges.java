@@ -150,7 +150,9 @@ public class Badges {
 		GAMES_PLAYED_4              ( 112, true ),
 		CHAMPION_2                  ( 113 ),
 		CHAMPION_3                  ( 114 ),
-		NEMESIS_LEVEL         ( 115 );
+		NEMESIS_LEVEL         ( 115 ),
+		UNLOCK_STAR 			( 116 ),
+		ALL_ALL      ( 50 );
 
 		public boolean meta;
 
@@ -459,25 +461,25 @@ public class Badges {
 		if (!item.levelKnown || item instanceof Artifact) {
 			return;
 		}
-		
+
 		Badge badge = null;
-		if (!local.contains( Badge.ITEM_LEVEL_1 ) && item.level() >= 2) {
+		if (!local.contains( Badge.ITEM_LEVEL_1 ) && item.level() >= 3) {
 			badge = Badge.ITEM_LEVEL_1;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_2 ) && item.level() >= 3) {
+		if (!local.contains( Badge.ITEM_LEVEL_2 ) && item.level() >= 6) {
 			badge = Badge.ITEM_LEVEL_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_3 ) && item.level() >= 4) {
+		if (!local.contains( Badge.ITEM_LEVEL_3 ) && item.level() >= 9) {
 			badge = Badge.ITEM_LEVEL_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_4 ) && item.level() >= 5) {
+		if (!local.contains( Badge.ITEM_LEVEL_4 ) && item.level() >= 12) {
 			badge = Badge.ITEM_LEVEL_4;
 			local.add( badge );
 		}
-		
+
 		displayBadge( badge );
 	}
 	
@@ -944,7 +946,7 @@ public class Badges {
 			{Badge.BOSS_SLAIN_1, Badge.BOSS_SLAIN_2, Badge.BOSS_SLAIN_3, Badge.BOSS_SLAIN_4},
 			{Badge.GAMES_PLAYED_1, Badge.GAMES_PLAYED_2, Badge.GAMES_PLAYED_3, Badge.GAMES_PLAYED_4},
 			{Badge.CHAMPION_1, Badge.CHAMPION_2, Badge.CHAMPION_3},
-			{Badge.NEMESIS_LEVEL},
+			{Badge.NEMESIS_LEVEL,Badge.ALL_ALL},
 	};
 
 	private static final Badge[][] metaBadgeReplacements = new Badge[][]{
@@ -976,7 +978,7 @@ public class Badges {
 		leaveBest( badges, Badge.ITEMS_CRAFTED_1, Badge.ITEMS_CRAFTED_2, Badge.ITEMS_CRAFTED_3, Badge.ITEMS_CRAFTED_4 );
 		leaveBest( badges, Badge.GAMES_PLAYED_1, Badge.GAMES_PLAYED_2, Badge.GAMES_PLAYED_3, Badge.GAMES_PLAYED_4 );
 		leaveBest( badges, Badge.CHAMPION_1, Badge.CHAMPION_2, Badge.CHAMPION_3);
-		leaveBest( badges, Badge.NEMESIS_LEVEL );
+		leaveBest( badges, Badge.NEMESIS_LEVEL ,Badge.ALL_ALL );
 
 		for (Badge[] tierReplace : tierBadgeReplacements){
 			leaveBest( badges, tierReplace );

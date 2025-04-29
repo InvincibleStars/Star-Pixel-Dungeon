@@ -445,7 +445,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new AlchemyWeapon.BoneSwordRecipe()));
 				result.add(new QuickRecipe(new AlchemyWeapon.ShellHammerRecipe()));
 				result.add(null);
-				//result.add(new QuickRecipe(new AlchemyWeapon.BurinRecipe()));
+				result.add(new QuickRecipe(new AlchemyWeapon.BurinRecipe()));
 				//result.add(new QuickRecipe(new AlchemyWeapon.WandToothRecipe()));
 				return result;
 

@@ -218,7 +218,6 @@ public class Generator {
 		POTION	( NPC.choose_num==2?4:8, NPC.choose_num==2?4:8, Potion.class ),
 		SEED	( 1, 1, Plant.Seed.class ),
 
-		GEM		(2,2, Gem.class),
 		DUST	(0,0, Dust.class),
 		
 		SCROLL	( NPC.choose_num==2?4:8, NPC.choose_num==2?4:8, Scroll.class ),
@@ -296,14 +295,6 @@ public class Generator {
 					Starflower.Seed.class};
 			SEED.defaultProbs = new float[]{ 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2 };
 			SEED.probs = SEED.defaultProbs.clone();
-
-			GEM.classes = new Class<?>[]{
-					GrassGem.class,
-					FireGem.class,
-					WaterGem.class,
-					WeaponGem.class,
-					ColorGem.class};
-			GEM.defaultProbs = new float[]{ 1,1,1,0,0 };
 
 			DUST.classes = new Class<?>[]{
 					GrassDust.class,

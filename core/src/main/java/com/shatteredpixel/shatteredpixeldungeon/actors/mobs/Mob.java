@@ -22,6 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.Char.Property.NOHP;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -44,10 +46,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.RchAddBy2;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.RchAddBy3;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
@@ -60,7 +64,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourg
 import com.shatteredpixel.shatteredpixeldungeon.items.bossloot.BossLoot;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
-import com.shatteredpixel.shatteredpixeldungeon.items.science.PotionLevel;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.summon.item.Soul;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
@@ -92,6 +95,8 @@ public abstract class Mob extends Char {
 
 		//默认阵营
 		alignment = Alignment.ENEMY;
+
+
 	}
 
 	private static final String TXT_DIED = "You hear something died in the distance";
@@ -105,9 +110,16 @@ public abstract class Mob extends Char {
 	public AiState WANDERING = new Wandering();
 	public AiState FLEEING = new Fleeing();
 	public AiState PASSIVE = new Passive();
-	//默认生物动作(1/3立刻醒来，2/3睡眠)
-	//public AiState state = NPC.choose_num==1 ? Random.Int(0,3)==1?HUNTING:SLEEPING:HUNTING;
-	public AiState state = SLEEPING;
+
+	public AiState state = asdf();
+
+	public AiState asdf(){
+		if(NPC.choose_num==1){
+			return state = WANDERING;
+		}else{
+			return state = SLEEPING;
+		}
+	}
 
 	public static int EyeAllow = 1;
 
@@ -118,14 +130,16 @@ public abstract class Mob extends Char {
 
 	private int reward = 0;
 
-	public int defenseSkill = Dungeon.depth;
+	public int defenseSkill;
 
-	public int attackskill = Dungeon.depth + 200;
+	public int attackskill;
 
 	public int drroll = 1;
 
-	public int defencePloe;
-	public int hpPole =Random.Int(3, 10);
+	//动态强度
+	//public int hpPole =Random.Int(6, 10);
+	//public int attackPloe = Random.Int(6, 8);
+
 
 	public int EXP = 1 + Dungeon.depth / 2;
 	public int maxLvl = Hero.MAX_LEVEL;
@@ -191,27 +205,37 @@ public abstract class Mob extends Char {
 		return Reflection.newInstance(spriteClass);
 	}
 
-	public int attackPloe = Random.Int(6, 8);
+	/*
+	public float factor = (Dungeon.depth * Random.Float(0.7f, 1.1f) * hpPole)*(0.33f+0.7f*(Dungeon.depth/24f));
 
-	public float factor = Dungeon.depth * Random.Float(0.50f, 1.60f);
+	public int setHp(){
+			int add=0;
+			for(int i=0;i<hpPole*2;i++){
+				if(Random.Float()<0.25f){
+					add++;
+				}
+			}
+			int safeHp = (int)factor + 2 * BossLoot.infection +add;
+			return safeHp;
+	}
+
+	 */
+
 
 	@Override
 	protected boolean act() {
 		super.act();
 
-		if(this.HT==0) {
 
-			int hpPotion = 1;
-			for (int a = 0; a <= (this.hpPole * 2); a += 1) {
-				if (Random.Float() <= 0.75f) {
-					hpPotion++;
-				}
-			}
-
-			int safeHp = (int) (((factor * this.hpPole + (2 * BossLoot.infection)) + hpPotion) / 2);
-
-			this.HP = this.HT = (int) Random.Float(safeHp, safeHp * 2);
+		if(HT==0){
+			die(true);
 		}
+
+		defenseSkill = Dungeon.depth;
+		attackskill=Dungeon.depth*2;
+
+
+
 
 		boolean justAlerted = alerted;
 		alerted = false;
@@ -350,7 +374,7 @@ public abstract class Mob extends Char {
 				//look for ally mobs to attack
 				for (Mob mob : Dungeon.level.mobs)
 					if ((mob.alignment == Alignment.ALLY)
-							&& ((Mob) mob).properties.contains(Char.Property.NOHP))
+							&& ((Mob) mob).properties.contains(NOHP))
 						enemies.add(mob);
 
 				//and look for the hero
@@ -423,6 +447,12 @@ public abstract class Mob extends Char {
 		}
 
 		for (RchAddBy3 buff : buffs(RchAddBy3.class)) {
+			if (buff.canAttackWithExtraReach(enemy)) {
+				return true;
+			}
+		}
+
+		for (RchAddBy2 buff : buffs(RchAddBy2.class)) {
 			if (buff.canAttackWithExtraReach(enemy)) {
 				return true;
 			}
@@ -595,8 +625,12 @@ public abstract class Mob extends Char {
 
 	public float attackDelay() {
 		float delay = 1f;
-		if (buff(Adrenaline.class) != null) delay /= 1.5f;
-		if (buff(Adrenaline2.class) != null) delay /= 3f;
+		if (buff(Adrenaline.class) != null){
+			delay /= 1.5f;
+		};
+		if (buff(Adrenaline2.class) != null){
+			delay *= 0.7f;
+		};
 		return delay;
 	}
 
@@ -749,7 +783,7 @@ public abstract class Mob extends Char {
 	@Override
 	public void die(Object cause) {
 
-		if(Random.Float()<=0.25f) {
+		if(Random.Float()<=0.06f && !(this instanceof NPC)) {
 			Dungeon.level.drop(new Soul(), pos).sprite.drop();
 		}
 
@@ -1230,6 +1264,8 @@ public abstract class Mob extends Char {
 		heldAllies.clear();
 	}
 
+
+	/*
 	private int minPotion() {
 		int i = 0;
 		for (int i1 = 0; i1 <= (this.attackPloe); i1 += 1) {
@@ -1252,6 +1288,7 @@ public abstract class Mob extends Char {
 		return i;
 	}
 
+
 	@Override
 	public int damageRoll() {
 		int dmgdepth = ((1 / 3 + (3 * Dungeon.depth / 40)) / 4);
@@ -1259,4 +1296,6 @@ public abstract class Mob extends Char {
 		int dmgmin = 1 + (int) Random.Float((factor + minPotion()) * dmgdepth);
 		return Random.NormalIntRange( dmgmin, dmgmax );
 	}
+
+	 */
 }

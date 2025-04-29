@@ -34,13 +34,13 @@ public class FireGem extends Gem {
 
 	}
 
+
 	public static class RedGemtoPotion extends AlchemyGem.Recipe.SimpleRecipe {
 		{
 			inputs = new Class[]{FireGem.class};
 			inQuantity = new int[]{1};
 			cost = 1;
 			output = PotionOfLiquidFlame.class;
-			outQuantity = 1;
 		}
 	}
 
@@ -50,7 +50,6 @@ public class FireGem extends Gem {
 			inQuantity = new int[]{1};
 			cost = 1;
 			output = ScrollOfRage.class;
-			outQuantity = 1;
 		}
 	}
 
@@ -58,8 +57,7 @@ public class FireGem extends Gem {
 		{
 			inputs = new Class[]{FireGem.class};
 			inQuantity = new int[]{2};
-			cost=1;
-			outQuantity = 1;
+			cost = 1;
 			output = FireDust.class;
 		}
 	}

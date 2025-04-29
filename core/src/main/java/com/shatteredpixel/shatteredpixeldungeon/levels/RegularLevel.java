@@ -26,7 +26,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AnkhInvulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.AnkhBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Withered;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
@@ -47,8 +49,11 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.builders.FigureEightBuild
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.LoopBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.newrooms.ElementWellRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.newrooms.MachineryRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ExtraShopRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MassGraveRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PitRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
@@ -87,14 +92,6 @@ public abstract class RegularLevel extends Level {
 		ArrayList<Room> initRooms = initRooms();
 		Random.shuffle(initRooms);
 
-		/*
-		if(feeling == feeling.CHASM&&Dungeon.depth>10&&Dungeon.depth<16){
-			//Room FangXingRoom = new FangXingRoom();
-			//initRooms.add(FangXingRoom);
-		}
-		 */
-
-		
 		do {
 			for (Room r : initRooms){
 				r.neigbours.clear();
@@ -130,9 +127,18 @@ public abstract class RegularLevel extends Level {
 			initRooms.add(new ShopRoom());
 		}
 
-		if(Random.Float()<=0.1f){
+		if(Dungeon.depth>5&&Dungeon.depth<11) {
+			//initRooms.add(new MachineryRoom());
+		}
+
+		if(Random.Float()<=0.125f &&Dungeon.depth>5&&Dungeon.depth<10){
 			initRooms.add(new ExtraShopRoom());
 		}
+		if(Random.Float()<=0.125f) {
+			initRooms.add(new ElementWellRoom());
+		}
+		//initRooms.add(new MassGraveRoom());
+
 
 		//force max special rooms and add one more for large levels
 		int specials = specialRooms(feeling == Feeling.LARGE);
@@ -152,6 +158,7 @@ public abstract class RegularLevel extends Level {
 		for (int i = 0; i < secrets; i++) {
 			initRooms.add(SecretRoom.createRoom());
 		}
+
 		
 		return initRooms;
 	}
@@ -230,7 +237,7 @@ public abstract class RegularLevel extends Level {
 		while (mobsToSpawn > 0) {
 			Mob mob = createMob();
 			Room roomToSpawn;
-			
+
 			if (!stdRoomIter.hasNext()) {
 				stdRoomIter = stdRooms.iterator();
 			}
@@ -253,8 +260,10 @@ public abstract class RegularLevel extends Level {
 						Buff.affect(mob, Withered.class);
 					}
 				}
+
+				Buff.affect(mob, AnkhInvulnerability.class);
 				//chance to add a second mob to this room, except on floor 1
-				if (Dungeon.depth > 5 && Dungeon.depth < 11 && mobsToSpawn > 0 && Random.Int(4) == 0){
+				if (Dungeon.depth > 1 && mobsToSpawn > 0 && Random.Int(4) == 0){
 					mob = createMob();
 
 					tries = 30;
@@ -271,6 +280,7 @@ public abstract class RegularLevel extends Level {
 				}
 			}
 		}
+
 
 		for (Mob m : mobs){
 			if (map[m.pos] == Terrain.HIGH_GRASS || map[m.pos] == Terrain.FURROWED_GRASS) {
@@ -343,10 +353,10 @@ public abstract class RegularLevel extends Level {
 		//自定义物品数量
 		// drops 3/4/5 items 60%/30%/10% of the time
 		//int nItems = 9 + Random.chances(new float[]{6, 3, 1});
-		int nItems = 9 + Dungeon.depth/5 + Random.chances(new float[]{3, 5, 2});
+		int nItems = 6 + Dungeon.depth/5 + Random.chances(new float[]{6, 3, 1});
 //
 		if (feeling == Feeling.LARGE){
-			nItems += 4;
+			nItems += 3;
 			//2
 		}
 

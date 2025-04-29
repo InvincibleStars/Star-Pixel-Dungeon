@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Frost2;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.IceHowl;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -51,7 +51,7 @@ public class FrostExotic extends ExoticScrollModel {
 			for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 				//mob.beckon( curUser.pos );
 				if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
-					Buff.prolong(mob, Frost2.class, 18f);
+					Buff.prolong(mob, IceHowl.class, 18f);
 
 				}
 			}

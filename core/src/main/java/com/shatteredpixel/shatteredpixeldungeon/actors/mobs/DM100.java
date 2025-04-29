@@ -40,14 +40,22 @@ public class DM100 extends Mob implements Callback {
 	
 	{
 		spriteClass = DM100Sprite.class;
-		hpPole=3;
-		attackPloe=4;
+
+		HT=HP=23;
+
+		EXP=7;
+		maxLvl=15;
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.25f;
 		
 		properties.add(Property.ELECTRIC);
 		properties.add(Property.INORGANIC);
+	}
+
+	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange(3, 10);
 	}
 
 	@Override

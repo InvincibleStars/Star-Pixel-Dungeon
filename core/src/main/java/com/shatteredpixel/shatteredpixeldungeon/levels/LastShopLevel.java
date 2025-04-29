@@ -80,7 +80,7 @@ public class LastShopLevel extends RegularLevel {
 		ArrayList<Room> rooms = new ArrayList<>();
 		
 		rooms.add ( roomEntrance = new EntranceRoom());
-		rooms.add( new ImpShopRoom() );
+		//rooms.add( new ImpShopRoom() );
 		rooms.add( roomExit = new ExitRoom());
 		
 		return rooms;

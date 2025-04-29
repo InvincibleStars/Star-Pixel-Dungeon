@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.watabou.noosa.Image;
@@ -40,7 +41,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class MassGraveRoom extends SpecialRoom {
+public class MassGraveRoom extends StandardRoom {
 	
 	@Override
 	public int minWidth() { return 7; }
@@ -50,8 +51,8 @@ public class MassGraveRoom extends SpecialRoom {
 	
 	public void paint(Level level){
 
-		Door entrance = entrance();
-		entrance.set(Door.Type.BARRICADE);
+		//Door entrance = entrance();
+		//entrance.set(Door.Type.BARRICADE);
 		level.addItemToSpawn(new PotionOfLiquidFlame());
 
 		Painter.fill(level, this, Terrain.WALL);
@@ -76,7 +77,7 @@ public class MassGraveRoom extends SpecialRoom {
 
 		ArrayList<Item> items = new ArrayList<>();
 		//100% corpse dust, 2x100% 1 coin, 2x30% coins, 1x60% random item, 1x30% armor
-		items.add(new CorpseDust());
+		//items.add(new CorpseDust());
 		items.add(new Gold(1));
 		items.add(new Gold(1));
 		if (Random.Float() <= 0.3f) items.add(new Gold());

@@ -151,6 +151,7 @@ public abstract class Recipe {
 			//TODO 部分物品在炼金完成后不消耗
 			for (Item ingredient : ingredients){
 				for (int i = 0; i < inputs.length; i++) {
+					/*
 					if(ingredient instanceof MeleeWeapon){
 						if(((MeleeWeapon) ingredient).tier>=3){
 
@@ -158,13 +159,14 @@ public abstract class Recipe {
 						GLog.i(Messages.get(SandBossLoot.class, "loot"));
 
 					}else
+					 */
 					if (ingredient.getClass() == inputs[i] && needed[i] > 0) {
 						if (needed[i] <= ingredient.quantity()) {
 							ingredient.quantity(ingredient.quantity() - needed[i]);
 							needed[i] = 0;
 						} else {
 							needed[i] -= ingredient.quantity();
-							ingredient.quantity(90);
+							ingredient.quantity(0);
 						}
 					}
 				}
@@ -184,7 +186,11 @@ public abstract class Recipe {
 					result.identify();
 				}
 
-				result.quantity(outQuantity);
+				if(outQuantity==0) {
+					result.quantity(1);
+				}else {
+					result.quantity(outQuantity);
+				}
 				return result;
 			} catch (Exception e) {
 				ShatteredPixelDungeon.reportException( e );
@@ -210,6 +216,7 @@ public abstract class Recipe {
 		new Alchemize.Recipe(),
 		new StewedMeat.oneMeat(),
 		new AlchemyGem.Recipe(),
+		//碎晶转换为消耗品
 		new FireGem.RedGemtoPotion(),
 		new FireGem.RedGemtoScroll(),
 		new GrassGem.GreenGemtoPotion(),
@@ -222,7 +229,7 @@ public abstract class Recipe {
 		new GrassDust.GreenDusttoScroll(),
 		new WaterDust.BlueDusttoPotion(),
 		new WaterDust.BlueDusttoScroll(),
-		new StarRecipe.WhiteGemRecipe(),
+
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -254,40 +261,62 @@ public abstract class Recipe {
 		new TelekineticGrab.Recipe(),
 		new SummonElemental.Recipe(),
 		new StewedMeat.twoMeat(),
+
+		//炼金武器
 		new AlchemyWeapon.BleedToothRecipe(),
+		//骨镖
 		new AlchemyWeapon.ToothNailRecipe(),
+		//沧澜
 		new AlchemyWeapon.BlueRecipe(),
+		//骨牙杖
+		new AlchemyWeapon.WandToothRecipe(),
+
+
+		//合成星尘
 		new GrassGem.GrassDustRecipe(),
 		new FireGem.FireDustRecipe(),
 		new WaterGem.WaterDustRecipe(),
 		new WeaponGem.WeaponDustRecipe(),
-		new StarRecipe.RuleGemRecipe(),
+
+		//科技树
 		new ScienceRecipe.PotionLevelRecipe(),
 
-		new ExoticRecipe.TearExoticRecipe(),
-		new ExoticRecipe.PowerExoticRecipe(),
+
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new StewedMeat.threeMeat(),
 		new MeatPie.Recipe(),
+		//炼金武器
 		new AlchemyWeapon.ChainRecipe(),
 		new AlchemyWeapon.DeadBookRecipe(),
 		new AlchemyWeapon.BoneSwordRecipe(),
 		new AlchemyWeapon.ShellHammerRecipe(),
 		new AlchemyWeapon.GemGloveRecipe(),
+		//合成升级
 		new WeaponGem.WeaponGemToUpdateRecipe(),
-
-
-		new ExoticRecipe.FlyMindExoticRecipe(),
+		//雕刻骨头
+		//new AlchemyWeapon.BurinRecipe(),
+		//灵魂结晶
+		new StarRecipe.WhiteGemRecipe(),
+		//规则结晶
+		new StarRecipe.RuleGemRecipe(),
+		//星尘附加
+		new ExoticRecipe.TearExoticRecipe(),
+		new ExoticRecipe.PowerExoticRecipe(),
 		new ExoticRecipe.FrostExoticRecipe(),
+
+		new StarRecipe.ColorGemRecipe(),
+		new AlchemyWeapon.EleoveRecipe(),
+
 	};
 
 
 	private static Recipe[] fourIngredientRecipes = new Recipe[]{
-			new AlchemyWeapon.EleoveRecipe(),
-			new StarRecipe.ColorGemRecipe(),
+
+			new AlchemyWeapon.FireGloveRecipe(),
+			new ExoticRecipe.FlyMindExoticRecipe(),
 	};
 
 

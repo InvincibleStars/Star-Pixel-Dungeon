@@ -315,12 +315,20 @@ public class Armor extends EquipableItem {
 	}
 
 	public int DRMax(int lvl){
-		int a = (tier * 2) + (lvl * tier) +augment.defenseFactor(lvl);
-		if(randomroll!=true){
-			armormaxadd=Random.Int(a/2+1);
-			randomroll = true;
+		int max = tier * (2 + lvl);
+		if (lvl > max){
+			return ((lvl - max)+1)/2;
 		}
-		return a+armormaxadd;
+
+		if(randomroll!=true&&Random.Float()<=0.25f){
+			max+=1;
+			randomroll = true;
+		}else{
+			randomroll =true;
+		}
+		max+= augment.defenseFactor(lvl)*2;
+
+		return max ;
 	}
 
 	public final int DRMin(){
@@ -329,6 +337,7 @@ public class Armor extends EquipableItem {
 
 	public int DRMin(int lvl){
 		return tier + lvl;
+
 	}
 
 	public float evasionFactor( Char owner, float evasion ){

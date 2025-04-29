@@ -4,10 +4,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.GoldBust;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust.KillBust;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.sell.ElementalWell;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.temple.Believer;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.tree.Stake;
 import com.watabou.utils.Random;
 
 public class Level0 extends Level {
@@ -154,7 +152,9 @@ public class Level0 extends Level {
         //下楼梯
         exit =1061 ;
 
-        for (int map = 0; map < this.map.length; map++) this.map[map] = mapToTerrain(pre_map[map]);
+        for(int map = 0; map < this.map.length; map++) {
+            this.map[map] = mapToTerrain(pre_map[map]);
+        }
         return true;
     };
 
@@ -169,23 +169,14 @@ public class Level0 extends Level {
 
     @Override
     protected void createMobs() {
-/*
-        VineDerived i = new VineDerived();
-            i.pos = 518;
-            mobs.add(i);
-
- */
-
         //杀戮雕像
         KillBust killBust = new KillBust();
-        GoldBust goldBust = new GoldBust();
-        ElementalWell elementalWell = new ElementalWell();
         killBust.pos = 518;
-        goldBust.pos = 522;
-        elementalWell.pos = 520;
         mobs.add(killBust);
-        mobs.add(goldBust);
-        mobs.add(elementalWell);
+
+        Stake stake = new Stake();
+        stake.pos = 519;
+        mobs.add(stake);
 
     }
 

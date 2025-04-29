@@ -25,12 +25,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.BurnVest;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
@@ -38,29 +36,26 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
-import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.ringstar.RingStar;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
+import com.shatteredpixel.shatteredpixeldungeon.levels.CavesBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.CityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.HallsBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level0;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.SandAreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.Temple2AreaLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.arealevel.TreeAreaLevel;
@@ -209,7 +204,9 @@ public class Dungeon {
 		challenges = SPDSettings.challenges();
 		mobsToChampion = -1;
 
-		seed = DungeonSeed.randomSeed();
+		//seed = DungeonSeed.randomSeed();
+		//seed = 4149938626679l;
+		seed = 1712457174939l;
 
 		Actor.clear();
 		Actor.resetNextID();
@@ -246,7 +243,7 @@ public class Dungeon {
 		chapters = new HashSet<>();
 
 		Ghost.Quest.reset();
-		Wandmaker.Quest.reset();
+		//Wandmaker.Quest.reset();
 		Blacksmith.Quest.reset();
 		Imp.Quest.reset();
 
@@ -284,46 +281,41 @@ public class Dungeon {
 		Level level;
 		switch (depth) {
 			case 0:
-				level = new Level0(); //初始楼层
+				level = new Level0();
 				break;
-			case 1: case 2: case 3: case 4: //沙地
+			case 1:case 2:case 3: case 4:
 				level = new SandAreaLevel();
 				break;
 			case 5:
 				level = new SandAreaBossLevel2();
 				break;
-			case 6: case 7: case 8: case 9: //森林
+			case 6: case 7: case 8: case 9:
 				level = new TreeAreaLevel();
 				break;
 			case 10:
 				level = new TreeAreaBossLevel2();
 				break;
 			case 11: case 12: case 13: case 14:
-			case 15:
 				level = new Temple2AreaLevel();
 				break;
+			case 15:
+				level = new CavesBossLevel();
+				break;
 			case 16: case 17: case 18: case 19:
-			case 20:
 				level = new CityLevel();
+				break;
+			case 20:
+				level = new CityBossLevel();
 				break;
 			case 21: case 22: case 23: case 24:
 				level = new HallsLevel();
 				break;
 			case 25:
-				level = new LastLevel();
+				level = new HallsBossLevel();
 				break;
-			case 26:case 27: case 28: case 29: //
-				level = new LastLevel();
-				break;
-			case 30:
-				level = new HallsLevel();
-				break;
-
-
 			default:
 				level = new DeadEndLevel();
 				Statistics.deepestFloor--;
-				//level = new SandAreaLevel();
 				break;
 		}
 		level.create();
@@ -339,7 +331,7 @@ public class Dungeon {
 		Actor.clear();
 
 		//TODO 下楼
-		depth=6;
+		depth=3;
 
 
 		new ScrollOfMagicMapping().identify().quantity(5).collect();
@@ -590,7 +582,7 @@ public class Dungeon {
 
 			Bundle quests = new Bundle();
 			Ghost		.Quest.storeInBundle( quests );
-			Wandmaker	.Quest.storeInBundle( quests );
+			//Wandmaker	.Quest.storeInBundle( quests );
 			Blacksmith	.Quest.storeInBundle( quests );
 			Imp			.Quest.storeInBundle( quests );
 			bundle.put( QUESTS, quests );
@@ -684,12 +676,12 @@ public class Dungeon {
 			Bundle quests = bundle.getBundle( QUESTS );
 			if (!quests.isNull()) {
 				Ghost.Quest.restoreFromBundle( quests );
-				Wandmaker.Quest.restoreFromBundle( quests );
+				//Wandmaker.Quest.restoreFromBundle( quests );
 				Blacksmith.Quest.restoreFromBundle( quests );
 				Imp.Quest.restoreFromBundle( quests );
 			} else {
 				Ghost.Quest.reset();
-				Wandmaker.Quest.reset();
+				//Wandmaker.Quest.reset();
 				Blacksmith.Quest.reset();
 				Imp.Quest.reset();
 			}
@@ -842,24 +834,6 @@ public class Dungeon {
 				GameScene.updateFog(m.pos, 2);
 			}
 		}
-
-		// Dungeon.level.distance(pos, c.pos) <=
-
-
-		for (Mob m : level.mobs.toArray(new Mob[0])){
-		if ((hero.buff(Burning.class) != null)&& BurnVest.burnadd>=1.8f){
-				if(Dungeon.level.distance(m.pos, hero.pos) >= 5) {
-					BArray.or(level.visited, level.heroFOV, m.pos - 1 - level.width(), 3, level.visited);
-					BArray.or(level.visited, level.heroFOV, m.pos, 3, level.visited);
-					BArray.or(level.visited, level.heroFOV, m.pos - 1 + level.width(), 3, level.visited);
-					//updates adjacent cells too
-					GameScene.updateFog(m.pos, 2);
-				} else {
-				}
-			}
-		}
-
-
 
 		if (hero.buff(Awareness.class) != null){
 			for (Heap h : level.heaps.valueList()){

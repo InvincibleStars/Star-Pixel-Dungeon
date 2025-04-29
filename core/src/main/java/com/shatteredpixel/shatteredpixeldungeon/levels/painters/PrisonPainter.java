@@ -21,7 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.painters;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
@@ -34,13 +33,15 @@ public class PrisonPainter extends RegularPainter {
 	
 	@Override
 	protected void decorate(Level level, ArrayList<Room> rooms) {
-		
+
+		/*
 		for (Room r : rooms) {
 			if (r instanceof EntranceRoom) {
 				Wandmaker.Quest.spawnWandmaker(level, r);
 				break;
 			}
 		}
+		 */
 		
 		int w = level.width();
 		int l = level.length();

@@ -41,7 +41,7 @@ import java.util.ArrayList;
 
 public class Frost extends FlavourBuff {
 
-	public static final float DURATION	= 10f + BurnVest.cooldmg*5;
+	public static final float DURATION	= 5f + BurnVest.burnvest*5;
 
 	{
 		type = buffType.NEGATIVE;
@@ -51,12 +51,10 @@ public class Frost extends FlavourBuff {
 	@Override
 	public boolean attachTo( Char target ) {
 		Buff.detach( target, Burning.class );
-
-		Buff.detach( target, Burning.class );
-		if(BurnVest.cooladd>=199){
-			BurnVest.burnadd=0;	BurnVest.cooladd=200;
+		if(BurnVest.burnvest-0.01f<=0){
+			BurnVest.burnvest=0;
 		}else{
-			BurnVest.burnadd-=1;	BurnVest.cooladd+=1;
+			BurnVest.burnvest-=0.01f;
 		}
 
 		if (super.attachTo( target )) {

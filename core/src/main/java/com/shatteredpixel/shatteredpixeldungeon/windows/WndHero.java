@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -65,6 +66,9 @@ public class WndHero extends WndTabbed {
 	public WndHero() {
 		
 		super();
+
+		WndChallenges wndChallenges = new WndChallenges(SPDSettings.challenges(), true);
+		wndChallenges.onBackPressed();
 		
 		resize( WIDTH, HEIGHT );
 		

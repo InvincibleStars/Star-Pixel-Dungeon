@@ -55,6 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.IncreaseDamage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LifeLink;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LifeTap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
@@ -62,9 +63,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RemoteImmunization;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sensitive;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulBurning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Speed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Stamina;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
@@ -77,6 +81,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Adrenaline2
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.CutoffSpeed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.DamagePotion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.UnityWithered;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.newbuff.Withered;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -393,6 +398,29 @@ public abstract class Char extends Actor {
 			Endure.EndureTracker endure = buff(Endure.EndureTracker.class);
 			if (endure != null) dmg = endure.damageFactor(dmg);
 
+			//免疫远程伤害
+			if(enemy.buff(RemoteImmunization.class)!=null){
+				if(Dungeon.level.distance(this.pos, enemy.pos)!=1){
+					dmg*=0;
+				}
+			}
+
+			//灵魂燃烧
+			if(enemy.buff(Sensitive.class)!=null){
+				dmg*=1.5f;
+			}
+
+			//生命分流
+			if(enemy.buff(LifeTap.class)!=null){
+				dmg*=0.3f;
+			}
+
+			if(this.buff(Withered.class)!=null){
+				Buff.prolong(enemy, Weakness.class,5f);
+			}
+
+
+
 			//enemy endure
 			endure = enemy.buff(Endure.EndureTracker.class);
 			if (endure != null){
@@ -521,29 +549,33 @@ public abstract class Char extends Actor {
 			return true;
 		}
 
-		float acuRoll = Random.Float( acuStat );
-		//负面buff影响命中
-		if (attacker.buff(Bless.class) != null) acuRoll *= 1.25f;
-		if (attacker.buff(  Hex.class) != null) acuRoll *= 0.8f;
-		//精英
-		for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)){
-			acuRoll *= buff.evasionAndAccuracyFactor();
-		}
+		//
+		float acuRoll = Random.Float( acuStat);
 
+		if (attacker.buff(Bless.class) != null)		acuRoll *= 1.25f;
+		if (attacker.buff(  Hex.class) != null) 	acuRoll *= 0.8f;
+		//精英
+		for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)) acuRoll *= buff.evasionAndAccuracyFactor();
+
+		//
 		float defRoll = Random.Float( defStat );
-		//负面buff影响闪避
-		if (defender.buff(Bless.class) != null) defRoll *= 1.25f;
-		if (defender.buff(  Hex.class) != null) defRoll *= 0.8f;
-		//精英
-		for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)){
-			defRoll *= buff.evasionAndAccuracyFactor();
-		}
 
-		return (acuRoll * accMulti) >= defRoll;
-		//return true;
+		if (defender.buff(Bless.class) != null) 	defRoll *= 1.25f;
+		if (defender.buff(  Hex.class) != null) 	defRoll *= 0.8f;
+		//精英
+		for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)) defRoll *= buff.evasionAndAccuracyFactor();
+
+
+		//acuroll是随机生物的attackSkill
+		//defRoll是随机生物的defender
+		//删除的参数只是一个女猎的天赋技能
+		//return (acuRoll * accMulti) >= defRoll;
+		return acuRoll >= defRoll;
 	}
 
-	public int attackSkill( Char target ) { return 10; }
+	public int attackSkill( Char target ) {
+		return 10;
+	}
 
 	public int defenseSkill( Char enemy ) {
 		return 0;
@@ -565,6 +597,10 @@ public abstract class Char extends Actor {
 	// atm attack is always post-armor and defence is already pre-armor
 
 	public int attackProc( Char enemy, int damage ) {
+
+		if(this.buff(SoulBurning.class)!=null){
+			Buff.affect(enemy, Sensitive.class, 5f);
+		}
 
 		if (this.buff(Adrenaline2.class) != null){
 			Buff.affect(this, Bleeding.class).set(Random.Float(1,4));
@@ -616,6 +652,8 @@ public abstract class Char extends Actor {
 		if ( buff( Haste.class ) != null) speed *= 3f;
 		if ( buff( CutoffSpeed.class ) != null) speed *= 2f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
+		if ( buff( LifeTap.class)!=null) speed*=0.5f;
+
 		for (Adrenaline2 buff : buffs(Adrenaline2.class)) {
 				speed *= 1+buff.visualcooldown()/10f;
 		}
@@ -646,8 +684,9 @@ public abstract class Char extends Actor {
 
 	public void damage( int dmg, Object src ) {
 
-		if (sprite != null) {
 
+		if (sprite != null) {
+/*
 			int icon = IconFloatingText.PHYS_DMG;
 			//无来源物理伤害暂时不显示
 //			if (NO_ARMOR_PHYSICAL_SOURCES.contains(src.getClass())) {
@@ -713,7 +752,13 @@ public abstract class Char extends Actor {
 			//}
 
 
+ */
+
+			sprite.showStatus(HP > HT / 2 ? CharSprite.WARNING : CharSprite.NEGATIVE, Integer.toString(dmg + shielding()));
+
 		}
+
+
 
 
 

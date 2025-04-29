@@ -24,7 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.bust;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.treearea.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.tree.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.newsprite.tree.BustSprite;
 

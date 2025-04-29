@@ -42,52 +42,23 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class DeadEmpty {
 
-	//prevents items dropped from grass, from trampling that same grass.
-	//yes this is a bit ugly, oh well.
-	private static boolean freezeTrample = false;
 
 	public static void trample( Level level, int pos ) {
-
-
-
 		Char ch = Actor.findChar(pos);
-
 		if (level.map[pos] == Terrain.DEADEMPTY){
-			//生物不会破坏植被
 			if ( ch instanceof Hero){
 				if (ch.buff( Weakness.class ) == null) {
 					GLog.n( Messages.get(DeadEmpty.class, "warm") );
 				}
-				Buff.affect(ch,Weakness.class,10.0f);
-			} else if (ch instanceof Mob) {
+				Buff.prolong(ch,Weakness.class,10.0f);
 			}
-
-
-			//Camouflage
-			if (ch instanceof Hero) {
-				Hero hero = (Hero) ch;
-				if (hero.belongings.armor() != null && hero.belongings.armor().hasGlyph(Camouflage.class, hero)) {
-					Camouflage.activate(hero, hero.belongings.armor.buffedLvl());
-				}
-			} else if (ch instanceof DriedRose.GhostHero){
-				DriedRose.GhostHero ghost = (DriedRose.GhostHero) ch;
-				if (ghost.armor() != null && ghost.armor().hasGlyph(Camouflage.class, ghost)){
-					Camouflage.activate(ghost, ghost.armor().buffedLvl());
-				}
-			} else if (ch instanceof ArmoredStatue){
-				ArmoredStatue statue = (ArmoredStatue) ch;
-				if (statue.armor() != null && statue.armor().hasGlyph(Camouflage.class, statue)){
-					Camouflage.activate(statue, statue.armor().buffedLvl());
-				}
-			}
-
 		}
 
 		if (ShatteredPixelDungeon.scene() instanceof GameScene) {
 			GameScene.updateMap(pos);
 
-			CellEmitter.get(pos).burst(LeafParticle.LEVEL_SPECIFIC, 4);
-			if (Dungeon.level.heroFOV[pos]) Dungeon.observe();
+			//CellEmitter.get(pos).burst(LeafParticle.LEVEL_SPECIFIC, 4);
+			//if (Dungeon.level.heroFOV[pos]) Dungeon.observe();
 		}
 	}
 }

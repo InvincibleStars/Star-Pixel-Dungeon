@@ -33,7 +33,6 @@ public class SummonMob extends Mob {
 	{
 		alignment = Alignment.ALLY;
 		state = HUNTING;
-		hpPole=akef();
 	}
 
 
@@ -41,7 +40,7 @@ public class SummonMob extends Mob {
 	public int akef(){
 		int truehppole=0;
 		if(Dungeon.hero.belongings.getItem(PotionLevel.class)!=null){
-			truehppole=hpPole+ Dungeon.hero.belongings.getItem(PotionLevel.class).level;
+			//truehppole=hpPole+ Dungeon.hero.belongings.getItem(PotionLevel.class).level;
 		}
 		return truehppole;
 	}
